@@ -511,8 +511,9 @@
                     <span><i class="fas fa-wifi"></i> Wifi miễn phí</span>
                 </div>
                 <div class="price">
-                  {{ "{:,.0f}".format(room.giaphong) if room.giaphong else "Đang cập nhật" }} VNĐ/đêm
-              </div>
+                    {{ "{:,.0f}".format(room.giaphong) if room.giaphong else "Đang cập nhật" }} VNĐ/đêm
+                </div>
+                
                 
                 <a href="{{ url_for('booking.dat_phong') }}" class="btn">Đặt ngay</a>
             </div>

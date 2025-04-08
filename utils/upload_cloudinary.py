@@ -1,13 +1,15 @@
+# utils/upload_cloudinary.py
+
+import cloudinary
 import cloudinary.uploader
 from config import Config
 
 cloudinary.config(
     cloud_name=Config.CLOUDINARY_CLOUD_NAME,
     api_key=Config.CLOUDINARY_API_KEY,
-    api_secret=Config.CLOUDINARY_API_SECRET,
-    secure=True
+    api_secret=Config.CLOUDINARY_API_SECRET
 )
 
-def upload_image(file, folder="avatars"):
-    result = cloudinary.uploader.upload(file, folder=folder)
-    return result["secure_url"]
+def upload_image_to_cloudinary(file):
+    result = cloudinary.uploader.upload(file.file)
+    return result.get("secure_url")

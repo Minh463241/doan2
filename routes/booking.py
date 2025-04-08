@@ -13,37 +13,24 @@ def dat_phong():
     customer = session.get('user')
     rooms = get_available_rooms()
 
+    # Đảm bảo dữ liệu phòng có các trường cần thiết
+    for room in rooms:
+        room['loaiphong'] = room.get('loaiphong', f"Phòng {room['maphong']}")  # Dùng loaiphong
+        room['hinhanh'] = room.get('hinhanh', 'https://images.unsplash.com/photo-1618773928121-c32242e63f39?q=80&w=2070&auto=format&fit=crop')
+        room['gia'] = room.get('giaphong', 400000)  # Dùng giaphong
+        room['dientich'] = room.get('dientich', 30)
+        room['succhua'] = room.get('succhua', 2)
+
     if request.method == 'POST':
-        room_id = int(request.form['room_id'])
-        check_in = datetime.fromisoformat(request.form['check_in'])
-        check_out = datetime.fromisoformat(request.form['check_out'])
-
-        # Tính số ngày
-        so_ngay = (check_out - check_in).days
-        if so_ngay <= 0:
-            flash("Ngày trả phòng phải sau ngày nhận phòng.", "error")
-            return redirect(url_for('booking.dat_phong'))
-
-        # Lấy giá phòng từ danh sách phòng đã fetch ở trên
-        gia_phong = next((room['giaphong'] for room in rooms if room['maphong'] == room_id), None)
-        if gia_phong is None:
-            flash("Không tìm thấy giá phòng!", "error")
-            return redirect(url_for('booking.dat_phong'))
-
-        # Tính tổng tiền
-        tong_tien = so_ngay * gia_phong
-
         data = {
             "makhachhang": customer["id"],
-            "maphong": room_id,
-            "ngaynhanphong": check_in.isoformat(),
-            "ngaytraphong": check_out.isoformat(),
+            "maphong": int(request.form['room_id']),
+            "ngaynhanphong": request.form['check_in'],
+            "ngaytraphong": request.form['check_out'],
             "songuoi": int(request.form['guests']),
             "yeucaudacbiet": request.form['special_request'],
-            "thoigiandat": datetime.now().isoformat(),
-            "tongtien": tong_tien  # ✅ Thêm dòng này
+            "thoigiandat": datetime.now().isoformat()
         }
-
         result = insert_booking(data)
         if result.data:
             flash("Đặt phòng thành công! Vui lòng thanh toán.", "success")
@@ -51,4 +38,4 @@ def dat_phong():
         else:
             flash("Đặt phòng thất bại!", "error")
 
-    return render_template("booking.html", rooms=rooms, customer=customer)
+    return render_template("user/booking.html", rooms=rooms, customer=customer)

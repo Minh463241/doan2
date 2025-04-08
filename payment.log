@@ -547,3 +547,36 @@ TypeError: float() argument must be a string or a real number, not 'NoneType'
 2025-04-08 17:07:24,143 - INFO -  * Restarting with stat
 2025-04-08 17:07:24,777 - WARNING -  * Debugger is active!
 2025-04-08 17:07:24,777 - INFO -  * Debugger PIN: 716-329-026
+2025-04-08 17:24:54,133 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-08 17:24:54,133 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-08 17:24:54,134 - INFO -  * Restarting with stat
+2025-04-08 17:24:54,804 - WARNING -  * Debugger is active!
+2025-04-08 17:24:54,814 - INFO -  * Debugger PIN: 716-329-026
+2025-04-08 17:24:56,189 - INFO - 127.0.0.1 - - [08/Apr/2025 17:24:56] "GET / HTTP/1.1" 200 -
+2025-04-08 17:25:59,776 - INFO - 127.0.0.1 - - [08/Apr/2025 17:25:59] "GET / HTTP/1.1" 200 -
+2025-04-08 17:27:17,726 - INFO -  * Detected change in 'C:\\Users\\Minh\\Documents\\GitHub\\doan2\\utils\\upload_cloudinary.py', reloading
+2025-04-08 17:27:17,827 - INFO -  * Restarting with stat
+2025-04-08 17:29:36,764 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-08 17:29:36,764 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-08 17:29:36,765 - INFO -  * Restarting with stat
+2025-04-08 17:29:37,431 - WARNING -  * Debugger is active!
+2025-04-08 17:29:37,442 - INFO -  * Debugger PIN: 716-329-026
+2025-04-08 17:29:38,551 - INFO - 127.0.0.1 - - [08/Apr/2025 17:29:38] "GET / HTTP/1.1" 200 -
+2025-04-08 17:29:55,924 - INFO - 127.0.0.1 - - [08/Apr/2025 17:29:55] "[33mGET /room/list HTTP/1.1[0m" 404 -
+2025-04-08 17:31:00,027 - INFO -  * Detected change in 'C:\\Users\\Minh\\Documents\\GitHub\\doan2\\app.py', reloading
+2025-04-08 17:31:00,203 - INFO -  * Restarting with stat
+2025-04-08 17:31:00,917 - WARNING -  * Debugger is active!
+2025-04-08 17:31:00,927 - INFO -  * Debugger PIN: 716-329-026
+2025-04-08 17:31:03,618 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong?select=%2A "HTTP/2 200 OK"
+2025-04-08 17:31:03,632 - INFO - 127.0.0.1 - - [08/Apr/2025 17:31:03] "GET /room/list HTTP/1.1" 200 -
+2025-04-08 17:31:08,286 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong?select=%2A&limit=6 "HTTP/2 200 OK"
+2025-04-08 17:31:08,302 - INFO - 127.0.0.1 - - [08/Apr/2025 17:31:08] "GET / HTTP/1.1" 200 -
+2025-04-08 17:31:08,346 - INFO - 127.0.0.1 - - [08/Apr/2025 17:31:08] "[33mGET /None HTTP/1.1[0m" 404 -
+2025-04-08 17:31:13,108 - INFO - 127.0.0.1 - - [08/Apr/2025 17:31:13] "GET /auth/login HTTP/1.1" 200 -
+2025-04-08 17:31:13,139 - INFO - 127.0.0.1 - - [08/Apr/2025 17:31:13] "[33mGET /static/css/style.css HTTP/1.1[0m" 404 -
+2025-04-08 17:34:42,729 - INFO -  * Detected change in 'C:\\Users\\Minh\\Documents\\GitHub\\doan2\\routes\\booking.py', reloading
+2025-04-08 17:34:42,865 - INFO -  * Restarting with stat
+2025-04-08 17:34:43,588 - WARNING -  * Debugger is active!
+2025-04-08 17:34:43,605 - INFO -  * Debugger PIN: 716-329-026
