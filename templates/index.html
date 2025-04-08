@@ -1,25 +1,597 @@
 <!DOCTYPE html>
-<html>
+<html lang="vi">
 <head>
-    <title>Trang chủ</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KeiWei Hotel - Khách sạn biển Hải Tiến Thanh Hóa</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', Arial, sans-serif;
+        }
+
+        body {
+            color: #333;
+            background: #f5f7fa;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            background: #fff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            padding: 15px 0;
+            transition: background 0.3s ease;
+        }
+
+        header.scrolled {
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .header-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 30px;
+        }
+
+        .logo img {
+            height: 60px;
+            transition: transform 0.3s ease;
+        }
+
+        .logo img:hover {
+            transform: scale(1.05);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 600;
+            font-size: 16px;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: #007bff;
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s ease;
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        nav ul li a:hover {
+            color: #007bff;
+        }
+
+        .user-actions a {
+            text-decoration: none;
+            color: #007bff;
+            font-size: 16px;
+            font-weight: 600;
+            margin-left: 20px;
+            transition: color 0.3s ease;
+        }
+
+        .user-actions a:hover {
+            color: #0056b3;
+        }
+
+        /* Banner (Carousel) */
+        .banner {
+            position: relative;
+            height: 700px;
+            overflow: hidden;
+            margin-top: 90px;
+        }
+
+        .banner .carousel {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .banner .carousel-item {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+        .banner .carousel-item.active {
+            opacity: 1;
+        }
+
+        .banner-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .banner-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: #fff;
+            z-index: 1;
+        }
+
+        .banner-content h1 {
+            font-size: 60px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+            animation: fadeInDown 1s ease;
+        }
+
+        .banner-content p {
+            font-size: 24px;
+            margin-bottom: 40px;
+            animation: fadeInUp 1s ease 0.5s;
+            animation-fill-mode: backwards;
+        }
+
+        .banner-content .btn {
+            background: #007bff;
+            color: #fff;
+            padding: 15px 40px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 600;
+            transition: background 0.3s ease, transform 0.3s ease;
+            animation: fadeInUp 1s ease 1s;
+            animation-fill-mode: backwards;
+        }
+
+        .banner-content .btn:hover {
+            background: #0056b3;
+            transform: translateY(-3px);
+        }
+
+        /* Giới thiệu */
+        .intro-section {
+            padding: 80px 20px;
+            text-align: center;
+            background: linear-gradient(135deg, #f9f9f9, #e9ecef);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .intro-section::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            left: -50px;
+            width: 200px;
+            height: 200px;
+            background: rgba(0, 123, 255, 0.1);
+            border-radius: 50%;
+        }
+
+        .intro-section h2 {
+            font-size: 40px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #007bff;
+            position: relative;
+            display: inline-block;
+        }
+
+        .intro-section h2::after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 4px;
+            background: #007bff;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .intro-section p {
+            font-size: 18px;
+            max-width: 900px;
+            margin: 0 auto;
+            line-height: 1.8;
+            color: #555;
+        }
+
+        /* Phòng nổi bật */
+        .rooms-section {
+            padding: 80px 20px;
+            text-align: center;
+            background: #fff;
+        }
+
+        .rooms-section h2 {
+            font-size: 40px;
+            font-weight: 700;
+            margin-bottom: 50px;
+            color: #007bff;
+            position: relative;
+            display: inline-block;
+        }
+
+        .rooms-section h2::after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 4px;
+            background: #007bff;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .room-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        .room-card {
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+
+        .room-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .room-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .room-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .room-card h3 {
+            font-size: 24px;
+            font-weight: 600;
+            margin: 20px 0 10px;
+        }
+
+        .room-card .details {
+            font-size: 14px;
+            color: #666;
+            padding: 0 20px;
+            margin-bottom: 15px;
+        }
+
+        .room-card .details span {
+            display: block;
+            margin: 5px 0;
+        }
+
+        .room-card .price {
+            font-size: 20px;
+            color: #007bff;
+            margin: 15px 0;
+            font-weight: bold;
+        }
+
+        .room-card .btn {
+            display: inline-block;
+            background: #007bff;
+            color: #fff;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 50px;
+            margin: 20px 0;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        .room-card .btn:hover {
+            background: #0056b3;
+            transform: translateY(-3px);
+        }
+
+        /* Footer */
+        footer {
+            background: #1a252f;
+            color: #fff;
+            padding: 50px 20px;
+        }
+
+        .footer-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .footer-section h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 2px;
+            background: #007bff;
+            bottom: -5px;
+            left: 0;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            font-size: 14px;
+            color: #ccc;
+            line-height: 1.8;
+            text-decoration: none;
+        }
+
+        .footer-section a:hover {
+            color: #007bff;
+        }
+
+        .footer-section .social-links a {
+            color: #fff;
+            font-size: 20px;
+            margin-right: 15px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section .social-links a:hover {
+            color: #007bff;
+        }
+
+        .footer-section form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .footer-section input,
+        .footer-section textarea {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background: #2c3e50;
+            color: #fff;
+            font-size: 14px;
+        }
+
+        .footer-section button {
+            background: #007bff;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .footer-section button:hover {
+            background: #0056b3;
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+        }
+    </style>
 </head>
 <body>
-    <h2>Chào mừng, {{ user.TenKhachHang if user else 'Khách' }}</h2>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <img src="https://via.placeholder.com/150x50?text=KeiWei+Hotel" alt="KeiWei Hotel Logo">
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="/">Trang chủ</a></li>
+                    <li><a href="/about">Giới thiệu</a></li>
+                    <li><a href="/booking">Đặt phòng</a></li>
+                    <li><a href="/services">Dịch vụ</a></li>
+                    <li><a href="/contact">Liên hệ</a></li>
+                </ul>
+            </nav>
+            <div class="user-actions">
+                {% if user %}
+                    <a href="/profile">{{ user.hoten }}</a> | <a href="{{ url_for('auth.logout') }}">Đăng xuất</a>
+                {% else %}
+                    <a href="{{ url_for('auth.login') }}">Đăng nhập</a> | <a href="{{ url_for('auth.register') }}">Đăng ký</a>
+                {% endif %}
+            </div>
+        </div>
+    </header>
 
-    {% if user %}
-        <a href="{{ url_for('booking.dat_phong') }}">Đặt phòng ngay</a>
-    {% else %}
-        <a href="{{ url_for('auth.login') }}">Đăng nhập để đặt phòng</a>
-    {% endif %}
+    <!-- Banner (Carousel) -->
+    <section class="banner">
+        <div class="carousel">
+            <div class="carousel-item" style="background-image: url('https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=2070&auto=format&fit=crop');"></div>
+            <div class="carousel-item" style="background-image: url('https://images.unsplash.com/photo-1618773928121-c32242e63f39?q=80&w=2070&auto=format&fit=crop');"></div>
+            <div class="carousel-item" style="background-image: url('https://images.unsplash.com/photo-1598928636135-d146006ff4be?q=80&w=2070&auto=format&fit=crop');"></div>
+        </div>
+        <div class="banner-overlay"></div>
+        <div class="banner-content">
+            <h1>Chào mừng đến với KeiWei Hotel</h1>
+            <p>Khách sạn sang trọng nhất tại biển Hải Tiến, Thanh Hóa</p>
+            <a href="{{ url_for('booking.dat_phong') }}" class="btn">Đặt phòng ngay</a>
+        </div>
+    </section>
 
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            <ul class="flashes">
-                {% for category, message in messages %}
-                    <li class="{{ category }}">{{ message }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-    {% endwith %}
+    <!-- Giới thiệu -->
+    <section class="intro-section fade-in">
+        <h2>Về KeiWei Hotel</h2>
+        <p>
+            KeiWei Hotel là điểm đến lý tưởng cho du khách tại biển Hải Tiến, Thanh Hóa. Với vị trí sát biển, không gian sang trọng và dịch vụ chuyên nghiệp, chúng tôi mang đến trải nghiệm nghỉ dưỡng đẳng cấp 5 sao. Hãy đến và tận hưởng kỳ nghỉ đáng nhớ cùng gia đình và bạn bè tại KeiWei Hotel!
+        </p>
+    </section>
+
+    <!-- Phòng nổi bật -->
+    <section class="rooms-section fade-in">
+        <h2>Phòng nổi bật</h2>
+        <div class="room-grid">
+            {% for room in rooms %}
+            <div class="room-card">
+                <img src="{{ room.hinhanh | default('https://images.unsplash.com/photo-1618773928121-c32242e63f39?q=80&w=2070&auto=format&fit=crop') }}" alt="{{ room.loaiphong }}">
+                <h3>{{ room.loaiphong }}</h3>
+                <div class="details">
+                    <span><i class="fas fa-ruler-combined"></i> Diện tích: {{ room.dientich }}m²</span>
+                    <span><i class="fas fa-users"></i> Sức chứa: {{ room.succhua }} người</span>
+                    <span><i class="fas fa-wifi"></i> Wifi miễn phí</span>
+                </div>
+                <div class="price">
+                  {{ "{:,.0f}".format(room.giaphong) if room.giaphong else "Đang cập nhật" }} VNĐ/đêm
+              </div>
+                
+                <a href="{{ url_for('booking.dat_phong') }}" class="btn">Đặt ngay</a>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>Về KeiWei Hotel</h3>
+                <p>KeiWei Hotel mang đến trải nghiệm nghỉ dưỡng đẳng cấp tại biển Hải Tiến, Thanh Hóa. Chúng tôi luôn sẵn sàng phục vụ bạn!</p>
+            </div>
+            <div class="footer-section">
+                <h3>Liên hệ</h3>
+                <p><i class="fas fa-phone"></i> Hotline: +84 2376 568 666</p>
+                <p><i class="fas fa-envelope"></i> Email: info@keiwei.com</p>
+                <p><i class="fas fa-map-marker-alt"></i> Địa chỉ: Biển Hải Tiến, Thanh Hóa</p>
+            </div>
+            <div class="footer-section">
+                <h3>Theo dõi chúng tôi</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Liên hệ nhanh</h3>
+                <form>
+                    <input type="text" placeholder="Họ và tên" required>
+                    <input type="email" placeholder="Email" required>
+                    <textarea placeholder="Tin nhắn" rows="3" required></textarea>
+                    <button type="submit">Gửi</button>
+                </form>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Carousel
+        const carouselItems = document.querySelectorAll('.carousel-item');
+        let currentIndex = 0;
+
+        function showSlide(index) {
+            carouselItems.forEach(item => item.classList.remove('active'));
+            carouselItems[index].classList.add('active');
+        }
+
+        function nextSlide() {
+            currentIndex = (currentIndex + 1) % carouselItems.length;
+            showSlide(currentIndex);
+        }
+
+        showSlide(currentIndex);
+        setInterval(nextSlide, 5000);
+
+        // Fade-in on scroll
+        const fadeInElements = document.querySelectorAll('.fade-in');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        fadeInElements.forEach(element => observer.observe(element));
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+    </script>
 </body>
 </html>

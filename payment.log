@@ -323,3 +323,227 @@ TypeError: float() argument must be a string or a real number, not 'NoneType'
 2025-04-08 13:24:48,473 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/hoadon?mahoadon=eq.10 "HTTP/2 200 OK"
 2025-04-08 13:24:48,491 - INFO - 127.0.0.1 - - [08/Apr/2025 13:24:48] "[32mGET /payment/success?paymentId=PAYID-M72MCJQ577158481E0467539&token=EC-7WK30915LE177064N&PayerID=EZEAHEJEKML38 HTTP/1.1[0m" 302 -
 2025-04-08 13:24:48,498 - INFO - 127.0.0.1 - - [08/Apr/2025 13:24:48] "GET / HTTP/1.1" 200 -
+2025-04-08 15:17:23,988 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong?select=%2A&trangthai=eq.Tr%E1%BB%91ng "HTTP/2 200 OK"
+2025-04-08 15:17:23,988 - INFO - 127.0.0.1 - - [08/Apr/2025 15:17:23] "GET /booking/dat-phong HTTP/1.1" 200 -
+2025-04-08 15:17:29,944 - INFO - 127.0.0.1 - - [08/Apr/2025 15:17:29] "[33mGET /login HTTP/1.1[0m" 404 -
+2025-04-08 15:17:46,504 - INFO - 127.0.0.1 - - [08/Apr/2025 15:17:46] "[33mGET /login HTTP/1.1[0m" 404 -
+2025-04-08 15:22:52,335 - INFO - 127.0.0.1 - - [08/Apr/2025 15:22:52] "GET / HTTP/1.1" 200 -
+2025-04-08 15:23:27,809 - INFO - 127.0.0.1 - - [08/Apr/2025 15:23:27] "GET / HTTP/1.1" 200 -
+2025-04-08 15:32:51,915 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-08 15:32:51,916 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-08 15:32:51,919 - INFO -  * Restarting with stat
+2025-04-08 15:32:52,648 - WARNING -  * Debugger is active!
+2025-04-08 15:32:52,653 - INFO -  * Debugger PIN: 716-329-026
+2025-04-08 15:32:54,623 - INFO - 127.0.0.1 - - [08/Apr/2025 15:32:54] "GET / HTTP/1.1" 200 -
+2025-04-08 15:32:54,718 - INFO - 127.0.0.1 - - [08/Apr/2025 15:32:54] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-04-08 15:32:56,906 - INFO - 127.0.0.1 - - [08/Apr/2025 15:32:56] "GET /auth/login HTTP/1.1" 200 -
+2025-04-08 15:32:56,940 - INFO - 127.0.0.1 - - [08/Apr/2025 15:32:56] "[33mGET /static/css/style.css HTTP/1.1[0m" 404 -
+2025-04-08 15:37:41,010 - INFO - 127.0.0.1 - - [08/Apr/2025 15:37:41] "GET /auth/login HTTP/1.1" 200 -
+2025-04-08 15:37:44,171 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/khachhang?select=%2A&email=eq.minh1%40gmail.com "HTTP/2 200 OK"
+2025-04-08 15:37:44,174 - INFO - 127.0.0.1 - - [08/Apr/2025 15:37:44] "POST /auth/login HTTP/1.1" 200 -
+2025-04-08 15:37:47,406 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/khachhang?select=%2A&email=eq.minh1%40gmail.com "HTTP/2 200 OK"
+2025-04-08 15:37:47,408 - INFO - 127.0.0.1 - - [08/Apr/2025 15:37:47] "[32mPOST /auth/login HTTP/1.1[0m" 302 -
+2025-04-08 15:37:47,417 - INFO - 127.0.0.1 - - [08/Apr/2025 15:37:47] "GET / HTTP/1.1" 200 -
+2025-04-08 15:39:50,799 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/khachhang?select=%2A&email=eq.minh1%40gmail.com "HTTP/2 200 OK"
+2025-04-08 15:39:50,807 - INFO - 127.0.0.1 - - [08/Apr/2025 15:39:50] "POST /auth/login HTTP/1.1" 200 -
+2025-04-08 15:44:19,174 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/khachhang?select=%2A&email=eq.minh1%40gmail.com "HTTP/2 200 OK"
+2025-04-08 15:44:19,174 - INFO - 127.0.0.1 - - [08/Apr/2025 15:44:19] "[32mPOST /auth/login HTTP/1.1[0m" 302 -
+2025-04-08 15:44:19,193 - INFO - 127.0.0.1 - - [08/Apr/2025 15:44:19] "GET / HTTP/1.1" 200 -
+2025-04-08 15:46:46,965 - INFO - 127.0.0.1 - - [08/Apr/2025 15:46:46] "GET / HTTP/1.1" 200 -
+2025-04-08 15:46:56,934 - INFO - 127.0.0.1 - - [08/Apr/2025 15:46:56] "GET / HTTP/1.1" 200 -
+2025-04-08 15:46:58,104 - INFO - 127.0.0.1 - - [08/Apr/2025 15:46:58] "[33mGET /about HTTP/1.1[0m" 404 -
+2025-04-08 15:47:03,448 - INFO - 127.0.0.1 - - [08/Apr/2025 15:47:03] "[32mGET /auth/logout HTTP/1.1[0m" 302 -
+2025-04-08 15:47:03,457 - INFO - 127.0.0.1 - - [08/Apr/2025 15:47:03] "GET /auth/login HTTP/1.1" 200 -
+2025-04-08 15:47:07,233 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/khachhang?select=%2A&email=eq.minh1%40gmail.com "HTTP/2 200 OK"
+2025-04-08 15:47:07,241 - INFO - 127.0.0.1 - - [08/Apr/2025 15:47:07] "POST /auth/login HTTP/1.1" 200 -
+2025-04-08 15:47:11,399 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/khachhang?select=%2A&email=eq.minh1%40gmail.com "HTTP/2 200 OK"
+2025-04-08 15:47:11,399 - INFO - 127.0.0.1 - - [08/Apr/2025 15:47:11] "[32mPOST /auth/login HTTP/1.1[0m" 302 -
+2025-04-08 15:47:11,417 - INFO - 127.0.0.1 - - [08/Apr/2025 15:47:11] "GET / HTTP/1.1" 200 -
+2025-04-08 15:47:14,496 - INFO - 127.0.0.1 - - [08/Apr/2025 15:47:14] "[33mGET /profile HTTP/1.1[0m" 404 -
+2025-04-08 15:47:20,723 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong?select=%2A&trangthai=eq.Tr%E1%BB%91ng "HTTP/2 200 OK"
+2025-04-08 15:47:20,744 - INFO - 127.0.0.1 - - [08/Apr/2025 15:47:20] "GET /booking/dat-phong HTTP/1.1" 200 -
+2025-04-08 15:47:24,714 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong?select=%2A&trangthai=eq.Tr%E1%BB%91ng "HTTP/2 200 OK"
+2025-04-08 15:47:24,719 - INFO - 127.0.0.1 - - [08/Apr/2025 15:47:24] "GET /booking/dat-phong HTTP/1.1" 200 -
+2025-04-08 15:51:43,670 - INFO - 127.0.0.1 - - [08/Apr/2025 15:51:43] "GET / HTTP/1.1" 200 -
+2025-04-08 15:55:31,174 - INFO - 127.0.0.1 - - [08/Apr/2025 15:55:31] "GET / HTTP/1.1" 200 -
+2025-04-08 15:55:36,379 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong?select=%2A&trangthai=eq.Tr%E1%BB%91ng "HTTP/2 200 OK"
+2025-04-08 15:55:36,397 - INFO - 127.0.0.1 - - [08/Apr/2025 15:55:36] "GET /booking/dat-phong HTTP/1.1" 200 -
+2025-04-08 16:06:59,001 - INFO -  * Detected change in 'C:\\Users\\Minh\\Documents\\GitHub\\doan2\\routes\\booking.py', reloading
+2025-04-08 16:06:59,119 - INFO -  * Restarting with stat
+2025-04-08 16:07:00,116 - WARNING -  * Debugger is active!
+2025-04-08 16:07:00,137 - INFO -  * Debugger PIN: 716-329-026
+2025-04-08 16:07:28,175 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong?select=%2A&trangthai=eq.Tr%E1%BB%91ng "HTTP/2 200 OK"
+2025-04-08 16:07:28,219 - INFO - 127.0.0.1 - - [08/Apr/2025 16:07:28] "[35m[1mGET /booking/dat-phong HTTP/1.1[0m" 500 -
+2025-04-08 16:07:28,398 - INFO - 127.0.0.1 - - [08/Apr/2025 16:07:28] "[36mGET /booking/dat-phong?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-04-08 16:07:28,415 - INFO - 127.0.0.1 - - [08/Apr/2025 16:07:28] "[36mGET /booking/dat-phong?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-04-08 16:07:28,448 - INFO - 127.0.0.1 - - [08/Apr/2025 16:07:28] "GET /booking/dat-phong?__debugger__=yes&cmd=resource&f=console.png&s=oB9e8jWPUxPa6T4kelM0 HTTP/1.1" 200 -
+2025-04-08 16:07:28,481 - INFO - 127.0.0.1 - - [08/Apr/2025 16:07:28] "[36mGET /booking/dat-phong?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-04-08 16:08:31,932 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong?select=%2A&trangthai=eq.Tr%E1%BB%91ng "HTTP/2 200 OK"
+2025-04-08 16:08:31,948 - INFO - 127.0.0.1 - - [08/Apr/2025 16:08:31] "[35m[1mGET /booking/dat-phong HTTP/1.1[0m" 500 -
+2025-04-08 16:08:31,977 - INFO - 127.0.0.1 - - [08/Apr/2025 16:08:31] "[36mGET /booking/dat-phong?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-04-08 16:08:31,981 - INFO - 127.0.0.1 - - [08/Apr/2025 16:08:31] "[36mGET /booking/dat-phong?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-04-08 16:08:31,992 - INFO - 127.0.0.1 - - [08/Apr/2025 16:08:31] "[36mGET /booking/dat-phong?__debugger__=yes&cmd=resource&f=console.png&s=oB9e8jWPUxPa6T4kelM0 HTTP/1.1[0m" 304 -
+2025-04-08 16:08:32,015 - INFO - 127.0.0.1 - - [08/Apr/2025 16:08:32] "[36mGET /booking/dat-phong?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-04-08 16:09:32,366 - INFO -  * Detected change in 'C:\\Users\\Minh\\Documents\\GitHub\\doan2\\routes\\booking.py', reloading
+2025-04-08 16:09:32,490 - INFO -  * Restarting with stat
+2025-04-08 16:09:33,164 - WARNING -  * Debugger is active!
+2025-04-08 16:09:33,164 - INFO -  * Debugger PIN: 716-329-026
+2025-04-08 16:09:35,366 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong?select=%2A&trangthai=eq.Tr%E1%BB%91ng "HTTP/2 200 OK"
+2025-04-08 16:09:35,382 - INFO - 127.0.0.1 - - [08/Apr/2025 16:09:35] "GET /booking/dat-phong HTTP/1.1" 200 -
+2025-04-08 16:09:44,111 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong?select=%2A&trangthai=eq.Tr%E1%BB%91ng "HTTP/2 200 OK"
+2025-04-08 16:09:44,111 - INFO - 127.0.0.1 - - [08/Apr/2025 16:09:44] "GET /booking/dat-phong HTTP/1.1" 200 -
+2025-04-08 16:12:39,040 - INFO - 127.0.0.1 - - [08/Apr/2025 16:12:39] "GET / HTTP/1.1" 200 -
+2025-04-08 16:12:56,188 - INFO - 127.0.0.1 - - [08/Apr/2025 16:12:56] "GET / HTTP/1.1" 200 -
+2025-04-08 16:15:48,372 - INFO - 127.0.0.1 - - [08/Apr/2025 16:15:48] "GET / HTTP/1.1" 200 -
+2025-04-08 16:32:42,358 - INFO -  * Detected change in 'C:\\Users\\Minh\\Documents\\GitHub\\doan2\\routes\\room.py', reloading
+2025-04-08 16:32:42,563 - INFO -  * Restarting with stat
+2025-04-08 16:32:43,414 - WARNING -  * Debugger is active!
+2025-04-08 16:32:43,430 - INFO -  * Debugger PIN: 716-329-026
+2025-04-08 16:32:57,064 - INFO -  * Detected change in 'C:\\Users\\Minh\\Documents\\GitHub\\doan2\\utils\\upload_cloudinary.py', reloading
+2025-04-08 16:32:57,174 - INFO -  * Restarting with stat
+2025-04-08 16:37:06,808 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-08 16:37:06,808 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-08 16:37:06,808 - INFO -  * Restarting with stat
+2025-04-08 16:37:07,443 - WARNING -  * Debugger is active!
+2025-04-08 16:37:07,455 - INFO -  * Debugger PIN: 716-329-026
+2025-04-08 16:37:09,002 - INFO - 127.0.0.1 - - [08/Apr/2025 16:37:09] "GET / HTTP/1.1" 200 -
+2025-04-08 16:37:33,740 - INFO - 127.0.0.1 - - [08/Apr/2025 16:37:33] "[33mGET /room_list HTTP/1.1[0m" 404 -
+2025-04-08 16:38:12,864 - INFO - 127.0.0.1 - - [08/Apr/2025 16:38:12] "[33mGET /add_room HTTP/1.1[0m" 404 -
+2025-04-08 16:38:22,269 - INFO - 127.0.0.1 - - [08/Apr/2025 16:38:22] "[33mGET /add HTTP/1.1[0m" 404 -
+2025-04-08 16:38:33,532 - INFO - 127.0.0.1 - - [08/Apr/2025 16:38:33] "[35m[1mGET /room/add HTTP/1.1[0m" 500 -
+2025-04-08 16:38:33,660 - INFO - 127.0.0.1 - - [08/Apr/2025 16:38:33] "GET /room/add?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+2025-04-08 16:38:33,660 - INFO - 127.0.0.1 - - [08/Apr/2025 16:38:33] "GET /room/add?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+2025-04-08 16:38:33,692 - INFO - 127.0.0.1 - - [08/Apr/2025 16:38:33] "GET /room/add?__debugger__=yes&cmd=resource&f=console.png&s=WAB3bRpfiFnRYNXuRmzE HTTP/1.1" 200 -
+2025-04-08 16:38:33,724 - INFO - 127.0.0.1 - - [08/Apr/2025 16:38:33] "GET /room/add?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+2025-04-08 16:39:05,722 - INFO - 127.0.0.1 - - [08/Apr/2025 16:39:05] "[35m[1mGET /room/add HTTP/1.1[0m" 500 -
+2025-04-08 16:39:05,752 - INFO - 127.0.0.1 - - [08/Apr/2025 16:39:05] "[36mGET /room/add?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-04-08 16:39:05,753 - INFO - 127.0.0.1 - - [08/Apr/2025 16:39:05] "[36mGET /room/add?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-04-08 16:39:05,768 - INFO - 127.0.0.1 - - [08/Apr/2025 16:39:05] "[36mGET /room/add?__debugger__=yes&cmd=resource&f=console.png&s=WAB3bRpfiFnRYNXuRmzE HTTP/1.1[0m" 304 -
+2025-04-08 16:39:05,795 - INFO - 127.0.0.1 - - [08/Apr/2025 16:39:05] "[36mGET /room/add?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-04-08 16:39:07,231 - INFO - 127.0.0.1 - - [08/Apr/2025 16:39:07] "[35m[1mGET /room/add HTTP/1.1[0m" 500 -
+2025-04-08 16:39:07,258 - INFO - 127.0.0.1 - - [08/Apr/2025 16:39:07] "[36mGET /room/add?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-04-08 16:39:07,262 - INFO - 127.0.0.1 - - [08/Apr/2025 16:39:07] "[36mGET /room/add?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-04-08 16:39:07,277 - INFO - 127.0.0.1 - - [08/Apr/2025 16:39:07] "[36mGET /room/add?__debugger__=yes&cmd=resource&f=console.png&s=WAB3bRpfiFnRYNXuRmzE HTTP/1.1[0m" 304 -
+2025-04-08 16:39:07,295 - INFO - 127.0.0.1 - - [08/Apr/2025 16:39:07] "[36mGET /room/add?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-04-08 16:40:13,690 - INFO -  * Detected change in 'C:\\Users\\Minh\\Documents\\GitHub\\doan2\\app.py', reloading
+2025-04-08 16:40:13,797 - INFO -  * Restarting with stat
+2025-04-08 16:40:14,583 - WARNING -  * Debugger is active!
+2025-04-08 16:40:14,588 - INFO -  * Debugger PIN: 716-329-026
+2025-04-08 16:40:15,418 - INFO - 127.0.0.1 - - [08/Apr/2025 16:40:15] "GET /room/add HTTP/1.1" 200 -
+2025-04-08 16:41:38,476 - INFO - 127.0.0.1 - - [08/Apr/2025 16:41:38] "GET /room/add HTTP/1.1" 200 -
+2025-04-08 16:42:15,719 - INFO - HTTP Request: POST https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong "HTTP/2 400 Bad Request"
+2025-04-08 16:42:15,737 - INFO - 127.0.0.1 - - [08/Apr/2025 16:42:15] "[35m[1mPOST /room/add HTTP/1.1[0m" 500 -
+2025-04-08 16:42:15,783 - INFO - 127.0.0.1 - - [08/Apr/2025 16:42:15] "[36mGET /room/add?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-04-08 16:42:15,784 - INFO - 127.0.0.1 - - [08/Apr/2025 16:42:15] "[36mGET /room/add?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-04-08 16:42:15,796 - INFO - 127.0.0.1 - - [08/Apr/2025 16:42:15] "GET /room/add?__debugger__=yes&cmd=resource&f=console.png&s=KQWaHJ2sjAflha4T2Mfm HTTP/1.1" 200 -
+2025-04-08 16:42:15,829 - INFO - 127.0.0.1 - - [08/Apr/2025 16:42:15] "[36mGET /room/add?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-04-08 16:46:23,542 - INFO - HTTP Request: POST https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong "HTTP/2 400 Bad Request"
+2025-04-08 16:46:23,556 - INFO - 127.0.0.1 - - [08/Apr/2025 16:46:23] "[35m[1mPOST /room/add HTTP/1.1[0m" 500 -
+2025-04-08 16:46:23,581 - INFO - 127.0.0.1 - - [08/Apr/2025 16:46:23] "[36mGET /room/add?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-04-08 16:46:23,587 - INFO - 127.0.0.1 - - [08/Apr/2025 16:46:23] "[36mGET /room/add?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-04-08 16:46:23,598 - INFO - 127.0.0.1 - - [08/Apr/2025 16:46:23] "[36mGET /room/add?__debugger__=yes&cmd=resource&f=console.png&s=KQWaHJ2sjAflha4T2Mfm HTTP/1.1[0m" 304 -
+2025-04-08 16:46:23,628 - INFO - 127.0.0.1 - - [08/Apr/2025 16:46:23] "[36mGET /room/add?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-04-08 16:47:33,047 - INFO - HTTP Request: POST https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong "HTTP/2 400 Bad Request"
+2025-04-08 16:47:33,071 - INFO - 127.0.0.1 - - [08/Apr/2025 16:47:33] "[35m[1mPOST /room/add HTTP/1.1[0m" 500 -
+2025-04-08 16:47:33,098 - INFO - 127.0.0.1 - - [08/Apr/2025 16:47:33] "[36mGET /room/add?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-04-08 16:47:33,101 - INFO - 127.0.0.1 - - [08/Apr/2025 16:47:33] "[36mGET /room/add?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-04-08 16:47:33,113 - INFO - 127.0.0.1 - - [08/Apr/2025 16:47:33] "[36mGET /room/add?__debugger__=yes&cmd=resource&f=console.png&s=KQWaHJ2sjAflha4T2Mfm HTTP/1.1[0m" 304 -
+2025-04-08 16:47:33,132 - INFO - 127.0.0.1 - - [08/Apr/2025 16:47:33] "[36mGET /room/add?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-04-08 16:51:15,532 - INFO - 127.0.0.1 - - [08/Apr/2025 16:51:15] "GET /room/add HTTP/1.1" 200 -
+2025-04-08 16:51:24,369 - INFO - HTTP Request: POST https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong "HTTP/2 400 Bad Request"
+2025-04-08 16:51:24,385 - INFO - 127.0.0.1 - - [08/Apr/2025 16:51:24] "[35m[1mPOST /room/add HTTP/1.1[0m" 500 -
+2025-04-08 16:51:24,414 - INFO - 127.0.0.1 - - [08/Apr/2025 16:51:24] "[36mGET /room/add?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-04-08 16:51:24,419 - INFO - 127.0.0.1 - - [08/Apr/2025 16:51:24] "[36mGET /room/add?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-04-08 16:51:24,428 - INFO - 127.0.0.1 - - [08/Apr/2025 16:51:24] "[36mGET /room/add?__debugger__=yes&cmd=resource&f=console.png&s=KQWaHJ2sjAflha4T2Mfm HTTP/1.1[0m" 304 -
+2025-04-08 16:51:24,453 - INFO - 127.0.0.1 - - [08/Apr/2025 16:51:24] "[36mGET /room/add?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-04-08 16:52:13,431 - INFO -  * Detected change in 'C:\\Users\\Minh\\Documents\\GitHub\\doan2\\routes\\room.py', reloading
+2025-04-08 16:52:13,553 - INFO -  * Restarting with stat
+2025-04-08 16:52:14,288 - WARNING -  * Debugger is active!
+2025-04-08 16:52:14,304 - INFO -  * Debugger PIN: 716-329-026
+2025-04-08 16:52:20,186 - INFO - HTTP Request: POST https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong "HTTP/2 201 Created"
+2025-04-08 16:52:20,203 - INFO - 127.0.0.1 - - [08/Apr/2025 16:52:20] "[35m[1mPOST /room/add HTTP/1.1[0m" 500 -
+2025-04-08 16:52:20,235 - INFO - 127.0.0.1 - - [08/Apr/2025 16:52:20] "[36mGET /room/add?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-04-08 16:52:20,235 - INFO - 127.0.0.1 - - [08/Apr/2025 16:52:20] "[36mGET /room/add?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-04-08 16:52:20,248 - INFO - 127.0.0.1 - - [08/Apr/2025 16:52:20] "GET /room/add?__debugger__=yes&cmd=resource&f=console.png&s=0qCwJFNYykCUzZsPJzZK HTTP/1.1" 200 -
+2025-04-08 16:52:20,276 - INFO - 127.0.0.1 - - [08/Apr/2025 16:52:20] "[36mGET /room/add?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-04-08 16:53:16,968 - INFO -  * Detected change in 'C:\\Users\\Minh\\Documents\\GitHub\\doan2\\routes\\room.py', reloading
+2025-04-08 16:53:17,088 - INFO -  * Restarting with stat
+2025-04-08 16:53:17,823 - WARNING -  * Debugger is active!
+2025-04-08 16:53:17,830 - INFO -  * Debugger PIN: 716-329-026
+2025-04-08 16:53:24,394 - INFO - HTTP Request: POST https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong "HTTP/2 400 Bad Request"
+2025-04-08 16:53:24,399 - INFO - 127.0.0.1 - - [08/Apr/2025 16:53:24] "[32mPOST /room/add HTTP/1.1[0m" 302 -
+2025-04-08 16:53:24,410 - INFO - 127.0.0.1 - - [08/Apr/2025 16:53:24] "GET /room/add HTTP/1.1" 200 -
+2025-04-08 16:54:08,846 - INFO - HTTP Request: POST https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong "HTTP/2 400 Bad Request"
+2025-04-08 16:54:08,849 - INFO - 127.0.0.1 - - [08/Apr/2025 16:54:08] "[32mPOST /room/add HTTP/1.1[0m" 302 -
+2025-04-08 16:54:08,858 - INFO - 127.0.0.1 - - [08/Apr/2025 16:54:08] "GET /room/add HTTP/1.1" 200 -
+2025-04-08 16:54:24,759 - INFO -  * Detected change in 'C:\\Users\\Minh\\Documents\\GitHub\\doan2\\routes\\room.py', reloading
+2025-04-08 16:54:24,876 - INFO -  * Restarting with stat
+2025-04-08 16:54:25,542 - WARNING -  * Debugger is active!
+2025-04-08 16:54:25,542 - INFO -  * Debugger PIN: 716-329-026
+2025-04-08 16:54:42,390 - INFO - 127.0.0.1 - - [08/Apr/2025 16:54:42] "GET /room/add HTTP/1.1" 200 -
+2025-04-08 16:55:34,751 - INFO - 127.0.0.1 - - [08/Apr/2025 16:55:34] "[32mPOST /room/add HTTP/1.1[0m" 302 -
+2025-04-08 16:55:34,752 - INFO - 127.0.0.1 - - [08/Apr/2025 16:55:34] "GET /room/add HTTP/1.1" 200 -
+2025-04-08 16:56:12,680 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-08 16:56:12,680 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-08 16:56:12,694 - INFO -  * Restarting with stat
+2025-04-08 16:56:13,389 - WARNING -  * Debugger is active!
+2025-04-08 16:56:13,394 - INFO -  * Debugger PIN: 716-329-026
+2025-04-08 16:56:14,827 - INFO - 127.0.0.1 - - [08/Apr/2025 16:56:14] "GET / HTTP/1.1" 200 -
+2025-04-08 16:56:15,192 - INFO - 127.0.0.1 - - [08/Apr/2025 16:56:15] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-04-08 16:56:25,901 - INFO - 127.0.0.1 - - [08/Apr/2025 16:56:25] "[33mGET /add_room HTTP/1.1[0m" 404 -
+2025-04-08 16:56:31,885 - INFO - 127.0.0.1 - - [08/Apr/2025 16:56:31] "[33mGET /r HTTP/1.1[0m" 404 -
+2025-04-08 16:56:34,946 - INFO - 127.0.0.1 - - [08/Apr/2025 16:56:34] "GET /room/add HTTP/1.1" 200 -
+2025-04-08 16:56:46,658 - INFO - HTTP Request: POST https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong "HTTP/2 400 Bad Request"
+2025-04-08 16:56:46,658 - INFO - 127.0.0.1 - - [08/Apr/2025 16:56:46] "[32mPOST /room/add HTTP/1.1[0m" 302 -
+2025-04-08 16:56:46,669 - INFO - 127.0.0.1 - - [08/Apr/2025 16:56:46] "GET /room/add HTTP/1.1" 200 -
+2025-04-08 16:57:28,804 - INFO -  * Detected change in 'C:\\Users\\Minh\\Documents\\GitHub\\doan2\\routes\\room.py', reloading
+2025-04-08 16:57:28,959 - INFO -  * Restarting with stat
+2025-04-08 16:57:29,665 - WARNING -  * Debugger is active!
+2025-04-08 16:57:29,665 - INFO -  * Debugger PIN: 716-329-026
+2025-04-08 16:57:49,783 - INFO - HTTP Request: POST https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong "HTTP/2 201 Created"
+2025-04-08 16:57:49,787 - INFO - 127.0.0.1 - - [08/Apr/2025 16:57:49] "[32mPOST /room/add HTTP/1.1[0m" 302 -
+2025-04-08 16:57:49,806 - INFO - 127.0.0.1 - - [08/Apr/2025 16:57:49] "GET /room/add HTTP/1.1" 200 -
+2025-04-08 16:57:58,453 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong?select=%2A "HTTP/2 200 OK"
+2025-04-08 16:57:58,481 - INFO - 127.0.0.1 - - [08/Apr/2025 16:57:58] "GET /room/list HTTP/1.1" 200 -
+2025-04-08 16:59:56,855 - INFO -  * Detected change in 'C:\\Users\\Minh\\Documents\\GitHub\\doan2\\app.py', reloading
+2025-04-08 16:59:56,957 - INFO -  * Restarting with stat
+2025-04-08 16:59:57,644 - WARNING -  * Debugger is active!
+2025-04-08 16:59:57,645 - INFO -  * Debugger PIN: 716-329-026
+2025-04-08 17:00:05,025 - INFO -  * Detected change in 'C:\\Users\\Minh\\Documents\\GitHub\\doan2\\app.py', reloading
+2025-04-08 17:00:05,131 - INFO -  * Restarting with stat
+2025-04-08 17:00:05,775 - WARNING -  * Debugger is active!
+2025-04-08 17:00:05,775 - INFO -  * Debugger PIN: 716-329-026
+2025-04-08 17:00:10,749 - INFO - 127.0.0.1 - - [08/Apr/2025 17:00:10] "GET /room/add HTTP/1.1" 200 -
+2025-04-08 17:00:18,037 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong?select=%2A&limit=6 "HTTP/2 200 OK"
+2025-04-08 17:00:18,104 - INFO - 127.0.0.1 - - [08/Apr/2025 17:00:18] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2025-04-08 17:00:18,270 - INFO - 127.0.0.1 - - [08/Apr/2025 17:00:18] "[36mGET /?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-04-08 17:00:18,271 - INFO - 127.0.0.1 - - [08/Apr/2025 17:00:18] "[36mGET /?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-04-08 17:00:18,298 - INFO - 127.0.0.1 - - [08/Apr/2025 17:00:18] "GET /?__debugger__=yes&cmd=resource&f=console.png&s=vLta8WyaYY3TSAXXBSDs HTTP/1.1" 200 -
+2025-04-08 17:00:18,321 - INFO - 127.0.0.1 - - [08/Apr/2025 17:00:18] "[36mGET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-04-08 17:01:12,770 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong?select=%2A&limit=6 "HTTP/2 200 OK"
+2025-04-08 17:01:12,780 - INFO - 127.0.0.1 - - [08/Apr/2025 17:01:12] "GET / HTTP/1.1" 200 -
+2025-04-08 17:01:12,820 - INFO - 127.0.0.1 - - [08/Apr/2025 17:01:12] "[33mGET /None HTTP/1.1[0m" 404 -
+2025-04-08 17:01:36,081 - INFO - 127.0.0.1 - - [08/Apr/2025 17:01:36] "GET /auth/login HTTP/1.1" 200 -
+2025-04-08 17:01:40,626 - INFO - 127.0.0.1 - - [08/Apr/2025 17:01:40] "GET /auth/register HTTP/1.1" 200 -
+2025-04-08 17:02:26,764 - INFO -  * Detected change in 'C:\\Users\\Minh\\Documents\\GitHub\\doan2\\routes\\upload.py', reloading
+2025-04-08 17:02:26,971 - INFO -  * Restarting with stat
+2025-04-08 17:02:27,860 - WARNING -  * Debugger is active!
+2025-04-08 17:02:27,873 - INFO -  * Debugger PIN: 716-329-026
+2025-04-08 17:03:58,730 - INFO - 127.0.0.1 - - [08/Apr/2025 17:03:58] "GET / HTTP/1.1" 200 -
+2025-04-08 17:04:22,009 - INFO - 127.0.0.1 - - [08/Apr/2025 17:04:22] "GET / HTTP/1.1" 200 -
+2025-04-08 17:06:52,751 - INFO - 127.0.0.1 - - [08/Apr/2025 17:06:52] "GET / HTTP/1.1" 200 -
+2025-04-08 17:07:12,992 - INFO -  * Detected change in 'C:\\Users\\Minh\\Documents\\GitHub\\doan2\\routes\\booking.py', reloading
+2025-04-08 17:07:13,082 - INFO -  * Restarting with stat
+2025-04-08 17:07:13,737 - WARNING -  * Debugger is active!
+2025-04-08 17:07:13,753 - INFO -  * Debugger PIN: 716-329-026
+2025-04-08 17:07:20,073 - INFO -  * Detected change in 'C:\\Users\\Minh\\Documents\\GitHub\\doan2\\routes\\auth.py', reloading
+2025-04-08 17:07:20,190 - INFO -  * Restarting with stat
+2025-04-08 17:07:20,866 - WARNING -  * Debugger is active!
+2025-04-08 17:07:20,872 - INFO -  * Debugger PIN: 716-329-026
+2025-04-08 17:07:24,047 - INFO -  * Detected change in 'C:\\Users\\Minh\\Documents\\GitHub\\doan2\\routes\\upload.py', reloading
+2025-04-08 17:07:24,143 - INFO -  * Restarting with stat
+2025-04-08 17:07:24,777 - WARNING -  * Debugger is active!
+2025-04-08 17:07:24,777 - INFO -  * Debugger PIN: 716-329-026

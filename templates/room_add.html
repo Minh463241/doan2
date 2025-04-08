@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Thêm Phòng Mới</title>
+</head>
+<body>
+    <h2>Thêm Phòng Mới</h2>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <ul>
+          {% for category, message in messages %}
+            <li class="{{ category }}">{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+    <form action="{{ url_for('room.add_room') }}" method="POST" enctype="multipart/form-data">
+        <!-- Bỏ trường nhập Mã phòng vì đã tự tăng -->
+        
+        <label>Loại phòng: </label>
+        <input type="text" name="loaiphong" required/><br/>
+
+        <label>Giá phòng: </label>
+        <input type="number" name="giaphong" step="0.01" required/><br/>
+
+        <label>Sức chứa: </label>
+        <input type="number" name="succhua" required/><br/>
+
+        <label>Trạng thái: </label>
+        <input type="text" name="trangthai" required/><br/>
+
+        <label>Diện tích: </label>
+        <input type="number" name="dientich"/><br/>
+
+        <label>Hình ảnh phòng: </label>
+        <input type="file" name="hinhanh" accept="image/*"/><br/>
+
+        <button type="submit">Thêm Phòng</button>
+    </form>
+</body>
+</html>
