@@ -12,14 +12,7 @@ paypalrestsdk.configure({
     "client_secret": Config.PAYPAL_CLIENT_SECRET
 })
 
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s',
-    handlers=[
-        logging.FileHandler("payment.log", encoding='utf-8'),
-        logging.StreamHandler()
-    ]
-)
+
 
 # Tạo thanh toán PayPal
 @payment_bp.route('/<int:booking_id>')
