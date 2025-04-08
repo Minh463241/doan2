@@ -11,8 +11,6 @@ paypalrestsdk.configure({
     "client_secret": Config.PAYPAL_CLIENT_SECRET
 })
 
-
-
 # Tạo thanh toán PayPal
 @payment_bp.route('/<int:booking_id>')
 def pay(booking_id):
@@ -32,21 +30,18 @@ def pay(booking_id):
                 "custom": str(booking_id)
             }],
             "redirect_urls": {
-                "return_url": "http://localhost:5000/payment/success",   # cập nhật đúng domain khi deploy
+                "return_url": "http://localhost:5000/payment/success",
                 "cancel_url": "http://localhost:5000/payment/cancel"
             }
         })
 
         if payment.create():
             approval_url = next(link.href for link in payment.links if link.rel == "approval_url")
-            logging.info(f"Tạo payment thành công. Booking ID: {booking_id}, Payment ID: {payment.id}")
             return redirect(approval_url)
         else:
-            logging.error(f"Tạo payment thất bại. Booking ID: {booking_id}, Lỗi: {payment.error}")
             return "Lỗi khi tạo thanh toán", 500
 
-    except Exception as e:
-        logging.exception(f"Lỗi ngoại lệ khi tạo thanh toán cho booking {booking_id}")
+    except Exception:
         return "Lỗi hệ thống", 500
 
 # Xử lý callback khi thanh toán thành công
@@ -58,7 +53,6 @@ def success():
 
         if not payment_id or not payer_id:
             flash("Thanh toán thất bại hoặc thiếu thông tin.", "error")
-            logging.warning("Thiếu paymentId hoặc PayerID trong callback thành công.")
             return redirect(url_for('index'))
 
         payment = paypalrestsdk.Payment.find(payment_id)
@@ -67,16 +61,12 @@ def success():
             transaction_id = payment.transactions[0].related_resources[0].sale.id
             booking_id = int(payment.transactions[0].custom)
 
-            logging.info(f"Thanh toán thành công. Payment ID: {payment_id}, Transaction ID: {transaction_id}, Booking ID: {booking_id}")
             update_payment_status(booking_id, transaction_id)
-
             flash("Thanh toán thành công! Cảm ơn bạn.", "success")
         else:
-            logging.error(f"Thực hiện thanh toán thất bại. Lỗi: {payment.error}")
             flash("Lỗi khi hoàn tất thanh toán.", "error")
 
-    except Exception as e:
-        logging.exception("Lỗi ngoại lệ khi xử lý callback thành công")
+    except Exception:
         flash("Lỗi hệ thống khi xử lý thanh toán.", "error")
 
     return redirect(url_for('index'))
@@ -84,6 +74,5 @@ def success():
 # Người dùng hủy thanh toán
 @payment_bp.route('/cancel')
 def cancel():
-    logging.info("Người dùng đã hủy giao dịch.")
     flash("Bạn đã hủy giao dịch thanh toán.", "warning")
     return redirect(url_for('index'))

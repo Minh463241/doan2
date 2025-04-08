@@ -38,4 +38,4 @@ def dat_phong():
         else:
             flash("Đặt phòng thất bại!", "error")
 
-    return render_template("user/booking.html", rooms=rooms, customer=customer)
+    return render_template("booking.html", rooms=rooms, customer=customer)
