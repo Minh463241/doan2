@@ -1,6 +1,5 @@
 from flask import Blueprint, flash, redirect, request, url_for
 import paypalrestsdk
-import logging
 from config import Config
 from utils.db_supabase import update_payment_status, get_booking_amount
 
