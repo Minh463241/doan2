@@ -15,27 +15,40 @@ def dat_phong():
 
     # Đảm bảo dữ liệu phòng có các trường cần thiết
     for room in rooms:
-        room['loaiphong'] = room.get('loaiphong', f"Phòng {room['maphong']}")  # Dùng loaiphong
+        room['loaiphong'] = room.get('loaiphong', f"Phòng {room['maphong']}")
         room['hinhanh'] = room.get('hinhanh', 'https://images.unsplash.com/photo-1618773928121-c32242e63f39?q=80&w=2070&auto=format&fit=crop')
-        room['gia'] = room.get('giaphong', 400000)  # Dùng giaphong
+        room['gia'] = room.get('giaphong', 400000)
         room['dientich'] = room.get('dientich', 30)
         room['succhua'] = room.get('succhua', 2)
 
     if request.method == 'POST':
-        data = {
-            "makhachhang": customer["id"],
-            "maphong": int(request.form['room_id']),
-            "ngaynhanphong": request.form['check_in'],
-            "ngaytraphong": request.form['check_out'],
-            "songuoi": int(request.form['guests']),
-            "yeucaudacbiet": request.form['special_request'],
-            "thoigiandat": datetime.now().isoformat()
-        }
-        result = insert_booking(data)
-        if result.data:
-            flash("Đặt phòng thành công! Vui lòng thanh toán.", "success")
-            return redirect(url_for('payment.pay', booking_id=result.data[0]['madatphong']))
-        else:
-            flash("Đặt phòng thất bại!", "error")
+        try:
+            maphong = request.form.get('room_id')
+            if not maphong:
+                flash("Vui lòng chọn phòng trước khi đặt.", "error")
+                return redirect(url_for('booking.dat_phong'))
+
+            data = {
+                "makhachhang": customer["id"],
+                "maphong": int(maphong),
+                "ngaynhanphong": request.form['check_in'],
+                "ngaytraphong": request.form['check_out'],
+                "thoigiancheckindukien": request.form.get('expected_checkin_time'),
+                "sokhachdicung": request.form.get('guest_info', ''),
+                "ghichudatphong": request.form.get('note', ''),
+                "songuoi": int(request.form.get('guests', 1)),
+                "yeucaudacbiet": request.form.get('special_request', ''),
+                "thoigiandat": datetime.now().isoformat()
+            }
+
+            result = insert_booking(data)
+            if result.data:
+                flash("Đặt phòng thành công! Vui lòng thanh toán.", "success")
+                return redirect(url_for('payment.pay', booking_id=result.data[0]['madatphong']))
+            else:
+                flash("Đặt phòng thất bại!", "error")
+        
+        except Exception as e:
+            flash(f"Lỗi khi đặt phòng: {e}", "danger")
 
     return render_template("booking.html", rooms=rooms, customer=customer)
