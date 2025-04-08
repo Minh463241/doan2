@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kết Quả Tìm Kiếm</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <header>
+    <nav>
+      <div class="logo">MyHotel</div>
+      <ul class="nav-menu">
+        <li><a href="/">Trang chủ</a></li>
+      </ul>
+    </nav>
+  </header>
+  
+  <main style="padding: 20px;">
+    <h2>Kết quả tìm kiếm cho "{{ destination }}"</h2>
+    <p>Ngày nhận: {{ checkin }} | Ngày trả: {{ checkout }} | Số khách: {{ guests }}</p>
+    <ul>
+      {% for hotel in results %}
+        <li>
+          <strong>{{ hotel.name }}</strong> - Giá: {{ hotel.price }} - Đánh giá: {{ hotel.rating }}
+        </li>
+      {% endfor %}
+    </ul>
+    <a href="/">Quay lại trang chủ</a>
+  </main>
+</body>
+</html>

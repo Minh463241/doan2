@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Chỉnh Sửa Phòng{% endblock %}
+
+{% block content %}
+  <div class="container mx-auto p-4 bg-white rounded shadow">
+    <h1 class="text-2xl font-bold mb-4">Chỉnh Sửa Phòng</h1>
+    <form method="POST" action="{{ url_for('admin.edit_room', room_id=room.MaPhong) }}" enctype="multipart/form-data">
+      <div class="mb-4">
+        <label class="block mb-2 font-medium" for="room_number">Số Phòng:</label>
+        <input type="text" name="room_number" id="room_number" class="border border-gray-300 rounded w-full p-2" value="{{ room.SoPhong }}" required>
+      </div>
+      <div class="mb-4">
+        <label class="block mb-2 font-medium" for="room_type">Loại Phòng:</label>
+        <select name="room_type" id="room_type" class="border border-gray-300 rounded w-full p-2" required>
+          {% for loai in room_types %}
+            <option value="{{ loai._id }}" {% if loai._id == room.MaLoaiPhong %}selected{% endif %}>
+              {{ loai.name }} - {{ loai.price }} VND
+            </option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="mb-4">
+        <label class="block mb-2 font-medium" for="description">Mô Tả:</label>
+        <textarea name="description" id="description" rows="4" class="border border-gray-300 rounded w-full p-2" required>{{ room.MoTa }}</textarea>
+      </div>
+      <div class="mb-4">
+        <label class="block mb-2 font-medium" for="status">Trạng Thái:</label>
+        <select name="status" id="status" class="border border-gray-300 rounded w-full p-2" required>
+          <option value="Trống" {% if room.TrangThai == "Trống" %}selected{% endif %}>Trống</option>
+          <option value="Đã đặt" {% if room.TrangThai == "Đã đặt" %}selected{% endif %}>Đã đặt</option>
+        </select>
+      </div>
+      <div class="mb-4">
+        <label class="block mb-2 font-medium" for="room_image">Ảnh Phòng (Nếu muốn cập nhật):</label>
+        <input type="file" name="room_image" id="room_image" class="border border-gray-300 rounded w-full p-2">
+      </div>
+      <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Cập Nhật Phòng</button>
+    </form>
+  </div>
+{% endblock %}

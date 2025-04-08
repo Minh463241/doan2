@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Chỉnh Sửa Thông Tin Cá Nhân</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome CDN -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&amp;display=swap" rel="stylesheet"/>
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body class="font-roboto bg-gray-100">
+  <!-- Header (bạn có thể copy từ trang profile hoặc index) -->
+  <header class="bg-white shadow-md fixed w-full z-20">
+    <div class="container mx-auto flex justify-between items-center py-4 px-6">
+      <div class="text-2xl font-light italic">
+        <a href="{{ url_for('user.index') }}">Keiwei00 Hotel</a>
+      </div>
+      <nav class="space-x-4">
+        <a class="text-gray-600 hover:text-gray-800" href="{{ url_for('user.index') }}">Trang Chủ</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Nội dung chính -->
+  <main class="pt-24">
+    <section class="container mx-auto py-12">
+      <div class="bg-white p-6 rounded-md shadow-md">
+        <h2 class="text-2xl font-semibold mb-4">Chỉnh Sửa Thông Tin Cá Nhân</h2>
+        <form action="{{ url_for('user.edit_profile') }}" method="POST" enctype="multipart/form-data" class="space-y-4">
+          <div>
+            <label for="ho_ten" class="block text-gray-700">Họ Tên</label>
+            <input type="text" id="ho_ten" name="ho_ten" value="{{ customer.HoTen }}" class="w-full border rounded px-3 py-2">
+          </div>
+          <div>
+            <label for="dien_thoai" class="block text-gray-700">Số Điện Thoại</label>
+            <input type="text" id="dien_thoai" name="dien_thoai" value="{{ customer.DienThoai }}" class="w-full border rounded px-3 py-2">
+          </div>
+          <div>
+            <label for="cmnd" class="block text-gray-700">CCCD/Hộ Chiếu</label>
+            <input type="text" id="cmnd" name="cmnd" value="{{ customer.CMND }}" class="w-full border rounded px-3 py-2">
+          </div>
+          <div>
+            <label for="dia_chi" class="block text-gray-700">Địa Chỉ</label>
+            <input type="text" id="dia_chi" name="dia_chi" value="{{ customer.DiaChi }}" class="w-full border rounded px-3 py-2">
+          </div>
+          <div>
+            <label for="password" class="block text-gray-700">Mật khẩu mới (nếu muốn thay đổi)</label>
+            <input type="password" id="password" name="password" class="w-full border rounded px-3 py-2">
+          </div>
+          <div>
+            <label for="avatar" class="block text-gray-700">Avatar</label>
+            <input type="file" id="avatar" name="avatar" class="w-full">
+          </div>
+          <div>
+            <label for="bg_image" class="block text-gray-700">Ảnh nền giao diện</label>
+            <input type="file" id="bg_image" name="bg_image" class="w-full">
+          </div>
+          <div class="flex justify-between items-center">
+            <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">
+              Lưu Thay Đổi
+            </button>
+            <a href="{{ url_for('user.profile') }}" class="text-gray-600 hover:underline">
+              Hủy bỏ
+            </a>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-white text-center py-4">
+    <p>© 2025 Keiwei00 Hotel</p>
+  </footer>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trang Quản Trị Admin</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+</head>
+<body class="bg-gray-100">
+  <div class="flex h-screen">
+    <!-- Sidebar -->
+    <div class="bg-gray-800 text-white w-64 flex flex-col">
+      <div class="flex items-center justify-center h-16 bg-blue-600">
+        <span class="text-xl font-bold">Admin Web</span>
+      </div>
+      <div class="flex items-center p-4">
+        <img alt="Avatar Admin" class="rounded-full w-12 h-12" src="https://storage.googleapis.com/a1aa/image/RK0I0PQ0MFsECa580s0kVf6z8Tu_L3gl2GGkWPjJkdk.jpg"/>
+        <div class="ml-4">
+          <div class="font-bold">Admin</div>
+          <div class="text-green-400">Online</div>
+        </div>
+      </div>
+      <nav class="flex-1 px-2 py-4 space-y-1">
+        <div class="text-gray-400 uppercase text-xs font-bold">Quản trị</div>
+        <a class="flex items-center px-2 py-2 text-sm font-medium text-white bg-gray-900 rounded-md" href="{{ url_for('admin.admin_dashboard') }}">
+            <i class="fas fa-home mr-2"></i> Trang chủ
+        </a>
+        <a class="flex items-center px-2 py-2 text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-700 rounded-md" href="/admin/roles">
+            <i class="fas fa-user-shield mr-2"></i> Quản lý quyền
+        </a>
+        <a class="flex items-center px-2 py-2 text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-700 rounded-md" href="/admin/accounts">
+            <i class="fas fa-users mr-2"></i> Tài khoản
+        </a>
+        <a class="flex items-center px-2 py-2 text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-700 rounded-md" href="/admin/customers">
+            <i class="fas fa-user-friends mr-2"></i> Khách hàng
+        </a>
+        <a class="flex items-center px-2 py-2 text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-700 rounded-md" href="/admin/news">
+            <i class="fas fa-newspaper mr-2"></i> Tin tức
+        </a>
+        <div class="text-gray-400 uppercase text-xs font-bold mt-4">Danh mục</div>
+        <a class="flex items-center px-2 py-2 text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-700 rounded-md" href="{{url_for('admin.add_room_type_route')}}">
+            <i class="fas fa-th-large mr-2"></i> Loại phòng
+        </a>
+        <a class="flex items-center px-2 py-2 text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-700 rounded-md" href="{{ url_for('admin.add_room') }}">
+            <i class="fas fa-plus-circle mr-2"></i> Thêm Phòng
+        </a>
+        <a class="flex items-center px-2 py-2 text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-700 rounded-md" href="/admin/services">
+            <i class="fas fa-concierge-bell mr-2"></i> Dịch vụ
+        </a>
+      </nav>
+    </div>
+    <!-- Main content -->
+    <div class="flex-1 flex flex-col">
+      <header class="flex items-center justify-between h-16 bg-blue-600 text-white px-4">
+        <div class="flex items-center">
+          <button class="text-white focus:outline-none">
+            <i class="fas fa-bars"></i>
+          </button>
+        </div>
+        <div class="flex items-center">
+          <img alt="Avatar Admin" class="rounded-full w-8 h-8" src="https://storage.googleapis.com/a1aa/image/RK0I0PQ0MFsECa580s0kVf6z8Tu_L3gl2GGkWPjJkdk.jpg"/>
+          <span class="ml-2">Admin</span>
+        </div>
+      </header>
+      <main class="flex-1 p-6">
+        <div class="text-2xl font-bold">Quản trị</div>
+        <div class="text-gray-500">Chào mừng bạn đến với hệ thống quản trị!</div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

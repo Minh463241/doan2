@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Đăng ký</title>
+</head>
+<body>
+  <h2>Đăng ký tài khoản</h2>
+  <form method="POST">
+    <label>Họ tên:</label>
+    <input type="text" name="hoten" required><br>
+  
+    <label>Số điện thoại:</label>
+    <input type="text" name="sodienthoai" required><br>
+  
+    <label>Email:</label>
+    <input type="email" name="email"><br>
+  
+    <label>CCCD:</label>
+    <input type="text" name="cccd"><br>
+  
+    <label>Địa chỉ:</label>
+    <input type="text" name="diachi"><br>
+  
+    <label>Ngày sinh:</label>
+    <input type="date" name="ngaysinh"><br>
+  
+    <label>Giới tính:</label>
+    <select name="gioitinh">
+      <option value="Nam">Nam</option>
+      <option value="Nữ">Nữ</option>
+      <option value="Khác">Khác</option>
+    </select><br>
+  
+    <label>Quốc tịch:</label>
+    <input type="text" name="quoctich" value="Việt Nam"><br>
+  
+    <label>Mật khẩu:</label>
+    <input type="password" name="matkhau" required><br><br>
+  
+    <button type="submit">Đăng ký</button>
+  </form>
+  
+  <p>Đã có tài khoản? <a href="{{ url_for('auth.login') }}">Đăng nhập</a></p>
+</body>
+</html>

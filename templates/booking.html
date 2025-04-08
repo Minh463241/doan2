@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Đặt phòng</title>
+    <style>
+        label {
+            font-weight: bold;
+        }
+        .flashes li.success { color: green; }
+        .flashes li.error { color: red; }
+    </style>
+</head>
+<body>
+    <h2>Đặt phòng</h2>
+
+    <form method="POST">
+        <label>Khách hàng:</label>
+        <!-- Giả sử trong session user có thuộc tính TenKhachHang -->
+        <input type="text" name="name" value="{{ customer.TenKhachHang }}" readonly><br><br>
+
+        <label>Phòng:</label>
+        <select name="room_id" required>
+            {% if rooms %}
+                {% for room in rooms %}
+                    <option value="{{ room.maphong }}">
+                        {{ room.tenphong }} - {{ room.loaiphong }} - {{ "{:,.0f}".format(room.giaphong) }}₫
+                    </option>
+                {% endfor %}
+            {% else %}
+                <option disabled selected>Không có phòng trống</option>
+            {% endif %}
+        </select><br><br>
+
+        <label>Ngày nhận phòng:</label>
+        <input type="date" name="check_in" required><br><br>
+
+        <label>Ngày trả phòng:</label>
+        <input type="date" name="check_out" required><br><br>
+
+        <label>Số người:</label>
+        <input type="number" name="guests" required><br><br>
+
+        <label>Yêu cầu đặc biệt:</label><br>
+        <textarea name="special_request" rows="4" cols="40"></textarea><br><br>
+
+        <button type="submit">Đặt phòng</button>
+    </form>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <ul class="flashes">
+          {% for category, message in messages %}
+            <li class="{{ category }}">{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+</body>
+</html>

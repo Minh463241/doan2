@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Trang Dashboard Nhân Viên{% endblock %}
+
+{% block content %}
+<div class="container mx-auto p-6">
+    <h2 class="text-2xl font-bold mb-6">Dashboard Nhân Viên</h2>
+    <p class="mb-4">
+        Chào mừng bạn đến với Dashboard nhân viên. Tại đây, bạn chỉ có thể xem thông tin cá nhân và các công việc cơ bản.
+        Lưu ý: Bạn không có quyền truy cập các chức năng quản trị như thêm tài khoản hay thống kê doanh thu.
+    </p>
+    
+    <div class="bg-white shadow-md rounded-lg p-6">
+        <h3 class="text-xl font-semibold mb-4">Thông tin cá nhân</h3>
+        <p><strong>Tên:</strong> {{ session.get('user_name', 'Chưa xác định') }}</p>
+        <p><strong>Email:</strong> {{ session.get('user_email', 'Chưa xác định') }}</p>
+        <p><strong>Vai trò:</strong> {{ session.get('role', 'staff') }}</p>
+    </div>
+    
+    <!-- Bạn có thể bổ sung thêm các chức năng riêng cho nhân viên tại đây -->
+    <div class="mt-6 bg-white shadow-md rounded-lg p-6">
+        <h3 class="text-xl font-semibold mb-4">Công việc của bạn</h3>
+        <p>Hiện tại chưa có chức năng cụ thể. Vui lòng liên hệ quản trị viên để biết thêm thông tin.</p>
+    </div>
+</div>
+{% endblock %}

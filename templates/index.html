@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Trang chủ</title>
+</head>
+<body>
+    <h2>Chào mừng, {{ user.TenKhachHang if user else 'Khách' }}</h2>
+
+    {% if user %}
+        <a href="{{ url_for('booking.dat_phong') }}">Đặt phòng ngay</a>
+    {% else %}
+        <a href="{{ url_for('auth.login') }}">Đăng nhập để đặt phòng</a>
+    {% endif %}
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul class="flashes">
+                {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+</body>
+</html>

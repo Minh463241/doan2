@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block title %}Quản lý Tài khoản và Quyền{% endblock %}
+
+{% block content %}
+<div class="container mx-auto p-6">
+  <h2 class="text-2xl font-bold mb-6">Quản lý Tài khoản và Quyền</h2>
+  
+  <!-- Ô Tìm Kiếm Nhân Viên -->
+  <div class="mb-6">
+    <form method="GET" action="{{ url_for('account.admin_accounts') }}" class="flex">
+      <input type="text" name="q" placeholder="Tìm kiếm nhân viên theo tên" class="border rounded px-3 py-2 w-full" value="{{ search_query or '' }}">
+      <button type="submit" class="ml-2 bg-blue-600 text-white px-4 py-2 rounded">Tìm kiếm</button>
+    </form>
+  </div>
+  
+  <!-- Form Thêm Nhân Viên -->
+  <div class="mb-8 bg-white shadow-md rounded-lg p-6">
+    <h3 class="text-xl font-semibold mb-4">Thêm Nhân Viên</h3>
+    <form action="{{ url_for('account.admin_accounts') }}" method="POST" class="max-w-md">
+      <div class="mb-4">
+        <label for="HoTen" class="block text-gray-700">Họ và Tên</label>
+        <input type="text" name="HoTen" id="HoTen" class="w-full border px-3 py-2 rounded" placeholder="Nhập họ tên" required>
+      </div>
+      <div class="mb-4">
+        <label for="Email" class="block text-gray-700">Email</label>
+        <input type="email" name="Email" id="Email" class="w-full border px-3 py-2 rounded" placeholder="Nhập email" required>
+      </div>
+      <div class="mb-4">
+        <label for="password" class="block text-gray-700">Mật khẩu</label>
+        <input type="password" name="password" id="password" class="w-full border px-3 py-2 rounded" placeholder="Nhập mật khẩu" required>
+      </div>
+      <div class="mb-4">
+        <label for="role" class="block text-gray-700">Quyền</label>
+        <select name="role" id="role" class="w-full border px-3 py-2 rounded">
+          <option value="staff">Nhân viên</option>
+          <option value="admin">Quản lý</option>
+        </select>
+      </div>
+      <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">
+        Thêm nhân viên
+      </button>
+    </form>
+  </div>
+  
+  <!-- Danh Sách Nhân Viên -->
+  <div class="bg-white shadow-md rounded-lg p-6">
+    <h3 class="text-xl font-semibold mb-4">Danh sách nhân viên</h3>
+    <table class="min-w-full">
+      <thead class="bg-gray-800 text-white">
+        <tr>
+          <th class="w-1/6 py-3 px-4 uppercase font-semibold text-sm">ID</th>
+          <th class="w-1/4 py-3 px-4 uppercase font-semibold text-sm">Họ và Tên</th>
+          <th class="w-1/4 py-3 px-4 uppercase font-semibold text-sm">Email</th>
+          <th class="w-1/4 py-3 px-4 uppercase font-semibold text-sm">Quyền</th>
+          <th class="w-1/6 py-3 px-4 uppercase font-semibold text-sm">Hành động</th>
+        </tr>
+      </thead>
+      <tbody class="text-gray-700">
+        {% for staff in staff_list %}
+        <tr class="border-b">
+          <td class="w-1/6 py-3 px-4">{{ staff._id }}</td>
+          <td class="w-1/4 py-3 px-4">{{ staff.HoTen }}</td>
+          <td class="w-1/4 py-3 px-4">{{ staff.Email }}</td>
+          <td class="w-1/4 py-3 px-4">
+            <form action="{{ url_for('account.update_staff_role_route') }}" method="POST" class="flex items-center">
+              <input type="hidden" name="staff_id" value="{{ staff._id }}">
+              <select name="role" class="border rounded px-2 py-1">
+                <option value="admin" {% if staff.role == 'admin' %}selected{% endif %}>Quản lý</option>
+                <option value="staff" {% if staff.role == 'staff' %}selected{% endif %}>Nhân viên</option>
+              </select>
+              <button type="submit" class="ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded">
+                Cập nhật
+              </button>
+            </form>
+          </td>
+          <td class="w-1/6 py-3 px-4">
+            <a href="{{ url_for('account.edit_staff_route', staff_id=staff._id) }}" class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-1 px-3 rounded inline-block">Sửa</a>
+            <form action="{{ url_for('account.delete_staff_route', staff_id=staff._id) }}" method="POST" class="inline-block" onsubmit="return confirm('Bạn có chắc muốn xóa nhân viên này?');">
+              <button type="submit" class="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-3 rounded">Xóa</button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

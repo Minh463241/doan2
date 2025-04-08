@@ -1,0 +1,169 @@
+/* Reset và định dạng cơ bản */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body, html {
+  font-family: 'Roboto', sans-serif;
+  scroll-behavior: smooth;
+}
+
+/* Tối ưu hiển thị ảnh trên toàn trang */
+img {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
+
+/* Navigation */
+/* (Sử dụng Tailwind cho layout, chỉ bổ sung màu nền và bóng nếu cần) */
+.nav {
+  background-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.background-image { 
+  position: fixed; 
+  top: 0; 
+  left: 0; 
+  width: 100%; 
+  height: 100%; 
+  background: url('https://images.unsplash.com/photo-1501785888041-af3ef285b470') no-repeat center center; 
+  background-size: cover; 
+  filter: brightness(50%); 
+  z-index: -2;
+  will-change: transform;
+}
+
+/* Nếu cần custom thêm cho logo và menu (tuy nhiên, HTML sử dụng Tailwind) */
+.logo {
+  font-size: 28px;
+  font-weight: 700;
+  color: #333;
+  letter-spacing: 1px;
+}
+.menu li a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+.menu li a:hover {
+  color: #ffd700;
+}
+/* Tùy chỉnh cho dropdown nếu muốn */
+#userMenu {
+  transition: opacity 0.2s ease-in-out;
+}
+
+/* Hero Section */
+/* Định nghĩa các lớp slider, overlay và hero-content */
+.slider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+.slider .slide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+.slider .slide.active {
+  opacity: 1;
+}
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 2;
+  pointer-events: none;
+}
+.hero-content {
+  position: relative;
+  z-index: 3;
+  text-align: center;
+  color: #fff;
+  /* Có thể thêm padding nếu cần */
+}
+
+/* Search Form */
+/* Tinh chỉnh khung tìm kiếm bên trong hero */
+.search-form {
+  background: #fff;
+  border-radius: 8px;
+  padding: 30px;
+  max-width: 800px;
+  margin: auto;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Rooms Section */
+.rooms-section {
+  padding: 60px 20px;
+  background: #f9f9f9;
+}
+.rooms-section h2 {
+  text-align: center;
+  margin-bottom: 40px;
+  font-size: 32px;
+  color: #333;
+}
+.rooms-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;
+}
+.room-card {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  width: 300px;
+  transition: transform 0.3s;
+}
+.room-card:hover {
+  transform: translateY(-8px);
+}
+/* Sửa selector từ "image" thành "img" để áp dụng cho thẻ <img> */
+.room-card img {
+  width: 100%;
+  height: auto; /* Hoặc chiều cao cụ thể nếu cần */
+  display: block;
+}
+
+.room-info {
+  padding: 20px;
+}
+.room-info h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: #333;
+}
+.room-info p {
+  font-size: 16px;
+  margin-bottom: 10px;
+  color: #555;
+  line-height: 1.5;
+}
+.room-info span {
+  font-size: 16px;
+  font-weight: 500;
+  color: #ff6b6b;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .rooms-section {
+    padding: 40px 10px;
+  }
+  /* Nếu cần giảm kích thước text hoặc khoảng cách */
+}
