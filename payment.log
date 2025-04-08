@@ -580,3 +580,4 @@ TypeError: float() argument must be a string or a real number, not 'NoneType'
 2025-04-08 17:34:42,865 - INFO -  * Restarting with stat
 2025-04-08 17:34:43,588 - WARNING -  * Debugger is active!
 2025-04-08 17:34:43,605 - INFO -  * Debugger PIN: 716-329-026
+2025-04-08 17:36:29,473 - INFO - 127.0.0.1 - - [08/Apr/2025 17:36:29] "GET /auth/login HTTP/1.1" 200 -
