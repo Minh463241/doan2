@@ -41,13 +41,18 @@ def get_available_rooms():
         print(f"Lỗi khi lấy danh sách phòng: {e}")
         return []
 
+
 def get_booking_amount(booking_id):
     try:
         response = supabase.table("datphong").select("tongtien").eq("madatphong", booking_id).single().execute()
         print("Kết quả truy vấn Supabase:", response)
 
         if response.data and "tongtien" in response.data:
-            return float(response.data['tongtien'])
+            tongtien = response.data["tongtien"]
+            if tongtien is None:
+                print(f"[CẢNH BÁO] 'tongtien' của booking_id {booking_id} là NULL. Trả về 0.0")
+                return 0.0
+            return float(tongtien)
         else:
             raise ValueError(f"Không tìm thấy booking với ID: {booking_id}")
 
@@ -56,6 +61,9 @@ def get_booking_amount(booking_id):
         traceback.print_exc()
         print("Lỗi khi truy vấn Supabase:", e)
         raise
+
+
+
 
 # (Tùy chọn) Hàm hiển thị danh sách phòng trống dưới dạng HTML
 def hien_thi_danh_sach_phong_trong_html():
