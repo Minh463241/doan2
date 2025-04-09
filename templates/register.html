@@ -2,45 +2,247 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <title>Đăng ký</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng ký - KeiWei Hotel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', Arial, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f0f4ff 0%, #e6f0fa 100%) url('https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=2070&auto=format&fit=crop') no-repeat center center;
+            background-size: cover;
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Hình khối màu xanh trang trí */
+        body::before,
+        body::after {
+            content: '';
+            position: absolute;
+            background: linear-gradient(135deg, #007bff 0%, #00c6ff 100%);
+            border-radius: 50%;
+            z-index: 0;
+        }
+
+        body::before {
+            width: 400px;
+            height: 400px;
+            top: -200px;
+            left: -200px;
+        }
+
+        body::after {
+            width: 500px;
+            height: 500px;
+            bottom: -250px;
+            right: -250px;
+        }
+
+        .register-container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            animation: fadeIn 1s ease;
+        }
+
+        .register-container h2 {
+            font-size: 32px;
+            font-weight: 700;
+            color: #007bff;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .register-container h2::after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 4px;
+            background: #007bff;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .alert {
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .alert-error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        .register-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-group {
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 8px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
+        }
+
+        .submit-btn {
+            background: #007bff;
+            color: #fff;
+            padding: 15px;
+            border: none;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background: #0056b3;
+            transform: translateY(-3px);
+        }
+
+        .login-link {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .login-link a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .login-link a:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
 </head>
 <body>
-  <h2>Đăng ký tài khoản</h2>
-  <form method="POST">
-    <label>Họ tên:</label>
-    <input type="text" name="hoten" required><br>
-  
-    <label>Số điện thoại:</label>
-    <input type="text" name="sodienthoai" required><br>
-  
-    <label>Email:</label>
-    <input type="email" name="email"><br>
-  
-    <label>CCCD:</label>
-    <input type="text" name="cccd"><br>
-  
-    <label>Địa chỉ:</label>
-    <input type="text" name="diachi"><br>
-  
-    <label>Ngày sinh:</label>
-    <input type="date" name="ngaysinh"><br>
-  
-    <label>Giới tính:</label>
-    <select name="gioitinh">
-      <option value="Nam">Nam</option>
-      <option value="Nữ">Nữ</option>
-      <option value="Khác">Khác</option>
-    </select><br>
-  
-    <label>Quốc tịch:</label>
-    <input type="text" name="quoctich" value="Việt Nam"><br>
-  
-    <label>Mật khẩu:</label>
-    <input type="password" name="matkhau" required><br><br>
-  
-    <button type="submit">Đăng ký</button>
-  </form>
-  
-  <p>Đã có tài khoản? <a href="{{ url_for('auth.login') }}">Đăng nhập</a></p>
+    <div class="register-container">
+        <h2>Đăng ký tài khoản</h2>
+
+        <!-- Hiển thị thông báo -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ 'success' if category == 'success' else 'error' }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <!-- Form đăng ký -->
+        <form method="POST" action="{{ url_for('auth.register') }}" class="register-form">
+            <div class="form-group">
+                <label for="hoten">Họ và tên</label>
+                <input type="text" id="hoten" name="hoten" placeholder="Nhập họ và tên" required>
+            </div>
+            <div class="form-group">
+                <label for="sodienthoai">Số điện thoại</label>
+                <input type="tel" id="sodienthoai" name="sodienthoai" placeholder="Nhập số điện thoại" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Nhập email" required>
+            </div>
+            <div class="form-group">
+                <label for="cccd">CCCD</label>
+                <input type="text" id="cccd" name="cccd" placeholder="Nhập số CCCD">
+            </div>
+            <div class="form-group">
+                <label for="diachi">Địa chỉ</label>
+                <input type="text" id="diachi" name="diachi" placeholder="Nhập địa chỉ">
+            </div>
+            <div class="form-group">
+                <label for="ngaysinh">Ngày sinh</label>
+                <input type="date" id="ngaysinh" name="ngaysinh">
+            </div>
+            <div class="form-group">
+                <label for="gioitinh">Giới tính</label>
+                <select id="gioitinh" name="gioitinh">
+                    <option value="Nam">Nam</option>
+                    <option value="Nữ">Nữ</option>
+                    <option value="Khác">Khác</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="quoctich">Quốc tịch</label>
+                <input type="text" id="quoctich" name="quoctich" value="Việt Nam" placeholder="Nhập quốc tịch">
+            </div>
+            <div class="form-group">
+                <label for="matkhau">Mật khẩu</label>
+                <input type="password" id="matkhau" name="matkhau" placeholder="Nhập mật khẩu" required>
+            </div>
+            <button type="submit" class="submit-btn">Đăng ký</button>
+        </form>
+
+        <div class="login-link">
+            Đã có tài khoản? <a href="{{ url_for('auth.login') }}">Đăng nhập</a>
+        </div>
+    </div>
 </body>
 </html>
