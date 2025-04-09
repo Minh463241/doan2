@@ -466,11 +466,13 @@
             </nav>
             <div class="user-actions">
                 {% if user %}
-                    <a href="/profile">{{ user.hoten }}</a> | <a href="{{ url_for('auth.logout') }}">Đăng xuất</a>
+                    <a href="/booking/history">{{ user.hoten }}</a> | <a href="{{ url_for('auth.logout') }}">Đăng xuất</a>
                 {% else %}
                     <a href="{{ url_for('auth.login') }}">Đăng nhập</a> | <a href="{{ url_for('auth.register') }}">Đăng ký</a>
                 {% endif %}
             </div>
+            
+            
         </div>
     </header>
 

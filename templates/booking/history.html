@@ -95,59 +95,35 @@
 </head>
 <body>
     <div class="container">
-        <h2>Lịch sử đặt phòng</h2>
+        <h2>Lịch sử đặt phòng của bạn</h2>
 
-        <!-- Hiển thị thông báo -->
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                {% for category, message in messages %}
-                    <div class="alert alert-{{ category }}">{{ message }}</div>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
-
-        <!-- Danh sách đặt phòng -->
-        {% if bookings %}
+        {% if history %}
             <table>
                 <thead>
                     <tr>
                         <th>Mã đặt phòng</th>
-                        <th>Mã phòng</th>
-                        <th>Ngày đặt</th>
-                        <th>Ngày nhận phòng</th>
-                        <th>Ngày trả phòng</th>
+                        <th>Phòng</th>
+                        <th>Ngày nhận</th>
+                        <th>Ngày trả</th>
                         <th>Số người</th>
-                        <th>Tổng tiền</th>
-                        <th>Yêu cầu đặc biệt</th>
                         <th>Trạng thái</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for booking in bookings %}
-                        <tr>
-                            <td>{{ booking.madatphong }}</td>
-                            <td>{{ booking.maphong }}</td>
-                            <td>{{ booking.ngaydat }}</td>
-                            <td>{{ booking.ngaynhanphong }}</td>
-                            <td>{{ booking.ngaytraphong }}</td>
-                            <td>{{ booking.songuoi }}</td>
-                            <td>{{ "{:,.0f}".format(booking.tongtien) if booking.tongtien else 'Chưa thanh toán' }} VNĐ</td>
-                            <td>{{ booking.yeucaudacbiet or 'Không có' }}</td>
-                            <td class="status-{{ booking.trangthai | lower | replace(' ', '-') }}">
-                                {% if booking.trangthai == 'Chờ xác nhận' %}
-                                    Đang chờ xác nhận
-                                {% elif booking.trangthai == 'Đã xác nhận' %}
-                                    Đặt phòng thành công
-                                {% else %}
-                                    Đã bị hủy
-                                {% endif %}
-                            </td>
-                        </tr>
+                    {% for item in history %}
+                    <tr>
+                        <td>{{ item.madatphong }}</td>
+                        <td>{{ item.maphong }}</td>
+                        <td>{{ item.ngaynhanphong }}</td>
+                        <td>{{ item.ngaytraphong }}</td>
+                        <td>{{ item.songuoi }}</td>
+                        <td>{{ item.trangthai }}</td>
+                    </tr>
                     {% endfor %}
                 </tbody>
             </table>
         {% else %}
-            <p>Bạn chưa có đặt phòng nào.</p>
+            <p>Bạn chưa có lịch sử đặt phòng nào.</p>
         {% endif %}
     </div>
 </body>

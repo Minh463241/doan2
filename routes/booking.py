@@ -82,3 +82,22 @@ def dat_phong():
     # Nếu là GET, hiển thị form đặt phòng
     rooms = supabase.table('phong').select('*').eq('trangthai', 'available').execute().data
     return render_template('booking.html', rooms=rooms)
+
+@booking_bp.route('/history')
+def booking_history():
+    # Kiểm tra nếu người dùng chưa đăng nhập
+    if 'user' not in session:
+        return redirect(url_for('auth.login'))
+
+    # Lấy ID người dùng đang đăng nhập (đây là khóa chính `makhachhang`)
+    user_id = session['user']['id']  # hoặc session['user']['makhachhang']
+
+    # Truy vấn lịch sử đặt phòng chỉ của người dùng này
+    response = supabase.table('datphong')\
+        .select('*')\
+        .eq('makhachhang', user_id)\
+        .order('ngaydat', desc=True)\
+        .execute()
+
+    history = response.data
+    return render_template('booking/history.html', history=history)
