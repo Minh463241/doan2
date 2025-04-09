@@ -22,8 +22,14 @@ def get_user_by_phone(phone):
     return supabase.table("khachhang").select("*").eq("sodienthoai", phone).execute()
 
 def get_user_by_email(email):
-    res = supabase.table("khachhang").select("*").eq("email", email).single().execute()
-    return res.data
+    res = supabase.table("khachhang").select("*").eq("email", email).execute()
+    return res.data[0] if res.data else None
+
+def get_admin_by_email(email):
+    res = supabase.table("nhanvien").select("*").eq("email", email).execute()
+    return res.data[0] if res.data else None
+
+
 
 def get_customer_by_id(customer_id):
     return supabase.table("khachhang").select("*").eq("makhachhang", customer_id).single().execute()

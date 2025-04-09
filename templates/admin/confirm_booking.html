@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xác nhận đặt phòng - KeiWei Hotel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', Arial, sans-serif;
+        }
+
+        body {
+            background: #f5f7fa;
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            background: #fff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            font-size: 32px;
+            font-weight: 700;
+            color: #007bff;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .alert {
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .alert-error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background: #007bff;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        td {
+            color: #555;
+        }
+
+        .action-btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+
+        .confirm-btn {
+            background: #28a745;
+            color: #fff;
+        }
+
+        .confirm-btn:hover {
+            background: #218838;
+        }
+
+        .reject-btn {
+            background: #dc3545;
+            color: #fff;
+        }
+
+        .reject-btn:hover {
+            background: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Xác nhận đặt phòng</h2>
+
+        <!-- Hiển thị thông báo -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <!-- Danh sách đặt phòng -->
+        {% if bookings %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Mã đặt phòng</th>
+                        <th>Mã khách hàng</th>
+                        <th>Mã phòng</th>
+                        <th>Ngày đặt</th>
+                        <th>Ngày nhận phòng</th>
+                        <th>Ngày trả phòng</th>
+                        <th>Số người</th>
+                        <th>Tổng tiền</th>
+                        <th>Yêu cầu đặc biệt</th>
+                        <th>Thời gian check-in dự kiến</th>
+                        <th>Số khách đi cùng</th>
+                        <th>Ghi chú</th>
+                        <th>Hành động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for booking in bookings %}
+                        <tr>
+                            <td>{{ booking.madatphong }}</td>
+                            <td>{{ booking.makhachhang }}</td>
+                            <td>{{ booking.maphong }}</td>
+                            <td>{{ booking.ngaydat }}</td>
+                            <td>{{ booking.ngaynhanphong }}</td>
+                            <td>{{ booking.ngaytraphong }}</td>
+                            <td>{{ booking.songuoi }}</td>
+                            <td>{{ "{:,.0f}".format(booking.tongtien) if booking.tongtien else 'Chưa thanh toán' }} VNĐ</td>
+                            <td>{{ booking.yeucaudacbiet or 'Không có' }}</td>
+                            <td>{{ booking.thoigiancheckindukien or 'Không có' }}</td>
+                            <td>{{ booking.sokhachdicung or 'Không có' }}</td>
+                            <td>{{ booking.ghichudatphong or 'Không có' }}</td>
+                            <td>
+                                <form method="POST" style="display:inline;">
+                                    <input type="hidden" name="madatphong" value="{{ booking.madatphong }}">
+                                    <button type="submit" name="action" value="confirm" class="action-btn confirm-btn">Xác nhận</button>
+                                    <button type="submit" name="action" value="reject" class="action-btn reject-btn">Từ chối</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>Không có đặt phòng nào đang chờ xác nhận.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

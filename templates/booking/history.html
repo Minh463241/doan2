@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lịch sử đặt phòng - KeiWei Hotel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', Arial, sans-serif;
+        }
+
+        body {
+            background: #f5f7fa;
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            background: #fff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            font-size: 32px;
+            font-weight: 700;
+            color: #007bff;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .alert {
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .alert-error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background: #007bff;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        td {
+            color: #555;
+        }
+
+        .status-pending {
+            color: #ffc107;
+            font-weight: 600;
+        }
+
+        .status-confirmed {
+            color: #28a745;
+            font-weight: 600;
+        }
+
+        .status-rejected {
+            color: #dc3545;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Lịch sử đặt phòng</h2>
+
+        <!-- Hiển thị thông báo -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <!-- Danh sách đặt phòng -->
+        {% if bookings %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Mã đặt phòng</th>
+                        <th>Mã phòng</th>
+                        <th>Ngày đặt</th>
+                        <th>Ngày nhận phòng</th>
+                        <th>Ngày trả phòng</th>
+                        <th>Số người</th>
+                        <th>Tổng tiền</th>
+                        <th>Yêu cầu đặc biệt</th>
+                        <th>Trạng thái</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for booking in bookings %}
+                        <tr>
+                            <td>{{ booking.madatphong }}</td>
+                            <td>{{ booking.maphong }}</td>
+                            <td>{{ booking.ngaydat }}</td>
+                            <td>{{ booking.ngaynhanphong }}</td>
+                            <td>{{ booking.ngaytraphong }}</td>
+                            <td>{{ booking.songuoi }}</td>
+                            <td>{{ "{:,.0f}".format(booking.tongtien) if booking.tongtien else 'Chưa thanh toán' }} VNĐ</td>
+                            <td>{{ booking.yeucaudacbiet or 'Không có' }}</td>
+                            <td class="status-{{ booking.trangthai | lower | replace(' ', '-') }}">
+                                {% if booking.trangthai == 'Chờ xác nhận' %}
+                                    Đang chờ xác nhận
+                                {% elif booking.trangthai == 'Đã xác nhận' %}
+                                    Đặt phòng thành công
+                                {% else %}
+                                    Đã bị hủy
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>Bạn chưa có đặt phòng nào.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

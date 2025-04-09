@@ -13,11 +13,8 @@ def login():
             flash(f"Thiếu trường {e.args[0]} trong form.", "danger")
             return render_template('login.html')
 
-        # Lấy thông tin người dùng theo email
         user = get_user_by_email(email)
-
         if user and user['matkhau'] == password:
-            # Gán session đăng nhập
             session['user'] = {
                 "id": user['makhachhang'],
                 "hoten": user['hoten'],
@@ -27,14 +24,16 @@ def login():
             return redirect(url_for('index'))
         else:
             flash('Email hoặc mật khẩu không đúng.', 'danger')
-    
+
     return render_template('login.html')
+
 
 @auth.route('/logout')
 def logout():
     session.pop('user', None)
     flash("Đã đăng xuất.", "success")
     return redirect(url_for('auth.login'))
+
 
 @auth.route('/register', methods=['GET', 'POST'])
 def register():
@@ -65,4 +64,4 @@ def register():
         else:
             flash("Đăng ký thất bại.", "danger")
 
-    return render_template('register.html') 
+    return render_template('register.html')

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Đăng nhập Admin</title>
+</head>
+<body>
+    <h2>Đăng nhập Quản trị viên</h2>
+    <form method="post">
+        <label>Email:</label><br>
+        <input type="email" name="email" required><br><br>
+        <label>Mật khẩu:</label><br>
+        <input type="password" name="password" required><br><br>
+        <button type="submit">Đăng nhập</button>
+    </form>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <p style="color: red;">{{ message }}</p>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+</body>
+</html>
