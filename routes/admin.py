@@ -21,7 +21,7 @@ def admin_login():
                 # Lấy quyền từ trường 'chucvu' và chuyển về dạng lowercase
                 role = admin.get("chucvu", "").lower()
                 # Lưu thông tin người dùng vào session
-                session['user'] = {'email': admin['email'], 'role': role}
+                session['user'] = {'email': admin['email'], 'role': role, 'hoten': admin['hoten']}
                 flash('Đăng nhập thành công!', 'success')
                 # Điều hướng theo role:
                 if role == 'admin':
