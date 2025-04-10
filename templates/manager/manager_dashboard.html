@@ -18,50 +18,105 @@
             background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
             min-height: 100vh;
             color: #333;
-            padding: 20px;
             overflow-x: hidden;
         }
 
-        /* Top Bar */
-        .top-bar {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 15px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
-            margin-bottom: 20px;
-            animation: slideDown 0.5s ease;
-        }
-
-        .top-bar .user-info {
-            font-weight: 600;
-            color: #2c3e50;
-        }
-
-        .top-bar .user-info i {
-            margin-right: 8px;
-            color: #3498db;
-        }
-
-        .top-bar .logout {
-            background: #e74c3c;
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 250px;
+            height: 100%;
+            background: #2c3e50;
             color: white;
-            padding: 8px 16px;
+            transition: all 0.3s ease;
+            padding: 20px;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .sidebar.collapsed {
+            width: 70px;
+            padding: 20px 10px;
+        }
+
+        .sidebar .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: opacity 0.3s ease;
+        }
+
+        .sidebar.collapsed .logo span {
+            opacity: 0;
+            width: 0;
+        }
+
+        .sidebar ul {
+            list-style: none;
+        }
+
+        .sidebar ul li {
+            margin: 20px 0;
+        }
+
+        .sidebar ul li a {
+            color: #ecf0f1;
             text-decoration: none;
-            border-radius: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            border-radius: 8px;
             transition: all 0.3s ease;
         }
 
-        .top-bar .logout:hover {
-            background: #c0392b;
-            transform: scale(1.05);
+        .sidebar ul li a:hover {
+            background: #3498db;
+            transform: translateX(5px);
         }
 
-        /* Container */
+        .sidebar.collapsed ul li a span {
+            display: none;
+        }
+
+        .toggle-btn {
+            position: absolute;
+            top: 20px;
+            right: -15px;
+            width: 30px;
+            height: 30px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar.collapsed .toggle-btn {
+            transform: rotate(180deg);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .main-content.collapsed {
+            margin-left: 70px;
+        }
+
         .container {
-            max-width: 1300px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
             background: rgba(255, 255, 255, 0.98);
@@ -103,11 +158,30 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
             transition: all 0.3s ease;
             border-left: 4px solid #3498db;
+            position: relative;
+            overflow: hidden;
         }
 
         .stat-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: rgba(52, 152, 219, 0.1);
+            transform: rotate(45deg);
+            transition: all 0.5s ease;
+        }
+
+        .stat-card:hover::before {
+            top: -20%;
+            left: -20%;
         }
 
         .stat-card i {
@@ -138,7 +212,7 @@
 
         .btn:hover {
             background: #2980b9;
-            transform: translateY(-2px);
+            transform: scale(1.05);
             box-shadow: 0 5px 15px rgba(52, 152, 219, 0.5);
         }
 
@@ -205,124 +279,143 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes slideIn {
+            from { transform: translateX(-100%); }
+            to { transform: translateX(0); }
         }
     </style>
 </head>
 <body>
-    <!-- Top Bar -->
-    <div class="top-bar">
-        <div class="user-info">
-            <i class="fas fa-user-circle"></i> Xin chào, {{ user.hoten }}
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="logo">
+            <i class="fas fa-tachometer-alt"></i>
+            <span>Dashboard</span>
         </div>
-        <a href="{{ url_for('admin.admin_logout') }}" class="logout"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a>
+        <ul>
+            <li><a href="#overview"><i class="fas fa-home"></i> <span>Tổng quan</span></a></li>
+            <li><a href="#rooms"><i class="fas fa-bed"></i> <span>Quản lý phòng</span></a></li>
+            <li><a href="#employees"><i class="fas fa-user-tie"></i> <span>Quản lý nhân viên</span></a></li>
+            <li><a href="#invoices"><i class="fas fa-file-invoice"></i> <span>Lịch sử hóa đơn</span></a></li>
+            <li><a href="{{ url_for('admin.admin_logout') }}"><i class="fas fa-sign-out-alt"></i> <span>Đăng xuất</span></a></li>
+        </ul>
+        <button class="toggle-btn" onclick="toggleSidebar()"><i class="fas fa-arrow-left"></i></button>
     </div>
 
     <!-- Main Content -->
-    <div class="container">
-        <h1><i class="fas fa-tachometer-alt"></i> Thống Kê Tổng Quan</h1>
-        <div class="stats">
-            <div class="stat-card">
-                <i class="fas fa-users"></i>
-                Tổng số nhân viên: <strong>{{ total_employees }}</strong>
+    <div class="main-content" id="main-content">
+        <div class="container">
+            <h1 id="overview"><i class="fas fa-tachometer-alt"></i> Thống Kê Tổng Quan</h1>
+            <div class="stats">
+                <div class="stat-card">
+                    <i class="fas fa-users"></i>
+                    Tổng số nhân viên: <strong>{{ total_employees }}</strong>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-book"></i>
+                    Tổng lượt đặt phòng: <strong>{{ total_bookings }}</strong>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-wallet"></i>
+                    Tổng doanh thu: <strong>{{ total_revenue }} VND</strong>
+                </div>
             </div>
-            <div class="stat-card">
-                <i class="fas fa-book"></i>
-                Tổng lượt đặt phòng: <strong>{{ total_bookings }}</strong>
-            </div>
-            <div class="stat-card">
-                <i class="fas fa-wallet"></i>
-                Tổng doanh thu: <strong>{{ total_revenue }} VND</strong>
-            </div>
+
+            <!-- Quản lý phòng -->
+            <h2 id="rooms"><i class="fas fa-bed"></i> Quản Lý Phòng</h2>
+            <a href="/manager/rooms/add" class="btn"><i class="fas fa-plus"></i> Thêm phòng mới</a>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Mã phòng</th>
+                        <th>Loại</th>
+                        <th>Giá</th>
+                        <th>Trạng thái</th>
+                        <th>Hành động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for room in rooms %}
+                    <tr>
+                        <td>{{ room.maphong }}</td>
+                        <td>{{ room.loaiphong }}</td>
+                        <td>{{ room.giaphong }} VND</td>
+                        <td>{{ room.trangthai }}</td>
+                        <td class="action-links">
+                            <a href="/manager/rooms/edit/{{ room.maphong }}"><i class="fas fa-edit"></i> Sửa</a>
+                            <a href="/manager/rooms/delete/{{ room.maphong }}" class="delete" onclick="return confirm('Xóa phòng này?')"><i class="fas fa-trash"></i> Xóa</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <!-- Quản lý nhân viên -->
+            <h2 id="employees"><i class="fas fa-user-tie"></i> Quản Lý Nhân Viên</h2>
+            <a href="/manager/employees/add" class="btn"><i class="fas fa-plus"></i> Thêm nhân viên</a>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Mã NV</th>
+                        <th>Họ tên</th>
+                        <th>Chức vụ</th>
+                        <th>Email</th>
+                        <th>Hành động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for nv in employees %}
+                    <tr>
+                        <td>{{ nv.manv }}</td>
+                        <td>{{ nv.hoten }}</td>
+                        <td>{{ nv.chucvu }}</td>
+                        <td>{{ nv.email }}</td>
+                        <td class="action-links">
+                            <a href="/manager/employees/detail/{{ nv.manv }}"><i class="fas fa-eye"></i> Xem</a>
+                            <a href="/manager/employees/edit/{{ nv.manv }}"><i class="fas fa-edit"></i> Sửa</a>
+                            <a href="/manager/employees/delete/{{ nv.manv }}" class="delete" onclick="return confirm('Xóa nhân viên này?')"><i class="fas fa-trash"></i> Xóa</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <!-- Hóa đơn -->
+            <h2 id="invoices"><i class="fas fa-file-invoice"></i> Lịch Sử Hóa Đơn</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Mã hóa đơn</th>
+                        <th>Tên khách hàng</th>
+                        <th>Ngày lập</th>
+                        <th>Số tiền</th>
+                        <th>Phương thức</th>
+                        <th>Mã giao dịch PayPal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for hd in hoadon_list %}
+                    <tr>
+                        <td>{{ hd.mahoadon }}</td>
+                        <td>{{ hd.tenkhachhang }}</td>
+                        <td>{{ hd.ngaylap }}</td>
+                        <td>{{ hd.tongtien }} VND</td>
+                        <td>{{ hd.phuongthucthanhtoan }}</td>
+                        <td>{{ hd.magiaodichpaypal or '---' }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
-
-        <!-- Quản lý phòng -->
-        <h2><i class="fas fa-bed"></i> Quản Lý Phòng</h2>
-        <a href="/manager/rooms/add" class="btn"><i class="fas fa-plus"></i> Thêm phòng mới</a>
-        <table>
-            <thead>
-                <tr>
-                    <th>Mã phòng</th>
-                    <th>Loại</th>
-                    <th>Giá</th>
-                    <th>Trạng thái</th>
-                    <th>Hành động</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for room in rooms %}
-                <tr>
-                    <td>{{ room.maphong }}</td>
-                    <td>{{ room.loaiphong }}</td>
-                    <td>{{ room.giaphong }} VND</td>
-                    <td>{{ room.trangthai }}</td>
-                    <td class="action-links">
-                        <a href="/manager/rooms/edit/{{ room.maphong }}"><i class="fas fa-edit"></i> Sửa</a>
-                        <a href="/manager/rooms/delete/{{ room.maphong }}" class="delete" onclick="return confirm('Xóa phòng này?')"><i class="fas fa-trash"></i> Xóa</a>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-
-        <!-- Quản lý nhân viên -->
-        <h2><i class="fas fa-user-tie"></i> Quản Lý Nhân Viên</h2>
-        <a href="/manager/employees/add" class="btn"><i class="fas fa-plus"></i> Thêm nhân viên</a>
-        <table>
-            <thead>
-                <tr>
-                    <th>Mã NV</th>
-                    <th>Họ tên</th>
-                    <th>Chức vụ</th>
-                    <th>Email</th>
-                    <th>Hành động</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for nv in employees %}
-                <tr>
-                    <td>{{ nv.manv }}</td>
-                    <td>{{ nv.hoten }}</td>
-                    <td>{{ nv.chucvu }}</td>
-                    <td>{{ nv.email }}</td>
-                    <td class="action-links">
-                        <a href="/manager/employees/detail/{{ nv.manv }}"><i class="fas fa-eye"></i> Xem</a>
-                        <a href="/manager/employees/edit/{{ nv.manv }}"><i class="fas fa-edit"></i> Sửa</a>
-                        <a href="/manager/employees/delete/{{ nv.manv }}" class="delete" onclick="return confirm('Xóa nhân viên này?')"><i class="fas fa-trash"></i> Xóa</a>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-
-        <!-- Hóa đơn -->
-        <h2><i class="fas fa-file-invoice"></i> Lịch Sử Hóa Đơn</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Mã hóa đơn</th>
-                    <th>Tên khách hàng</th>
-                    <th>Ngày lập</th>
-                    <th>Số tiền</th>
-                    <th>Phương thức</th>
-                    <th>Mã giao dịch PayPal</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for hd in hoadon_list %}
-                <tr>
-                    <td>{{ hd.mahoadon }}</td>
-                    <td>{{ hd.tenkhachhang }}</td>
-                    <td>{{ hd.ngaylap }}</td>
-                    <td>{{ hd.tongtien }} VND</td>
-                    <td>{{ hd.phuongthucthanhtoan }}</td>
-                    <td>{{ hd.magiaodichpaypal or '---' }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
     </div>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.getElementById('main-content');
+            sidebar.classList.toggle('collapsed');
+            mainContent.classList.toggle('collapsed');
+        }
+    </script>
 </body>
 </html>
