@@ -1,0 +1,25 @@
+{% extends 'base_dashboard.html' %}
+
+{% block title %}Cập nhật nhân viên{% endblock %}
+{% block header %}Cập nhật thông tin nhân viên {{ manv }}{% endblock %}
+
+{% block content %}
+<form method="POST">
+    <label>Họ tên:</label>
+    <input type="text" name="hoten"><br>
+
+    <label>Email:</label>
+    <input type="email" name="email"><br>
+
+    <label>Số điện thoại:</label>
+    <input type="text" name="sodienthoai"><br>
+
+    <label>Mật khẩu:</label>
+    <input type="password" name="matkhau"><br>
+
+    <label>Chức vụ:</label>
+    <input type="text" name="chucvu"><br>
+
+    <button type="submit">Cập nhật</button>
+</form>
+{% endblock %}

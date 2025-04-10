@@ -27,37 +27,32 @@ def dat_phong():
         sokhachdicung = request.form.get('sokhachdicung', '')
         ghichudatphong = request.form.get('ghichudatphong', '')
 
-        # Chuyển đổi ngày thành định dạng datetime
         ngaynhanphong = datetime.strptime(ngaynhanphong, '%Y-%m-%d').date()
         ngaytraphong = datetime.strptime(ngaytraphong, '%Y-%m-%d').date()
         ngaydat = datetime.now().date()
         thoigiandat = datetime.now().isoformat()
 
-        # Kiểm tra ngày hợp lệ
         if ngaynhanphong >= ngaytraphong:
             flash('Ngày nhận phòng phải trước ngày trả phòng!', 'error')
             return redirect(url_for('booking.dat_phong'))
 
-        # Kiểm tra phòng có trống không
         room = supabase.table('phong').select('trangthai, succhua').eq('maphong', maphong).execute()
-        if not room.data or room.data[0]['trangthai'] != 'available':
+        if not room.data or room.data[0]['trangthai'] != 'Trống':
             flash('Phòng đã được đặt hoặc không tồn tại!', 'error')
             return redirect(url_for('booking.dat_phong'))
 
-        # Kiểm tra số người có vượt quá sức chứa không
         if songuoi > room.data[0]['succhua']:
             flash(f'Phòng chỉ chứa tối đa {room.data[0]["succhua"]} người!', 'error')
             return redirect(url_for('booking.dat_phong'))
 
-        # Lưu thông tin đặt phòng với trạng thái 'Chờ xác nhận'
-        booking_data = {
+        # Lưu thông tin vào session tạm thời để dùng sau khi thanh toán
+        session['datphong'] = {
             'makhachhang': session['user']['id'],
             'maphong': maphong,
             'ngaydat': ngaydat.isoformat(),
             'ngaynhanphong': ngaynhanphong.isoformat(),
             'ngaytraphong': ngaytraphong.isoformat(),
             'songuoi': songuoi,
-            'trangthai': 'Chờ xác nhận',
             'tongtien': tongtien,
             'yeucaudacbiet': yeucaudacbiet,
             'thoigiancheckindukien': thoigiancheckindukien,
@@ -66,22 +61,14 @@ def dat_phong():
             'thoigiandat': thoigiandat
         }
 
-        try:
-            # Lưu đặt phòng
-            supabase.table('datphong').insert(booking_data).execute()
+        # Chuyển hướng sang PayPal
+        return redirect(url_for('payment.pay'))
 
-            # Cập nhật trạng thái phòng thành 'booked' (tạm thời, chờ xác nhận)
-            supabase.table('phong').update({'trangthai': 'booked'}).eq('maphong', maphong).execute()
-
-            flash('Đặt phòng của bạn đã được ghi nhận, đang chờ xác nhận từ nhân viên!', 'success')
-            return redirect(url_for('index'))
-        except Exception as e:
-            flash(f'Có lỗi xảy ra: {str(e)}', 'error')
-            return redirect(url_for('booking.dat_phong'))
-
-    # Nếu là GET, hiển thị form đặt phòng
-    rooms = supabase.table('phong').select('*').eq('trangthai', 'available').execute().data
+    # Nếu là GET, lấy danh sách phòng trống để hiển thị
+    rooms_response = supabase.table('phong').select('*').eq('trangthai', 'Trống').execute()
+    rooms = rooms_response.data
     return render_template('booking.html', rooms=rooms)
+
 
 @booking_bp.route('/history')
 def booking_history():

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Dashboard{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>{% block header %}Quản lý hệ thống{% endblock %}</h1>
+        <nav>
+            <a href="{{ url_for('auth.profile') }}">Hồ sơ</a>
+            <a href="{{ url_for('auth.logout') }}">Đăng xuất</a>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

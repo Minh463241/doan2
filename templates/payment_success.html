@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Thanh toán thành công</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f8f8f8;
+            padding: 50px;
+            color: #333;
+        }
+        .success-container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .success-container h2 {
+            color: green;
+        }
+        .info {
+            margin-top: 20px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="success-container">
+        <h2>🎉 Thanh toán thành công!</h2>
+        <p>Cảm ơn bạn đã sử dụng dịch vụ của chúng tôi.</p>
+
+        <div class="info">
+            <p><strong>Mã đơn hàng:</strong> {{ info.ma_don }}</p>
+            <p><strong>Người thanh toán:</strong> {{ info.ten_nguoi_mua }}</p>
+            <p><strong>Email:</strong> {{ info.email }}</p>
+            <p><strong>Số tiền:</strong> {{ info.so_tien }} {{ info.don_vi_tien }}</p>
+        </div>
+        
+        <a href="/" style="margin-top: 20px; display: inline-block;">Quay về trang chủ</a>
+    </div>
+</body>
+</html>

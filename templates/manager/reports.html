@@ -1,0 +1,12 @@
+{% extends 'base_dashboard.html' %}
+
+{% block title %}Báo cáo{% endblock %}
+{% block header %}Thống kê hệ thống{% endblock %}
+
+{% block content %}
+<ul>
+    <li>Tổng số nhân viên: {{ total_employees }}</li>
+    <li>Tổng số lượt đặt phòng: {{ total_bookings }}</li>
+    <li>Tổng doanh thu: {{ total_revenue }} VND</li>
+</ul>
+{% endblock %}

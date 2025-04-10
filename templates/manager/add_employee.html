@@ -1,0 +1,25 @@
+{% extends 'base_dashboard.html' %}
+
+{% block title %}Thêm nhân viên{% endblock %}
+{% block header %}Thêm nhân viên mới{% endblock %}
+
+{% block content %}
+<form method="POST">
+    <label>Họ tên:</label>
+    <input type="text" name="hoten" required><br>
+
+    <label>Email:</label>
+    <input type="email" name="email" required><br>
+
+    <label>Số điện thoại:</label>
+    <input type="text" name="sodienthoai" required><br>
+
+    <label>Mật khẩu:</label>
+    <input type="password" name="matkhau" required><br>
+
+    <label>Chức vụ:</label>
+    <input type="text" name="chucvu" required><br>
+
+    <button type="submit">Thêm</button>
+</form>
+{% endblock %}

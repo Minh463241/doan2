@@ -1,24 +1,80 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đăng nhập Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
+        }
+        .input-icon {
+            transition: all 0.3s ease;
+        }
+        .input-icon:focus-within i {
+            color: #8B5CF6;
+        }
+    </style>
 </head>
-<body>
-    <h2>Đăng nhập Quản trị viên</h2>
-    <form method="post">
-        <label>Email:</label><br>
-        <input type="email" name="email" required><br><br>
-        <label>Mật khẩu:</label><br>
-        <input type="password" name="password" required><br><br>
-        <button type="submit">Đăng nhập</button>
-    </form>
-    {% with messages = get_flashed_messages(with_categories=true) %}
-      {% if messages %}
-        {% for category, message in messages %}
-          <p style="color: red;">{{ message }}</p>
-        {% endfor %}
-      {% endif %}
-    {% endwith %}
+<body class="bg-gray-100 flex items-center justify-center min-h-screen px-4">
+    <div class="bg-white shadow-xl rounded-xl flex flex-col md:flex-row w-full max-w-4xl overflow-hidden">
+        <!-- Phần hình ảnh -->
+        <div class="flex-1 gradient-bg p-8 flex items-center justify-center">
+            <img src="https://storage.googleapis.com/a1aa/image/kdaDLnv0V1qtvw58b9Aby8_fFACC-JN7WhKWn19ZjKE.jpg" 
+                 alt="Hình minh họa đăng nhập admin" 
+                 class="w-full max-w-md object-cover transform hover:scale-105 transition duration-300"/>
+        </div>
+        
+        <!-- Phần form -->
+        <div class="flex-1 p-8">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-gray-800">Đăng nhập Admin</h2>
+                <p class="text-sm text-gray-500 mt-1">Vui lòng nhập thông tin để truy cập</p>
+            </div>
+            
+            {% if error %}
+            <div class="mb-6 p-4 bg-red-50 text-red-700 rounded-lg border border-red-200">
+                {{ error }}
+            </div>
+            {% endif %}
+            
+            <form action="{{ url_for('admin.admin_login') }}" method="POST">
+                <div class="mb-5">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                    <div class="relative input-icon">
+                        <input name="email" type="email" required
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                               placeholder="email@domain.com"/>
+                        <div class="absolute inset-y-0 right-0 flex items-center pr-3">
+                            <i class="fas fa-user text-gray-400"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Mật khẩu</label>
+                    <div class="relative input-icon">
+                        <input name="password" type="password" required
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                               placeholder="********"/>
+                        <div class="absolute inset-y-0 right-0 flex items-center pr-3">
+                            <i class="fas fa-lock text-gray-400"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <button type="submit"
+                        class="w-full py-3 bg-purple-600 text-white rounded-lg font-semibold hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition duration-200">
+                    ĐĂNG NHẬP
+                </button>
+            </form>
+            
+            <div class="mt-4 text-center">
+                <a href="#" class="text-sm text-purple-600 hover:underline">Quên mật khẩu?</a>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

@@ -18,48 +18,42 @@ def admin_login():
         if admin:
             # So sánh trực tiếp với mật khẩu lưu trong CSDL (không mã hóa)
             if admin.get("matkhau") == password:
-                session['admin'] = {'email': admin['email']}
-                flash('Đăng nhập admin thành công!', 'success')
-                return redirect(url_for('admin.confirm_booking'))
-
-        flash('Email hoặc mật khẩu không đúng!', 'error')
+                # Lấy quyền từ trường 'chucvu' và chuyển về dạng lowercase
+                role = admin.get("chucvu", "").lower()
+                # Lưu thông tin người dùng vào session
+                session['user'] = {'email': admin['email'], 'role': role}
+                flash('Đăng nhập thành công!', 'success')
+                # Điều hướng theo role:
+                if role == 'admin':
+                    return redirect(url_for('admin.dashboard'))
+                elif role == 'manager':
+                    return redirect(url_for('manager.dashboard'))
+                elif role == 'nhanvien':
+                    # Nếu là nhân viên thì chuyển tới chức năng confirm_booking
+                    return redirect(url_for('employee.confirm_booking'))
+                else:
+                    flash('Quyền của bạn không được hỗ trợ!', 'error')
+                    return redirect(url_for('admin.admin_login'))
+            else:
+                flash('Mật khẩu không đúng!', 'error')
+        else:
+            flash('Email không tồn tại!', 'error')
 
     return render_template('admin/admin_login.html')
 
 
 @admin_bp.route('/logout')
 def admin_logout():
-    session.pop('admin', None)
-    flash('Đã đăng xuất khỏi admin!', 'success')
+    session.pop('user', None)
+    flash('Đã đăng xuất!', 'success')
     return redirect(url_for('admin.admin_login'))
 
 
-@admin_bp.route('/confirm-booking', methods=['GET', 'POST'])
-def confirm_booking():
-    if 'admin' not in session:
-        flash('Bạn không có quyền truy cập!', 'error')
+# Trang dashboard dành cho admin
+@admin_bp.route('/dashboard')
+def dashboard():
+    user = session.get('user')
+    if not user or user.get('role') != 'admin':
+        flash('Bạn không có quyền truy cập trang này!', 'error')
         return redirect(url_for('admin.admin_login'))
-
-    if request.method == 'POST':
-        madatphong = int(request.form.get('madatphong'))
-        action = request.form.get('action')
-
-        booking = supabase.table('datphong').select('maphong, trangthai').eq('madatphong', madatphong).execute()
-        if not booking.data:
-            flash('Đặt phòng không tồn tại!', 'error')
-            return redirect(url_for('admin.confirm_booking'))
-
-        maphong = booking.data[0]['maphong']
-
-        if action == 'confirm':
-            supabase.table('datphong').update({'trangthai': 'Đã xác nhận'}).eq('madatphong', madatphong).execute()
-            flash(f'Đã xác nhận đặt phòng #{madatphong}!', 'success')
-        elif action == 'reject':
-            supabase.table('datphong').update({'trangthai': 'Đã hủy'}).eq('madatphong', madatphong).execute()
-            supabase.table('phong').update({'trangthai': 'available'}).eq('maphong', maphong).execute()
-            flash(f'Đã từ chối đặt phòng #{madatphong}!', 'success')
-
-        return redirect(url_for('admin.confirm_booking'))
-
-    bookings = supabase.table('datphong').select('*').eq('trangthai', 'Chờ xác nhận').execute().data
-    return render_template('admin/confirm_booking.html', bookings=bookings)
+    return render_template('admin/admin_dashboard.html')

@@ -1,0 +1,17 @@
+{% extends 'base_dashboard.html' %}
+
+{% block title %}Dashboard Quản lý{% endblock %}
+
+{% block header %}Chào mừng Quản lý!{% endblock %}
+
+{% block content %}
+<div class="dashboard-actions">
+    <ul>
+        <li><a href="{{ url_for('manager.reports') }}">📊 Xem thống kê báo cáo</a></li>
+        <li><a href="{{ url_for('manager.add_employee_view') }}">➕ Thêm nhân viên</a></li>
+        <li><a href="{{ url_for('manager.manage_employees') }}">✏️ Cập nhật thông tin nhân viên</a></li>
+        <li><a href="{{ url_for('manager.manage_employees') }}">👥 Quản lý nhân viên</a></li>
+        <li><a href="{{ url_for('admin.admin_logout') }}">🔓 Đăng xuất</a></li>
+    </ul>
+</div>
+{% endblock %}

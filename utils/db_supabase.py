@@ -21,6 +21,10 @@ def insert_user(data):
 def get_user_by_phone(phone):
     return supabase.table("khachhang").select("*").eq("sodienthoai", phone).execute()
 
+# ----------- NHÂN VIÊN (nhanvien) -----------
+def get_all_employees():
+    return supabase.table("nhanvien").select("*").execute()
+
 def get_user_by_email(email):
     res = supabase.table("khachhang").select("*").eq("email", email).execute()
     return res.data[0] if res.data else None
@@ -67,7 +71,38 @@ def get_booking_amount(booking_id):
         traceback.print_exc()
         print("Lỗi khi truy vấn Supabase:", e)
         raise
+#mângermânger
+def get_total_employees():
+    return supabase.table("nhanvien").select("id").execute()
 
+def get_total_bookings():
+    return supabase.table("datphong").select("id").execute()
+
+def get_total_revenue():
+    res = supabase.table("hoadon").select("tongtien").eq("trangthai", "đã thanh toán").execute()
+    return sum([float(item["tongtien"]) for item in res.data if item["tongtien"]])
+# Thêm nhân viên mới
+def add_employee(data):
+    return supabase.table("nhanvien").insert(data).execute()
+
+# Cập nhật thông tin nhân viên
+def update_employee(ma_nv, data):
+    return supabase.table("nhanvien").update(data).eq("manv", ma_nv).execute()
+
+# Lấy tổng số nhân viên
+def get_total_employees():
+    return supabase.table("nhanvien").select("*").execute()
+
+# Lấy tổng số lượt đặt phòng
+def get_total_bookings():
+    return supabase.table("datphong").select("*").execute()
+
+# Tính tổng doanh thu từ hóa đơn đã thanh toán
+def get_total_revenue():
+    res = supabase.table("hoadon").select("tongtien").eq("trangthai", "đã thanh toán").execute()
+    if not res.data:
+        return 0.0
+    return sum(hoa_don.get("tongtien", 0) for hoa_don in res.data)
 
 
 

@@ -65,3 +65,11 @@ def register():
             flash("Đăng ký thất bại.", "danger")
 
     return render_template('register.html')
+
+@auth.route('/profile')
+def profile():
+    user = session.get('user')
+    if not user:
+        flash('Bạn chưa đăng nhập!', 'error')
+        return redirect(url_for('auth.login'))
+    return render_template('profile.html', user=user)

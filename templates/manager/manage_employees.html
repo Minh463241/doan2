@@ -1,0 +1,27 @@
+{% extends 'base_dashboard.html' %}
+
+{% block title %}Quản lý nhân viên{% endblock %}
+{% block header %}Danh sách nhân viên{% endblock %}
+
+{% block content %}
+<table border="1">
+    <tr>
+        <th>Mã NV</th>
+        <th>Họ tên</th>
+        <th>Email</th>
+        <th>Chức vụ</th>
+        <th>Hành động</th>
+    </tr>
+    {% for emp in employees %}
+    <tr>
+        <td>{{ emp.manv }}</td>
+        <td>{{ emp.hoten }}</td>
+        <td>{{ emp.email }}</td>
+        <td>{{ emp.chucvu }}</td>
+        <td>
+            <a href="{{ url_for('manager.update_employee_view', manv=emp.manv) }}">Sửa</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
