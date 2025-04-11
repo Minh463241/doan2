@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sửa Phòng</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <div class="main-content">
+        <div class="container">
+            <h1><i class="fas fa-edit"></i> Sửa Phòng</h1>
+            <form method="POST">
+                <div class="form-group">
+                    <label for="maphong">Mã phòng:</label>
+                    <input type="text" id="maphong" name="maphong" value="{{ room.maphong }}" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="loaiphong">Loại phòng:</label>
+                    <input type="text" id="loaiphong" name="loaiphong" value="{{ room.loaiphong }}" required>
+                </div>
+                <div class="form-group">
+                    <label for="giaphong">Giá phòng (VND):</label>
+                    <input type="number" id="giaphong" name="giaphong" value="{{ room.giaphong }}" required>
+                </div>
+                <div class="form-group">
+                    <label for="trangthai">Trạng thái:</label>
+                    <select id="trangthai" name="trangthai">
+                        <option value="Trống" {% if room.trangthai == 'Trống' %}selected{% endif %}>Trống</option>
+                        <option value="Đã đặt" {% if room.trangthai == 'Đã đặt' %}selected{% endif %}>Đã đặt</option>
+                        <option value="Đang sửa" {% if room.trangthai == 'Đang sửa' %}selected{% endif %}>Đang sửa</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn"><i class="fas fa-save"></i> Cập nhật</button>
+                <a href="{{ url_for('manager.dashboard') }}#rooms" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Quay lại</a>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

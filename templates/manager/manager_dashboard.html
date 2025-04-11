@@ -19,6 +19,18 @@
             min-height: 100vh;
             color: #333;
             overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Particle Background Effect */
+        #particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
         }
 
         /* Sidebar */
@@ -33,6 +45,7 @@
             transition: all 0.3s ease;
             padding: 20px;
             box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+            animation: slideIn 0.5s ease;
         }
 
         .sidebar.collapsed {
@@ -40,19 +53,29 @@
             padding: 20px 10px;
         }
 
-        .sidebar .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            margin-bottom: 30px;
+        .sidebar .user-info {
             display: flex;
             align-items: center;
             gap: 10px;
+            margin-bottom: 30px;
+            font-weight: 600;
+            color: #ecf0f1;
             transition: opacity 0.3s ease;
         }
 
-        .sidebar.collapsed .logo span {
+        .sidebar.collapsed .user-info span {
             opacity: 0;
             width: 0;
+        }
+
+        .sidebar .user-info i {
+            font-size: 1.5rem;
+            color: #3498db;
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar .user-info:hover i {
+            transform: rotate(360deg);
         }
 
         .sidebar ul {
@@ -72,11 +95,33 @@
             padding: 10px;
             border-radius: 8px;
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sidebar ul li a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(52, 152, 219, 0.2);
+            transition: all 0.4s ease;
+        }
+
+        .sidebar ul li a:hover::before {
+            left: 0;
         }
 
         .sidebar ul li a:hover {
             background: #3498db;
             transform: translateX(5px);
+        }
+
+        .sidebar ul li a.active {
+            background: #3498db;
+            box-shadow: 0 0 10px rgba(52, 152, 219, 0.5);
         }
 
         .sidebar.collapsed ul li a span {
@@ -97,7 +142,12 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: transform 0.3s ease;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 10px rgba(52, 152, 219, 0.5);
         }
 
         .sidebar.collapsed .toggle-btn {
@@ -125,22 +175,27 @@
             animation: fadeIn 0.8s ease;
         }
 
-        h1 {
+        h1, h2 {
             color: #2c3e50;
-            font-size: 2rem;
-            margin-bottom: 25px;
             display: flex;
             align-items: center;
             gap: 10px;
+            transition: all 0.3s ease;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 25px;
         }
 
         h2 {
-            color: #2c3e50;
             font-size: 1.5rem;
             margin: 30px 0 15px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+        }
+
+        h1:hover, h2:hover {
+            color: #3498db;
+            transform: translateX(5px);
         }
 
         /* Stats */
@@ -163,7 +218,7 @@
         }
 
         .stat-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-5px) rotate(1deg);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
         }
 
@@ -188,6 +243,11 @@
             color: #3498db;
             margin-right: 10px;
             font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover i {
+            transform: scale(1.2);
         }
 
         .stat-card strong {
@@ -208,6 +268,26 @@
             margin: 10px 0;
             transition: all 0.3s ease;
             box-shadow: 0 3px 10px rgba(52, 152, 219, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.4s ease;
+        }
+
+        .btn:hover::after {
+            width: 200%;
+            height: 200%;
         }
 
         .btn:hover {
@@ -250,7 +330,7 @@
 
         tr:hover {
             background: #e9ecef;
-            transform: scale(1.01);
+            transform: scale(1.01) translateX(5px);
         }
 
         .action-links a {
@@ -262,7 +342,7 @@
 
         .action-links a:hover {
             color: #2980b9;
-            transform: translateY(-1px);
+            transform: translateY(-2px) scale(1.1);
         }
 
         .action-links .delete {
@@ -286,17 +366,20 @@
     </style>
 </head>
 <body>
+    <!-- Particle Background -->
+    <div id="particles"></div>
+
     <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
-        <div class="logo">
-            <i class="fas fa-tachometer-alt"></i>
-            <span>Dashboard</span>
+        <div class="user-info">
+            <i class="fas fa-user-circle"></i>
+            <span>Xin chào, {{ user.hoten }}</span>
         </div>
         <ul>
-            <li><a href="#overview"><i class="fas fa-home"></i> <span>Tổng quan</span></a></li>
-            <li><a href="#rooms"><i class="fas fa-bed"></i> <span>Quản lý phòng</span></a></li>
-            <li><a href="#employees"><i class="fas fa-user-tie"></i> <span>Quản lý nhân viên</span></a></li>
-            <li><a href="#invoices"><i class="fas fa-file-invoice"></i> <span>Lịch sử hóa đơn</span></a></li>
+            <li><a href="#overview" class="menu-item"><i class="fas fa-home"></i> <span>Tổng quan</span></a></li>
+            <li><a href="#rooms" class="menu-item"><i class="fas fa-bed"></i> <span>Quản lý phòng</span></a></li>
+            <li><a href="#employees" class="menu-item"><i class="fas fa-user-tie"></i> <span>Quản lý nhân viên</span></a></li>
+            <li><a href="#invoices" class="menu-item"><i class="fas fa-file-invoice"></i> <span>Lịch sử hóa đơn</span></a></li>
             <li><a href="{{ url_for('admin.admin_logout') }}"><i class="fas fa-sign-out-alt"></i> <span>Đăng xuất</span></a></li>
         </ul>
         <button class="toggle-btn" onclick="toggleSidebar()"><i class="fas fa-arrow-left"></i></button>
@@ -410,12 +493,46 @@
     </div>
 
     <script>
+        // Toggle Sidebar
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');
             const mainContent = document.getElementById('main-content');
             sidebar.classList.toggle('collapsed');
             mainContent.classList.toggle('collapsed');
         }
+
+        // Highlight Active Menu Item
+        document.querySelectorAll('.menu-item').forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelectorAll('.menu-item').forEach(link => link.classList.remove('active'));
+                this.classList.add('active');
+                const targetId = this.getAttribute('href').substring(1);
+                document.getElementById(targetId).scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // Simple Particle Effect (for demo purposes)
+        const particlesDiv = document.getElementById('particles');
+        for (let i = 0; i < 50; i++) {
+            const particle = document.createElement('div');
+            particle.style.position = 'absolute';
+            particle.style.width = '4px';
+            particle.style.height = '4px';
+            particle.style.background = 'rgba(255, 255, 255, 0.3)';
+            particle.style.borderRadius = '50%';
+            particle.style.left = Math.random() * 100 + 'vw';
+            particle.style.top = Math.random() * 100 + 'vh';
+            particle.style.animation = `float ${Math.random() * 5 + 2}s infinite ease-in-out`;
+            particlesDiv.appendChild(particle);
+        }
     </script>
+    <style>
+        @keyframes float {
+            0% { transform: translateY(0); opacity: 0.8; }
+            50% { transform: translateY(-20px); opacity: 0.4; }
+            100% { transform: translateY(0); opacity: 0.8; }
+        }
+    </style>
 </body>
 </html>

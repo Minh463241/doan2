@@ -82,7 +82,7 @@ def get_total_revenue():
     res = supabase.table("hoadon").select("tongtien").eq("trangthai", "đã thanh toán").execute()
     return sum([float(item["tongtien"]) for item in res.data if item["tongtien"]])
 # Thêm nhân viên mới
-def add_employee(data):
+def insert_employee(data):
     return supabase.table("nhanvien").insert(data).execute()
 
 # Cập nhật thông tin nhân viên
