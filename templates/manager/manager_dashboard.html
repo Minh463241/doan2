@@ -465,30 +465,38 @@
 
             <!-- Hóa đơn -->
             <h2 id="invoices"><i class="fas fa-file-invoice"></i> Lịch Sử Hóa Đơn</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Mã hóa đơn</th>
-                        <th>Tên khách hàng</th>
-                        <th>Ngày lập</th>
-                        <th>Số tiền</th>
-                        <th>Phương thức</th>
-                        <th>Mã giao dịch PayPal</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for hd in hoadon_list %}
-                    <tr>
-                        <td>{{ hd.mahoadon }}</td>
-                        <td>{{ hd.tenkhachhang }}</td>
-                        <td>{{ hd.ngaylap }}</td>
-                        <td>{{ hd.tongtien }} VND</td>
-                        <td>{{ hd.phuongthucthanhtoan }}</td>
-                        <td>{{ hd.magiaodichpaypal or '---' }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+<table>
+    <thead>
+        <tr>
+            <th>Mã hóa đơn</th>
+            <th>Tên khách hàng</th>
+            <th>Ngày lập</th>
+            <th>Số tiền</th>
+            <th>Phương thức</th>
+            <th>Mã giao dịch PayPal</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% if hoadon_list %}
+            {% for hd in hoadon_list %}
+            <tr>
+                <td>{{ hd.mahoadon }}</td>
+                <td>{{ hd.tenkhachhang }}</td>
+                <td>{{ hd.ngaylap }}</td>
+                <td>{{ "{:,}".format(hd.tongtien | int) }} USD</td>
+                <td>{{ hd.phuongthucthanhtoan }}</td>
+                <td>{{ hd.magiaodichpaypal or '---' }}</td>
+            </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <td colspan="6" style="text-align: center; color: #636e72; padding: 20px;">
+                    Không có hóa đơn đã thanh toán nào.
+                </td>
+            </tr>
+        {% endif %}
+    </tbody>
+</table>
         </div>
     </div>
 

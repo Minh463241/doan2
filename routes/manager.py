@@ -21,12 +21,46 @@ def login_required(f):
 @manager_bp.route("/dashboard")
 @login_required
 def dashboard():
-    total_employees = len(get_total_employees().data or [])
-    total_bookings = len(get_total_bookings().data or [])
-    total_revenue = get_total_revenue()
+    try:
+        # Lấy danh sách phòng
+        rooms = get_rooms().data or []
 
-    rooms = get_rooms().data or []
-    employees = get_all_employees().data or []
+        # Lấy danh sách nhân viên
+        employees = get_all_employees().data or []
+
+        # Lấy danh sách hóa đơn đã thanh toán
+        hoadon_res = supabase.table("hoadon").select("*").eq("trangthai", "đã thanh toán").execute()
+        hoadon_list = hoadon_res.data or []
+        print(f"📋 Số lượng hóa đơn đã thanh toán: {len(hoadon_list)}")
+        print(f"📋 Dữ liệu hóa đơn: {hoadon_list}")
+
+        # Gắn tên khách hàng vào hóa đơn
+        for hd in hoadon_list:
+            ma_kh = hd.get("makhachhang")
+            if ma_kh:
+                try:
+                    kh_res = supabase.table("khachhang").select("hoten").eq("makhachhang", ma_kh).single().execute()
+                    hd["tenkhachhang"] = kh_res.data["hoten"] if kh_res.data else "Không rõ"
+                except Exception as e:
+                    print(f"❌ Lỗi khi lấy tên khách hàng cho hóa đơn {hd.get('mahoadon')}: {e}")
+                    hd["tenkhachhang"] = "Không rõ"
+            else:
+                hd["tenkhachhang"] = "Không rõ"
+                print(f"⚠️ Hóa đơn {hd.get('mahoadon')} không có makhachhang")
+
+        # Tính toán thống kê
+        total_employees = len(get_total_employees().data or [])
+        total_bookings = len(get_total_bookings().data or [])
+        total_revenue = get_total_revenue()
+
+    except Exception as e:
+        print(f"❌ Lỗi khi lấy dữ liệu dashboard: {e}")
+        rooms = []
+        employees = []
+        hoadon_list = []
+        total_employees = 0
+        total_bookings = 0
+        total_revenue = 0
 
     return render_template("manager/manager_dashboard.html",
                            total_employees=total_employees,
@@ -34,6 +68,7 @@ def dashboard():
                            total_revenue=total_revenue,
                            rooms=rooms,
                            employees=employees,
+                           hoadon_list=hoadon_list,
                            user=session.get("user"))
 
 # Tuyến đường xem danh sách nhân viên
@@ -43,21 +78,32 @@ def list_employees():
     employees = get_all_employees().data or []
     return render_template("manager/employee_list.html", employees=employees)
 
-# Tuyến đường xem danh sách hóa đơn
 @manager_bp.route("/invoices")
 @login_required
 def invoices():
-    hoadon_res = supabase.table("hoadon").select("*").eq("trangthai", "đã thanh toán").execute()
-    hoadon_list = hoadon_res.data or []
+    try:
+        hoadon_res = supabase.table("hoadon").select("*").eq("trangthai", "đã thanh toán").execute()
+        hoadon_list = hoadon_res.data or []
+        print(f"📋 Số lượng hóa đơn đã thanh toán: {len(hoadon_list)}")
+        print(f"📋 Dữ liệu hóa đơn: {hoadon_list}")
 
-    # Gắn tên khách hàng vào hóa đơn
-    for hd in hoadon_list:
-        ma_kh = hd.get("makhachhang")
-        if ma_kh:
-            kh_res = supabase.table("khachhang").select("hoten").eq("makhachhang", ma_kh).single().execute()
-            hd["tenkhachhang"] = kh_res.data["hoten"] if kh_res.data else "Không rõ"
-        else:
-            hd["tenkhachhang"] = "Không rõ"
+        # Gắn tên khách hàng vào hóa đơn
+        for hd in hoadon_list:
+            ma_kh = hd.get("makhachhang")
+            if ma_kh:
+                try:
+                    kh_res = supabase.table("khachhang").select("hoten").eq("makhachhang", ma_kh).single().execute()
+                    hd["tenkhachhang"] = kh_res.data["hoten"] if kh_res.data else "Không rõ"
+                except Exception as e:
+                    print(f"❌ Lỗi khi lấy tên khách hàng cho hóa đơn {hd.get('mahoadon')}: {e}")
+                    hd["tenkhachhang"] = "Không rõ"
+            else:
+                hd["tenkhachhang"] = "Không rõ"
+                print(f"⚠️ Hóa đơn {hd.get('mahoadon')} không có makhachhang")
+
+    except Exception as e:
+        print(f"❌ Lỗi khi lấy danh sách hóa đơn: {e}")
+        hoadon_list = []
 
     return render_template("manager/invoice_list.html", hoadon_list=hoadon_list)
 
