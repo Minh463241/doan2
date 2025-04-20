@@ -5,212 +5,471 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đặt phòng - KeiWei Hotel</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Poppins', Arial, sans-serif;
+            font-family: 'Inter', sans-serif;
         }
 
         body {
-            background: #f5f7fa;
-            padding: 40px 20px;
             min-height: 100vh;
+            transition: background 0.3s ease;
+            position: relative;
+            overflow-x: hidden;
+            color: #1f2937;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1578683014728-c73504a258f9?q=80&w=2070&auto=format&fit=crop') no-repeat center center fixed;
+            background-size: cover;
+            opacity: 0.2;
+            z-index: -2;
+            filter: blur(5px);
+            transform: scale(1.1);
         }
 
-        h2 {
-            font-size: 32px;
-            font-weight: 700;
-            color: #007bff;
-            margin-bottom: 30px;
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 123, 255, 0.3) 0%, rgba(255, 255, 255, 0.8) 50%, rgba(0, 123, 255, 0.3) 100%);
+            background-size: 200% 200%;
+            animation: gradientShift 25s ease infinite;
+            z-index: -1;
+        }
+
+        body.dark::before {
+            background: url('https://images.unsplash.com/photo-1578683014728-c73504a258f9?q=80&w=2070&auto=format&fit=crop') no-repeat center center fixed;
+            background-size: cover;
+            opacity: 0.25;
+            filter: blur(5px);
+            transform: scale(1.1);
+        }
+
+        body.dark::after {
+            background: linear-gradient(135deg, rgba(30, 58, 138, 0.4) 0%, rgba(30, 41, 59, 0.9) 50%, rgba(30, 58, 138, 0.4) 100%);
+            background-size: 200% 200%;
+            animation: gradientShift 25s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Hiệu ứng bokeh */
+        .bokeh {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .bokeh span {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: rgba(0, 123, 255, 0.5);
+            border-radius: 50%;
+            animation: bokeh 5s infinite ease-in-out;
+            box-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
+        }
+
+        .bokeh span:nth-child(1) { top: 10%; left: 15%; animation-delay: 0s; }
+        .bokeh span:nth-child(2) { top: 20%; left: 85%; animation-delay: 1s; }
+        .bokeh span:nth-child(3) { top: 50%; left: 5%; animation-delay: 2s; }
+        .bokeh span:nth-child(4) { top: 70%; left: 90%; animation-delay: 3s; }
+        .bokeh span:nth-child(5) { top: 90%; left: 30%; animation-delay: 4s; }
+
+        @keyframes bokeh {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.5); opacity: 1; }
+        }
+
+        .hero-section {
+            padding: 6rem 0;
             text-align: center;
+            position: relative;
+            z-index: 1;
         }
 
-        .alert {
-            padding: 10px;
-            margin-bottom: 20px;
-            border-radius: 5px;
-            font-size: 14px;
-            text-align: center;
-        }
-
-        .alert-success {
-            background-color: #d4edda;
-            color: #155724;
-        }
-
-        .alert-error {
-            background-color: #f8d7da;
-            color: #721c24;
-        }
-
-        /* Danh sách phòng */
-        .room-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-            margin-bottom: 40px;
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
         }
 
         .room-card {
-            background: #fff;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 16px;
             overflow: hidden;
-            transition: transform 0.3s ease;
+        }
+
+        .room-card.dark {
+            background: rgba(31, 41, 55, 0.95);
         }
 
         .room-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
         }
 
         .room-card img {
-            width: 100%;
+            transition: transform 0.3s ease;
+        }
+
+        .room-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .btn {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 123, 255, 0.3);
+        }
+
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.4s ease, height 0.4s ease;
+        }
+
+        .btn:hover::after {
+            width: 200px;
             height: 200px;
+        }
+
+        .form-input {
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .form-input:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 12px rgba(0, 123, 255, 0.4);
+        }
+
+        .carousel {
+            position: relative;
+            overflow: hidden;
+            height: 200px;
+        }
+
+        .carousel img {
+            transition: opacity 0.5s ease;
+            position: absolute;
+            width: 100%;
+            height: 100%;
             object-fit: cover;
         }
 
-        .room-card-content {
-            padding: 20px;
-        }
-
-        .room-card h3 {
-            font-size: 20px;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 10px;
-        }
-
-        .room-card .details {
-            font-size: 14px;
-            color: #555;
-            margin-bottom: 10px;
-        }
-
-        .room-card .details span {
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        .room-card .price {
-            font-size: 18px;
-            font-weight: 600;
-            color: #007bff;
-            margin-bottom: 15px;
-        }
-
-        .room-card .select-btn {
-            background: #007bff;
-            color: #fff;
-            padding: 10px;
-            border: none;
-            border-radius: 50px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            width: 100%;
+        .carousel-btn {
             transition: background 0.3s ease;
         }
 
-        .room-card .select-btn:hover {
-            background: #0056b3;
+        .carousel-btn:hover {
+            background: rgba(0, 123, 255, 0.8);
         }
 
-        /* Form đặt phòng */
-        .booking-form-container {
-            background: #fff;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            max-width: 600px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .selected-room {
-            margin-bottom: 20px;
-            padding: 15px;
-            background: #f0f4ff;
-            border-radius: 10px;
-        }
-
-        .selected-room h4 {
-            font-size: 18px;
-            font-weight: 600;
-            color: #007bff;
-            margin-bottom: 10px;
-        }
-
-        .selected-room p {
-            font-size: 14px;
-            color: #555;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-            text-align: left;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 14px;
-            font-weight: 600;
-            color: #555;
-            margin-bottom: 8px;
-        }
-
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-size: 16px;
-            outline: none;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            border-color: #007bff;
-            box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
-        }
-
-        .total-price {
-            font-size: 18px;
-            font-weight: 600;
-            color: #007bff;
-            margin-bottom: 20px;
-        }
-
-        .submit-btn {
+        .tooltip {
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            position: absolute;
             background: #007bff;
-            color: #fff;
-            padding: 15px 40px;
-            border: none;
-            border-radius: 50px;
-            font-size: 18px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.3s ease, transform 0.3s ease;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            z-index: 10;
+            top: -40px;
+            left: 50%;
+            transform: translateX(-50%);
         }
 
-        .submit-btn:hover {
-            background: #0056b3;
-            transform: translateY(-3px);
+        .has-tooltip:hover .tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.6s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 640px) {
+            .hero-section {
+                padding: 3rem 0;
+            }
         }
     </style>
+</head>
+<body>
+    <!-- Hiệu ứng bokeh -->
+    <div class="bokeh">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+    <header class="fixed top-0 w-full bg-white dark:bg-gray-900 shadow-lg z-20">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <h1  class="text-2xl font-bold text-blue-700 dark:text-blue-400"><a href="/">KeiWei Hotel</a></h1>
+            <div class="flex items-center space-x-4">
+                <button id="theme-toggle" class="text-blue-700 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-200">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <nav class="hidden md:flex space-x-6">
+                    <a href="/" class="text-blue-700 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-200">Trang chủ</a>
+                    <a href="/contact" class="text-blue-700 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-200">Liên hệ</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 pt-24 pb-16">
+        <section class="hero-section">
+            <h2 class="text-4xl font-bold text-blue-700 dark:text-blue-400 mb-4">Chào mừng đến với KeiWei Hotel</h2>
+            <p class="text-gray-600 dark:text-gray-300 text-lg max-w-2xl mx-auto">Khám phá không gian nghỉ dưỡng đẳng cấp với những căn phòng được thiết kế tỉ mỉ, mang đến sự thoải mái tối đa.</p>
+        </section>
+
+        <!-- Thông báo -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="bg-{{ 'green' if category == 'success' else 'red' }}-100 text-{{ 'green' if category == 'success' else 'red' }}-800 p-4 rounded-lg text-center mb-8 fade-in max-w-3xl mx-auto">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <!-- Bộ lọc loại phòng -->
+        <section class="mb-12">
+            <h3 class="text-2xl font-bold text-blue-700 dark:text-blue-400 mb-6">Chọn loại phòng</h3>
+            <div class="flex flex-wrap gap-4">
+                <button class="filter-btn btn bg-blue-700 text-white px-6 py-2 rounded-full hover:bg-blue-800" data-type="all">Tất cả</button>
+                <button class="filter-btn btn bg-gray-200 text-gray-900 px-6 py-2 rounded-full hover:bg-blue-100" data-type="standard">Standard</button>
+                <button class="filter-btn btn bg-gray-200 text-gray-900 px-6 py-2 rounded-full hover:bg-blue-100" data-type="deluxe">Deluxe</button>
+                <button class="filter-btn btn bg-gray-200 text-gray-900 px-6 py-2 rounded-full hover:bg-blue-100" data-type="suite">Suite</button>
+            </div>
+        </section>
+
+        <!-- Danh sách phòng -->
+        <section class="mb-16">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8" id="room-list">
+                {% for room in rooms %}
+                    <div class="room-card dark dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden" data-type="{{ room.category | default('standard') | lower }}">
+                        <div class="carousel relative">
+                            <img src="{{ room.hinhanh | default('https://images.unsplash.com/photo-1618773928121-c32242e63f39?q=80&w=2070&auto=format&fit=crop') }}" alt="{{ room.loaiphong }}" class="active">
+                            <img src="{{ room.hinhanh2 | default('https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?q=80&w=2070&auto=format&fit=crop') }}" alt="{{ room.loaiphong }}" class="opacity-0">
+                            <button class="carousel-btn absolute top-1/2 left-4 transform -translate-y-1/2 bg-blue-700 text-white p-2 rounded-full" onclick="prevImage(this)">
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <button class="carousel-btn absolute top-1/2 right-4 transform -translate-y-1/2 bg-blue-700 text-white p-2 rounded-full" onclick="nextImage(this)">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-center mb-3">
+                                <h4 class="text-xl font-semibold text-blue-700 dark:text-blue-400">{{ room.loaiphong }}</h4>
+                                <span class="text-xs font-medium px-3 py-1 rounded-full {{ 'bg-blue-100 text-blue-800' if room.category == 'Standard' else 'bg-purple-100 text-purple-800' if room.category == 'Deluxe' else 'bg-yellow-100 text-yellow-800' }}">{{ room.category | default('Standard') }}</span>
+                            </div>
+                            <div class="text-sm text-gray-600 dark:text-gray-300 mb-4 space-y-2">
+                                <p class="has-tooltip"><i class="fas fa-ruler-combined mr-2"></i>{{ room.dientich }}m² <span class="tooltip">Diện tích phòng</span></p>
+                                <p class="has-tooltip"><i class="fas fa-users mr-2"></i>{{ room.succhua }} người <span class="tooltip">Sức chứa tối đa</span></p>
+                                <p class="has-tooltip"><i class="fas fa-wifi mr-2"></i>Wifi miễn phí <span class="tooltip">Kết nối tốc độ cao</span></p>
+                            </div>
+                            <div class="text-lg font-bold text-blue-700 dark:text-blue-400 mb-4">{{ "{:,.0f}".format(room.giaphong) }} VNĐ/đêm</div>
+                            <button class="btn w-full bg-blue-700 text-white py-3 rounded-lg hover:bg-blue-800" onclick="selectRoom('{{ room.maphong }}', '{{ room.loaiphong }}', '{{ room.giaphong }}')">Chọn phòng</button>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+
+        <!-- Form đặt phòng -->
+        <section class="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg max-w-3xl mx-auto" id="booking-form" style="display: none;">
+            <h3 class="text-2xl font-bold text-blue-700 dark:text-blue-400 mb-6 text-center">Thông tin đặt phòng</h3>
+            <div class="bg-blue-50 dark:bg-blue-900/50 p-4 rounded-lg mb-6">
+                <h4 id="selected-room-name" class="text-lg font-semibold text-blue-700 dark:text-blue-400"></h4>
+                <p id="selected-room-price" class="text-sm text-gray-600 dark:text-gray-300"></p>
+            </div>
+            <form method="POST" action="{{ url_for('booking.dat_phong') }}">
+                <input type="hidden" id="maphong" name="maphong">
+                <input type="hidden" id="giaphong" name="giaphong">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label for="ngaynhanphong" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Ngày nhận phòng</label>
+                        <input type="date" id="ngaynhanphong" name="ngaynhanphong" required onchange="calculateTotalPrice()" class="form-input w-full p-3 rounded-lg bg-gray-50 dark:bg-gray-700 dark:text-white">
+                    </div>
+                    <div>
+                        <label for="ngaytraphong" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Ngày trả phòng</label>
+                        <input type="date" id="ngaytraphong" name="ngaytraphong" required onchange="calculateTotalPrice()" class="form-input w-full p-3 rounded-lg bg-gray-50 dark:bg-gray-700 dark:text-white">
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label for="songuoi" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Số người</label>
+                        <input type="number" id="songuoi" name="songuoi" min="1" required class="form-input w-full p-3 rounded-lg bg-gray-50 dark:bg-gray-700 dark:text-white">
+                    </div>
+                    <div>
+                        <label for="thoigiancheckindukien" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Thời gian check-in dự kiến</label>
+                        <input type="datetime-local" id="thoigiancheckindukien" name="thoigiancheckindukien" class="form-input w-full p-3 rounded-lg bg-gray-50 dark:bg-gray-700 dark:text-white">
+                    </div>
+                </div>
+                <div class="mb-6">
+                    <label for="tongtien" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Tổng tiền (VNĐ)</label>
+                    <input type="number" id="tongtien" name="tongtien" readonly class="form-input w-full p-3 rounded-lg bg-gray-100 dark:bg-gray-600 dark:text-white">
+                    <div class="text-lg font-bold text-blue-700 dark:text-blue-400 mt-2" id="total-price-display">Tổng tiền: 0 VNĐ</div>
+                </div>
+                <div class="mb-6">
+                    <label for="yeucaudacbiet" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Yêu cầu đặc biệt</label>
+                    <textarea id="yeucaudacbiet" name="yeucaudacbiet" placeholder="VD: Giường phụ, View biển" class="form-input w-full p-3 rounded-lg bg-gray-50 dark:bg-gray-700 dark:text-white"></textarea>
+                </div>
+                <div class="mb-6">
+                    <label for="sokhachdicung" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Số khách đi cùng</label>
+                    <input type="text" id="sokhachdicung" name="sokhachdicung" placeholder="VD: 2 người lớn, 1 trẻ em" class="form-input w-full p-3 rounded-lg bg-gray-50 dark:bg-gray-700 dark:text-white">
+                </div>
+                <div class="mb-6">
+                    <label for="ghichudatphong" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Ghi chú đặt phòng</label>
+                    <textarea id="ghichudatphong" name="ghichudatphong" placeholder="VD: Đặt cho gia đình" class="form-input w-full p-3 rounded-lg bg-gray-50 dark:bg-gray-700 dark:text-white"></textarea>
+                </div>
+                <button type="submit" class="btn w-full bg-blue-700 text-white py-4 rounded-lg hover:bg-blue-800 font-medium">Xác nhận đặt phòng</button>
+            </form>
+        </section>
+    </main>
+
+    <footer class="bg-blue-900 text-white py-12 relative z-10">
+        <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div>
+                <h4 class="text-lg font-bold mb-4">KeiWei Hotel</h4>
+                <p class="text-sm">Mang đến trải nghiệm nghỉ dưỡng đẳng cấp với dịch vụ hoàn hảo và không gian sang trọng.</p>
+            </div>
+            <div>
+                <h4 class="text-lg font-bold mb-4">Liên hệ</h4>
+                <p class="text-sm"><i class="fas fa-phone mr-2"></i> (+84) 123 456 789</p>
+                <p class="text-sm"><i class="fas fa-envelope mr-2"></i> info@keiweihotel.com</p>
+                <p class="text-sm"><i class="fas fa-map-marker-alt mr-2"></i> 123 Đường Biển, Đà Nẵng, Việt Nam</p>
+            </div>
+            <div>
+                <h4 class="text-lg font-bold mb-4">Theo dõi chúng tôi</h4>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-white hover:text-blue-400"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="text-white hover:text-blue-400"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-white hover:text-blue-400"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-8 text-sm">© 2025 KeiWei Hotel. All rights reserved.</div>
+    </footer>
+
     <script>
-        // Tự động tính tổng tiền dựa trên số ngày và giá phòng
+        // Dark mode toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark');
+            themeToggle.innerHTML = document.body.classList.contains('dark') ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+        });
+
+        // Room filter
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const roomCards = document.querySelectorAll('.room-card');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const type = button.dataset.type;
+
+                filterButtons.forEach(btn => {
+                    btn.classList.remove('bg-blue-700', 'text-white');
+                    btn.classList.add('bg-gray-200', 'text-gray-900');
+                });
+                button.classList.remove('bg-gray-200', 'text-gray-900');
+                button.classList.add('bg-blue-700', 'text-white');
+
+                roomCards.forEach(card => {
+                    if (type === 'all' || card.dataset.type === type) {
+                        card.style.display = 'block';
+                        card.classList.add('fade-in');
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Carousel for room images
+        function prevImage(btn) {
+            const carousel = btn.closest('.carousel');
+            const images = carousel.querySelectorAll('img');
+            const active = carousel.querySelector('img.active');
+            active.classList.add('opacity-0');
+            active.classList.remove('active');
+            const prevIndex = (Array.from(images).indexOf(active) - 1 + images.length) % images.length;
+            images[prevIndex].classList.remove('opacity-0');
+            images[prevIndex].classList.add('active');
+        }
+
+        function nextImage(btn) {
+            const carousel = btn.closest('.carousel');
+            const images = carousel.querySelectorAll('img');
+            const active = carousel.querySelector('img.active');
+            active.classList.add('opacity-0');
+            active.classList.remove('active');
+            const nextIndex = (Array.from(images).indexOf(active) + 1) % images.length;
+            images[nextIndex].classList.remove('opacity-0');
+            images[nextIndex].classList.add('active');
+        }
+
+        // Select room
+        function selectRoom(maphong, loaiphong, giaphong) {
+            const form = document.getElementById('booking-form');
+            form.style.display = 'block';
+            form.classList.add('fade-in');
+            document.getElementById('maphong').value = maphong;
+            document.getElementById('giaphong').value = giaphong;
+            document.getElementById('selected-room-name').innerText = loaiphong;
+            document.getElementById('selected-room-price').innerText = `Giá: ${parseFloat(giaphong).toLocaleString('vi-VN')} VNĐ/đêm`;
+            form.scrollIntoView({ behavior: 'smooth' });
+            calculateTotalPrice();
+        }
+
+        // Calculate total price
         function calculateTotalPrice() {
             const ngayNhanPhong = new Date(document.getElementById('ngaynhanphong').value);
             const ngayTraPhong = new Date(document.getElementById('ngaytraphong').value);
@@ -225,106 +484,6 @@
                 document.getElementById('tongtien').value = 0;
                 document.getElementById('total-price-display').innerText = 'Tổng tiền: 0 VNĐ';
             }
-        }
-    </script>
-</head>
-<body>
-    <div class="container">
-        <h2>Đặt phòng tại KeiWei Hotel</h2>
-
-        <!-- Hiển thị thông báo -->
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                {% for category, message in messages %}
-                    <div class="alert alert-{{ category }}">{{ message }}</div>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
-
-        <!-- Danh sách phòng -->
-        <h3>Chọn phòng</h3>
-        <div class="room-list">
-            {% for room in rooms %}
-                <div class="room-card">
-                    <img src="{{ room.hinhanh | default('https://images.unsplash.com/photo-1618773928121-c32242e63f39?q=80&w=2070&auto=format&fit=crop') }}" alt="{{ room.loaiphong }}">
-                    <div class="room-card-content">
-                        <h3>{{ room.loaiphong }}</h3>
-                        <div class="details">
-                            <span><i class="fas fa-ruler-combined"></i> Diện tích: {{ room.dientich }}m²</span>
-                            <span><i class="fas fa-users"></i> Sức chứa: {{ room.succhua }} người</span>
-                            <span><i class="fas fa-wifi"></i> Wifi miễn phí</span>
-                        </div>
-                        <div class="price">{{ "{:,.0f}".format(room.giaphong) }} VNĐ/đêm</div>
-                        <button class="select-btn" onclick="selectRoom('{{ room.maphong }}', '{{ room.loaiphong }}', '{{ room.giaphong }}')">Chọn phòng</button>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-
-        <!-- Form đặt phòng -->
-        <div class="booking-form-container" id="booking-form" style="display: none;">
-            <h3>Thông tin đặt phòng</h3>
-            <div class="selected-room" id="selected-room-info">
-                <h4 id="selected-room-name"></h4>
-                <p id="selected-room-price"></p>
-            </div>
-            <form method="POST" action="{{ url_for('booking.dat_phong') }}">
-                <input type="hidden" id="maphong" name="maphong">
-                <input type="hidden" id="giaphong" name="giaphong">
-                <div class="form-group">
-                    <label for="ngaynhanphong">Ngày nhận phòng</label>
-                    <input type="date" id="ngaynhanphong" name="ngaynhanphong" required onchange="calculateTotalPrice()">
-                </div>
-                <div class="form-group">
-                    <label for="ngaytraphong">Ngày trả phòng</label>
-                    <input type="date" id="ngaytraphong" name="ngaytraphong" required onchange="calculateTotalPrice()">
-                </div>
-                <div class="form-group">
-                    <label for="songuoi">Số người</label>
-                    <input type="number" id="songuoi" name="songuoi" min="1" required>
-                </div>
-                <div class="form-group">
-                    <label for="tongtien">Tổng tiền (VNĐ)</label>
-                    <input type="number" id="tongtien" name="tongtien" readonly>
-                    <div class="total-price" id="total-price-display">Tổng tiền: 0 VNĐ</div>
-                </div>
-                <div class="form-group">
-                    <label for="yeucaudacbiet">Yêu cầu đặc biệt</label>
-                    <textarea id="yeucaudacbiet" name="yeucaudacbiet" placeholder="VD: Giường phụ, View biển"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="thoigiancheckindukien">Thời gian check-in dự kiến</label>
-                    <input type="datetime-local" id="thoigiancheckindukien" name="thoigiancheckindukien">
-                </div>
-                <div class="form-group">
-                    <label for="sokhachdicung">Số khách đi cùng</label>
-                    <input type="text" id="sokhachdicung" name="sokhachdicung" placeholder="VD: 2 người lớn, 1 trẻ em">
-                </div>
-                <div class="form-group">
-                    <label for="ghichudatphong">Ghi chú đặt phòng</label>
-                    <textarea id="ghichudatphong" name="ghichudatphong" placeholder="VD: Đặt cho gia đình"></textarea>
-                </div>
-                <button type="submit" class="submit-btn">Đặt phòng</button>
-            </form>
-        </div>
-    </div>
-
-    <script>
-        function selectRoom(maphong, loaiphong, giaphong) {
-            // Hiển thị form đặt phòng
-            document.getElementById('booking-form').style.display = 'block';
-            
-            // Cập nhật thông tin phòng đã chọn
-            document.getElementById('maphong').value = maphong;
-            document.getElementById('giaphong').value = giaphong;
-            document.getElementById('selected-room-name').innerText = loaiphong;
-            document.getElementById('selected-room-price').innerText = `Giá: ${parseFloat(giaphong).toLocaleString('vi-VN')} VNĐ/đêm`;
-            
-            // Cuộn đến form đặt phòng
-            document.getElementById('booking-form').scrollIntoView({ behavior: 'smooth' });
-            
-            // Tính lại tổng tiền
-            calculateTotalPrice();
         }
     </script>
 </body>
