@@ -743,18 +743,29 @@
     <section class="rooms-section fade-in">
         <h2>Phòng nổi bật</h2>
         <div class="room-grid">
-            {% for room in rooms %}
-            <div class="room-card">
-                <img src="{{ room.hinhanh | default('https://images.unsplash.com/photo-1618773928121-c32242e63f39?q=80&w=2070&auto=format&fit=crop') }}" alt="{{ room.loaiphong }}">
+            {% for room in rooms[:3] %}
+            <div class="room-card {{ 'most-booked' if loop.first else '' }}">
+                {% if loop.first %}
+                <div style="position: absolute; top: 10px; right: 10px; background: #e74c3c; color: #fff; padding: 5px 10px; border-radius: 5px;">
+                    Đặt nhiều nhất ({{ room.booking_count | default(0) }} lượt)
+                </div>
+                {% endif %}
+                <img src="{{ room.hinhanh | default('https://images.unsplash.com/photo-1618773928121-c32242e63f39?q=80&w=2070&auto=format&fit=crop') }}"
+                     onerror="this.src='https://via.placeholder.com/320x220?text=No+Image';" alt="{{ room.loaiphong | default('Phòng không xác định') }}">
                 <div class="overlay"></div>
-                <h3>{{ room.loaiphong }}</h3>
+                <h3>{{ room.loaiphong | default('Phòng không xác định') }}</h3>
                 <div class="details">
-                    <span><i class="fas fa-ruler-combined"></i> Diện tích: {{ room.dientich }}m²</span>
-                    <span><i class="fas fa-users"></i> Sức chứa: {{ room.succhua }} người</span>
+                    <span><i class="fas fa-ruler-combined"></i> Diện tích: {{ room.dientich | default('N/A') }}m²</span>
+                    <span><i class="fas fa-users"></i> Sức chứa: {{ room.succhua | default('N/A') }} người</span>
                     <span><i class="fas fa-wifi"></i> Wifi miễn phí</span>
                 </div>
                 <div class="price">
-                    {{ "{:,.0f}".format(room.giaphong) if room.giaphong else "Đang cập nhật" }} VNĐ/đêm
+                    {% if room.giaphong is defined and room.giaphong is not none %}
+                        {% set price = room.giaphong | int %}
+                        {{ "{:,}".format(price) }} VNĐ/đêm
+                    {% else %}
+                        Đang cập nhật
+                    {% endif %}
                 </div>
                 <a href="{{ url_for('booking.dat_phong') }}" class="btn">Đặt ngay</a>
             </div>

@@ -9,6 +9,8 @@ supabase = create_client(Config.SUPABASE_URL, Config.SUPABASE_ANON_KEY)
 # Khởi tạo Blueprint
 booking_bp = Blueprint('booking', __name__)
 
+
+# Các route khác giữ nguyên
 @booking_bp.route('/dat_phong', methods=['GET', 'POST'])
 def dat_phong():
     if 'user' not in session:
@@ -92,7 +94,7 @@ def booking_history():
         .execute()
 
     history = response.data
-    return render_template('booking/history.html', history=history)
+    return render_template('booking/history.html', history=history, user=session['user'])
 
 @booking_bp.route('/order_service/<int:madatphong>', methods=['GET', 'POST'])
 def order_service(madatphong):

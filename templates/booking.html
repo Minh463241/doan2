@@ -71,7 +71,6 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* Hiệu ứng bokeh */
         .bokeh {
             position: fixed;
             top: 0;
@@ -114,12 +113,26 @@
             font-family: 'Playfair Display', serif;
         }
 
-        .room-card {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        /* Room Carousel */
+        .room-carousel {
             position: relative;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .room-carousel-wrapper {
+            display: flex;
+            transition: transform 0.5s ease;
+            width: 100%;
+        }
+
+        .room-card {
+            flex: 0 0 33.333%; /* 3 cards per view on desktop */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
             background: rgba(255, 255, 255, 0.95);
             border-radius: 16px;
             overflow: hidden;
+            margin: 0 10px;
         }
 
         .room-card.dark {
@@ -137,6 +150,67 @@
 
         .room-card:hover img {
             transform: scale(1.05);
+        }
+
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 123, 255, 0.7);
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .carousel-nav:hover {
+            background: rgba(0, 123, 255, 1);
+        }
+
+        .carousel-nav.prev {
+            left: 10px;
+        }
+
+        .carousel-nav.next {
+            right: 10px;
+        }
+
+        .carousel-dots {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .carousel-dot {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background: #d1d5db;
+            border-radius: 50%;
+            margin: 0 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .carousel-dot.active {
+            background: #007bff;
+        }
+
+        @media (max-width: 1024px) {
+            .room-card {
+                flex: 0 0 50%; /* 2 cards per view on tablet */
+            }
+        }
+
+        @media (max-width: 640px) {
+            .room-card {
+                flex: 0 0 100%; /* 1 card per view on mobile */
+            }
+
+            .hero-section {
+                padding: 3rem 0;
+            }
         }
 
         .btn {
@@ -229,12 +303,6 @@
             0% { opacity: 0; transform: translateY(20px); }
             100% { opacity: 1; transform: translateY(0); }
         }
-
-        @media (max-width: 640px) {
-            .hero-section {
-                padding: 3rem 0;
-            }
-        }
     </style>
 </head>
 <body>
@@ -249,14 +317,14 @@
 
     <header class="fixed top-0 w-full bg-white dark:bg-gray-900 shadow-lg z-20">
         <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-            <h1  class="text-2xl font-bold text-blue-700 dark:text-blue-400"><a href="/">KeiWei Hotel</a></h1>
+            <h1 class="text-2xl font-bold text-blue-700 dark:text-blue-400"><a href="/"> KeiWei Hotel</a></h1>
             <div class="flex items-center space-x-4">
                 <button id="theme-toggle" class="text-blue-700 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-200">
                     <i class="fas fa-moon"></i>
                 </button>
                 <nav class="hidden md:flex space-x-6">
                     <a href="/" class="text-blue-700 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-200">Trang chủ</a>
-                    <a href="/contact" class="text-blue-700 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-200">Liên hệ</a>
+                    <a href="#" class="text-blue-700 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-200">Liên hệ</a>
                 </nav>
             </div>
         </div>
@@ -290,37 +358,42 @@
             </div>
         </section>
 
-        <!-- Danh sách phòng -->
+        <!-- Danh sách phòng (Carousel) -->
         <section class="mb-16">
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8" id="room-list">
-                {% for room in rooms %}
-                    <div class="room-card dark dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden" data-type="{{ room.category | default('standard') | lower }}">
-                        <div class="carousel relative">
-                            <img src="{{ room.hinhanh | default('https://images.unsplash.com/photo-1618773928121-c32242e63f39?q=80&w=2070&auto=format&fit=crop') }}" alt="{{ room.loaiphong }}" class="active">
-                            <img src="{{ room.hinhanh2 | default('https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?q=80&w=2070&auto=format&fit=crop') }}" alt="{{ room.loaiphong }}" class="opacity-0">
-                            <button class="carousel-btn absolute top-1/2 left-4 transform -translate-y-1/2 bg-blue-700 text-white p-2 rounded-full" onclick="prevImage(this)">
-                                <i class="fas fa-chevron-left"></i>
-                            </button>
-                            <button class="carousel-btn absolute top-1/2 right-4 transform -translate-y-1/2 bg-blue-700 text-white p-2 rounded-full" onclick="nextImage(this)">
-                                <i class="fas fa-chevron-right"></i>
-                            </button>
-                        </div>
-                        <div class="p-6">
-                            <div class="flex justify-between items-center mb-3">
-                                <h4 class="text-xl font-semibold text-blue-700 dark:text-blue-400">{{ room.loaiphong }}</h4>
-                                <span class="text-xs font-medium px-3 py-1 rounded-full {{ 'bg-blue-100 text-blue-800' if room.category == 'Standard' else 'bg-purple-100 text-purple-800' if room.category == 'Deluxe' else 'bg-yellow-100 text-yellow-800' }}">{{ room.category | default('Standard') }}</span>
+            <div class="room-carousel" id="room-carousel">
+                <div class="room-carousel-wrapper" id="room-list">
+                    {% for room in rooms %}
+                        <div class="room-card dark dark:bg-gray-800" data-type="{{ room.category | default('standard') | lower }}">
+                            <div class="carousel relative">
+                                <img src="{{ room.hinhanh | default('https://images.unsplash.com/photo-1618773928121-c32242e63f39?q=80&w=2070&auto=format&fit=crop') }}" alt="{{ room.loaiphong }}" class="active">
+                                <img src="{{ room.hinhanh2 | default('https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?q=80&w=2070&auto=format&fit=crop') }}" alt="{{ room.loaiphong }}" class="opacity-0">
+                                <button class="carousel-btn absolute top-1/2 left-4 transform -translate-y-1/2 bg-blue-700 text-white p-2 rounded-full" onclick="prevImage(this)">
+                                    <i class="fas fa-chevron-left"></i>
+                                </button>
+                                <button class="carousel-btn absolute top-1/2 right-4 transform -translate-y-1/2 bg-blue-700 text-white p-2 rounded-full" onclick="nextImage(this)">
+                                    <i class="fas fa-chevron-right"></i>
+                                </button>
                             </div>
-                            <div class="text-sm text-gray-600 dark:text-gray-300 mb-4 space-y-2">
-                                <p class="has-tooltip"><i class="fas fa-ruler-combined mr-2"></i>{{ room.dientich }}m² <span class="tooltip">Diện tích phòng</span></p>
-                                <p class="has-tooltip"><i class="fas fa-users mr-2"></i>{{ room.succhua }} người <span class="tooltip">Sức chứa tối đa</span></p>
-                                <p class="has-tooltip"><i class="fas fa-wifi mr-2"></i>Wifi miễn phí <span class="tooltip">Kết nối tốc độ cao</span></p>
+                            <div class="p-6">
+                                <div class="flex justify-between items-center mb-3">
+                                    <h4 class="text-xl font-semibold text-blue-700 dark:text-blue-400">{{ room.loaiphong }}</h4>
+                                    <span class="text-xs font-medium px-3 py-1 rounded-full {{ 'bg-blue-100 text-blue-800' if room.category == 'Standard' else 'bg-purple-100 text-purple-800' if room.category == 'Deluxe' else 'bg-yellow-100 text-yellow-800' }}">{{ room.category | default('Standard') }}</span>
+                                </div>
+                                <div class="text-sm text-gray-600 dark:text-gray-300 mb-4 space-y-2">
+                                    <p class="has-tooltip"><i class="fas fa-ruler-combined mr-2"></i>{{ room.dientich }}m² <span class="tooltip">Diện tích phòng</span></p>
+                                    <p class="has-tooltip"><i class="fas fa-users mr-2"></i>{{ room.succhua }} người <span class="tooltip">Sức chứa tối đa</span></p>
+                                    <p class="has-tooltip"><i class="fas fa-wifi mr-2"></i>Wifi miễn phí <span class="tooltip">Kết nối tốc độ cao</span></p>
+                                </div>
+                                <div class="text-lg font-bold text-blue-700 dark:text-blue-400 mb-4">{{ "{:,.0f}".format(room.giaphong) }} VNĐ/đêm</div>
+                                <button class="btn w-full bg-blue-700 text-white py-3 rounded-lg hover:bg-blue-800" onclick="selectRoom('{{ room.maphong }}', '{{ room.loaiphong }}', '{{ room.giaphong }}')">Chọn phòng</button>
                             </div>
-                            <div class="text-lg font-bold text-blue-700 dark:text-blue-400 mb-4">{{ "{:,.0f}".format(room.giaphong) }} VNĐ/đêm</div>
-                            <button class="btn w-full bg-blue-700 text-white py-3 rounded-lg hover:bg-blue-800" onclick="selectRoom('{{ room.maphong }}', '{{ room.loaiphong }}', '{{ room.giaphong }}')">Chọn phòng</button>
                         </div>
-                    </div>
-                {% endfor %}
+                    {% endfor %}
+                </div>
+                <button class="carousel-nav prev"><i class="fas fa-chevron-left"></i></button>
+                <button class="carousel-nav next"><i class="fas fa-chevron-right"></i></button>
             </div>
+            <div class="carousel-dots" id="carousel-dots"></div>
         </section>
 
         <!-- Form đặt phòng -->
@@ -410,6 +483,7 @@
         // Room filter
         const filterButtons = document.querySelectorAll('.filter-btn');
         const roomCards = document.querySelectorAll('.room-card');
+        let filteredRooms = Array.from(roomCards);
 
         filterButtons.forEach(button => {
             button.addEventListener('click', () => {
@@ -422,18 +496,98 @@
                 button.classList.remove('bg-gray-200', 'text-gray-900');
                 button.classList.add('bg-blue-700', 'text-white');
 
-                roomCards.forEach(card => {
-                    if (type === 'all' || card.dataset.type === type) {
-                        card.style.display = 'block';
-                        card.classList.add('fade-in');
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
+                filteredRooms = Array.from(roomCards).filter(card => type === 'all' || card.dataset.type === type);
+                updateCarousel();
             });
         });
 
-        // Carousel for room images
+        // Room carousel
+        const carouselWrapper = document.getElementById('room-list');
+        const carouselDotsContainer = document.getElementById('carousel-dots');
+        let currentIndex = 0;
+        let cardsPerView = 3; // Default: 3 cards per view on desktop
+
+        function updateCardsPerView() {
+            if (window.innerWidth <= 640) {
+                cardsPerView = 1; // 1 card on mobile
+            } else if (window.innerWidth <= 1024) {
+                cardsPerView = 2; // 2 cards on tablet
+            } else {
+                cardsPerView = 3; // 3 cards on desktop
+            }
+            updateCarousel();
+        }
+
+        function updateCarousel() {
+            // Filter rooms
+            roomCards.forEach(card => {
+                if (filteredRooms.includes(card)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            // Update carousel
+            const visibleRooms = filteredRooms.filter(card => card.style.display !== 'none');
+            const totalSlides = Math.ceil(visibleRooms.length / cardsPerView);
+            currentIndex = Math.min(currentIndex, totalSlides - 1);
+            if (currentIndex < 0) currentIndex = 0;
+
+            const offset = -currentIndex * (100 / cardsPerView);
+            carouselWrapper.style.transform = `translateX(${offset}%)`;
+
+            // Update dots
+            carouselDotsContainer.innerHTML = '';
+            for (let i = 0; i < totalSlides; i++) {
+                const dot = document.createElement('span');
+                dot.classList.add('carousel-dot');
+                if (i === currentIndex) dot.classList.add('active');
+                dot.addEventListener('click', () => {
+                    currentIndex = i;
+                    updateCarousel();
+                });
+                carouselDotsContainer.appendChild(dot);
+            }
+        }
+
+        document.querySelector('.carousel-nav.prev').addEventListener('click', () => {
+            currentIndex = Math.max(currentIndex - 1, 0);
+            updateCarousel();
+        });
+
+        document.querySelector('.carousel-nav.next').addEventListener('click', () => {
+            const visibleRooms = filteredRooms.filter(card => card.style.display !== 'none');
+            const totalSlides = Math.ceil(visibleRooms.length / cardsPerView);
+            currentIndex = Math.min(currentIndex + 1, totalSlides - 1);
+            updateCarousel();
+        });
+
+        // Handle swipe on mobile
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        carouselWrapper.addEventListener('touchstart', e => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        carouselWrapper.addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].screenX;
+            if (touchStartX - touchEndX > 50) {
+                const visibleRooms = filteredRooms.filter(card => card.style.display !== 'none');
+                const totalSlides = Math.ceil(visibleRooms.length / cardsPerView);
+                currentIndex = Math.min(currentIndex + 1, totalSlides - 1);
+                updateCarousel();
+            } else if (touchEndX - touchStartX > 50) {
+                currentIndex = Math.max(currentIndex - 1, 0);
+                updateCarousel();
+            }
+        });
+
+        window.addEventListener('resize', updateCardsPerView);
+        updateCardsPerView();
+
+        // Carousel for room images (inside each card)
         function prevImage(btn) {
             const carousel = btn.closest('.carousel');
             const images = carousel.querySelectorAll('img');

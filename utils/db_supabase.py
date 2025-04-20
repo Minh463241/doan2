@@ -104,6 +104,10 @@ def get_total_revenue():
         return 0.0
     return sum(hoa_don.get("tongtien", 0) for hoa_don in res.data)
 
+#dịch vụ
+def get_all_services():
+    return supabase.table("dichvu").select("*").execute()
+
 
 
 # (Tùy chọn) Hàm hiển thị danh sách phòng trống dưới dạng HTML
@@ -146,3 +150,6 @@ def hien_thi_danh_sach_phong_trong_html():
 
     except Exception as e:
         return f"<p>❌ Lỗi khi lấy danh sách phòng trống: {str(e)}</p>"
+def get_booking_counts_by_room():
+    response = supabase.table('datphong').select('maphong', count='*').execute()
+    return {item['maphong']: item['count'] for item in response.data}

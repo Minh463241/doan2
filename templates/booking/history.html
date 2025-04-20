@@ -1,147 +1,273 @@
 <!DOCTYPE html>
 <html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Lịch sử đặt phòng - KeiWei Hotel</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', Arial, sans-serif;
-        }
-
-        body {
-            background: #f5f7fa;
-            padding: 40px 20px;
-            min-height: 100vh;
-        }
-
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Poppins', Arial, sans-serif;
+      }
+      
+      body {
+        background: #f1f3f6;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+      
+      .navbar {
+        background: #007bff;
+        padding: 15px 20px;
+        color: #fff;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+      
+      .navbar a {
+        color: #fff;
+        text-decoration: none;
+        font-weight: 600;
+        margin: 0 15px;
+        transition: color 0.3s;
+      }
+      
+      .navbar a:hover {
+        color: #f8d7da;
+      }
+      
+      .container {
+        background: #fff;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        max-width: 1200px;
+        margin: 20px auto;
+        flex: 1;
+      }
+      
+      .profile-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 30px;
+      }
+      
+      .profile-header img {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        margin-right: 20px;
+        object-fit: cover;
+      }
+      
+      .profile-header h2 {
+        font-size: 28px;
+        font-weight: 700;
+        color: #007bff;
+      }
+      
+      .profile-header p {
+        color: #555;
+        font-size: 14px;
+      }
+      
+      .alert {
+        padding: 10px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+        font-size: 14px;
+        text-align: center;
+      }
+      
+      .alert-success {
+        background-color: #d4edda;
+        color: #155724;
+      }
+      
+      .alert-error {
+        background-color: #f8d7da;
+        color: #721c24;
+      }
+      
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+      }
+      
+      th,
+      td {
+        padding: 15px;
+        text-align: left;
+        border-bottom: 1px solid #e0e0e0;
+      }
+      
+      th {
+        background: #007bff;
+        color: #fff;
+        font-weight: 600;
+      }
+      
+      td {
+        color: #333;
+      }
+      
+      .status-pending {
+        color: #ffc107;
+        font-weight: 600;
+      }
+      
+      .status-confirmed {
+        color: #28a745;
+        font-weight: 600;
+      }
+      
+      .status-rejected {
+        color: #dc3545;
+        font-weight: 600;
+      }
+      
+      .btn {
+        padding: 8px 15px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-size: 14px;
+        transition: background 0.3s;
+        display: inline-flex;
+        align-items: center;
+      }
+      
+      .btn-primary {
+        background: #007bff;
+        color: #fff;
+      }
+      
+      .btn-primary:hover {
+        background: #0056b3;
+      }
+      
+      .btn i {
+        margin-right: 5px;
+      }
+      
+      footer {
+        background: #007bff;
+        color: #fff;
+        text-align: center;
+        padding: 15px;
+        margin-top: auto;
+      }
+      
+      @media (max-width: 768px) {
         .container {
-            background: #fff;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            max-width: 1200px;
-            margin: 0 auto;
+          padding: 20px;
+          margin: 10px;
         }
-
-        h2 {
-            font-size: 32px;
-            font-weight: 700;
-            color: #007bff;
-            margin-bottom: 30px;
-            text-align: center;
+      
+        .profile-header img {
+          width: 60px;
+          height: 60px;
         }
-
-        .alert {
-            padding: 10px;
-            margin-bottom: 20px;
-            border-radius: 5px;
-            font-size: 14px;
-            text-align: center;
+      
+        .profile-header h2 {
+          font-size: 24px;
         }
-
-        .alert-success {
-            background-color: #d4edda;
-            color: #155724;
-        }
-
-        .alert-error {
-            background-color: #f8d7da;
-            color: #721c24;
-        }
-
+      
         table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
+          font-size: 14px;
         }
-
-        th, td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-
-        th {
-            background: #007bff;
-            color: #fff;
-            font-weight: 600;
-        }
-
+      
+        th,
         td {
-            color: #555;
+          padding: 10px;
         }
-
-        .status-pending {
-            color: #ffc107;
-            font-weight: 600;
+      
+        .navbar {
+          flex-direction: column;
+          gap: 10px;
         }
-
-        .status-confirmed {
-            color: #28a745;
-            font-weight: 600;
-        }
-
-        .status-rejected {
-            color: #dc3545;
-            font-weight: 600;
-        }
+      }
     </style>
-</head>
-<body>
-    <div class="container">
-        <h2>Lịch sử đặt phòng của bạn</h2>
-        {% if history %}
-            <table>
-                <thead>
-                    <tr>
-                        <th>Mã đặt phòng</th>
-                        <th>Phòng</th>
-                        <th>Ngày nhận</th>
-                        <th>Ngày trả</th>
-                        <th>Số người</th>
-                        <th>Trạng thái</th>
-                        <th>Đặt thêm dịch vụ?</th>
-                        <th>Check-in</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for item in history %}
-                    <tr>
-                        <td>{{ item.madatphong }}</td>
-                        <td>{{ item.maphong }}</td>
-                        <td>{{ item.ngaynhanphong }}</td>
-                        <td>{{ item.ngaytraphong }}</td>
-                        <td>{{ item.songuoi }}</td>
-                        <td>{{ item.trangthai }}</td>
-                        <td>
-                            {% if not item.has_service %}
-                                <!-- Nếu chưa đặt dịch vụ, hiển thị nút để đặt -->
-                                <a href="{{ url_for('booking.order_service', madatphong=item.madatphong) }}" class="btn btn-primary">Đặt dịch vụ</a>
-                            {% else %}
-                                Đã đặt dịch vụ
-                            {% endif %}
-                        </td>
-                        <td>
-                            {% if item.is_checkin %}
-                                Đã Check-in
-                            {% else %}
-                                Chưa Check-in
-                            {% endif %}
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        {% else %}
-            <p>Bạn chưa có lịch sử đặt phòng nào.</p>
-        {% endif %}
-    </div>
-</body>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="brand"><a href="/">KeiWei Hotel</a></div>
+      <div class="nav-links">
+        <a href="/logout">Đăng xuất</a>
+      </div>
+    </nav>
 
+    <div class="container">
+      <div class="profile-header">
+        <div>
+          {% if user %}
+            <h2>Xin chào, {{ user.hoten }}!</h2>
+            <p>Email: {{ user.email }}</p>
+          {% else %}
+            <h2>Xin chào, khách!</h2>
+            <p>Vui lòng đăng nhập để xem thông tin.</p>
+          {% endif %}
+
+          
+        </div>
+      </div>
+
+      <h2>Lịch sử đặt phòng của bạn</h2>
+      {% if history %}
+        <table>
+          <thead>
+            <tr>
+              <th>Mã đặt phòng</th>
+              <th>Phòng</th>
+              <th>Ngày nhận</th>
+              <th>Ngày trả</th>
+              <th>Số người</th>
+              <th>Trạng thái</th>
+              <th>Đặt thêm dịch vụ</th>
+              <th>Check-in</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in history %}
+              <tr>
+                <td>{{ item.madatphong }}</td>
+                <td>{{ item.maphong }}</td>
+                <td>{{ item.ngaynhanphong }}</td>
+                <td>{{ item.ngaytraphong }}</td>
+                <td>{{ item.songuoi }}</td>
+                <td class="status-{{ item.trangthai.lower() }}">{{ item.trangthai }}</td>
+                <td>
+                  {% if not item.has_service %}
+                    <a href="{{ url_for('booking.order_service', madatphong=item.madatphong) }}" class="btn btn-primary"><i class="fas fa-concierge-bell"></i> Đặt dịch vụ</a>
+                  {% else %}
+                    <span><i class="fas fa-check-circle"></i> Đã đặt dịch vụ</span>
+                  {% endif %}
+                </td>
+                <td>
+                  {% if item.is_checkin %}
+                    <span><i class="fas fa-check-circle"></i> Đã Check-in</span>
+                  {% else %}
+                    <span><i class="fas fa-times-circle"></i> Chưa Check-in</span>
+                  {% endif %}
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% else %}
+        <p>Bạn chưa có lịch sử đặt phòng nào.</p>
+      {% endif %}
+    </div>
+
+    <footer>
+      <p>&copy; 2025 KeiWei Hotel. All rights reserved.</p>
+    </footer>
+  </body>
 </html>
