@@ -28,6 +28,25 @@ def dashboard():
     rooms = get_rooms().data or []
     employees = get_all_employees().data or []
 
+    return render_template("manager/manager_dashboard.html",
+                           total_employees=total_employees,
+                           total_bookings=total_bookings,
+                           total_revenue=total_revenue,
+                           rooms=rooms,
+                           employees=employees,
+                           user=session.get("user"))
+
+# Tuyến đường xem danh sách nhân viên
+@manager_bp.route('/list')
+@login_required
+def list_employees():
+    employees = get_all_employees().data or []
+    return render_template("manager/employee_list.html", employees=employees)
+
+# Tuyến đường xem danh sách hóa đơn
+@manager_bp.route("/invoices")
+@login_required
+def invoices():
     hoadon_res = supabase.table("hoadon").select("*").eq("trangthai", "đã thanh toán").execute()
     hoadon_list = hoadon_res.data or []
 
@@ -40,14 +59,20 @@ def dashboard():
         else:
             hd["tenkhachhang"] = "Không rõ"
 
-    return render_template("manager/manager_dashboard.html",
+    return render_template("manager/invoice_list.html", hoadon_list=hoadon_list)
+
+# Tuyến đường xem báo cáo
+@manager_bp.route("/reports")
+@login_required
+def reports():
+    total_employees = len(get_total_employees().data or [])
+    total_bookings = len(get_total_bookings().data or [])
+    total_revenue = get_total_revenue()
+
+    return render_template("manager/reports.html",
                            total_employees=total_employees,
                            total_bookings=total_bookings,
-                           total_revenue=total_revenue,
-                           rooms=rooms,
-                           employees=employees,
-                           hoadon_list=hoadon_list,
-                           user=session.get("user"))
+                           total_revenue=total_revenue)
 
 # Thêm phòng
 @manager_bp.route("/rooms/add", methods=['GET', 'POST'])
@@ -161,7 +186,7 @@ def add_employee():
         })
 
         flash('Thêm nhân viên thành công!' if response.data else 'Thêm thất bại.', 'success' if response.data else 'error')
-        return redirect(url_for('manager.dashboard') + '#employees')
+        return redirect(url_for('manager.list'))
 
     return render_template('manager/add_employee.html')
 
@@ -172,3 +197,41 @@ def employee_detail(manv):
     response = supabase.table("nhanvien").select("*").eq("manv", manv).execute()
     if not response.data:
         flash('Nhân viên không tồn tại.', 'error')
+        return redirect(url_for('manager.list'))
+
+    employee = response.data[0]
+    return render_template('manager/employee_detail.html', employee=employee)
+
+# Chỉnh sửa nhân viên
+@manager_bp.route("/employees/edit/<manv>", methods=['GET', 'POST'])
+@login_required
+def edit_employee(manv):
+    employee_response = supabase.table("nhanvien").select("*").eq("manv", manv).execute()
+    if not employee_response.data:
+        flash('Nhân viên không tồn tại.', 'error')
+        return redirect(url_for('manager.list'))
+
+    employee = employee_response.data[0]
+
+    if request.method == 'POST':
+        hoten = request.form['hoten']
+        chucvu = request.form['chucvu']
+        email = request.form['email']
+        matkhau = request.form['matkhau'] if request.form['matkhau'] else employee['matkhau']
+
+        existing_email = supabase.table("nhanvien").select("*").eq("email", email).neq("manv", manv).execute()
+        if existing_email.data:
+            flash('Email đã được sử dụng bởi nhân viên khác.', 'error')
+            return redirect(url_for('manager.edit_employee', manv=manv))
+
+        response = update_employee(manv, {
+            'hoten': hoten,
+            'chucvu': chucvu,
+            'email': email,
+            'matkhau': matkhau
+        })
+
+        flash('Cập nhật nhân viên thành công!' if response.data else 'Cập nhật thất bại.', 'success' if response.data else 'error')
+        return redirect(url_for('manager.list'))
+
+    return render_template('manager/edit_employee.html', employee=employee)

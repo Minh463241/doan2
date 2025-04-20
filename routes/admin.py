@@ -29,8 +29,8 @@ def admin_login():
                 elif role == 'manager':
                     return redirect(url_for('manager.dashboard'))
                 elif role == 'nhanvien':
-                    # Nếu là nhân viên thì chuyển tới chức năng confirm_booking
-                    return redirect(url_for('employee.confirm_booking'))
+                    # Nếu là nhân viên thì chuyển tới chức năng 
+                    return redirect(url_for('employee.employee_dash_board'))
                 else:
                     flash('Quyền của bạn không được hỗ trợ!', 'error')
                     return redirect(url_for('admin.admin_login'))

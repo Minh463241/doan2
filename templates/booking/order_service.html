@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Đặt dịch vụ</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        form {
+            margin-top: 20px;
+        }
+        label {
+            margin-right: 10px;
+        }
+        select, input[type="number"], button {
+            margin: 5px 0;
+            padding: 5px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Dịch vụ đã đặt cho mã đặt phòng: {{ madatphong }}</h1>
+
+    <!-- Bảng hiển thị các dịch vụ đã đặt -->
+    <table>
+        <thead>
+            <tr>
+                <th>Tên dịch vụ</th>
+                <th>Số lượng</th>
+                <th>Giá dịch vụ</th>
+                <th>Thành tiền</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for s in services %}
+            <tr>
+                <td>{{ s.tendichvu }}</td>
+                <td>{{ s.soluong }}</td>
+                <td>{{ s.giadichvu }}</td>
+                <td>{{ s.thanhtien }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <hr>
+
+    <!-- Form đặt dịch vụ mới -->
+    <h2>Đặt thêm dịch vụ</h2>
+    <!-- Sửa dòng này để truyền madatphong vào url_for -->
+    <form action="{{ url_for('booking.order_service', madatphong=madatphong) }}" method="POST">
+        <input type="hidden" name="madatphong" value="{{ madatphong }}">
+
+        <label for="madichvu">Chọn dịch vụ:</label>
+        <select name="madichvu" required>
+            {% for dv in dichvus %}
+                <option value="{{ dv.madichvu }}">{{ dv.tendichvu }} - {{ dv.giadichvu }} VNĐ</option>
+            {% endfor %}
+        </select>
+
+        <label for="soluong">Số lượng:</label>
+        <input type="number" name="soluong" min="1" value="1" required>
+
+        <button type="submit">Xác nhận đặt dịch vụ</button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Kết quả tìm kiếm phòng</title>
+    <style>
+        .container { display: flex; }
+        .sidebar { width: 250px; padding: 20px; background-color: #f4f4f4; }
+        .sidebar h3 { margin-bottom: 20px; }
+        .sidebar-menu a { display: block; padding: 10px; margin-bottom: 10px; text-decoration: none; color: #333; }
+        .sidebar-menu a:hover { background-color: #ddd; }
+        .content { flex: 1; padding: 20px; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+        th { background-color: #f4f4f4; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <h3>Chức năng</h3>
+            <div class="sidebar-menu">
+                <a href="{{ url_for('employee.employee_booking') }}">Quản lý đặt phòng</a>
+                <a href="{{ url_for('employee.employee_services') }}">Quản lý dịch vụ</a>
+                <a href="{{ url_for('employee.employee_customers') }}">Quản lý khách hàng</a>
+                <a href="{{ url_for('employee.search_room') }}">Tìm kiếm phòng theo ngày</a>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="content">
+            <h3>Kết quả tìm kiếm phòng</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Mã phòng</th>
+                        <th>Loại phòng</th>
+                        <th>Giá phòng</th>
+                        <th>Sức chứa</th>
+                        <th>Trạng thái</th>
+                        <th>Diện tích</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for room in rooms %}
+                    <tr>
+                        <td>{{ room.maphong }}</td>
+                        <td>{{ room.loaiphong }}</td>
+                        <td>{{ room.giaphong }}</td>
+                        <td>{{ room.succhua }}</td>
+                        <td>{{ room.trangthai }}</td>
+                        <td>{{ room.dientich }}</td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="6">Không có phòng nào trống trong khoảng thời gian này.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

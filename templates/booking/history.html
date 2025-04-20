@@ -96,7 +96,6 @@
 <body>
     <div class="container">
         <h2>Lịch sử đặt phòng của bạn</h2>
-
         {% if history %}
             <table>
                 <thead>
@@ -107,6 +106,8 @@
                         <th>Ngày trả</th>
                         <th>Số người</th>
                         <th>Trạng thái</th>
+                        <th>Đặt thêm dịch vụ?</th>
+                        <th>Check-in</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -118,6 +119,21 @@
                         <td>{{ item.ngaytraphong }}</td>
                         <td>{{ item.songuoi }}</td>
                         <td>{{ item.trangthai }}</td>
+                        <td>
+                            {% if not item.has_service %}
+                                <!-- Nếu chưa đặt dịch vụ, hiển thị nút để đặt -->
+                                <a href="{{ url_for('booking.order_service', madatphong=item.madatphong) }}" class="btn btn-primary">Đặt dịch vụ</a>
+                            {% else %}
+                                Đã đặt dịch vụ
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if item.is_checkin %}
+                                Đã Check-in
+                            {% else %}
+                                Chưa Check-in
+                            {% endif %}
+                        </td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -127,4 +143,5 @@
         {% endif %}
     </div>
 </body>
+
 </html>

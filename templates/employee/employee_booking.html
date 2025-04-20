@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quản lý đặt phòng</title>
+    <style>
+        .container { display: flex; }
+        .sidebar { width: 250px; padding: 20px; background-color: #f4f4f4; }
+        .sidebar h3 { margin-bottom: 20px; }
+        .sidebar-menu a { display: block; padding: 10px; margin-bottom: 10px; text-decoration: none; color: #333; }
+        .sidebar-menu a:hover { background-color: #ddd; }
+        .content { flex: 1; padding: 20px; }
+        .tabs { display: flex; gap: 10px; margin-bottom: 20px; }
+        .tab { padding: 10px 20px; cursor: pointer; border: 1px solid #ccc; }
+        .tab.active { background-color: #007bff; color: white; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+        th { background-color: #f4f4f4; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <h3>Chức năng</h3>
+            <div class="sidebar-menu">
+                <a href="{{ url_for('employee.employee_booking') }}">Quản lý đặt phòng</a>
+                <a href="{{ url_for('employee.employee_services') }}">Quản lý dịch vụ</a>
+                <a href="{{ url_for('employee.employee_customers') }}">Quản lý khách hàng</a>
+                <a href="{{ url_for('employee.search_room') }}">Tìm kiếm phòng theo ngày</a>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="content">
+            <h3>Quản lý đặt phòng</h3>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <p style="color: {{ 'green' if category == 'success' else 'red' }}">{{ message }}</p>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <div class="tabs">
+                <div class="tab active" onclick="showTab('confirm-booking')">Xác nhận đặt phòng</div>
+                <div class="tab" onclick="showTab('checkin')">Xác nhận check-in</div>
+                <div class="tab" onclick="showTab('booking-history')">Lịch sử đặt phòng</div>
+            </div>
+
+            <!-- Xác nhận đặt phòng -->
+            <div id="confirm-booking" class="tab-content active">
+                <h4>Đặt phòng chờ xác nhận</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Mã đặt phòng</th>
+                            <th>Mã khách hàng</th>
+                            <th>Mã phòng</th>
+                            <th>Ngày nhận phòng</th>
+                            <th>Ngày trả phòng</th>
+                            <th>Trạng thái</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody id="booking-table">
+                        {% for booking in bookings_to_confirm %}
+                        <tr>
+                            <td>{{ booking.madatphong }}</td>
+                            <td>{{ booking.makhachhang }}</td>
+                            <td>{{ booking.maphong }}</td>
+                            <td>{{ booking.ngaynhanphong }}</td>
+                            <td>{{ booking.ngaytraphong }}</td>
+                            <td>{{ booking.trangthai }}</td>
+                            <td>
+                                <button onclick="confirmBooking({{ booking.madatphong }})">Xác nhận</button>
+                                <button onclick="rejectBooking({{ booking.madatphong }})">Từ chối</button>
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="7">Không có đặt phòng nào chờ xác nhận.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Xác nhận check-in -->
+            <div id="checkin" class="tab-content">
+                <h4>Đặt phòng chờ check-in</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Mã đặt phòng</th>
+                            <th>Mã khách hàng</th>
+                            <th>Mã phòng</th>
+                            <th>Ngày nhận phòng</th>
+                            <th>Ngày trả phòng</th>
+                            <th>Trạng thái</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody id="checkin-table">
+                        {% for checkin in checkins %}
+                        <tr>
+                            <td>{{ checkin.madatphong }}</td>
+                            <td>{{ checkin.makhachhang }}</td>
+                            <td>{{ checkin.maphong }}</td>
+                            <td>{{ checkin.ngaynhanphong }}</td>
+                            <td>{{ checkin.ngaytraphong }}</td>
+                            <td>{{ checkin.trangthai }}</td>
+                            <td>
+                                <button onclick="checkinBooking({{ checkin.madatphong }})">Check-in</button>
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="7">Không có đặt phòng nào chờ check-in.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Lịch sử đặt phòng -->
+            <div id="booking-history" class="tab-content">
+                <h4>Lịch sử đặt phòng</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Mã đặt phòng</th>
+                            <th>Mã khách hàng</th>
+                            <th>Mã phòng</th>
+                            <th>Ngày nhận phòng</th>
+                            <th>Ngày trả phòng</th>
+                            <th>Trạng thái</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for booking in all_bookings %}
+                        <tr>
+                            <td>{{ booking.madatphong }}</td>
+                            <td>{{ booking.makhachhang }}</td>
+                            <td>{{ booking.maphong }}</td>
+                            <td>{{ booking.ngaynhanphong }}</td>
+                            <td>{{ booking.ngaytraphong }}</td>
+                            <td>{{ booking.trangthai }}</td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="6">Không có lịch sử đặt phòng.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            document.querySelector(`[onclick="showTab('${tabId}')"]`).classList.add('active');
+        }
+
+        async function confirmBooking(madatphong) {
+            const response = await fetch('/employee/confirm-booking', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ madatphong: madatphong, action: 'confirm' })
+            });
+            const result = await response.json();
+            alert(result.message);
+            if (result.success) {
+                document.querySelector(`#booking-table tr:has(td:contains('${madatphong}'))`).remove();
+            }
+        }
+
+        async function rejectBooking(madatphong) {
+            const response = await fetch('/employee/confirm-booking', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ madatphong: madatphong, action: 'reject' })
+            });
+            const result = await response.json();
+            alert(result.message);
+            if (result.success) {
+                document.querySelector(`#booking-table tr:has(td:contains('${madatphong}'))`).remove();
+            }
+        }
+
+        async function checkinBooking(madatphong) {
+            const response = await fetch('/employee/checkin', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ madatphong: madatphong, action: 'checkin' })
+            });
+            const result = await response.json();
+            alert(result.message);
+            if (result.success) {
+                document.querySelector(`#checkin-table tr:has(td:contains('${madatphong}'))`).remove();
+            }
+        }
+    </script>
+</body>
+</html>

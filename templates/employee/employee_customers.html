@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quản lý khách hàng</title>
+    <style>
+        .container { display: flex; }
+        .sidebar { width: 250px; padding: 20px; background-color: #f4f4f4; }
+        .sidebar h3 { margin-bottom: 20px; }
+        .sidebar-menu a { display: block; padding: 10px; margin-bottom: 10px; text-decoration: none; color: #333; }
+        .sidebar-menu a:hover { background-color: #ddd; }
+        .content { flex: 1; padding: 20px; }
+        .tabs { display: flex; gap: 10px; margin-bottom: 20px; }
+        .tab { padding: 10px 20px; cursor: pointer; border: 1px solid #ccc; }
+        .tab.active { background-color: #007bff; color: white; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+        th { background-color: #f4f4f4; }
+        form { margin-bottom: 20px; }
+        label { margin-right: 10px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <h3>Chức năng</h3>
+            <div class="sidebar-menu">
+                <a href="{{ url_for('employee.employee_booking') }}">Quản lý đặt phòng</a>
+                <a href="{{ url_for('employee.employee_services') }}">Quản lý dịch vụ</a>
+                <a href="{{ url_for('employee.employee_customers') }}">Quản lý khách hàng</a>
+                <a href="{{ url_for('employee.search_room') }}">Tìm kiếm phòng theo ngày</a>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="content">
+            <h3>Quản lý khách hàng</h3>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <p style="color: {{ 'green' if category == 'success' else 'red' }}">{{ message }}</p>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <div class="tabs">
+                <div class="tab active" onclick="showTab('customer-list')">Danh sách khách hàng</div>
+                <div class="tab" onclick="showTab('search-customer')">Tìm kiếm khách hàng</div>
+            </div>
+
+            <!-- Danh sách khách hàng -->
+            <div id="customer-list" class="tab-content active">
+                <h4>Danh sách khách hàng</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Mã khách hàng</th>
+                            <th>Họ tên</th>
+                            <th>CCCD</th>
+                            <th>Email</th>
+                            <th>Số điện thoại</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for customer in customers %}
+                        <tr>
+                            <td>{{ customer.makhachhang }}</td>
+                            <td>{{ customer.hoten }}</td>
+                            <td>{{ customer.cccd }}</td>
+                            <td>{{ customer.email }}</td>
+                            <td>{{ customer.sodienthoai }}</td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="5">Không có khách hàng nào.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Tìm kiếm khách hàng -->
+            <div id="search-customer" class="tab-content">
+                <h4>Tìm kiếm khách hàng theo CCCD</h4>
+                <form method="POST">
+                    <label for="cccd">CCCD:</label>
+                    <input type="text" id="cccd" name="cccd" required>
+                    <button type="submit">Tìm kiếm</button>
+                </form>
+
+                {% if customer %}
+                <h4>Kết quả tìm kiếm</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Mã khách hàng</th>
+                            <th>Họ tên</th>
+                            <th>CCCD</th>
+                            <th>Email</th>
+                            <th>Số điện thoại</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{ customer.makhachhang }}</td>
+                            <td>{{ customer.hoten }}</td>
+                            <td>{{ customer.cccd }}</td>
+                            <td>{{ customer.email }}</td>
+                            <td>{{ customer.sodienthoai }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            document.querySelector(`[onclick="showTab('${tabId}')"]`).classList.add('active');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tìm kiếm phòng theo ngày</title>
+    <style>
+        .container { display: flex; }
+        .sidebar { width: 250px; padding: 20px; background-color: #f4f4f4; }
+        .sidebar h3 { margin-bottom: 20px; }
+        .sidebar-menu a { display: block; padding: 10px; margin-bottom: 10px; text-decoration: none; color: #333; }
+        .sidebar-menu a:hover { background-color: #ddd; }
+        .content { flex: 1; padding: 20px; }
+        form { margin-bottom: 20px; }
+        label { margin-right: 10px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <h3>Chức năng</h3>
+            <div class="sidebar-menu">
+                <a href="{{ url_for('employee.employee_booking') }}">Quản lý đặt phòng</a>
+                <a href="{{ url_for('employee.employee_services') }}">Quản lý dịch vụ</a>
+                <a href="{{ url_for('employee.employee_customers') }}">Quản lý khách hàng</a>
+                <a href="{{ url_for('employee.search_room') }}">Tìm kiếm phòng theo ngày</a>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="content">
+            <h3>Tìm kiếm phòng theo ngày</h3>
+            <form method="POST">
+                <label for="checkin_date">Ngày nhận phòng:</label>
+                <input type="date" id="checkin_date" name="checkin_date" required>
+                <label for="checkout_date">Ngày trả phòng:</label>
+                <input type="date" id="checkout_date" name="checkout_date" required>
+                <button type="submit">Tìm kiếm</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

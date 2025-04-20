@@ -16,7 +16,7 @@ def login():
         user = get_user_by_email(email)
         if user and user['matkhau'] == password:
             session['user'] = {
-                "id": user['makhachhang'],
+                "makhachhang": user['makhachhang'],
                 "hoten": user['hoten'],
                 "email": user['email']
             }
