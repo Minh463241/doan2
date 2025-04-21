@@ -218,6 +218,7 @@ def add_employee():
         chucvu = request.form['chucvu']
         email = request.form['email']
         matkhau = request.form['matkhau']
+        sodienthoai = request.form['sodienthoai']  # Thêm trường số điện thoại
 
         existing_email = supabase.table("nhanvien").select("*").eq("email", email).execute()
         if existing_email.data:
@@ -228,11 +229,12 @@ def add_employee():
             'hoten': hoten,
             'chucvu': chucvu,
             'email': email,
-            'matkhau': matkhau
+            'matkhau': matkhau,
+            'sodienthoai': sodienthoai  # Thêm vào dữ liệu chèn
         })
 
         flash('Thêm nhân viên thành công!' if response.data else 'Thêm thất bại.', 'success' if response.data else 'error')
-        return redirect(url_for('manager.list'))
+        return redirect(url_for('manager.list_employees'))  # Đã sửa từ 'manager.list'
 
     return render_template('manager/add_employee.html')
 
@@ -255,7 +257,7 @@ def edit_employee(manv):
     employee_response = supabase.table("nhanvien").select("*").eq("manv", manv).execute()
     if not employee_response.data:
         flash('Nhân viên không tồn tại.', 'error')
-        return redirect(url_for('manager.list'))
+        return redirect(url_for('manager.list_employees'))
 
     employee = employee_response.data[0]
 
@@ -263,6 +265,7 @@ def edit_employee(manv):
         hoten = request.form['hoten']
         chucvu = request.form['chucvu']
         email = request.form['email']
+        sodienthoai = request.form['sodienthoai']  # Thêm trường số điện thoại
         matkhau = request.form['matkhau'] if request.form['matkhau'] else employee['matkhau']
 
         existing_email = supabase.table("nhanvien").select("*").eq("email", email).neq("manv", manv).execute()
@@ -274,10 +277,11 @@ def edit_employee(manv):
             'hoten': hoten,
             'chucvu': chucvu,
             'email': email,
-            'matkhau': matkhau
+            'matkhau': matkhau,
+            'sodienthoai': sodienthoai  # Thêm vào dữ liệu cập nhật
         })
 
         flash('Cập nhật nhân viên thành công!' if response.data else 'Cập nhật thất bại.', 'success' if response.data else 'error')
-        return redirect(url_for('manager.list'))
+        return redirect(url_for('manager.list_employees'))
 
     return render_template('manager/edit_employee.html', employee=employee)

@@ -67,8 +67,17 @@ def dat_phong():
         return redirect(url_for('payment.pay'))
 
     # Nếu là GET, lấy danh sách phòng trống để hiển thị
-    rooms_response = supabase.table('phong').select('*').eq('trangthai', 'Trống').execute()
-    rooms = rooms_response.data
+    try:
+        rooms_response = supabase.table('phong').select('*').eq('trangthai', 'Trống').execute()
+        rooms = rooms_response.data or []  # Đảm bảo rooms là danh sách rỗng nếu không có dữ liệu
+        print("Danh sách phòng trống:", rooms)  # In dữ liệu để kiểm tra
+        if not rooms:
+            flash('Hiện tại không có phòng trống.', 'warning')
+    except Exception as e:
+        print(f"Lỗi khi lấy dữ liệu từ Supabase: {e}")
+        rooms = []
+        flash('Lỗi khi lấy dữ liệu phòng. Vui lòng thử lại sau.', 'error')
+
     return render_template('booking.html', rooms=rooms)
 
 @booking_bp.route('/history')
