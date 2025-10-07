@@ -1,67 +1,93 @@
+# routes/booking.py
 from flask import Blueprint, jsonify, render_template, request, redirect, url_for, flash, session
 from datetime import datetime
+import os
+import sys
 import logging
+from logging.handlers import RotatingFileHandler
 
 from utils.db_supabase import (
-    get_booking_by_room_date,
-    supabase,  # Đảm bảo import đối tượng supabase
-    get_available_rooms, get_all_services, insert_booking, insert_service_usage,
-    create_invoice, get_customer_by_id, update_room_status
+    supabase,                 # Đảm bảo import đối tượng supabase
+    get_available_rooms,
+    get_all_services,
+    insert_booking,
+    insert_service_usage,
+    create_invoice,
+    get_customer_by_id,
+    update_room_status,
 )
 
-# Thiết lập logging
-logging.basicConfig(level=logging.INFO, filename='booking.log', filemode='a', format='%(asctime)s - %(levelname)s - %(message)s')
-logger = logging.getLogger(__name__)
+# =========================
+# Logging an toàn cho serverless
+# =========================
+logger = logging.getLogger("booking")
+if not logger.handlers:  # tránh nhân đôi handler khi module được import nhiều lần (Lambda warm start)
+    logger.setLevel(logging.INFO)
+    if os.path.isdir("/tmp"):
+        log_path = os.path.join("/tmp", "booking.log")
+        handler = RotatingFileHandler(log_path, maxBytes=5_000_000, backupCount=2)
+    else:
+        handler = logging.StreamHandler(sys.stdout)
+    handler.setFormatter(logging.Formatter("%(asctime)s - %(levelname)s - %(message)s"))
+    logger.addHandler(handler)
 
-booking_bp = Blueprint('booking', __name__)
+booking_bp = Blueprint("booking", __name__)
 
-@booking_bp.route('/dat_phong', methods=['GET'])
+# =========================
+# GET: Trang đặt phòng
+# =========================
+@booking_bp.route("/dat_phong", methods=["GET"])
 def booking_page():
     """Hiển thị trang đặt phòng với danh sách phòng trống và dịch vụ."""
+    today = datetime.now().date().isoformat()
     try:
-        ngaynhanphong = request.args.get('ngaynhanphong', '')
-        ngaytraphong = request.args.get('ngaytraphong', '')
+        ngaynhanphong = request.args.get("ngaynhanphong", "")
+        ngaytraphong = request.args.get("ngaynhanphong", "")  # default nhầm?
+        ngaytraphong = request.args.get("ngaytraphong", ngaytraphong)
 
-        today = datetime.now().date().isoformat()
         if ngaynhanphong and ngaytraphong:
             try:
                 checkin_date = datetime.fromisoformat(ngaynhanphong).date()
                 checkout_date = datetime.fromisoformat(ngaytraphong).date()
 
                 if checkin_date < datetime.now().date():
-                    flash('Ngày nhận phòng không được trước ngày hiện tại.', 'danger')
+                    flash("Ngày nhận phòng không được trước ngày hiện tại.", "danger")
                     ngaynhanphong = today
-                    ngaytraphong = ''
+                    ngaytraphong = ""
                 elif checkin_date >= checkout_date:
-                    flash('Ngày trả phòng phải sau ngày nhận phòng.', 'danger')
-                    ngaytraphong = ''
+                    flash("Ngày trả phòng phải sau ngày nhận phòng.", "danger")
+                    ngaytraphong = ""
             except ValueError:
-                flash('Định dạng ngày không hợp lệ.', 'danger')
+                flash("Định dạng ngày không hợp lệ.", "danger")
                 ngaynhanphong = today
-                ngaytraphong = ''
+                ngaytraphong = ""
         else:
+            # Mặc định hôm nay, chưa chọn ngày trả
             ngaynhanphong = today
-            ngaytraphong = ''
+            ngaytraphong = ""
 
-        # Gọi DB lọc phòng trống
-        rooms = get_available_rooms(ngaynhanphong, ngaytraphong)
+        # Lấy phòng & dịch vụ
+        rooms = get_available_rooms(ngaynhanphong, ngaytraphong) if ngaytraphong else get_available_rooms(None, None)
         services = get_all_services()
 
-        logger.info(f"Hiển thị trang đặt phòng với {len(rooms)} phòng trống và {len(services)} dịch vụ")
+        logger.info(f"Trang đặt phòng: rooms={len(rooms)} services={len(services)}")
         return render_template(
-            'booking.html',
+            "booking.html",
             rooms=rooms,
             services=services,
             ngaynhanphong=ngaynhanphong,
-            ngaytraphong=ngaytraphong
+            ngaytraphong=ngaytraphong,
         )
     except Exception as e:
         logger.error(f"Lỗi khi hiển thị trang đặt phòng: {str(e)}", exc_info=True)
-        flash('Đã xảy ra lỗi khi tải trang đặt phòng. Vui lòng thử lại.', 'danger')
-        return render_template('booking.html', rooms=[], services=[], ngaynhanphong=today, ngaytraphong='')
+        flash("Đã xảy ra lỗi khi tải trang đặt phòng. Vui lòng thử lại.", "danger")
+        # fallback an toàn
+        return render_template("booking.html", rooms=[], services=[], ngaynhanphong=today, ngaytraphong="")
 
-
-@booking_bp.route("/dat_phong", methods=["GET"])
+# =========================
+# GET: Lọc phòng (tách route để tránh đụng độ)
+# =========================
+@booking_bp.route("/dat_phong/filter", methods=["GET"])
 def dat_phong_filter():
     try:
         ngaynhanphong = request.args.get("ngaynhanphong")
@@ -71,45 +97,47 @@ def dat_phong_filter():
             flash("Vui lòng chọn ngày nhận và trả phòng!", "warning")
             return redirect(url_for("booking.booking_page"))
 
-        rooms = get_booking_by_room_date(ngaynhanphong, ngaytraphong)
-        logger.info(f"Lọc phòng trống: từ {ngaynhanphong} đến {ngaytraphong}, kết quả={len(rooms)}")
+        # Dùng API đúng để lấy danh sách phòng trống
+        rooms = get_available_rooms(ngaynhanphong, ngaytraphong) or []
+        logger.info(f"Lọc phòng trống: {ngaynhanphong} -> {ngaytraphong}, rooms={len(rooms)}")
 
-        # Nếu bạn muốn trả JSON cho AJAX frontend
         if request.headers.get("X-Requested-With") == "XMLHttpRequest":
             return jsonify(rooms)
 
-        # Nếu bạn muốn render lại giao diện với danh sách phòng trống
+        # Render lại trang booking với dữ liệu đã lọc
+        services = get_all_services()
         return render_template(
             "booking.html",
             rooms=rooms,
+            services=services,
             ngaynhanphong=ngaynhanphong,
-            ngaytraphong=ngaytraphong
+            ngaytraphong=ngaytraphong,
         )
     except Exception as e:
         logger.error(f"Lỗi khi lọc phòng: {str(e)}", exc_info=True)
         flash("Không thể tải danh sách phòng, vui lòng thử lại.", "danger")
         return redirect(url_for("booking.booking_page"))
 
-# -----------------------------
+# =========================
 # POST: Xử lý đặt phòng
-# -----------------------------
+# =========================
 @booking_bp.route("/dat_phong", methods=["POST"])
 def dat_phong():
     """Xử lý đặt phòng và dịch vụ từ form, chuyển hướng đến thanh toán."""
     try:
         logger.info(f"Nhận yêu cầu đặt phòng với session: {session.get('user')}")
-        if not session.get('user') or not session['user'].get('makhachhang'):
+        if not session.get("user") or not session["user"].get("makhachhang"):
             logger.warning("Người dùng chưa đăng nhập hoặc thiếu makhachhang")
             flash("Vui lòng đăng nhập để đặt phòng.", "danger")
             return redirect(url_for("auth.login"))
 
-        makhachhang = session['user']['makhachhang']
+        makhachhang = session["user"]["makhachhang"]
         customer = get_customer_by_id(makhachhang)
         if not customer:
             flash("Không tìm thấy thông tin khách hàng.", "danger")
             return redirect(url_for("auth.login"))
 
-        # Lấy dữ liệu từ form
+        # Lấy dữ liệu form
         maphong = request.form.get("maphong")
         giaphong = float(request.form.get("giaphong", 0))
         ngaynhanphong = request.form.get("ngaynhanphong")
@@ -121,13 +149,13 @@ def dat_phong():
         ghichudatphong = request.form.get("ghichudatphong", "")
         services = request.form.getlist("services")
 
-        today = datetime.now().date()
+        today_date = datetime.now().date()
         checkin_date = datetime.fromisoformat(ngaynhanphong).date()
         checkout_date = datetime.fromisoformat(ngaytraphong).date()
-        nights = max(1, (checkout_date - checkin_date).days)  # luôn >=1
+        nights = max(1, (checkout_date - checkin_date).days)  # luôn >= 1
 
         # Validate cơ bản
-        if checkin_date < today:
+        if checkin_date < today_date:
             flash("Ngày nhận phòng không được trước ngày hiện tại.", "danger")
             return redirect(url_for("booking.booking_page"))
         if nights < 1:
@@ -156,7 +184,7 @@ def dat_phong():
 
         # Tính tiền dịch vụ
         service_details = []
-        service_cost = 0
+        service_cost = 0.0
         all_services = get_all_services()
         for madichvu in services:
             quantity = int(request.form.get(f"quantity_{madichvu}", 0))
@@ -167,12 +195,13 @@ def dat_phong():
             if not service:
                 flash(f"Dịch vụ {madichvu} không tồn tại.", "danger")
                 return redirect(url_for("booking.booking_page"))
-            service_cost += service["giadichvu"] * quantity
+            line = float(service["giadichvu"]) * quantity
+            service_cost += line
             service_details.append({
                 "madichvu": madichvu,
                 "soluong": quantity,
-                "thanhtien": service["giadichvu"] * quantity,
-                "trangthai": "Chờ thanh toán"
+                "thanhtien": line,
+                "trangthai": "Chờ thanh toán",
             })
 
         total_cost = room_cost + service_cost
@@ -180,7 +209,7 @@ def dat_phong():
             flash("Tổng số tiền không hợp lệ.", "danger")
             return redirect(url_for("booking.booking_page"))
 
-        # Lưu booking vào session để chuyển sang thanh toán
+        # Lưu vào session để chuyển sang thanh toán
         booking_data = {
             "makhachhang": makhachhang,
             "maphong": maphong,
@@ -204,38 +233,57 @@ def dat_phong():
         flash("Đã xảy ra lỗi khi đặt phòng. Vui lòng thử lại.", "danger")
         return redirect(url_for("booking.booking_page"))
 
-@booking_bp.route('/booking_history')
+# =========================
+# GET: Lịch sử đặt phòng
+# =========================
+@booking_bp.route("/booking_history")
 def booking_history():
     """Hiển thị lịch sử đặt phòng của khách hàng."""
     try:
         logger.info(f"Session user: {session.get('user')}")
-        if not session.get('user') or not session.get('user').get('makhachhang'):
-            flash('Vui lòng đăng nhập để xem lịch sử đặt phòng.', 'danger')
-            return redirect(url_for('auth.login'))
+        if not session.get("user") or not session.get("user").get("makhachhang"):
+            flash("Vui lòng đăng nhập để xem lịch sử đặt phòng.", "danger")
+            return redirect(url_for("auth.login"))
 
-        makhachhang = session['user']['makhachhang']
+        makhachhang = session["user"]["makhachhang"]
         logger.info(f"makhachhang: {makhachhang}")
-        bookings = supabase.from_("datphong").select("*, phong(loaiphong)").eq("makhachhang", makhachhang).execute().data or []
+        bookings = (
+            supabase
+            .from_("datphong")
+            .select("*, phong(loaiphong)")
+            .eq("makhachhang", makhachhang)
+            .execute()
+            .data or []
+        )
         for booking in bookings:
-            services = supabase.from_("chitietdichvu").select("*, dichvu(tendichvu)").eq("madatphong", booking['madatphong']).execute().data or []
-            booking['services'] = services
+            services = (
+                supabase
+                .from_("chitietdichvu")
+                .select("*, dichvu(tendichvu)")
+                .eq("madatphong", booking["madatphong"])
+                .execute()
+                .data or []
+            )
+            booking["services"] = services
 
-        logger.info(f"Hiển thị lịch sử đặt phòng cho makhachhang={makhachhang} với {len(bookings)} đơn")
-        return render_template('booking/booking_history.html', bookings=bookings)
+        logger.info(f"Hiển thị lịch sử đặt phòng cho {makhachhang}: {len(bookings)} đơn")
+        return render_template("booking/booking_history.html", bookings=bookings)
     except Exception as e:
         logger.error(f"Lỗi khi hiển thị lịch sử đặt phòng: {str(e)}", exc_info=True)
-        flash('Đã xảy ra lỗi khi tải lịch sử đặt phòng. Vui lòng thử lại.', 'danger')
-        return render_template('booking/booking_history.html', bookings=[])
-    
-# ========= XEM CHI TIẾT ĐẶT PHÒNG =========
-@booking_bp.route('/booking/<int:madatphong>', methods=['GET'])
+        flash("Đã xảy ra lỗi khi tải lịch sử đặt phòng. Vui lòng thử lại.", "danger")
+        return render_template("booking/booking_history.html", bookings=[])
+
+# =========================
+# GET: Xem chi tiết đặt phòng
+# =========================
+@booking_bp.route("/booking/<int:madatphong>", methods=["GET"])
 def view_detail(madatphong):
     """Trang chi tiết đặt phòng + form đặt thêm dịch vụ."""
     try:
         # Bắt buộc đăng nhập
-        if not session.get('user') or not session['user'].get('makhachhang'):
-            flash('Vui lòng đăng nhập để xem chi tiết đặt phòng.', 'danger')
-            return redirect(url_for('auth.login'))
+        if not session.get("user") or not session["user"].get("makhachhang"):
+            flash("Vui lòng đăng nhập để xem chi tiết đặt phòng.", "danger")
+            return redirect(url_for("auth.login"))
 
         # Lấy đơn đặt phòng
         booking = (
@@ -248,8 +296,8 @@ def view_detail(madatphong):
             .data
         )
         if not booking:
-            flash('Không tìm thấy đơn đặt phòng.', 'danger')
-            return redirect(url_for('booking.booking_history'))
+            flash("Không tìm thấy đơn đặt phòng.", "danger")
+            return redirect(url_for("booking.booking_history"))
 
         # Lấy danh sách dịch vụ đã đặt cho đơn này
         services_used = (
@@ -260,31 +308,31 @@ def view_detail(madatphong):
             .execute()
             .data or []
         )
-        booking['services'] = services_used
+        booking["services"] = services_used
 
         # Lấy tất cả dịch vụ (để render form)
-        all_services = get_all_services()  # [{'madichvu':..., 'tendichvu':..., 'giadichvu':...}, ...]
+        all_services = get_all_services()
 
         return render_template(
-            'booking/booking_detail.html',
+            "booking/booking_detail.html",
             booking=booking,
-            all_services=all_services
+            all_services=all_services,
         )
     except Exception as e:
         logger.error(f"Lỗi view_detail: {e}", exc_info=True)
-        flash('Có lỗi khi tải chi tiết đặt phòng.', 'danger')
-        return redirect(url_for('booking.booking_history'))
+        flash("Có lỗi khi tải chi tiết đặt phòng.", "danger")
+        return redirect(url_for("booking.booking_history"))
 
-
-
-# ========= XỬ LÝ ĐẶT THÊM DỊCH VỤ =========
-@booking_bp.route('/<int:madatphong>/add-service', methods=['POST'], endpoint='add_service')
+# =========================
+# POST: Đặt thêm dịch vụ cho một booking
+# =========================
+@booking_bp.route("/<int:madatphong>/add-service", methods=["POST"], endpoint="add_service")
 def add_service(madatphong):
     try:
         # --- Kiểm tra đăng nhập ---
-        if not session.get('user') or not session['user'].get('makhachhang'):
-            flash('Vui lòng đăng nhập để đặt dịch vụ.', 'danger')
-            return redirect(url_for('auth.login'))
+        if not session.get("user") or not session["user"].get("makhachhang"):
+            flash("Vui lòng đăng nhập để đặt dịch vụ.", "danger")
+            return redirect(url_for("auth.login"))
 
         # --- Lấy thông tin đơn đặt phòng ---
         booking_db = (
@@ -296,96 +344,85 @@ def add_service(madatphong):
             .data
         )
         if not booking_db:
-            flash('Không tìm thấy đơn đặt phòng.', 'danger')
-            return redirect(url_for('booking.booking_history'))
+            flash("Không tìm thấy đơn đặt phòng.", "danger")
+            return redirect(url_for("booking.booking_history"))
 
-        invalid_states = {'Đã hủy', 'Đã trả phòng'}
-        if booking_db.get('trangthai') in invalid_states:
-            flash(f"Đơn #{madatphong} đang ở trạng thái “{booking_db.get('trangthai')}”, không thể thêm dịch vụ.", 'danger')
-            return redirect(url_for('booking.view_detail', madatphong=madatphong))
+        if booking_db.get("trangthai") in {"Đã hủy", "Đã trả phòng"}:
+            flash(f"Đơn #{madatphong} đang ở trạng thái “{booking_db.get('trangthai')}”, không thể thêm dịch vụ.", "danger")
+            return redirect(url_for("booking.view_detail", madatphong=madatphong))
 
         # --- Lấy danh sách dịch vụ người dùng chọn ---
-        service_ids = request.form.getlist('service_id[]') or request.form.getlist('service_id')
-        quantities  = request.form.getlist('quantity[]')   or [request.form.get('quantity')]
+        service_ids = request.form.getlist("service_id[]") or request.form.getlist("service_id")
+        quantities = request.form.getlist("quantity[]") or [request.form.get("quantity")]
         if not service_ids or not quantities or len(service_ids) != len(quantities):
-            flash('Vui lòng chọn ít nhất một dịch vụ hợp lệ.', 'danger')
-            return redirect(url_for('booking.view_detail', madatphong=madatphong))
+            flash("Vui lòng chọn ít nhất một dịch vụ hợp lệ.", "danger")
+            return redirect(url_for("booking.view_detail", madatphong=madatphong))
 
         # --- Lấy danh sách dịch vụ từ DB ---
-        all_services_list = get_all_services()  # [{'madichvu','tendichvu','giadichvu',...}]
-        all_services = {str(s['madichvu']): s for s in all_services_list}
+        all_services_list = get_all_services()
+        all_services = {str(s["madichvu"]): s for s in all_services_list}
 
         service_details = []
         service_cost = 0.0
 
-        # --- Tính tổng tiền dịch vụ ---
         for sid, qty in zip(service_ids, quantities):
             if not sid:
                 continue
-
-            # Chuyển đổi và kiểm tra số lượng
             try:
                 qty = int(qty or 0)
             except ValueError:
                 qty = 0
             if qty <= 0:
-                flash('Số lượng dịch vụ phải lớn hơn 0.', 'danger')
-                return redirect(url_for('booking.view_detail', madatphong=madatphong))
+                flash("Số lượng dịch vụ phải lớn hơn 0.", "danger")
+                return redirect(url_for("booking.view_detail", madatphong=madatphong))
 
-            # Kiểm tra dịch vụ có tồn tại không
             if str(sid) not in all_services:
-                flash(f'Dịch vụ {sid} không tồn tại.', 'danger')
-                return redirect(url_for('booking.view_detail', madatphong=madatphong))
+                flash(f"Dịch vụ {sid} không tồn tại.", "danger")
+                return redirect(url_for("booking.view_detail", madatphong=madatphong))
 
             dv = all_services[str(sid)]
-
-            # --- Bảo vệ giá âm ---
             try:
-                gia_dv = float(dv['giadichvu'])
+                gia_dv = float(dv["giadichvu"])
             except (ValueError, TypeError):
                 gia_dv = 0.0
-
             if gia_dv <= 0:
                 logger.warning(f"Dịch vụ {dv.get('tendichvu', sid)} có giá không hợp lệ ({dv.get('giadichvu')})")
-                flash(f"Dịch vụ {dv.get('tendichvu', sid)} có giá không hợp lệ.", 'danger')
-                return redirect(url_for('booking.view_detail', madatphong=madatphong))
+                flash(f"Dịch vụ {dv.get('tendichvu', sid)} có giá không hợp lệ.", "danger")
+                return redirect(url_for("booking.view_detail", madatphong=madatphong))
 
-            # Tính tiền dịch vụ
             line_total = gia_dv * qty
             service_cost += line_total
             service_details.append({
-                'madichvu': int(sid),
-                'soluong': qty,
-                'thanhtien': line_total
+                "madichvu": int(sid),
+                "soluong": qty,
+                "thanhtien": line_total,
             })
 
-        # --- Bảo vệ tổng tiền âm hoặc 0 ---
         if service_cost <= 0:
             logger.warning(f"[add_service] Tổng tiền dịch vụ = {service_cost}, tự động lấy trị tuyệt đối.")
             service_cost = abs(service_cost)
 
         # --- Lưu thông tin vào session để chuyển sang PayPal ---
-        session['booking'] = {
-            'mode': 'services_only',
-            'existing_booking_id': madatphong,
-            'makhachhang': session['user']['makhachhang'],
-            'maphong': booking_db['maphong'],
-            'ngaynhanphong': booking_db['ngaynhanphong'],
-            'ngaytraphong': booking_db['ngaytraphong'],
-            'songuoi': booking_db.get('songuoi', 1),
-            'tongtien': service_cost,
-            'service_details': service_details,
-            'yeucaudacbiet': '',
-            'thoigiancheckindukien': '',
-            'sokhachdicung': '0',
-            'ghichudatphong': ''
+        session["booking"] = {
+            "mode": "services_only",
+            "existing_booking_id": madatphong,
+            "makhachhang": session["user"]["makhachhang"],
+            "maphong": booking_db["maphong"],
+            "ngaynhanphong": booking_db["ngaynhanphong"],
+            "ngaytraphong": booking_db["ngaytraphong"],
+            "songuoi": booking_db.get("songuoi", 1),
+            "tongtien": service_cost,
+            "service_details": service_details,
+            "yeucaudacbiet": "",
+            "thoigiancheckindukien": "",
+            "sokhachdicung": "0",
+            "ghichudatphong": "",
         }
 
         logger.info(f"[add_service] Chuẩn bị thanh toán cho đơn #{madatphong} với tổng dịch vụ = {service_cost}")
-        return redirect(url_for('payment.pay'))
+        return redirect(url_for("payment.pay"))
 
     except Exception as e:
         logger.error(f"Lỗi add_service: {e}", exc_info=True)
-        flash('Có lỗi khi chuyển sang thanh toán. Vui lòng thử lại.', 'danger')
-        return redirect(url_for('booking.view_detail', madatphong=madatphong))
-
+        flash("Có lỗi khi chuyển sang thanh toán. Vui lòng thử lại.", "danger")
+        return redirect(url_for("booking.view_detail", madatphong=madatphong))
