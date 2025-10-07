@@ -9,6 +9,8 @@ from routes.manager import manager_bp
 from routes.employee import employee_bp
 from routes.book_service import customer_service_bp  # Thêm import cho book_service
 from config import Config, supabase
+import bcrypt
+
 
 app = Flask(__name__, template_folder='templates', static_folder='static')
 

@@ -923,3 +923,7 @@ ValueError: T\u1ed5ng ti\u1ec1n c\u1ee7a \u0111\u1eb7t phòng 5 không h\u1ee3p l\
 2025-10-07 17:22:58,446 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=%2A%2Ckhachhang%28hoten%2Csodienthoai%29%2Cphong%28maphong%2Cloaiphong%29 "HTTP/2 200 OK"
 2025-10-07 17:22:58,449 - INFO - Qu\u1ea3n lý \u0111\u1eb7t phòng: 0 ch\u1edd xác nh\u1eadn, 0 \u0111ã xác nh\u1eadn
 2025-10-07 17:22:58,449 - INFO - 127.0.0.1 - - [07/Oct/2025 17:22:58] "GET /employee/booking HTTP/1.1" 200 -
+2025-10-07 17:30:15,396 - INFO -  * Detected change in 'C:\\Users\\Minh\\Documents\\GitHub\\doan2\\app.py', reloading
+2025-10-07 17:30:15,697 - INFO -  * Restarting with stat
+2025-10-07 17:30:17,916 - WARNING -  * Debugger is active!
+2025-10-07 17:30:17,923 - INFO -  * Debugger PIN: 139-536-975
