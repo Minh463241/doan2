@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <style>
         * {
             margin: 0;
@@ -51,69 +53,12 @@
             z-index: -1;
         }
 
-        body.dark::before {
-            background: url('https://images.unsplash.com/photo-1578683014728-c73504a258f9?q=80&w=2070&auto=format&fit=crop') no-repeat center center fixed;
-            background-size: cover;
-            opacity: 0.25;
-            filter: blur(5px);
-            transform: scale(1.1);
-        }
-
-        body.dark::after {
-            background: linear-gradient(135deg, rgba(30, 58, 138, 0.4) 0%, rgba(30, 41, 59, 0.9) 50%, rgba(30, 58, 138, 0.4) 100%);
-            background-size: 200% 200%;
-            animation: gradientShift 25s ease infinite;
-        }
-
         @keyframes gradientShift {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
 
-        .bokeh {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        .bokeh span {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            background: rgba(0, 123, 255, 0.5);
-            border-radius: 50%;
-            animation: bokeh 5s infinite ease-in-out;
-            box-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
-        }
-
-        .bokeh span:nth-child(1) { top: 10%; left: 15%; animation-delay: 0s; }
-        .bokeh span:nth-child(2) { top: 20%; left: 85%; animation-delay: 1s; }
-        .bokeh span:nth-child(3) { top: 50%; left: 5%; animation-delay: 2s; }
-        .bokeh span:nth-child(4) { top: 70%; left: 90%; animation-delay: 3s; }
-        .bokeh span:nth-child(5) { top: 90%; left: 30%; animation-delay: 4s; }
-
-        @keyframes bokeh {
-            0%, 100% { transform: scale(1); opacity: 0.5; }
-            50% { transform: scale(1.5); opacity: 1; }
-        }
-
-        .hero-section {
-            padding: 6rem 0;
-            text-align: center;
-            position: relative;
-            z-index: 1;
-        }
-
-        h1, h2, h3, h4 {
-            font-family: 'Playfair Display', serif;
-        }
-
-        /* Room Grid */
         .room-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -129,26 +74,6 @@
             display: block;
         }
 
-        .room-card.dark {
-            background: rgba(31, 41, 55, 0.95);
-        }
-
-        .room-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
-        }
-
-        .room-card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            transition: transform 0.3s ease;
-        }
-
-        .room-card:hover img {
-            transform: scale(1.05);
-        }
-
         @media (max-width: 1024px) {
             .room-grid {
                 grid-template-columns: repeat(2, 1fr);
@@ -159,233 +84,266 @@
             .room-grid {
                 grid-template-columns: 1fr;
             }
-
-            .room-card img {
-                height: 150px;
-            }
-
-            .room-card .p-6 {
-                padding: 1rem;
-            }
-
-            .text-lg {
-                font-size: 1rem;
-            }
-
-            .text-sm {
-                font-size: 0.85rem;
-            }
-
-            .hero-section {
-                padding: 3rem 0;
-            }
         }
 
-        .btn {
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
         }
 
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0, 123, 255, 0.3);
-        }
-
-        .btn::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            transition: width 0.4s ease, height 0.4s ease;
-        }
-
-        .btn:hover::after {
-            width: 200px;
-            height: 200px;
-        }
-
-        .form-input {
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-        }
-
-        .form-input:focus {
-            border-color: #007bff;
-            box-shadow: 0 0 12px rgba(0, 123, 255, 0.4);
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         .tooltip {
             visibility: hidden;
-            opacity: 0;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
             position: absolute;
-            background: #007bff;
-            color: white;
-            padding: 8px 12px;
-            border-radius: 6px;
+            background-color: #333;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 4px;
             font-size: 12px;
             z-index: 10;
-            top: -40px;
-            left: 50%;
-            transform: translateX(-50%);
         }
 
         .has-tooltip:hover .tooltip {
             visibility: visible;
-            opacity: 1;
         }
 
-        .fade-in {
-            animation: fadeIn 0.6s ease-in-out;
+        .service-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.5rem 0;
         }
 
-        @keyframes fadeIn {
-            0% { opacity: 0; transform: translateY(20px); }
-            100% { opacity: 1; transform: translateY(0); }
+        .service-item img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 8px;
         }
     </style>
 </head>
 <body>
-    <!-- Hiệu ứng bokeh -->
-    <div class="bokeh">
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-    </div>
+    <header class="sticky top-0 w-full bg-white dark:bg-gray-900 shadow z-20">
+  <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+    <a href="/" class="flex items-center gap-3">
+      <img src="https://via.placeholder.com/150x50?text=KeiWei+Hotel" alt="KeiWei Hotel Logo" class="h-8 w-auto">
+      <span class="hidden sm:inline text-xl font-bold text-blue-700 dark:text-blue-400">KeiWei Hotel</span>
+    </a>
 
-    <header class="fixed top-0 w-full bg-white dark:bg-gray-900 shadow-lg z-20">
-        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-            <h1 class="text-2xl font-bold text-blue-700 dark:text-blue-400"><a href="/">KeiWei Hotel</a></h1>
-            <div class="flex items-center space-x-4">
-                <button id="theme-toggle" class="text-blue-700 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-200">
-                    <i class="fas fa-moon"></i>
-                </button>
-                <nav class="hidden md:flex space-x-6">
-                    <a href="/" class="text-blue-700 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-200">Trang chủ</a>
-                    <a href="#" class="text-blue-700 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-200">Liên hệ</a>
-                </nav>
-            </div>
-        </div>
-    </header>
+    <div class="flex items-center gap-3">
+      <!-- Dark mode -->
+      <button id="theme-toggle" class="text-blue-700 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-200">
+        <i class="fas fa-moon"></i>
+      </button>
+
+      <!-- Desktop nav -->
+      {% set current_user = (session.user if session and session.user else user) %}
+      <nav class="hidden md:flex items-center gap-6">
+        <a href="/" class="text-blue-700 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-200">Trang chủ</a>
+        <a href="/about" class="text-blue-700 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-200">Giới thiệu</a>
+        <a href="{{ url_for('booking.dat_phong') }}" class="text-blue-700 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-200">Đặt phòng</a>
+        <a href="{{ url_for('customer_service.book_service') }}" class="text-blue-700 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-200">Dịch vụ</a>
+        <a href="/contact" class="text-blue-700 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-200">Liên hệ</a>
+
+        {% if current_user %}
+          {% set hoten = current_user.hoten if current_user.hoten is defined else (current_user.name if current_user.name is defined else 'Tài khoản') %}
+          <a href="{{ url_for('auth.profile') }}" class="text-blue-700 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-200">
+            {{ hoten }}
+          </a>
+          <a href="{{ url_for('booking.booking_history') }}" class="text-blue-700 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-200">
+            Lịch sử đặt phòng
+          </a>
+          <a href="{{ url_for('auth.logout') }}" class="text-blue-700 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-200">
+            Đăng xuất
+          </a>
+        {% else %}
+          <a href="{{ url_for('auth.login') }}" class="text-blue-700 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-200">Đăng nhập</a>
+          <a href="{{ url_for('auth.register') }}" class="text-blue-700 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-200">Đăng ký</a>
+        {% endif %}
+      </nav>
+
+      <!-- Hamburger -->
+      <button id="menu-toggle" class="md:hidden text-blue-700 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-200">
+        <i class="fas fa-bars text-xl"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile nav -->
+  <nav id="mobile-nav" class="md:hidden hidden border-t border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-900">
+    <div class="container mx-auto px-4 py-3 flex flex-col gap-3">
+      <a href="/" class="py-1 text-blue-700 dark:text-blue-400">Trang chủ</a>
+      <a href="/about" class="py-1 text-blue-700 dark:text-blue-400">Giới thiệu</a>
+      <a href="{{ url_for('booking.dat_phong') }}" class="py-1 text-blue-700 dark:text-blue-400">Đặt phòng</a>
+      <a href="{{ url_for('customer_service.book_service') }}" class="py-1 text-blue-700 dark:text-blue-400">Dịch vụ</a>
+      <a href="/contact" class="py-1 text-blue-700 dark:text-blue-400">Liên hệ</a>
+
+      {% if current_user %}
+        {% set hoten = current_user.hoten if current_user.hoten is defined else (current_user.name if current_user.name is defined else 'Tài khoản') %}
+        <a href="{{ url_for('auth.profile') }}" class="py-1 text-blue-700 dark:text-blue-400">{{ hoten }}</a>
+        <a href="{{ url_for('booking.booking_history') }}" class="py-1 text-blue-700 dark:text-blue-400">Lịch sử đặt phòng</a>
+        <a href="{{ url_for('auth.logout') }}" class="py-1 text-blue-700 dark:text-blue-400">Đăng xuất</a>
+      {% else %}
+        <a href="{{ url_for('auth.login') }}" class="py-1 text-blue-700 dark:text-blue-400">Đăng nhập</a>
+        <a href="{{ url_for('auth.register') }}" class="py-1 text-blue-700 dark:text-blue-400">Đăng ký</a>
+      {% endif %}
+    </div>
+  </nav>
+</header>
+
 
     <main class="container mx-auto px-4 pt-24 pb-16">
-        <section class="hero-section">
+        <section class="hero-section text-center mb-12">
             <h2 class="text-4xl font-bold text-blue-700 dark:text-blue-400 mb-4">Chào mừng đến với KeiWei Hotel</h2>
             <p class="text-gray-600 dark:text-gray-300 text-lg max-w-2xl mx-auto">Khám phá không gian nghỉ dưỡng đẳng cấp với những căn phòng được thiết kế tỉ mỉ, mang đến sự thoải mái tối đa.</p>
         </section>
 
-        <!-- Thông báo -->
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
                 {% for category, message in messages %}
-                    <div class="bg-{{ 'green' if category == 'success' else 'red' if category == 'error' else 'yellow' }}-100 text-{{ 'green' if category == 'success' else 'red' if category == 'error' else 'yellow' }}-800 p-4 rounded-lg text-center mb-8 fade-in max-w-3xl mx-auto">
+                    <div class="bg-{{ 'green' if category == 'success' else 'red' if category == 'danger' else 'yellow' }}-100 text-{{ 'green' if category == 'success' else 'red' if category == 'danger' else 'yellow' }}-800 p-4 rounded-lg text-center mb-8 fade-in max-w-3xl mx-auto">
                         {{ message }}
                     </div>
                 {% endfor %}
             {% endif %}
         {% endwith %}
 
-        <!-- Bộ lọc loại phòng -->
-        <section class="mb-12">
-            <h3 class="text-2xl font-bold text-blue-700 dark:text-blue-400 mb-6">Chọn loại phòng</h3>
-            <div class="flex flex-wrap gap-4">
-                <button class="filter-btn btn bg-blue-700 text-white px-6 py-2 rounded-full hover:bg-blue-800" data-type="all">Tất cả</button>
-                <button class="filter-btn btn bg-gray-200 text-gray-900 px-6 py-2 rounded-full hover:bg-blue-100" data-type="standard">Standard</button>
-                <button class="filter-btn btn bg-gray-200 text-gray-900 px-6 py-2 rounded-full hover:bg-blue-100" data-type="deluxe">Deluxe</button>
-                <button class="filter-btn btn bg-gray-200 text-gray-900 px-6 py-2 rounded-full hover:bg-blue-100" data-type="suite">Suite</button>
+        {% if not session.user or not session.user.makhachhang %}
+            <div class="bg-yellow-100 text-yellow-800 p-4 rounded-lg text-center mb-8 fade-in max-w-3xl mx-auto">
+                Vui lòng <a href="{{ url_for('auth.login') }}" class="underline">đăng nhập</a> để đặt phòng!
             </div>
-        </section>
+        {% else %}
+            <section class="mb-12">
+                <h3 class="text-2xl font-bold text-blue-700 dark:text-blue-400 mb-6">Chọn ngày nhận/trả phòng để xem phòng trống</h3>
+                <div class="flex flex-wrap gap-4 mb-4">
+                    <input type="date" id="ngaynhanphong_filter" name="ngaynhanphong_filter" value="{{ ngaynhanphong }}" class="form-input p-3 rounded-lg bg-gray-50 dark:bg-gray-700 dark:text-white" required>
+                    <input type="date" id="ngaytraphong_filter" name="ngaytraphong_filter" value="{{ ngaytraphong }}" class="form-input p-3 rounded-lg bg-gray-50 dark:bg-gray-700 dark:text-white" required>
+                    <button onclick="filterRooms()" class="btn bg-blue-700 text-white px-6 py-2 rounded-full hover:bg-blue-800">Lọc phòng</button>
+                </div>
+            </section>
 
-        <!-- Danh sách phòng (Grid) -->
-        <section class="mb-16">
-            <h3 class="text-2xl font-bold text-blue-700 dark:text-blue-400 mb-6">Danh sách phòng trống (Tổng cộng: <span id="total-rooms">0</span> phòng)</h3>
-            <div class="room-grid" id="room-list">
-                {% if rooms %}
-                    {% for room in rooms %}
-                        <div class="room-card dark dark:bg-gray-800" data-type="{{ room.loaiphong | lower }}">
-                            <div class="relative">
-                                <img src="{{ room.hinhanh | default('https://images.unsplash.com/photo-1618773928121-c32242e63f39?q=80&w=2070&auto=format&fit=crop') }}" alt="{{ room.loaiphong }}" class="w-full h-48 object-cover">
-                            </div>
-                            <div class="p-6">
-                                <div class="flex justify-between items-center mb-3">
-                                    <h4 class="text-xl font-semibold text-blue-700 dark:text-blue-400">{{ room.loaiphong }}</h4>
-                                    <span class="text-xs font-medium px-3 py-1 rounded-full {{ 'bg-blue-100 text-blue-800' if room.loaiphong == 'Standard' else 'bg-purple-100 text-purple-800' if room.loaiphong == 'Deluxe' else 'bg-yellow-100 text-yellow-800' if room.loaiphong == 'Suite' else 'bg-green-100 text-green-800' }}">{{ room.loaiphong }}</span>
+            <section class="mb-12">
+                <h3 class="text-2xl font-bold text-blue-700 dark:text-blue-400 mb-6">Chọn loại phòng</h3>
+                <div class="flex flex-wrap gap-4">
+                    <button class="filter-btn btn bg-blue-700 text-white px-6 py-2 rounded-full hover:bg-blue-800" data-type="all">Tất cả</button>
+                    <button class="filter-btn btn bg-gray-200 text-gray-900 px-6 py-2 rounded-full hover:bg-blue-100" data-type="standard">Standard</button>
+                    <button class="filter-btn btn bg-gray-200 text-gray-900 px-6 py-2 rounded-full hover:bg-blue-100" data-type="deluxe">Deluxe</button>
+                    <button class="filter-btn btn bg-gray-200 text-gray-900 px-6 py-2 rounded-full hover:bg-blue-100" data-type="suite">Suite</button>
+                </div>
+            </section>
+
+            <section class="mb-16">
+                <h3 class="text-2xl font-bold text-blue-700 dark:text-blue-400 mb-6">Danh sách phòng trống (Tổng cộng: <span id="total-rooms">0</span> phòng)</h3>
+                <div class="room-grid" id="room-list">
+                    {% if rooms %}
+                        {% for room in rooms %}
+                            <div class="room-card dark:bg-gray-800" data-type="{{ room.loaiphong | lower }}">
+                                <div class="relative">
+                                    <img src="{{ room.hinhanh | default('https://images.unsplash.com/photo-1618773928121-c32242e63f39?q=80&w=2070&auto=format&fit=crop') }}" alt="{{ room.loaiphong }}" class="w-full h-48 object-cover">
                                 </div>
-                                <div class="text-sm text-gray-600 dark:text-gray-300 mb-4 space-y-2">
-                                    <p class="has-tooltip"><i class="fas fa-ruler-combined mr-2"></i>{{ room.dientich }}m² <span class="tooltip">Diện tích phòng</span></p>
-                                    <p class="has-tooltip"><i class="fas fa-users mr-2"></i>{{ room.succhua }} người <span class="tooltip">Sức chứa tối đa</span></p>
-                                    <p class="has-tooltip"><i class="fas fa-wifi mr-2"></i>Wifi miễn phí <span class="tooltip">Kết nối tốc độ cao</span></p>
-                                    <p class="has-tooltip"><i class="fas fa-info-circle mr-2"></i>Trạng thái: {{ room.trangthai }} <span class="tooltip">Trạng thái phòng</span></p>
+                                <div class="p-6">
+                                    <div class="flex justify-between items-center mb-3">
+                                        <h4 class="text-xl font-semibold text-blue-700 dark:text-blue-400">{{ room.loaiphong }}</h4>
+                                        <span class="text-xs font-medium px-3 py-1 rounded-full {{ 'bg-blue-100 text-blue-800' if room.loaiphong == 'Standard' else 'bg-purple-100 text-purple-800' if room.loaiphong == 'Deluxe' else 'bg-yellow-100 text-yellow-800' if room.loaiphong == 'Suite' else 'bg-green-100 text-green-800' }}">{{ room.loaiphong }}</span>
+                                    </div>
+                                    <div class="text-sm text-gray-600 dark:text-gray-300 mb-4 space-y-2">
+                                        <p class="has-tooltip"><i class="fas fa-ruler-combined mr-2"></i>{{ room.dientich }}m² <span class="tooltip">Diện tích phòng</span></p>
+                                        <p class="has-tooltip"><i class="fas fa-users mr-2"></i>{{ room.succhua }} người <span class="tooltip">Sức chứa tối đa</span></p>
+                                        <p class="has-tooltip"><i class="fas fa-wifi mr-2"></i>Wifi miễn phí <span class="tooltip">Kết nối tốc độ cao</span></p>
+<p class="has-tooltip {{ 'text-green-600' if room.trangthai == 'Trống' else 'text-red-600' if room.trangthai == 'Đã đặt' else 'text-gray-600' }}">
+    <i class="fas fa-info-circle mr-2"></i>
+    Trạng thái: {{ room.trangthai | default('Chưa cập nhật') }}
+    {% if room.trangthai == 'Đã đặt' and room.thongtin_dat %}
+        - {{ room.thongtin_dat }}
+    {% endif %}
+    <span class="tooltip">Trạng thái phòng</span>
+</p>                                    </div>
+                                    <div class="text-lg font-bold text-blue-700 dark:text-blue-400 mb-4" id="room-price-{{ room.maphong }}">{{ room.giaphong | float | int }} VNĐ/đêm</div>
+                                    <button class="btn w-full bg-blue-700 text-white py-3 rounded-lg hover:bg-blue-800" onclick="selectRoom('{{ room.maphong }}', '{{ room.loaiphong }}', '{{ room.giaphong }}')">Chọn phòng</button>
                                 </div>
-                                <div class="text-lg font-bold text-blue-700 dark:text-blue-400 mb-4">{{ "{:,.0f}".format(room.giaphong) }} VNĐ/đêm</div>
-                                <button class="btn w-full bg-blue-700 text-white py-3 rounded-lg hover:bg-blue-800" onclick="selectRoom('{{ room.maphong }}', '{{ room.loaiphong }}', '{{ room.giaphong }}')">Chọn phòng</button>
                             </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="bg-yellow-100 text-yellow-800 p-4 rounded-lg text-center mb-8 fade-in max-w-3xl mx-auto">
+                            Không có phòng trống trong khoảng thời gian đã chọn. Vui lòng thử lại với ngày khác!
                         </div>
-                    {% endfor %}
-                {% else %}
-                    <p class="text-center text-gray-600 dark:text-gray-300">Không có phòng trống hiện tại.</p>
-                {% endif %}
-            </div>
-        </section>
+                    {% endif %}
+                </div>
+            </section>
 
-        <!-- Form đặt phòng -->
-        <section class="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg max-w-3xl mx-auto" id="booking-form" style="display: none;">
-            <h3 class="text-2xl font-bold text-blue-700 dark:text-blue-400 mb-6 text-center">Thông tin đặt phòng</h3>
-            <div class="bg-blue-50 dark:bg-blue-900/50 p-4 rounded-lg mb-6">
-                <h4 id="selected-room-name" class="text-lg font-semibold text-blue-700 dark:text-blue-400"></h4>
-                <p id="selected-room-price" class="text-sm text-gray-600 dark:text-gray-300"></p>
-            </div>
-            <form method="POST" action="{{ url_for('booking.dat_phong') }}">
-                <input type="hidden" id="maphong" name="maphong">
-                <input type="hidden" id="giaphong" name="giaphong">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                    <div>
-                        <label for="ngaynhanphong" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Ngày nhận phòng</label>
-                        <input type="date" id="ngaynhanphong" name="ngaynhanphong" required onchange="calculateTotalPrice()" class="form-input w-full p-3 rounded-lg bg-gray-50 dark:bg-gray-700 dark:text-white">
+            <section class="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg max-w-3xl mx-auto" id="booking-form" style="display: none;">
+                <h3 class="text-2xl font-bold text-blue-700 dark:text-blue-400 mb-6 text-center">Thông tin đặt phòng</h3>
+                <div class="bg-blue-50 dark:bg-blue-900/50 p-4 rounded-lg mb-6">
+                    <h4 id="selected-room-name" class="text-lg font-semibold text-blue-700 dark:text-blue-400"></h4>
+                    <p id="selected-room-price" class="text-sm text-gray-600 dark:text-gray-300"></p>
+                    <p id="estimated-total" class="text-sm text-gray-600 dark:text-gray-300 font-bold"></p>
+                </div>
+                <form method="POST" action="{{ url_for('booking.dat_phong') }}" onsubmit="return validateForm()">
+                    <input type="hidden" id="maphong" name="maphong">
+                    <input type="hidden" id="giaphong" name="giaphong">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <label for="ngaynhanphong" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Ngày nhận phòng</label>
+                            <input type="date" id="ngaynhanphong" name="ngaynhanphong" value="{{ ngaynhanphong }}" required class="form-input w-full p-3 rounded-lg bg-gray-50 dark:bg-gray-700 dark:text-white">
+                        </div>
+                        <div>
+                            <label for="ngaytraphong" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Ngày trả phòng</label>
+                            <input type="date" id="ngaytraphong" name="ngaytraphong" value="{{ ngaytraphong }}" required class="form-input w-full p-3 rounded-lg bg-gray-50 dark:bg-gray-700 dark:text-white">
+                        </div>
                     </div>
-                    <div>
-                        <label for="ngaytraphong" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Ngày trả phòng</label>
-                        <input type="date" id="ngaytraphong" name="ngaytraphong" required onchange="calculateTotalPrice()" class="form-input w-full p-3 rounded-lg bg-gray-50 dark:bg-gray-700 dark:text-white">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <label for="songuoi" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Số người</label>
+                            <input type="number" id="songuoi" name="songuoi" min="1" required class="form-input w-full p-3 rounded-lg bg-gray-50 dark:bg-gray-700 dark:text-white">
+                        </div>
+                        <div>
+                            <label for="thoigiancheckindukien" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Thời gian check-in dự kiến</label>
+                            <input type="datetime-local" id="thoigiancheckindukien" name="thoigiancheckindukien" class="form-input w-full p-3 rounded-lg bg-gray-50 dark:bg-gray-700 dark:text-white" step="60">
+                        </div>
                     </div>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                    <div>
-                        <label for="songuoi" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Số người</label>
-                        <input type="number" id="songuoi" name="songuoi" min="1" required class="form-input w-full p-3 rounded-lg bg-gray-50 dark:bg-gray-700 dark:text-white">
+                    <div class="mb-6">
+                        <label for="yeucaudacbiet" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Yêu cầu đặc biệt</label>
+                        <textarea id="yeucaudacbiet" name="yeucaudacbiet" placeholder="VD: Giường phụ, View biển" class="form-input w-full p-3 rounded-lg bg-gray-50 dark:bg-gray-700 dark:text-white"></textarea>
                     </div>
-                    <div>
-                        <label for="thoigiancheckindukien" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Thời gian check-in dự kiến</label>
-                        <input type="datetime-local" id="thoigiancheckindukien" name="thoigiancheckindukien" class="form-input w-full p-3 rounded-lg bg-gray-50 dark:bg-gray-700 dark:text-white">
+                    <div class="mb-6">
+                        <label for="sokhachdicung" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Số khách đi cùng</label>
+                        <input type="number" id="sokhachdicung" name="sokhachdicung" min="0" value="0" class="form-input w-full p-3 rounded-lg bg-gray-50 dark:bg-gray-700 dark:text-white">
                     </div>
-                </div>
-                <div class="mb-6">
-                    <label for="tongtien" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Tổng tiền (VNĐ)</label>
-                    <input type="number" id="tongtien" name="tongtien" readonly class="form-input w-full p-3 rounded-lg bg-gray-100 dark:bg-gray-600 dark:text-white">
-                    <div class="text-lg font-bold text-blue-700 dark:text-blue-400 mt-2" id="total-price-display">Tổng tiền: 0 VNĐ</div>
-                </div>
-                <div class="mb-6">
-                    <label for="yeucaudacbiet" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Yêu cầu đặc biệt</label>
-                    <textarea id="yeucaudacbiet" name="yeucaudacbiet" placeholder="VD: Giường phụ, View biển" class="form-input w-full p-3 rounded-lg bg-gray-50 dark:bg-gray-700 dark:text-white"></textarea>
-                </div>
-                <div class="mb-6">
-                    <label for="sokhachdicung" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Số khách đi cùng</label>
-                    <input type="text" id="sokhachdicung" name="sokhachdicung" placeholder="VD: 2 người lớn, 1 trẻ em" class="form-input w-full p-3 rounded-lg bg-gray-50 dark:bg-gray-700 dark:text-white">
-                </div>
-                <div class="mb-6">
-                    <label for="ghichudatphong" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Ghi chú đặt phòng</label>
-                    <textarea id="ghichudatphong" name="ghichudatphong" placeholder="VD: Đặt cho gia đình" class="form-input w-full p-3 rounded-lg bg-gray-50 dark:bg-gray-700 dark:text-white"></textarea>
-                </div>
-                <button type="submit" class="btn w-full bg-blue-700 text-white py-4 rounded-lg hover:bg-blue-800 font-medium">Xác nhận đặt phòng</button>
-            </form>
-        </section>
+                    <div class="mb-6">
+                        <label for="ghichudatphong" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Ghi chú đặt phòng</label>
+                        <textarea id="ghichudatphong" name="ghichudatphong" placeholder="VD: Đặt cho gia đình" class="form-input w-full p-3 rounded-lg bg-gray-50 dark:bg-gray-700 dark:text-white"></textarea>
+                    </div>
+                    <!-- Thêm danh sách dịch vụ -->
+                    <div class="mb-6">
+                        <h4 class="text-lg font-semibold text-blue-700 dark:text-blue-400 mb-4">Dịch vụ bổ sung</h4>
+                        {% if services %}
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                {% for service in services %}
+                                    <div class="service-item">
+                                        <input type="checkbox" name="services" value="{{ service.madichvu }}" class="service-checkbox" onchange="updateEstimatedTotal()">
+                                        <img src="{{ service.hinhanh | default('https://via.placeholder.com/50') }}" alt="{{ service.tendichvu }}">
+                                        <div>
+                                            <p class="text-sm font-medium text-gray-700 dark:text-gray-300">{{ service.tendichvu }}</p>
+                                            <p class="text-sm text-gray-500 dark:text-gray-400" data-price="{{ service.giadichvu | float | int }}"> {{ service.giadichvu | float | int }} VNĐ</p>
+                                        </div>
+                                        <input type="number" name="quantity_{{ service.madichvu }}" min="0" value="0" class="service-quantity form-input w-20 p-2 rounded-lg bg-gray-50 dark:bg-gray-700 dark:text-white" onchange="updateEstimatedTotal()">
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <p class="text-sm text-gray-600 dark:text-gray-300">Không có dịch vụ nào khả dụng.</p>
+                        {% endif %}
+                    </div>
+                    <div class="flex flex-wrap gap-4">
+                        <button type="submit" class="btn flex-1 bg-blue-700 text-white py-4 rounded-lg hover:bg-blue-800 font-medium">Xác nhận đặt phòng</button>
+                        <button type="button" onclick="document.getElementById('booking-form').style.display = 'none';" class="btn flex-1 bg-gray-500 text-white py-4 rounded-lg hover:bg-gray-600 font-medium">Hủy</button>
+                    </div>
+                </form>
+            </section>
+        {% endif %}
     </main>
 
     <footer class="bg-blue-900 text-white py-12 relative z-10">
@@ -413,6 +371,24 @@
     </footer>
 
     <script>
+        // Format prices on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            // Format room prices
+            document.querySelectorAll('[id^="room-price-"]').forEach(element => {
+                const price = parseFloat(element.textContent);
+                if (!isNaN(price)) {
+                    element.textContent = `${price.toLocaleString('vi-VN')} VNĐ/đêm`;
+                }
+            });
+            // Format service prices
+            document.querySelectorAll('.service-item p:nth-child(2)').forEach(element => {
+                const price = parseFloat(element.textContent);
+                if (!isNaN(price)) {
+                    element.textContent = `${price.toLocaleString('vi-VN')} VNĐ`;
+                }
+            });
+        });
+
         // Dark mode toggle
         const themeToggle = document.getElementById('theme-toggle');
         themeToggle.addEventListener('click', () => {
@@ -420,7 +396,7 @@
             themeToggle.innerHTML = document.body.classList.contains('dark') ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
         });
 
-        // Room filter
+        // Room filter by type
         const filterButtons = document.querySelectorAll('.filter-btn');
         const roomCards = document.querySelectorAll('.room-card');
         let filteredRooms = Array.from(roomCards);
@@ -453,45 +429,307 @@
 
             const visibleRooms = filteredRooms.filter(card => card.style.display !== 'none');
             document.getElementById('total-rooms').textContent = visibleRooms.length;
+
+            const roomListSection = document.getElementById('room-list');
+            const noRoomsMessage = document.getElementById('no-rooms-message');
+            if (visibleRooms.length === 0) {
+                if (!noRoomsMessage) {
+                    const message = document.createElement('div');
+                    message.id = 'no-rooms-message';
+                    message.className = 'bg-yellow-100 text-yellow-800 p-4 rounded-lg text-center mb-8 fade-in max-w-3xl mx-auto';
+                    message.textContent = 'Không có phòng trống trong khoảng thời gian đã chọn hoặc loại phòng này. Vui lòng thử lại!';
+                    roomListSection.insertAdjacentElement('afterend', message);
+                }
+            } else {
+                if (noRoomsMessage) {
+                    noRoomsMessage.remove();
+                }
+            }
         }
 
-        // Initialize room grid
+        // Filter rooms by date
+        // Filter rooms by date
+function filterRooms() {
+    const ngaynhanphong = document.getElementById('ngaynhanphong_filter').value;
+    const ngaytraphong = document.getElementById('ngaytraphong_filter').value;
+
+    if (!ngaynhanphong || !ngaytraphong) {
+        Toastify({
+            text: 'Vui lòng chọn ngày nhận và trả phòng!',
+            duration: 3000,
+            gravity: 'top',
+            position: 'center',
+            backgroundColor: '#e53e3e',
+        }).showToast();
+        return;
+    }
+
+    if (new Date(ngaytraphong) <= new Date(ngaynhanphong)) {
+        Toastify({
+            text: 'Ngày trả phòng phải sau ngày nhận phòng!',
+            duration: 3000,
+            gravity: 'top',
+            position: 'center',
+            backgroundColor: '#e53e3e',
+        }).showToast();
+        return;
+    }
+
+    // ✅ Phải có prefix /booking
+    const url = `/booking/dat_phong?ngaynhanphong=${ngaynhanphong}&ngaytraphong=${ngaytraphong}`;
+    window.location.href = url;
+}
+
+
+        // Initialize room grid and set min date
         document.addEventListener('DOMContentLoaded', () => {
             const allFilterButton = document.querySelector('.filter-btn[data-type="all"]');
             if (allFilterButton) {
                 allFilterButton.click();
             }
+
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('ngaynhanphong').setAttribute('min', today);
+            document.getElementById('ngaynhanphong_filter').setAttribute('min', today);
+            document.getElementById('ngaytraphong').setAttribute('min', today);
+            document.getElementById('ngaytraphong_filter').setAttribute('min', today);
+
+            const ngaynhanphongInput = document.getElementById('ngaynhanphong');
+            const ngaytraphongInput = document.getElementById('ngaytraphong');
+            if (ngaynhanphongInput.value && ngaytraphongInput.value) {
+                updateEstimatedTotal();
+            }
+
+            // Set default thoigiancheckindukien based on ngaynhanphong
+            ngaynhanphongInput.addEventListener('change', function() {
+                const ngayNhanPhong = this.value;
+                const thoigianCheckin = document.getElementById('thoigiancheckindukien');
+                if (ngayNhanPhong) {
+                    thoigianCheckin.value = `${ngayNhanPhong}T12:00`;
+                    thoigianCheckin.setAttribute('min', `${ngayNhanPhong}T00:00`);
+                    thoigianCheckin.setAttribute('max', `${ngayNhanPhong}T23:59`);
+                }
+            });
         });
 
         // Select room
         function selectRoom(maphong, loaiphong, giaphong) {
+            const parsedGiaphong = parseFloat(giaphong);
+            if (isNaN(parsedGiaphong) || parsedGiaphong <= 0) {
+                Toastify({
+                    text: 'Giá phòng không hợp lệ!',
+                    duration: 3000,
+                    gravity: 'top',
+                    position: 'center',
+                    backgroundColor: '#e53e3e',
+                }).showToast();
+                return;
+            }
             const form = document.getElementById('booking-form');
             form.style.display = 'block';
             form.classList.add('fade-in');
             document.getElementById('maphong').value = maphong;
-            document.getElementById('giaphong').value = giaphong;
+            document.getElementById('giaphong').value = parsedGiaphong;
             document.getElementById('selected-room-name').innerText = loaiphong;
-            document.getElementById('selected-room-price').innerText = `Giá: ${parseFloat(giaphong).toLocaleString('vi-VN')} VNĐ/đêm`;
+            document.getElementById('selected-room-price').innerText = `Giá: ${parsedGiaphong.toLocaleString('vi-VN')} VNĐ/đêm`;
+            document.getElementById('estimated-total').innerText = '';
             form.scrollIntoView({ behavior: 'smooth' });
-            calculateTotalPrice();
+            updateEstimatedTotal();
         }
 
-        // Calculate total price
-        function calculateTotalPrice() {
+        // Update estimated total (including services)
+        function updateEstimatedTotal() {
             const ngayNhanPhong = new Date(document.getElementById('ngaynhanphong').value);
             const ngayTraPhong = new Date(document.getElementById('ngaytraphong').value);
-            const giaPhong = parseFloat(document.getElementById('giaphong').value);
+            const giaphong = parseFloat(document.getElementById('giaphong').value);
+            let tongtien = 0;
 
-            if (ngayNhanPhong && ngayTraPhong && ngayNhanPhong < ngayTraPhong) {
-                const soNgay = (ngayTraPhong - ngayNhanPhong) / (1000 * 60 * 60 * 24);
-                const tongTien = soNgay * giaPhong;
-                document.getElementById('tongtien').value = tongTien;
-                document.getElementById('total-price-display').innerText = `Tổng tiền: ${tongTien.toLocaleString('vi-VN')} VNĐ`;
+            // Tính tiền phòng
+            if (ngayNhanPhong && ngayTraPhong && !isNaN(giaphong)) {
+                const nights = (ngayTraPhong - ngayNhanPhong) / (1000 * 60 * 60 * 24);
+                if (nights > 0) {
+                    tongtien += giaphong * nights;
+                }
+            }
+
+            // Tính tiền dịch vụ
+            document.querySelectorAll('.service-checkbox:checked').forEach(checkbox => {
+                const madichvu = checkbox.value;
+                const quantityInput = document.querySelector(`input[name="quantity_${madichvu}"]`);
+                const soluong = parseInt(quantityInput.value) || 0;
+                const priceElement = checkbox.closest('.service-item').querySelector('p:nth-child(2)');
+                const giadichvu = parseFloat(priceElement.textContent.replace(/[^\d.-]/g, '')) || 0;
+                if (soluong > 0 && !isNaN(giadichvu)) {
+                    tongtien += giadichvu * soluong;
+                }
+            });
+
+            // Hiển thị tổng tiền
+            if (tongtien > 0) {
+                document.getElementById('estimated-total').innerText = `Tổng tiền dự kiến: ${tongtien.toLocaleString('vi-VN')} VNĐ`;
             } else {
-                document.getElementById('tongtien').value = 0;
-                document.getElementById('total-price-display').innerText = 'Tổng tiền: 0 VNĐ';
+                document.getElementById('estimated-total').innerText = '';
+                if (ngayNhanPhong && ngayTraPhong && ngayNhanPhong >= ngayTraPhong) {
+                    Toastify({
+                        text: 'Ngày trả phòng phải sau ngày nhận phòng!',
+                        duration: 3000,
+                        gravity: 'top',
+                        position: 'center',
+                        backgroundColor: '#e53e3e',
+                    }).showToast();
+                }
             }
         }
+
+        // Validate form before submission
+        function validateForm() {
+            const ngayNhanPhong = new Date(document.getElementById('ngaynhanphong').value);
+            const ngayTraPhong = new Date(document.getElementById('ngaytraphong').value);
+            const songuoi = parseInt(document.getElementById('songuoi').value);
+            const giaphong = parseFloat(document.getElementById('giaphong').value);
+            const thoigianCheckin = document.getElementById('thoigiancheckindukien').value;
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            const nights = (ngayTraPhong - ngayNhanPhong) / (1000 * 60 * 60 * 24);
+
+            if (!ngayNhanPhong || !ngayTraPhong || ngayNhanPhong >= ngayTraPhong) {
+                Toastify({
+                    text: 'Ngày nhận phòng phải trước ngày trả phòng!',
+                    duration: 3000,
+                    gravity: 'top',
+                    position: 'center',
+                    backgroundColor: '#e53e3e',
+                }).showToast();
+                return false;
+            }
+            if (ngayNhanPhong < today) {
+                Toastify({
+                    text: 'Ngày nhận phòng không được trước ngày hiện tại!',
+                    duration: 3000,
+                    gravity: 'top',
+                    position: 'center',
+                    backgroundColor: '#e53e3e',
+                }).showToast();
+                return false;
+            }
+            if (nights <= 0) {
+                Toastify({
+                    text: 'Số đêm phải lớn hơn 0!',
+                    duration: 3000,
+                    gravity: 'top',
+                    position: 'center',
+                    backgroundColor: '#e53e3e',
+                }).showToast();
+                return false;
+            }
+            if (songuoi <= 0) {
+                Toastify({
+                    text: 'Số người phải lớn hơn 0!',
+                    duration: 3000,
+                    gravity: 'top',
+                    position: 'center',
+                    backgroundColor: '#e53e3e',
+                }).showToast();
+                return false;
+            }
+            if (isNaN(giaphong) || giaphong <= 0) {
+                Toastify({
+                    text: 'Giá phòng không hợp lệ!',
+                    duration: 3000,
+                    gravity: 'top',
+                    position: 'center',
+                    backgroundColor: '#e53e3e',
+                }).showToast();
+                return false;
+            }
+            if (thoigianCheckin) {
+                const thoigianCheckinDate = new Date(thoigianCheckin);
+                if (isNaN(thoigianCheckinDate.getTime())) {
+                    Toastify({
+                        text: 'Thời gian check-in không hợp lệ!',
+                        duration: 3000,
+                        gravity: 'top',
+                        position: 'center',
+                        backgroundColor: '#e53e3e',
+                    }).showToast();
+                    return false;
+                }
+                if (thoigianCheckinDate.getDate() !== ngayNhanPhong.getDate() ||
+                    thoigianCheckinDate.getMonth() !== ngayNhanPhong.getMonth() ||
+                    thoigianCheckinDate.getFullYear() !== ngayNhanPhong.getFullYear()) {
+                    Toastify({
+                        text: 'Thời gian check-in phải trong ngày nhận phòng!',
+                        duration: 3000,
+                        gravity: 'top',
+                        position: 'center',
+                        backgroundColor: '#e53e3e',
+                    }).showToast();
+                    return false;
+                }
+            }
+            // Validate số lượng dịch vụ
+            let hasInvalidService = false;
+            document.querySelectorAll('.service-checkbox:checked').forEach(checkbox => {
+                const madichvu = checkbox.value;
+                const quantityInput = document.querySelector(`input[name="quantity_${madichvu}"]`);
+                const soluong = parseInt(quantityInput.value) || 0;
+                if (soluong <= 0) {
+                    hasInvalidService = true;
+                    Toastify({
+                        text: `Số lượng cho dịch vụ ${checkbox.closest('.service-item').querySelector('p').textContent} phải lớn hơn 0!`,
+                        duration: 3000,
+                        gravity: 'top',
+                        position: 'center',
+                        backgroundColor: '#e53e3e',
+                    }).showToast();
+                }
+            });
+            if (hasInvalidService) {
+                return false;
+            }
+            const tongtien = giaphong * nights + calculateServiceTotal();
+            if (tongtien <= 0) {
+                Toastify({
+                    text: 'Tổng số tiền không hợp lệ!',
+                    duration: 3000,
+                    gravity: 'top',
+                    position: 'center',
+                    backgroundColor: '#e53e3e',
+                }).showToast();
+                return false;
+            }
+            return true;
+        }
+
+        // Calculate total service cost
+        function calculateServiceTotal() {
+            let total = 0;
+            document.querySelectorAll('.service-checkbox:checked').forEach(checkbox => {
+                const madichvu = checkbox.value;
+                const quantityInput = document.querySelector(`input[name="quantity_${madichvu}"]`);
+                const soluong = parseInt(quantityInput.value) || 0;
+                const priceElement = checkbox.closest('.service-item').querySelector('p:nth-child(2)');
+                const giadichvu = parseFloat(priceElement.textContent.replace(/[^\d.-]/g, '')) || 0;
+                if (soluong > 0 && !isNaN(giadichvu)) {
+                    total += giadichvu * soluong;
+                }
+            });
+            return total;
+        }
+
+        // Add event listeners for service inputs
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.service-checkbox, .service-quantity').forEach(input => {
+                input.addEventListener('change', updateEstimatedTotal);
+            });
+        });
+
+        // Prevent form submission if validation fails
+        document.querySelector('form').addEventListener('submit', function(event) {
+            if (!validateForm()) {
+                event.preventDefault();
+            }
+        });
     </script>
 </body>
 </html>

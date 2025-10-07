@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KeiWei Hotel - Khách sạn biển Hải Tiến Thanh Hóa</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
@@ -656,32 +659,74 @@
 </head>
 <body>
     <!-- Header -->
-    <header>
-        <div class="header-container">
-            <div class="logo">
-                <img src="https://via.placeholder.com/150x50?text=KeiWei+Hotel" alt="KeiWei Hotel Logo">
-            </div>
-            <div class="menu-toggle">
-                <i class="fas fa-bars"></i>
-            </div>
-            <nav>
-                <ul>
-                    <li><a href="/">Trang chủ</a></li>
-                    <li><a href="/about">Giới thiệu</a></li>
-                    <li><a href="{{ url_for('booking.dat_phong') }}">Đặt phòng</a></li>
-                    <li><a href="/services">Dịch vụ</a></li>
-                    <li><a href="/contact">Liên hệ</a></li>
-                </ul>
-            </nav>
-            <div class="user-actions">
-                {% if user %}
-                    <a href="/booking/history">{{ user.hoten }}</a> | <a href="{{ url_for('auth.logout') }}">Đăng xuất</a>
-                {% else %}
-                    <a href="{{ url_for('auth.login') }}">Đăng nhập</a> | <a href="{{ url_for('auth.register') }}">Đăng ký</a>
-                {% endif %}
-            </div>
-        </div>
-    </header>
+   <header class="sticky top-0 w-full bg-white dark:bg-gray-900 shadow z-20">
+  <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+    <a href="/" class="flex items-center gap-3">
+      <img src="https://via.placeholder.com/150x50?text=KeiWei+Hotel" alt="KeiWei Hotel Logo" class="h-8 w-auto">
+      <span class="hidden sm:inline text-xl font-bold text-blue-700 dark:text-blue-400">KeiWei Hotel</span>
+    </a>
+
+    <div class="flex items-center gap-3">
+      <!-- Dark mode -->
+      <button id="theme-toggle" class="text-blue-700 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-200">
+        <i class="fas fa-moon"></i>
+      </button>
+
+      <!-- Desktop nav -->
+      {% set current_user = (session.user if session and session.user else user) %}
+      <nav class="hidden md:flex items-center gap-6">
+        <a href="/" class="text-blue-700 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-200">Trang chủ</a>
+        <a href="/about" class="text-blue-700 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-200">Giới thiệu</a>
+        <a href="{{ url_for('booking.dat_phong') }}" class="text-blue-700 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-200">Đặt phòng</a>
+        <a href="{{ url_for('customer_service.book_service') }}" class="text-blue-700 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-200">Dịch vụ</a>
+        <a href="/contact" class="text-blue-700 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-200">Liên hệ</a>
+
+        {% if current_user %}
+          {% set hoten = current_user.hoten if current_user.hoten is defined else (current_user.name if current_user.name is defined else 'Tài khoản') %}
+          <a href="{{ url_for('auth.profile') }}" class="text-blue-700 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-200">
+            {{ hoten }}
+          </a>
+          <a href="{{ url_for('booking.booking_history') }}" class="text-blue-700 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-200">
+            Lịch sử đặt phòng
+          </a>
+          <a href="{{ url_for('auth.logout') }}" class="text-blue-700 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-200">
+            Đăng xuất
+          </a>
+        {% else %}
+          <a href="{{ url_for('auth.login') }}" class="text-blue-700 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-200">Đăng nhập</a>
+          <a href="{{ url_for('auth.register') }}" class="text-blue-700 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-200">Đăng ký</a>
+        {% endif %}
+      </nav>
+
+      <!-- Hamburger -->
+      <button id="menu-toggle" class="md:hidden text-blue-700 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-200">
+        <i class="fas fa-bars text-xl"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile nav -->
+  <nav id="mobile-nav" class="md:hidden hidden border-t border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-900">
+    <div class="container mx-auto px-4 py-3 flex flex-col gap-3">
+      <a href="/" class="py-1 text-blue-700 dark:text-blue-400">Trang chủ</a>
+      <a href="/about" class="py-1 text-blue-700 dark:text-blue-400">Giới thiệu</a>
+      <a href="{{ url_for('booking.dat_phong') }}" class="py-1 text-blue-700 dark:text-blue-400">Đặt phòng</a>
+      <a href="{{ url_for('customer_service.book_service') }}" class="py-1 text-blue-700 dark:text-blue-400">Dịch vụ</a>
+      <a href="/contact" class="py-1 text-blue-700 dark:text-blue-400">Liên hệ</a>
+
+      {% if current_user %}
+        {% set hoten = current_user.hoten if current_user.hoten is defined else (current_user.name if current_user.name is defined else 'Tài khoản') %}
+        <a href="{{ url_for('auth.profile') }}" class="py-1 text-blue-700 dark:text-blue-400">{{ hoten }}</a>
+        <a href="{{ url_for('booking.booking_history') }}" class="py-1 text-blue-700 dark:text-blue-400">Lịch sử đặt phòng</a>
+        <a href="{{ url_for('auth.logout') }}" class="py-1 text-blue-700 dark:text-blue-400">Đăng xuất</a>
+      {% else %}
+        <a href="{{ url_for('auth.login') }}" class="py-1 text-blue-700 dark:text-blue-400">Đăng nhập</a>
+        <a href="{{ url_for('auth.register') }}" class="py-1 text-blue-700 dark:text-blue-400">Đăng ký</a>
+      {% endif %}
+    </div>
+  </nav>
+</header>
+
 
     <!-- Banner (Carousel) -->
     <section class="banner">
@@ -743,33 +788,38 @@
     <section class="rooms-section fade-in">
         <h2>Phòng nổi bật</h2>
         <div class="room-grid">
-            {% for room in rooms[:3] %}
-            <div class="room-card {{ 'most-booked' if loop.first else '' }}">
-                {% if loop.first %}
-                <div style="position: absolute; top: 10px; right: 10px; background: #e74c3c; color: #fff; padding: 5px 10px; border-radius: 5px;">
-                    Đặt nhiều nhất ({{ room.booking_count | default(0) }} lượt)
-                </div>
-                {% endif %}
-                <img src="{{ room.hinhanh | default('https://images.unsplash.com/photo-1618773928121-c32242e63f39?q=80&w=2070&auto=format&fit=crop') }}"
-                     onerror="this.src='https://via.placeholder.com/320x220?text=No+Image';" alt="{{ room.loaiphong | default('Phòng không xác định') }}">
-                <div class="overlay"></div>
-                <h3>{{ room.loaiphong | default('Phòng không xác định') }}</h3>
-                <div class="details">
-                    <span><i class="fas fa-ruler-combined"></i> Diện tích: {{ room.dientich | default('N/A') }}m²</span>
-                    <span><i class="fas fa-users"></i> Sức chứa: {{ room.succhua | default('N/A') }} người</span>
-                    <span><i class="fas fa-wifi"></i> Wifi miễn phí</span>
-                </div>
-                <div class="price">
-                    {% if room.giaphong is defined and room.giaphong is not none %}
-                        {% set price = room.giaphong | int %}
-                        {{ "{:,}".format(price) }} VNĐ/đêm
-                    {% else %}
-                        Đang cập nhật
+            {% if rooms %}
+                {% for room in rooms %}
+                <div class="room-card {{ 'most-booked' if loop.first else '' }}">
+                    {% if loop.first %}
+                    <div style="position: absolute; top: 10px; right: 10px; background: #e74c3c; color: #fff; padding: 5px 10px; border-radius: 5px;">
+                        Đặt nhiều nhất ({{ room.booking_count | default(0) }} lượt)
+                    </div>
                     {% endif %}
+                    <img src="{{ room.hinhanh | default('https://images.unsplash.com/photo-1618773928121-c32242e63f39?q=80&w=2070&auto=format&fit=crop') }}"
+                         onerror="this.src='https://via.placeholder.com/320x220?text=No+Image';" alt="{{ room.loaiphong | default('Phòng không xác định') }}">
+                    <div class="overlay"></div>
+                    <h3>{{ room.loaiphong | default('Phòng không xác định') }}</h3>
+                    <div class="details">
+                        <span><i class="fas fa-ruler-combined"></i> Diện tích: {{ room.dientich | default('N/A') }}m²</span>
+                        <span><i class="fas fa-users"></i> Sức chứa: {{ room.succhua | default('N/A') }} người</span>
+                        <span><i class="fas fa-wifi"></i> Wifi miễn phí</span>
+                        <span><i class="fas fa-calendar-check"></i> {{ room.booking_count | default(0) }} lượt đặt</span>
+                    </div>
+                    <div class="price">
+                        {% if room.giaphong is defined and room.giaphong is not none %}
+                            {% set price = room.giaphong | int %}
+                            {{ "{:,}".format(price) }} VNĐ/đêm
+                        {% else %}
+                            Đang cập nhật
+                        {% endif %}
+                    </div>
+                    <a href="{{ url_for('booking.dat_phong') }}" class="btn">Đặt ngay</a>
                 </div>
-                <a href="{{ url_for('booking.dat_phong') }}" class="btn">Đặt ngay</a>
-            </div>
-            {% endfor %}
+                {% endfor %}
+            {% else %}
+                <p class="text-center text-gray-600">Chưa có loại phòng nào được đặt.</p>
+            {% endif %}
         </div>
     </section>
 
@@ -778,13 +828,13 @@
         <div class="footer-container">
             <div class="footer-section">
                 <h3>Về KeiWei Hotel</h3>
-                <p>KeiWei Hotel mang đến trải nghiệm nghỉ dưỡng đẳng cấp tại biển Hải Tiến, Thanh Hóa. Chúng tôi luôn sẵn sàng phục vụ bạn!</p>
+                <p>KeiWei Hotel mang đến trải nghiệm nghỉ dưỡng đẳng cấp. Chúng tôi luôn sẵn sàng phục vụ bạn!</p>
             </div>
             <div class="footer-section">
                 <h3>Liên hệ</h3>
-                <p><i class="fas fa-phone"></i> Hotline: +84 2376 568 666</p>
+                <p><i class="fas fa-phone"></i> Hotline: +84 8627 100 56</p>
                 <p><i class="fas fa-envelope"></i> Email: info@keiwei.com</p>
-                <p><i class="fas fa-map-marker-alt"></i> Địa chỉ: Biển Hải Tiến, Thanh Hóa</p>
+                <p><i class="fas fa-map-marker-alt"></i> Địa chỉ: Biển đẹp Việt Nam</p>
             </div>
             <div class="footer-section">
                 <h3>Theo dõi chúng tôi</h3>
@@ -807,85 +857,195 @@
     </footer>
 
     <script>
-        // Mobile Menu Toggle
-        const menuToggle = document.querySelector('.menu-toggle');
-        const nav = document.querySelector('nav');
-        menuToggle.addEventListener('click', () => {
-            nav.classList.toggle('active');
-        });
+  // ---------- Mobile Menu (khớp với header thống nhất) ----------
+  (function () {
+    const menuBtn = document.getElementById('menu-toggle');
+    const mobileNav = document.getElementById('mobile-nav');
 
-        // Carousel
-        const carouselItems = document.querySelectorAll('.carousel-item');
-        const dots = document.querySelectorAll('.carousel-dots .dot');
-        const prevArrow = document.querySelector('.arrow.prev');
-        const nextArrow = document.querySelector('.arrow.next');
-        let currentIndex = 0;
+    if (menuBtn && mobileNav) {
+      const toggleMenu = () => {
+        const isHidden = mobileNav.classList.toggle('hidden');
+        menuBtn.setAttribute('aria-expanded', String(!isHidden));
+      };
+      menuBtn.setAttribute('aria-controls', 'mobile-nav');
+      menuBtn.setAttribute('aria-expanded', 'false');
+      menuBtn.addEventListener('click', toggleMenu);
 
-        function showSlide(index) {
-            carouselItems.forEach(item => item.classList.remove('active'));
-            dots.forEach(dot => dot.classList.remove('active'));
-            carouselItems[index].classList.add('active');
-            dots[index].classList.add('active');
+      // Đóng menu khi bấm Esc hoặc click link
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !mobileNav.classList.contains('hidden')) {
+          toggleMenu();
         }
-
-        function nextSlide() {
-            currentIndex = (currentIndex + 1) % carouselItems.length;
-            showSlide(currentIndex);
+      });
+      mobileNav.addEventListener('click', (e) => {
+        const a = e.target.closest('a');
+        if (a) {
+          mobileNav.classList.add('hidden');
+          menuBtn.setAttribute('aria-expanded', 'false');
         }
+      });
+    }
+  })();
 
-        function prevSlide() {
-            currentIndex = (currentIndex - 1 + carouselItems.length) % carouselItems.length;
-            showSlide(currentIndex);
+  // ---------- Dark mode toggle + persist ----------
+  (function () {
+    const themeBtn = document.getElementById('theme-toggle');
+    const root = document.documentElement;
+    const saved = localStorage.getItem('theme');
+
+    if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      root.classList.add('dark');
+    }
+
+    if (themeBtn) {
+      themeBtn.addEventListener('click', () => {
+        const willDark = !root.classList.contains('dark');
+        // Tôn trọng reduced motion
+        if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          root.classList.add('[&_*]:transition-colors');
+          setTimeout(() => root.classList.remove('[&_*]:transition-colors'), 300);
         }
+        root.classList.toggle('dark', willDark);
+        localStorage.setItem('theme', willDark ? 'dark' : 'light');
+      });
+    }
+  })();
 
-        prevArrow.addEventListener('click', prevSlide);
-        nextArrow.addEventListener('click', nextSlide);
-        dots.forEach((dot, index) => {
-            dot.addEventListener('click', () => {
-                currentIndex = index;
-                showSlide(currentIndex);
-            });
-        });
+  // ---------- Carousel (an toàn, không rò rỉ interval) ----------
+  (function () {
+    const carouselItems = document.querySelectorAll('.carousel-item');
+    const dots = document.querySelectorAll('.carousel-dots .dot');
+    const prevArrow = document.querySelector('.arrow.prev');
+    const nextArrow = document.querySelector('.arrow.next');
+    const banner = document.querySelector('.banner');
 
+    if (!carouselItems.length || !banner) return;
+
+    let currentIndex = 0;
+    let autoSlideId = null;
+    const INTERVAL = 5000;
+
+    function showSlide(index) {
+      carouselItems.forEach((item, i) => {
+        item.classList.toggle('active', i === index);
+        item.setAttribute('aria-hidden', i === index ? 'false' : 'true');
+      });
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === index);
+        dot.setAttribute('aria-current', i === index ? 'true' : 'false');
+      });
+    }
+
+    function nextSlide() {
+      currentIndex = (currentIndex + 1) % carouselItems.length;
+      showSlide(currentIndex);
+    }
+
+    function prevSlide() {
+      currentIndex = (currentIndex - 1 + carouselItems.length) % carouselItems.length;
+      showSlide(currentIndex);
+    }
+
+    function startAuto() {
+      stopAuto();
+      // Tôn trọng reduced motion
+      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        autoSlideId = setInterval(nextSlide, INTERVAL);
+      }
+    }
+    function stopAuto() {
+      if (autoSlideId) {
+        clearInterval(autoSlideId);
+        autoSlideId = null;
+      }
+    }
+
+    // Nút điều khiển
+    if (prevArrow) prevArrow.addEventListener('click', prevSlide);
+    if (nextArrow) nextArrow.addEventListener('click', nextSlide);
+
+    dots.forEach((dot, index) => {
+      dot.addEventListener('click', () => {
+        currentIndex = index;
         showSlide(currentIndex);
-        const autoSlide = setInterval(nextSlide, 5000);
+      });
+    });
 
-        // Pause auto-slide on hover
-        document.querySelector('.banner').addEventListener('mouseenter', () => clearInterval(autoSlide));
-        document.querySelector('.banner').addEventListener('mouseleave', () => setInterval(nextSlide, 5000));
+    // Hover pause
+    banner.addEventListener('mouseenter', stopAuto);
+    banner.addEventListener('mouseleave', startAuto);
 
-        // Fade-in and staggered animations for intro section
-        const introSection = document.querySelector('.intro-section');
-        const introElements = introSection.querySelectorAll('p, .feature-item, .btn');
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    introElements.forEach((el, index) => {
-                        setTimeout(() => {
-                            el.classList.add('visible');
-                        }, index * 200);
-                    });
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.2 });
+    // Tạm dừng khi tab ẩn
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) stopAuto();
+      else startAuto();
+    });
 
-        observer.observe(introSection);
+    // Điều khiển bằng phím
+    banner.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') nextSlide();
+      if (e.key === 'ArrowLeft') prevSlide();
+    });
+    banner.setAttribute('tabindex', '0'); // để nhận key events
 
-        // General fade-in for other sections
-        const fadeInElements = document.querySelectorAll('.fade-in');
-        fadeInElements.forEach(element => {
-            if (element !== introSection) {
-                observer.observe(element);
-            }
+    // Khởi tạo
+    showSlide(currentIndex);
+    startAuto();
+  })();
+
+  // ---------- Intro + Fade-in (an toàn, không lỗi khi thiếu phần tử) ----------
+  (function () {
+    const introSection = document.querySelector('.intro-section');
+    const fadeInElements = document.querySelectorAll('.fade-in');
+
+    if (!('IntersectionObserver' in window)) {
+      // Fallback: hiện tất cả nếu browser cũ
+      introSection?.classList.add('visible');
+      fadeInElements.forEach(el => el.classList.add('visible'));
+      return;
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+
+        const target = entry.target;
+        target.classList.add('visible');
+
+        // Stagger riêng cho intro
+        if (target === introSection) {
+          const introEls = introSection.querySelectorAll('p, .feature-item, .btn');
+          introEls.forEach((el, index) => {
+            setTimeout(() => el.classList.add('visible'), index * 200);
+          });
+        }
+        observer.unobserve(target);
+      });
+    }, { threshold: 0.2 });
+
+    if (introSection) observer.observe(introSection);
+    fadeInElements.forEach(el => el !== introSection && observer.observe(el));
+  })();
+
+  // ---------- Header scroll effect (nhẹ, tránh layout thrash) ----------
+  (function () {
+    const header = document.querySelector('header');
+    if (!header) return;
+
+    let ticking = false;
+    function onScroll() {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          header.classList.toggle('scrolled', window.scrollY > 50);
+          ticking = false;
         });
+        ticking = true;
+      }
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll(); // set trạng thái ban đầu
+  })();
+</script>
 
-        // Header scroll effect
-        window.addEventListener('scroll', () => {
-            const header = document.querySelector('header');
-            header.classList.toggle('scrolled', window.scrollY > 50);
-        });
-    </script>
 </body>
 </html>

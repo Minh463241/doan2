@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lịch sử đặt phòng - KeiWei Hotel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+        body {
+            min-height: 100vh;
+            color: #1f2937;
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <header class="fixed top-0 w-full bg-white dark:bg-gray-900 shadow-lg z-20">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-blue-700 dark:text-blue-400">
+                <a href="/">KeiWei Hotel</a>
+            </h1>
+            <div class="flex items-center space-x-4">
+                <nav class="hidden md:flex space-x-6">
+                    <a href="/" class="text-blue-700 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-200">Trang chủ</a>
+                    <a href="{{ url_for('booking.dat_phong') }}" class="text-blue-700 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-200">Đặt phòng</a>
+                    <a href="{{ url_for('auth.logout') }}" class="text-blue-700 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-200">Đăng xuất</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 pt-24 pb-16">
+        <div class="flex justify-between items-center mb-8">
+            <h2 class="text-3xl font-bold text-blue-700 dark:text-blue-400">Lịch sử đặt phòng</h2>
+            <a href="{{ url_for('booking.dat_phong') }}" class="bg-blue-700 text-white px-4 py-2 rounded-lg hover:bg-blue-800 transition-all">
+                <i class="fas fa-arrow-left mr-2"></i>Quay lại đặt phòng
+            </a>
+        </div>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="bg-{{ 'green' if category == 'success' else 'red' if category == 'error' else 'yellow' }}-100 text-{{ 'green' if category == 'success' else 'red' if category == 'error' else 'yellow' }}-800 p-4 rounded-lg text-center mb-8 fade-in max-w-3xl mx-auto">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        {% if bookings %}
+            <div class="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+                {% for booking in bookings %}
+                    <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg card-hover fade-in">
+                        <h3 class="text-lg font-semibold text-blue-700 dark:text-blue-400 mb-2">Đặt phòng #{{ booking.madatphong }}</h3>
+                        <div class="space-y-2 text-sm text-gray-600 dark:text-gray-300">
+                            <p><i class="fas fa-door-open mr-2"></i>Phòng: {{ booking.maphong }}</p>
+                            <p><i class="fas fa-home mr-2"></i>Loại phòng: {{ booking.phong.loaiphong }}</p>
+                            <p><i class="fas fa-calendar-check mr-2"></i>Nhận phòng: {{ booking.ngaynhanphong }}</p>
+                            <p><i class="fas fa-calendar-times mr-2"></i>Trả phòng: {{ booking.ngaytraphong }}</p>
+                            <p><i class="fas fa-users mr-2"></i>Số người: {{ booking.songuoi }}</p>
+                            <p><i class="fas fa-concierge-bell mr-2"></i>Dịch vụ:
+                                {% if booking.services %}
+                                    <ul class="list-disc ml-6">
+                                        {% for service in booking.services %}
+                                            <li>{{ service.dichvu.tendichvu }} - Số lượng: {{ service.soluong }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% else %}
+                                    Không có dịch vụ
+                                {% endif %}
+                            </p>
+                        </div>
+                        <a href="{{ url_for('booking.view_detail', madatphong=booking.madatphong) }}"
+   class="mt-4 block w-full text-center bg-blue-700 text-white py-2 rounded-lg hover:bg-blue-800 transition-all">
+  Xem chi tiết
+</a>
+
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg text-center fade-in">
+                <i class="fas fa-exclamation-circle text-4xl text-gray-400 dark:text-gray-500 mb-4"></i>
+                <p class="text-lg text-gray-600 dark:text-gray-300">Bạn chưa có đơn đặt phòng nào.</p>
+                <a href="{{ url_for('booking.dat_phong') }}" class="mt-4 inline-block bg-blue-700 text-white px-6 py-2 rounded-lg hover:bg-blue-800 transition-all">
+                    Đặt phòng ngay
+                </a>
+            </div>
+        {% endif %}
+    </main>
+
+    <footer class="bg-blue-900 text-white py-12">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-sm">© 2025 KeiWei Hotel. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dịch vụ & Tiện ích - KeiWei Hotel</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+     
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(to bottom, #eaf3ff, #ffffff);
+      color: var(--text-dark);
+    }
+
+    /* ===== HEADER ===== */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: #fff;
+      border-bottom: 1px solid #e2e8f0;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      transition: all 0.3s ease;
+    }
+    header.scrolled {
+      background: rgba(255,255,255,0.97);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    }
+
+    nav a {
+      position: relative;
+      color: var(--blue-main);
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+    nav a:hover {
+      color: var(--blue-hover);
+    }
+    nav a.active::after {
+      content: "";
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--blue-main);
+      border-radius: 2px;
+    }
+
+    /* ===== DỊCH VỤ ===== */
+    .service-section {
+      position: relative;
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: #1e293b;
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      opacity: 0;
+      animation: fadeIn 1s ease forwards;
+    }
+
+    .service-section::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(59,130,246,0.25);
+    }
+
+    .service-content {
+      position: relative;
+      background: rgba(255,255,255,0.9);
+      color: var(--blue-hover);
+      padding: 2rem;
+      border-radius: 1rem;
+      max-width: 650px;
+      backdrop-filter: blur(6px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    }
+
+    .service-content h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--blue-hover);
+      margin-bottom: 0.75rem;
+    }
+
+    .service-content p {
+      color: var(--text-dark);
+      line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+
+    .cta {
+      display: inline-block;
+      background: var(--blue-main);
+      color: #fff;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    .cta:hover {
+      background: var(--blue-hover);
+      transform: translateY(-2px);
+    }
+
+    @keyframes fadeIn { to { opacity: 1; } }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--blue-main);
+      color: #fff;
+      text-align: center;
+      padding: 2rem 1rem;
+      margin-top: 2rem;
+    }
+
+    @media (max-width: 768px) {
+      .service-section {
+        background-attachment: scroll;
+        min-height: 75vh;
+        padding: 4rem 1rem;
+      }
+      .service-content h3 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="sticky top-0 w-full bg-white dark:bg-gray-900 shadow z-20">
+  <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+    <a href="/" class="flex items-center gap-3">
+      <img src="https://via.placeholder.com/150x50?text=KeiWei+Hotel" alt="KeiWei Hotel Logo" class="h-8 w-auto">
+      <span class="hidden sm:inline text-xl font-bold text-blue-700 dark:text-blue-400">KeiWei Hotel</span>
+    </a>
+
+    <div class="flex items-center gap-3">
+      <!-- Dark mode -->
+      <button id="theme-toggle" class="text-blue-700 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-200">
+        <i class="fas fa-moon"></i>
+      </button>
+
+      <!-- Desktop nav -->
+      {% set current_user = (session.user if session and session.user else user) %}
+      <nav class="hidden md:flex items-center gap-6">
+        <a href="/" class="text-blue-700 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-200">Trang chủ</a>
+        <a href="/about" class="text-blue-700 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-200">Giới thiệu</a>
+        <a href="{{ url_for('booking.dat_phong') }}" class="text-blue-700 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-200">Đặt phòng</a>
+        <a href="{{ url_for('customer_service.book_service') }}" class="text-blue-700 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-200">Dịch vụ</a>
+        <a href="/contact" class="text-blue-700 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-200">Liên hệ</a>
+
+        {% if current_user %}
+          {% set hoten = current_user.hoten if current_user.hoten is defined else (current_user.name if current_user.name is defined else 'Tài khoản') %}
+          <a href="{{ url_for('auth.profile') }}" class="text-blue-700 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-200">
+            {{ hoten }}
+          </a>
+          <a href="{{ url_for('booking.booking_history') }}" class="text-blue-700 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-200">
+            Lịch sử đặt phòng
+          </a>
+          <a href="{{ url_for('auth.logout') }}" class="text-blue-700 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-200">
+            Đăng xuất
+          </a>
+        {% else %}
+          <a href="{{ url_for('auth.login') }}" class="text-blue-700 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-200">Đăng nhập</a>
+          <a href="{{ url_for('auth.register') }}" class="text-blue-700 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-200">Đăng ký</a>
+        {% endif %}
+      </nav>
+
+      <!-- Hamburger -->
+      <button id="menu-toggle" class="md:hidden text-blue-700 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-200">
+        <i class="fas fa-bars text-xl"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile nav -->
+  <nav id="mobile-nav" class="md:hidden hidden border-t border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-900">
+    <div class="container mx-auto px-4 py-3 flex flex-col gap-3">
+      <a href="/" class="py-1 text-blue-700 dark:text-blue-400">Trang chủ</a>
+      <a href="/about" class="py-1 text-blue-700 dark:text-blue-400">Giới thiệu</a>
+      <a href="{{ url_for('booking.dat_phong') }}" class="py-1 text-blue-700 dark:text-blue-400">Đặt phòng</a>
+      <a href="{{ url_for('customer_service.book_service') }}" class="py-1 text-blue-700 dark:text-blue-400">Dịch vụ</a>
+      <a href="/contact" class="py-1 text-blue-700 dark:text-blue-400">Liên hệ</a>
+
+      {% if current_user %}
+        {% set hoten = current_user.hoten if current_user.hoten is defined else (current_user.name if current_user.name is defined else 'Tài khoản') %}
+        <a href="{{ url_for('auth.profile') }}" class="py-1 text-blue-700 dark:text-blue-400">{{ hoten }}</a>
+        <a href="{{ url_for('booking.booking_history') }}" class="py-1 text-blue-700 dark:text-blue-400">Lịch sử đặt phòng</a>
+        <a href="{{ url_for('auth.logout') }}" class="py-1 text-blue-700 dark:text-blue-400">Đăng xuất</a>
+      {% else %}
+        <a href="{{ url_for('auth.login') }}" class="py-1 text-blue-700 dark:text-blue-400">Đăng nhập</a>
+        <a href="{{ url_for('auth.register') }}" class="py-1 text-blue-700 dark:text-blue-400">Đăng ký</a>
+      {% endif %}
+    </div>
+  </nav>
+</header>
+
+  <!-- Hero -->
+  <section class="bg-gradient-to-b from-[#eaf3ff] to-white py-12 text-center">
+    <h2 class="text-4xl font-bold text-[color:var(--blue-hover)] font-['Playfair_Display'] mb-3">Dịch Vụ & Tiện Ích</h2>
+    <p class="text-lg text-gray-700">Khám phá các tiện nghi cao cấp và dịch vụ đẳng cấp tại KeiWei Hotel.</p>
+  </section>
+
+  <!-- Dịch vụ -->
+  <main>
+    <div class="service-section" style="background-image:url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2070&q=80')">
+      <div class="service-content">
+        <h3>Bữa Sáng Tại Nhà Hàng</h3>
+        <p>Thưởng thức buffet đa dạng Việt & quốc tế, chế biến tươi ngon mỗi ngày.</p>
+        <a href="{{ url_for('booking.dat_phong') }}" class="cta">Đặt ngay</a>
+      </div>
+    </div>
+
+    <div class="service-section" style="background-image:url('https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=2070&q=80')">
+      <div class="service-content">
+        <h3>Spa & Massage Thư Giãn</h3>
+        <p>Trải nghiệm liệu pháp chuyên nghiệp trong không gian yên tĩnh và sang trọng.</p>
+        <a href="{{ url_for('booking.dat_phong') }}" class="cta">Đặt ngay</a>
+      </div>
+    </div>
+
+    <div class="service-section" style="background-image:url('https://images.unsplash.com/photo-1598928636135-d146006ff4be?auto=format&fit=crop&w=2070&q=80')">
+      <div class="service-content">
+        <h3>Dịch Vụ Giặt Ủi</h3>
+        <p>Giữ quần áo của bạn luôn sạch sẽ và gọn gàng với dịch vụ nhanh chóng, chuyên nghiệp.</p>
+        <a href="{{ url_for('booking.dat_phong') }}" class="cta">Đặt ngay</a>
+      </div>
+    </div>
+
+    <div class="service-section" style="background-image:url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=2070&q=80')">
+      <div class="service-content">
+        <h3>Tour Tham Quan Địa Phương</h3>
+        <p>Khám phá văn hóa và cảnh đẹp địa phương cùng hướng dẫn viên tận tâm.</p>
+        <a href="{{ url_for('booking.dat_phong') }}" class="cta">Đặt ngay</a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p class="font-semibold text-lg font-['Playfair_Display']">KeiWei Hotel</p>
+    <p>Hotline: +84 2376 568 666 | Email: info@keiwei.com</p>
+    <p>Địa chỉ: Biển Hải Tiến, Thanh Hóa</p>
+  </footer>
+
+  <!-- Script -->
+  <script>
+    const toggle = document.getElementById('menu-toggle');
+    const mobileNav = document.getElementById('mobile-nav');
+    toggle.addEventListener('click', () => {
+      mobileNav.classList.toggle('hidden');
+    });
+
+    const header = document.getElementById('main-header');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    const sections = document.querySelectorAll('.service-section');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.style.opacity = '1'; });
+    }, { threshold: 0.2 });
+    sections.forEach(s => observer.observe(s));
+  </script>
+</body>
+</html>

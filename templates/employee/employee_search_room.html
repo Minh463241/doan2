@@ -1,41 +1,66 @@
 <!DOCTYPE html>
-<html>
+<html lang="vi">
 <head>
-    <title>Tìm kiếm phòng theo ngày</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tìm Kiếm Phòng</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        .container { display: flex; }
-        .sidebar { width: 250px; padding: 20px; background-color: #f4f4f4; }
-        .sidebar h3 { margin-bottom: 20px; }
-        .sidebar-menu a { display: block; padding: 10px; margin-bottom: 10px; text-decoration: none; color: #333; }
-        .sidebar-menu a:hover { background-color: #ddd; }
-        .content { flex: 1; padding: 20px; }
-        form { margin-bottom: 20px; }
-        label { margin-right: 10px; }
+        .sidebar { height: 100vh; position: fixed; top: 0; left: 0; background-color: #2c3e50; padding-top: 20px; }
+        .sidebar a { color: #ecf0f1; padding: 15px; text-decoration: none; display: block; }
+        .sidebar a:hover { background-color: #34495e; }
+        .content { margin-left: 250px; padding: 20px; }
+        .card-header { background-color: #3498db; color: white; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Sidebar -->
-        <div class="sidebar">
-            <h3>Chức năng</h3>
-            <div class="sidebar-menu">
-                <a href="{{ url_for('employee.employee_booking') }}">Quản lý đặt phòng</a>
-                <a href="{{ url_for('employee.employee_services') }}">Quản lý dịch vụ</a>
-                <a href="{{ url_for('employee.employee_customers') }}">Quản lý khách hàng</a>
-                <a href="{{ url_for('employee.search_room') }}">Tìm kiếm phòng theo ngày</a>
+    <div class="sidebar">
+        <h4 class="text-center text-white mb-4">Chức năng</h4>
+        <a href="{{ url_for('employee.employee_booking') }}"><i class="fas fa-calendar-check"></i> Quản lý đặt phòng</a>
+        <a href="{{ url_for('employee.checkin') }}"><i class="fas fa-sign-in-alt"></i> Xác nhận check-in</a>
+        <a href="{{ url_for('employee.search_room') }}"><i class="fas fa-search"></i> Tìm kiếm phòng</a>
+        <a href="{{ url_for('employee.employee_services') }}"><i class="fas fa-concierge-bell"></i> Quản lý dịch vụ</a>
+        <a href="{{ url_for('employee.employee_customers') }}"><i class="fas fa-users"></i> Quản lý khách hàng</a>
+        <a href="{{ url_for('employee.checkout') }}"><i class="fas fa-sign-out-alt"></i> Xác nhận checkout</a>
+        <a href="{{ url_for('employee.paid_bookings') }}" >
+<i class='fas fa-outdent'></i> Phòng Đã Thanh Toán</a>
+        <a href="{{ url_for('employee.employee_auto_checkout') }}" class="text-red-600 font-semibold">
+    <i class="fas fa-clock"></i> Phòng quá hạn cần checkout
+    {% if expired_count and expired_count > 0 %}
+        <span class="ml-1 bg-red-600 text-white px-2 py-0.5 rounded-full text-xs">{{ expired_count }}</span>
+    {% endif %}
+</a>
+        
+    </div>
+
+    <div class="content">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>Tìm Kiếm Phòng</h2>
+            <div>
+                <span>Xin chào, {{ user.hoten }} ({{ user.chucvu }})</span>
+                <a href="{{ url_for('admin.admin_logout') }}" class="btn btn-danger ms-3">Đăng xuất</a>
             </div>
         </div>
-
-        <!-- Content -->
-        <div class="content">
-            <h3>Tìm kiếm phòng theo ngày</h3>
-            <form method="POST">
-                <label for="checkin_date">Ngày nhận phòng:</label>
-                <input type="date" id="checkin_date" name="checkin_date" required>
-                <label for="checkout_date">Ngày trả phòng:</label>
-                <input type="date" id="checkout_date" name="checkout_date" required>
-                <button type="submit">Tìm kiếm</button>
-            </form>
+        <div class="card">
+            <div class="card-header">Tìm kiếm phòng trống</div>
+            <div class="card-body">
+                <form method="POST">
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Ngày nhận phòng</label>
+                            <input type="date" name="checkin_date" class="form-control" required>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Ngày trả phòng</label>
+                            <input type="date" name="checkout_date" class="form-control" required>
+                        </div>
+                        <div class="col-md-4 mb-3 align-self-end">
+                            <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </body>

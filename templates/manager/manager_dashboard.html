@@ -7,6 +7,7 @@
     <title>Dashboard Quản Lý</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* Giữ nguyên các style hiện tại */
         * {
             margin: 0;
             padding: 0;
@@ -22,7 +23,6 @@
             position: relative;
         }
 
-        /* Particle Background Effect */
         #particles {
             position: fixed;
             top: 0;
@@ -33,7 +33,6 @@
             z-index: -1;
         }
 
-        /* Sidebar */
         .sidebar {
             position: fixed;
             top: 0;
@@ -154,7 +153,6 @@
             transform: rotate(180deg);
         }
 
-        /* Main Content */
         .main-content {
             margin-left: 250px;
             padding: 20px;
@@ -198,7 +196,6 @@
             transform: translateX(5px);
         }
 
-        /* Stats */
         .stats {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -255,7 +252,6 @@
             font-size: 1.1rem;
         }
 
-        /* Button */
         .btn {
             display: inline-flex;
             align-items: center;
@@ -296,7 +292,6 @@
             box-shadow: 0 5px 15px rgba(52, 152, 219, 0.5);
         }
 
-        /* Table */
         table {
             width: 100%;
             border-collapse: collapse;
@@ -353,7 +348,6 @@
             color: #c0392b;
         }
 
-        /* Animations */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -406,7 +400,7 @@
 
             <!-- Quản lý phòng -->
             <h2 id="rooms"><i class="fas fa-bed"></i> Quản Lý Phòng</h2>
-            <a href="/manager/rooms/add" class="btn"><i class="fas fa-plus"></i> Thêm phòng mới</a>
+            <a href="{{ url_for('manager.add_room') }}" class="btn"><i class="fas fa-plus"></i> Thêm phòng mới</a>
             <table>
                 <thead>
                     <tr>
@@ -425,8 +419,8 @@
                         <td>{{ room.giaphong }} VND</td>
                         <td>{{ room.trangthai }}</td>
                         <td class="action-links">
-                            <a href="/manager/rooms/edit/{{ room.maphong }}"><i class="fas fa-edit"></i> Sửa</a>
-                            <a href="/manager/rooms/delete/{{ room.maphong }}" class="delete" onclick="return confirm('Xóa phòng này?')"><i class="fas fa-trash"></i> Xóa</a>
+                            <a href="{{ url_for('manager.edit_room', maphong=room.maphong) }}"><i class="fas fa-edit"></i> Sửa</a>
+                            <a href="{{ url_for('manager.delete_room', maphong=room.maphong) }}" class="delete" onclick="return confirm('Xóa phòng này?')"><i class="fas fa-trash"></i> Xóa</a>
                         </td>
                     </tr>
                     {% endfor %}
@@ -435,7 +429,7 @@
 
             <!-- Quản lý nhân viên -->
             <h2 id="employees"><i class="fas fa-user-tie"></i> Quản Lý Nhân Viên</h2>
-            <a href="/manager/employees/add" class="btn"><i class="fas fa-plus"></i> Thêm nhân viên</a>
+            <a href="{{ url_for('manager.add_employee') }}" class="btn"><i class="fas fa-plus"></i> Thêm nhân viên</a>
             <table>
                 <thead>
                     <tr>
@@ -449,14 +443,15 @@
                 <tbody>
                     {% for nv in employees %}
                     <tr>
-                        <td>{{ nv.manv }}</td>
+                        <td>{{ nv.manhanvien }}</td> <!-- Sửa thành manhanvien -->
                         <td>{{ nv.hoten }}</td>
                         <td>{{ nv.chucvu }}</td>
                         <td>{{ nv.email }}</td>
                         <td class="action-links">
-                            <a href="/manager/employees/detail/{{ nv.manv }}"><i class="fas fa-eye"></i> Xem</a>
-                            <a href="/manager/employees/edit/{{ nv.manv }}"><i class="fas fa-edit"></i> Sửa</a>
-                            <a href="/manager/employees/delete/{{ nv.manv }}" class="delete" onclick="return confirm('Xóa nhân viên này?')"><i class="fas fa-trash"></i> Xóa</a>
+                            <a href="{{ url_for('manager.employee_detail', manv=nv.manhanvien) }}"><i class="fas fa-eye"></i> Xem</a>
+                            <a href="{{ url_for('manager.edit_employee', manv=nv.manhanvien) }}"><i class="fas fa-edit"></i> Sửa</a>
+                            <!-- Thêm endpoint xóa nhân viên (cần định nghĩa trong manager.py) -->
+                            <a href="{{ url_for('manager.delete_employee', manv=nv.manhanvien) }}" class="delete" onclick="return confirm('Xóa nhân viên này?')"><i class="fas fa-trash"></i> Xóa</a>
                         </td>
                     </tr>
                     {% endfor %}
@@ -465,38 +460,38 @@
 
             <!-- Hóa đơn -->
             <h2 id="invoices"><i class="fas fa-file-invoice"></i> Lịch Sử Hóa Đơn</h2>
-<table>
-    <thead>
-        <tr>
-            <th>Mã hóa đơn</th>
-            <th>Tên khách hàng</th>
-            <th>Ngày lập</th>
-            <th>Số tiền</th>
-            <th>Phương thức</th>
-            <th>Mã giao dịch PayPal</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% if hoadon_list %}
-            {% for hd in hoadon_list %}
-            <tr>
-                <td>{{ hd.mahoadon }}</td>
-                <td>{{ hd.tenkhachhang }}</td>
-                <td>{{ hd.ngaylap }}</td>
-                <td>{{ "{:,}".format(hd.tongtien | int) }} USD</td>
-                <td>{{ hd.phuongthucthanhtoan }}</td>
-                <td>{{ hd.magiaodichpaypal or '---' }}</td>
-            </tr>
-            {% endfor %}
-        {% else %}
-            <tr>
-                <td colspan="6" style="text-align: center; color: #636e72; padding: 20px;">
-                    Không có hóa đơn đã thanh toán nào.
-                </td>
-            </tr>
-        {% endif %}
-    </tbody>
-</table>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Mã hóa đơn</th>
+                        <th>Tên khách hàng</th>
+                        <th>Ngày lập</th>
+                        <th>Số tiền</th>
+                        <th>Phương thức</th>
+                        <th>Mã giao dịch PayPal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if hoadon_list %}
+                        {% for hd in hoadon_list %}
+                        <tr>
+                            <td>{{ hd.mahoadon }}</td>
+                            <td>{{ hd.tenkhachhang }}</td>
+                            <td>{{ hd.ngaylap }}</td>
+                            <td>{{ "{:,}".format(hd.tongtien | int) }} USD</td>
+                            <td>{{ hd.phuongthucthanhtoan }}</td>
+                            <td>{{ hd.magiaodichpaypal or '---' }}</td>
+                        </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="6" style="text-align: center; color: #636e72; padding: 20px;">
+                                Không có hóa đơn đã thanh toán nào.
+                            </td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+            </table>
         </div>
     </div>
 
@@ -520,7 +515,7 @@
             });
         });
 
-        // Simple Particle Effect (for demo purposes)
+        // Simple Particle Effect
         const particlesDiv = document.getElementById('particles');
         for (let i = 0; i < 50; i++) {
             const particle = document.createElement('div');

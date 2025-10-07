@@ -2,41 +2,277 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thêm Phòng Mới</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            color: #333;
+            overflow-x: hidden;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        #particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 600px;
+            width: 100%;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 0.8s ease;
+        }
+
+        h2 {
+            color: #2c3e50;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            transition: all 0.3s ease;
+        }
+
+        h2:hover {
+            color: #3498db;
+            transform: translateX(5px);
+        }
+
+        h2 i {
+            color: #3498db;
+            transition: transform 0.3s ease;
+        }
+
+        h2:hover i {
+            transform: scale(1.2);
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        label {
+            color: #2c3e50;
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select,
+        input[type="file"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #dcdcdc;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        select:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 8px rgba(52, 152, 219, 0.3);
+            background: #fff;
+        }
+
+        input[type="file"] {
+            padding: 10px;
+        }
+
+        button {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 12px 20px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(52, 152, 219, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        button::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.4s ease;
+        }
+
+        button:hover::after {
+            width: 200%;
+            height: 200%;
+        }
+
+        button:hover {
+            background: #2980b9;
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.5);
+        }
+
+        .flash-messages {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+
+        .flash-messages li {
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .flash-messages li.success {
+            background: #e8f5e9;
+            color: #2e7d32;
+            border-left: 4px solid #2e7d32;
+        }
+
+        .flash-messages li.error {
+            background: #ffebee;
+            color: #c62828;
+            border-left: 4px solid #c62828;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0); opacity: 0.8; }
+            50% { transform: translateY(-20px); opacity: 0.4; }
+            100% { transform: translateY(0); opacity: 0.8; }
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            button {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h2>Thêm Phòng Mới</h2>
-    {% with messages = get_flashed_messages(with_categories=true) %}
-      {% if messages %}
-        <ul>
-          {% for category, message in messages %}
-            <li class="{{ category }}">{{ message }}</li>
-          {% endfor %}
-        </ul>
-      {% endif %}
-    {% endwith %}
-    <form action="{{ url_for('manager.add_room') }}" method="POST" enctype="multipart/form-data">
-        <!-- Bỏ trường nhập Mã phòng vì đã tự tăng -->
-        
-        <label>Loại phòng: </label>
-        <input type="text" name="loaiphong" required/><br/>
+    <!-- Particle Background -->
+    <div id="particles"></div>
 
-        <label>Giá phòng: </label>
-        <input type="number" name="giaphong" step="0.01" required/><br/>
+    <!-- Main Content -->
+    <div class="container">
+        <h2><i class="fas fa-bed"></i> Thêm Phòng Mới</h2>
 
-        <label>Sức chứa: </label>
-        <input type="number" name="succhua" required/><br/>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <ul class="flash-messages">
+              {% for category, message in messages %}
+                <li class="{{ category }}">{{ message }}</li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
 
-        <label>Trạng thái: </label>
-        <input type="text" name="trangthai" required/><br/>
+        <form action="{{ url_for('manager.add_room') }}" method="POST" enctype="multipart/form-data">
+            <div>
+                <label for="loaiphong">Loại phòng:</label>
+                <input type="text" name="loaiphong" id="loaiphong" required/>
+            </div>
 
-        <label>Diện tích: </label>
-        <input type="number" name="dientich"/><br/>
+            <div>
+                <label for="giaphong">Giá phòng:</label>
+                <input type="number" name="giaphong" id="giaphong" step="0.01" required/>
+            </div>
 
-        <label>Hình ảnh phòng: </label>
-        <input type="file" name="hinhanh" accept="image/*"/><br/>
+            <div>
+                <label for="succhua">Sức chứa:</label>
+                <input type="number" name="succhua" id="succhua" required/>
+            </div>
 
-        <button type="submit">Thêm Phòng</button>
-    </form>
+            <div>
+                <label for="trangthai">Trạng thái:</label>
+                <select name="trangthai" id="trangthai" required>
+                    <option value="trong">Trống</option>
+                    <option value="da_dat">Đã đặt</option>
+                    <option value="bao_tri">Bảo trì</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="dientich">Diện tích:</label>
+                <input type="number" name="dientich" id="dientich" required/>
+            </div>
+
+            <div>
+                <label for="hinhanh">Hình ảnh phòng:</label>
+                <input type="file" name="hinhanh" id="hinhanh" accept="image/*"/>
+            </div>
+
+            <button type="submit"><i class="fas fa-plus"></i> Thêm Phòng</button>
+        </form>
+    </div>
+
+    <script>
+        // Simple Particle Effect
+        const particlesDiv = document.getElementById('particles');
+        for (let i = 0; i < 50; i++) {
+            const particle = document.createElement('div');
+            particle.style.position = 'absolute';
+            particle.style.width = '4px';
+            particle.style.height = '4px';
+            particle.style.background = 'rgba(255, 255, 255, 0.3)';
+            particle.style.borderRadius = '50%';
+            particle.style.left = Math.random() * 100 + 'vw';
+            particle.style.top = Math.random() * 100 + 'vh';
+            particle.style.animation = `float ${Math.random() * 5 + 2}s infinite ease-in-out`;
+            particlesDiv.appendChild(particle);
+        }
+    </script>
 </body>
 </html>

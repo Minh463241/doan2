@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Chi tiết đặt phòng #{{ booking.madatphong }} - KeiWei Hotel</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-800">
+<header class="bg-white shadow">
+  <div class="container mx-auto px-4 py-4 flex justify-between">
+    <h1 class="text-2xl font-bold text-blue-700"><a href="/">KeiWei Hotel</a></h1>
+    <nav class="space-x-6">
+      <a href="{{ url_for('booking.booking_history') }}" class="text-blue-700 hover:underline">Lịch sử</a>
+      <a href="{{ url_for('booking.booking_page') }}" class="text-blue-700 hover:underline">Đặt phòng</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container mx-auto px-4 py-8">
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <div class="mb-4 space-y-2">
+        {% for category, message in messages %}
+          <div class="px-4 py-3 rounded bg-{{ 'green' if category=='success' else 'red' if category=='danger' else 'yellow' }}-100 text-{{ 'green' if category=='success' else 'red' if category=='danger' else 'yellow' }}-800">
+            {{ message }}
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+
+  <h2 class="text-3xl font-bold text-blue-700 mb-4">Chi tiết #{{ booking.madatphong }}</h2>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <!-- Thông tin đặt phòng -->
+    <section class="lg:col-span-2 bg-white rounded-xl shadow p-6">
+      <h3 class="text-xl font-semibold mb-3">Thông tin đặt phòng</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+        <p><b>Phòng:</b> {{ booking.maphong }} ({{ booking.phong.loaiphong }})</p>
+        <p><b>Số người:</b> {{ booking.songuoi }}</p>
+        <p><b>Nhận phòng:</b> {{ booking.ngaynhanphong }}</p>
+        <p><b>Trả phòng:</b> {{ booking.ngaytraphong }}</p>
+      </div>
+
+      <h4 class="text-lg font-semibold mt-6 mb-2">Dịch vụ đã đặt</h4>
+      {% if booking.services %}
+        <div class="overflow-x-auto">
+          <table class="min-w-full text-sm">
+            <thead class="bg-gray-100">
+              <tr>
+                <th class="text-left px-3 py-2">Dịch vụ</th>
+                <th class="text-left px-3 py-2">Đơn giá</th>
+                <th class="text-left px-3 py-2">Số lượng</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for sv in booking.services %}
+              <tr class="border-t">
+                <td class="px-3 py-2">{{ sv.dichvu.tendichvu }}</td>
+                <td class="px-3 py-2">{{ "{:,.0f}".format(sv.dichvu.giadichvu) }} đ</td>
+                <td class="px-3 py-2">{{ sv.soluong }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      {% else %}
+        <p class="text-gray-600">Chưa có dịch vụ.</p>
+      {% endif %}
+    </section>
+
+    <!-- Đặt thêm dịch vụ -->
+    <aside class="bg-white rounded-xl shadow p-6">
+      <h3 class="text-xl font-semibold mb-4" id="dat-dich-vu">Đặt thêm dịch vụ</h3>
+
+      <form method="POST" action="{{ url_for('booking.add_service', madatphong=booking.madatphong) }}" id="serviceForm" class="space-y-3">
+        <div id="rows" class="space-y-3">
+          <div class="grid grid-cols-12 gap-3 service-row">
+            <div class="col-span-7">
+              <label class="block text-sm text-gray-600 mb-1">Dịch vụ</label>
+              <select name="service_id[]" required class="w-full border rounded px-3 py-2">
+                <option value="" disabled selected>— Chọn dịch vụ —</option>
+                {% for dv in all_services %}
+                  <option value="{{ dv.madichvu }}" data-price="{{ dv.giadichvu }}">
+                    {{ dv.tendichvu }} — {{ "{:,.0f}".format(dv.giadichvu) }} đ
+                  </option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="col-span-3">
+              <label class="block text-sm text-gray-600 mb-1">Số lượng</label>
+              <input type="number" name="quantity[]" min="1" value="1" required class="w-full border rounded px-3 py-2">
+            </div>
+            <div class="col-span-2 flex items-end">
+              <button type="button" class="w-full remove-row hidden border px-2 py-2 rounded">Xóa</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between pt-2">
+          <button type="button" id="addRow" class="bg-gray-100 hover:bg-gray-200 text-gray-800 px-3 py-2 rounded">
+            Thêm dòng
+          </button>
+          <div class="text-right text-sm text-gray-600">
+            Tạm tính: <span id="subtotal" class="font-semibold">0 đ</span>
+          </div>
+        </div>
+
+        <button type="submit" class="w-full bg-blue-700 hover:bg-blue-800 text-white font-semibold py-2.5 rounded">
+          Đặt dịch vụ
+        </button>
+      </form>
+    </aside>
+  </div>
+</main>
+
+<script>
+const rows = document.getElementById('rows');
+const addRowBtn = document.getElementById('addRow');
+const subtotalEl = document.getElementById('subtotal');
+
+function formatCurrency(v){ return new Intl.NumberFormat('vi-VN').format(v) + ' đ'; }
+function recalc(){
+  let sum = 0;
+  rows.querySelectorAll('.service-row').forEach(row=>{
+    const select = row.querySelector('select[name="service_id[]"]');
+    const qty = row.querySelector('input[name="quantity[]"]');
+    const price = Number(select?.selectedOptions?.[0]?.dataset?.price || 0);
+    const q = Number(qty?.value || 0);
+    sum += price * q;
+  });
+  subtotalEl.textContent = formatCurrency(sum);
+}
+function enableRemoveButtons(){
+  const allRows = rows.querySelectorAll('.service-row');
+  allRows.forEach(row=>{
+    const btn = row.querySelector('.remove-row');
+    if (btn){
+      btn.classList.toggle('hidden', allRows.length === 1);
+      btn.onclick = ()=>{ if(allRows.length>1){ row.remove(); recalc(); enableRemoveButtons(); } };
+    }
+    row.querySelectorAll('select, input').forEach(el=> el.addEventListener('input', recalc));
+  });
+}
+addRowBtn.addEventListener('click', ()=>{
+  const first = rows.querySelector('.service-row');
+  const clone = first.cloneNode(true);
+  clone.querySelector('select').selectedIndex = 0;
+  clone.querySelector('input[name="quantity[]"]').value = 1;
+  rows.appendChild(clone);
+  enableRemoveButtons(); recalc();
+});
+enableRemoveButtons(); recalc();
+</script>
+</body>
+</html>

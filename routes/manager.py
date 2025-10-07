@@ -2,10 +2,16 @@ from flask import Blueprint, render_template, request, redirect, url_for, flash,
 from utils.db_supabase import (
     get_all_employees, get_rooms, get_total_bookings,
     get_total_employees, get_total_revenue, supabase,
-    insert_employee, update_employee
+    insert_employee, update_employee, get_room_by_id, update_room
 )
+import logging
+import re
 
 manager_bp = Blueprint("manager", __name__, url_prefix="/manager")
+
+# Thiết lập logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 # Decorator kiểm tra đăng nhập
 def login_required(f):
@@ -23,16 +29,17 @@ def login_required(f):
 def dashboard():
     try:
         # Lấy danh sách phòng
-        rooms = get_rooms().data or []
+        rooms = get_rooms() or []
+        logger.info(f"Danh sách phòng: {rooms}")
 
         # Lấy danh sách nhân viên
-        employees = get_all_employees().data or []
+        employees = get_all_employees() or []
+        logger.info(f"Danh sách nhân viên: {employees}")
 
-        # Lấy danh sách hóa đơn đã thanh toán
-        hoadon_res = supabase.table("hoadon").select("*").eq("trangthai", "đã thanh toán").execute()
+        # Lấy danh sách hóa đơn
+        hoadon_res = supabase.table("hoadon").select("*").execute()
         hoadon_list = hoadon_res.data or []
-        print(f"📋 Số lượng hóa đơn đã thanh toán: {len(hoadon_list)}")
-        print(f"📋 Dữ liệu hóa đơn: {hoadon_list}")
+        logger.info(f"Số lượng hóa đơn: {len(hoadon_list)}")
 
         # Gắn tên khách hàng vào hóa đơn
         for hd in hoadon_list:
@@ -42,50 +49,44 @@ def dashboard():
                     kh_res = supabase.table("khachhang").select("hoten").eq("makhachhang", ma_kh).single().execute()
                     hd["tenkhachhang"] = kh_res.data["hoten"] if kh_res.data else "Không rõ"
                 except Exception as e:
-                    print(f"❌ Lỗi khi lấy tên khách hàng cho hóa đơn {hd.get('mahoadon')}: {e}")
+                    logger.error(f"Lỗi khi lấy tên khách hàng cho hóa đơn {hd.get('mahoadon')}: {e}")
                     hd["tenkhachhang"] = "Không rõ"
             else:
                 hd["tenkhachhang"] = "Không rõ"
-                print(f"⚠️ Hóa đơn {hd.get('mahoadon')} không có makhachhang")
+                logger.warning(f"Hóa đơn {hd.get('mahoadon')} không có makhachhang")
 
         # Tính toán thống kê
-        total_employees = len(get_total_employees().data or [])
-        total_bookings = len(get_total_bookings().data or [])
+        total_employees = get_total_employees()
+        total_bookings = get_total_bookings()
         total_revenue = get_total_revenue()
 
+        logger.info(f"Thống kê - Nhân viên: {total_employees}, Đặt phòng: {total_bookings}, Doanh thu: {total_revenue}")
+
     except Exception as e:
-        print(f"❌ Lỗi khi lấy dữ liệu dashboard: {e}")
-        rooms = []
-        employees = []
+        logger.error(f"Lỗi khi lấy dữ liệu dashboard: {e}")
         hoadon_list = []
-        total_employees = 0
-        total_bookings = 0
-        total_revenue = 0
+        total_employees = get_total_employees()
+        total_bookings = get_total_bookings()
+        total_revenue = get_total_revenue()
 
     return render_template("manager/manager_dashboard.html",
-                           total_employees=total_employees,
-                           total_bookings=total_bookings,
-                           total_revenue=total_revenue,
-                           rooms=rooms,
-                           employees=employees,
-                           hoadon_list=hoadon_list,
-                           user=session.get("user"))
+                          total_employees=total_employees,
+                          total_bookings=total_bookings,
+                          total_revenue=total_revenue,
+                          rooms=rooms,
+                          employees=employees,
+                          hoadon_list=hoadon_list,
+                          user=session.get("user"))
 
-# Tuyến đường xem danh sách nhân viên
-@manager_bp.route('/list')
-@login_required
-def list_employees():
-    employees = get_all_employees().data or []
-    return render_template("manager/employee_list.html", employees=employees)
+
 
 @manager_bp.route("/invoices")
 @login_required
 def invoices():
     try:
-        hoadon_res = supabase.table("hoadon").select("*").eq("trangthai", "đã thanh toán").execute()
+        hoadon_res = supabase.table("hoadon").select("*").execute()
         hoadon_list = hoadon_res.data or []
-        print(f"📋 Số lượng hóa đơn đã thanh toán: {len(hoadon_list)}")
-        print(f"📋 Dữ liệu hóa đơn: {hoadon_list}")
+        logger.info(f"Số lượng hóa đơn: {len(hoadon_list)}")
 
         # Gắn tên khách hàng vào hóa đơn
         for hd in hoadon_list:
@@ -95,14 +96,14 @@ def invoices():
                     kh_res = supabase.table("khachhang").select("hoten").eq("makhachhang", ma_kh).single().execute()
                     hd["tenkhachhang"] = kh_res.data["hoten"] if kh_res.data else "Không rõ"
                 except Exception as e:
-                    print(f"❌ Lỗi khi lấy tên khách hàng cho hóa đơn {hd.get('mahoadon')}: {e}")
+                    logger.error(f"Lỗi khi lấy tên khách hàng cho hóa đơn {hd.get('mahoadon')}: {e}")
                     hd["tenkhachhang"] = "Không rõ"
             else:
                 hd["tenkhachhang"] = "Không rõ"
-                print(f"⚠️ Hóa đơn {hd.get('mahoadon')} không có makhachhang")
+                logger.warning(f"Hóa đơn {hd.get('mahoadon')} không có makhachhang")
 
     except Exception as e:
-        print(f"❌ Lỗi khi lấy danh sách hóa đơn: {e}")
+        logger.error(f"Lỗi khi lấy danh sách hóa đơn: {e}")
         hoadon_list = []
 
     return render_template("manager/invoice_list.html", hoadon_list=hoadon_list)
@@ -111,8 +112,8 @@ def invoices():
 @manager_bp.route("/reports")
 @login_required
 def reports():
-    total_employees = len(get_total_employees().data or [])
-    total_bookings = len(get_total_bookings().data or [])
+    total_employees = get_total_employees()
+    total_bookings = get_total_bookings()
     total_revenue = get_total_revenue()
 
     return render_template("manager/reports.html",
@@ -126,15 +127,27 @@ def reports():
 def add_room():
     if request.method == 'POST':
         try:
-            loaiphong = request.form['loaiphong']
+            loaiphong = request.form['loaiphong'].strip()
             giaphong = float(request.form['giaphong'])
             succhua = int(request.form['succhua'])
             trangthai = request.form['trangthai']
             dientich = int(request.form['dientich'])
 
+            # Validate dữ liệu
+            if giaphong < 0:
+                raise ValueError("Giá phòng không thể âm.")
+            if succhua <= 0 or dientich <= 0:
+                raise ValueError("Sức chứa và diện tích phải lớn hơn 0.")
+            valid_statuses = ["trong", "dang_su_dung", "dang_bao_tri"]
+            if trangthai not in valid_statuses:
+                raise ValueError("Trạng thái không hợp lệ. Chọn: trong, dang_su_dung, dang_bao_tri.")
+
             hinhanh_file = request.files.get('hinhanh')
             hinhanh_url = None
             if hinhanh_file and hinhanh_file.filename:
+                allowed_extensions = {'.jpg', '.jpeg', '.png'}
+                if not any(hinhanh_file.filename.lower().endswith(ext) for ext in allowed_extensions):
+                    raise ValueError("Định dạng ảnh không được hỗ trợ.")
                 from utils.upload_cloudinary import upload_image_to_cloudinary
                 hinhanh_url = upload_image_to_cloudinary(hinhanh_file)
 
@@ -149,8 +162,14 @@ def add_room():
                 data_insert['hinhanh'] = hinhanh_url
 
             response = supabase.table("phong").insert(data_insert).execute()
-            flash('Thêm phòng thành công!', 'success' if response.data else 'error')
+            if response.data:
+                flash('Thêm phòng thành công!', 'success')
+            else:
+                flash('Thêm phòng thất bại.', 'error')
+        except ValueError as ve:
+            flash(f'Dữ liệu không hợp lệ: {str(ve)}', 'error')
         except Exception as e:
+            logger.error(f"Lỗi khi thêm phòng: {str(e)}")
             flash(f'Có lỗi: {str(e)}', 'error')
 
         return redirect(url_for('manager.dashboard') + '#rooms')
@@ -161,26 +180,48 @@ def add_room():
 @manager_bp.route("/rooms/edit/<maphong>", methods=['GET', 'POST'])
 @login_required
 def edit_room(maphong):
-    room_response = supabase.table("phong").select("*").eq("maphong", maphong).execute()
-    if not room_response.data:
+    room = get_room_by_id(maphong)
+    if not room:
         flash('Phòng không tồn tại.', 'error')
         return redirect(url_for('manager.dashboard') + '#rooms')
 
-    room = room_response.data[0]
-
     if request.method == 'POST':
         try:
-            loaiphong = request.form['loaiphong']
+            loaiphong = request.form['loaiphong'].strip()
             giaphong = float(request.form['giaphong'])
             succhua = int(request.form['succhua'])
             trangthai = request.form['trangthai']
             dientich = int(request.form['dientich'])
 
+            # Validate dữ liệu
+            if giaphong < 0:
+                raise ValueError("Giá phòng không thể âm.")
+            if succhua <= 0 or dientich <= 0:
+                raise ValueError("Sức chứa và diện tích phải lớn hơn 0.")
+            valid_statuses = ["trong", "dang_su_dung", "dang_bao_tri"]
+            if trangthai not in valid_statuses:
+                raise ValueError("Trạng thái không hợp lệ. Chọn: trong, dang_su_dung, dang_bao_tri.")
+            if not loaiphong:
+                raise ValueError("Loại phòng không được để trống.")
+
+            # Kiểm tra trạng thái phòng trước khi cập nhật
+            if trangthai == 'trong':
+                active_bookings = supabase.table('datphong')\
+                    .select('madatphong')\
+                    .eq('maphong', maphong)\
+                    .in_('trangthai', ['Chờ xác nhận', 'Đã xác nhận', 'Đã thanh toán', 'Đã check-in'])\
+                    .execute().data
+                if active_bookings:
+                    raise ValueError("Không thể đặt trạng thái 'trong' vì phòng đang có đặt phòng hoạt động.")
+
             hinhanh_file = request.files.get('hinhanh')
             hinhanh_url = None
             if hinhanh_file and hinhanh_file.filename:
+                allowed_extensions = {'.jpg', '.jpeg', '.png'}
+                if not any(hinhanh_file.filename.lower().endswith(ext) for ext in allowed_extensions):
+                    raise ValueError("Định dạng ảnh không được hỗ trợ.")
                 from utils.upload_cloudinary import upload_image_to_cloudinary
-                hinhanh_url = upload_image_to_cloudinary(hinhanh_file, folder='rooms')
+                hinhanh_url = upload_image_to_cloudinary(hinhanh_file)
 
             data_update = {
                 'loaiphong': loaiphong,
@@ -192,21 +233,47 @@ def edit_room(maphong):
             if hinhanh_url:
                 data_update['hinhanh'] = hinhanh_url
 
-            response = supabase.table("phong").update(data_update).eq("maphong", maphong).execute()
-            flash('Cập nhật phòng thành công!' if response.data else 'Cập nhật thất bại.', 'success' if response.data else 'error')
+            response = update_room(maphong, data_update)
+            if response:
+                flash('Cập nhật phòng thành công!', 'success')
+            else:
+                flash('Cập nhật phòng thất bại.', 'error')
+
+        except ValueError as ve:
+            flash(f'Dữ liệu không hợp lệ: {str(ve)}', 'error')
+            return render_template('manager/edit_room.html', room=room, form_data=request.form)
         except Exception as e:
-            flash(f'Có lỗi: {str(e)}', 'error')
+            logger.error(f"Lỗi khi cập nhật phòng {maphong}: {str(e)}")
+            flash(f'Lỗi hệ thống: {str(e)}', 'error')
+            return render_template('manager/edit_room.html', room=room, form_data=request.form)
 
         return redirect(url_for('manager.dashboard') + '#rooms')
 
     return render_template('manager/edit_room.html', room=room)
 
-# Xoá phòng
+# Xóa phòng
 @manager_bp.route("/rooms/delete/<maphong>")
 @login_required
 def delete_room(maphong):
-    response = supabase.table("phong").delete().eq("maphong", maphong).execute()
-    flash('Xóa phòng thành công!' if response.data else 'Xóa thất bại.', 'success' if response.data else 'error')
+    try:
+        # Kiểm tra xem phòng có đang được sử dụng trong đặt phòng không
+        active_bookings = supabase.table('datphong')\
+            .select('madatphong')\
+            .eq('maphong', maphong)\
+            .in_('trangthai', ['Chờ xác nhận', 'Đã xác nhận', 'Đã thanh toán', 'Đã check-in'])\
+            .execute().data
+        if active_bookings:
+            flash('Không thể xóa phòng vì đang có đặt phòng liên quan.', 'error')
+            return redirect(url_for('manager.dashboard') + '#rooms')
+
+        response = supabase.table("phong").delete().eq("maphong", maphong).execute()
+        if response.data:
+            flash('Xóa phòng thành công!', 'success')
+        else:
+            flash('Xóa phòng thất bại.', 'error')
+    except Exception as e:
+        logger.error(f"Lỗi khi xóa phòng {maphong}: {str(e)}")
+        flash(f'Lỗi: {str(e)}', 'error')
     return redirect(url_for('manager.dashboard') + '#rooms')
 
 # Thêm nhân viên
@@ -214,27 +281,47 @@ def delete_room(maphong):
 @login_required
 def add_employee():
     if request.method == 'POST':
-        hoten = request.form['hoten']
-        chucvu = request.form['chucvu']
-        email = request.form['email']
-        matkhau = request.form['matkhau']
-        sodienthoai = request.form['sodienthoai']  # Thêm trường số điện thoại
+        try:
+            hoten = request.form['hoten'].strip()
+            chucvu = request.form['chucvu'].strip()
+            email = request.form['email'].strip()
+            matkhau = request.form['matkhau']
+            sodienthoai = request.form['sodienthoai'].strip()
 
-        existing_email = supabase.table("nhanvien").select("*").eq("email", email).execute()
-        if existing_email.data:
-            flash('Email đã được sử dụng.', 'error')
-            return redirect(url_for('manager.add_employee'))
+            # Kiểm tra định dạng email
+            email_pattern = r'^[\w\.-]+@[\w\.-]+\.\w+$'
+            if not re.match(email_pattern, email):
+                raise ValueError('Email không hợp lệ.')
 
-        response = insert_employee({
-            'hoten': hoten,
-            'chucvu': chucvu,
-            'email': email,
-            'matkhau': matkhau,
-            'sodienthoai': sodienthoai  # Thêm vào dữ liệu chèn
-        })
+            # Kiểm tra định dạng số điện thoại
+            phone_pattern = r'^\d{10}$'
+            if not re.match(phone_pattern, sodienthoai):
+                raise ValueError('Số điện thoại không hợp lệ (phải có 10 chữ số).')
 
-        flash('Thêm nhân viên thành công!' if response.data else 'Thêm thất bại.', 'success' if response.data else 'error')
-        return redirect(url_for('manager.list_employees'))  # Đã sửa từ 'manager.list'
+            # Kiểm tra email trùng lặp
+            existing_email = supabase.table("nhanvien").select("*").eq("email", email).execute()
+            if existing_email.data:
+                raise ValueError('Email đã được sử dụng.')
+
+            response = insert_employee({
+                'hoten': hoten,
+                'chucvu': chucvu,
+                'email': email,
+                'matkhau': matkhau,
+                'sodienthoai': sodienthoai
+            })
+
+            if response:
+                flash('Thêm nhân viên thành công!', 'success')
+            else:
+                flash('Thêm nhân viên thất bại.', 'error')
+        except ValueError as ve:
+            flash(f'Dữ liệu không hợp lệ: {str(ve)}', 'error')
+        except Exception as e:
+            logger.error(f"Lỗi khi thêm nhân viên: {str(e)}")
+            flash(f'Có lỗi: {str(e)}', 'error')
+
+        return redirect(url_for('manager.list_employees'))
 
     return render_template('manager/add_employee.html')
 
@@ -242,46 +329,104 @@ def add_employee():
 @manager_bp.route("/employees/detail/<manv>")
 @login_required
 def employee_detail(manv):
-    response = supabase.table("nhanvien").select("*").eq("manv", manv).execute()
-    if not response.data:
-        flash('Nhân viên không tồn tại.', 'error')
-        return redirect(url_for('manager.list'))
+    try:
+        response = supabase.table("nhanvien").select("*").eq("manhanvien", manv).execute()
+        if not response.data:
+            flash('Nhân viên không tồn tại.', 'error')
+            return redirect(url_for('manager.list_employees'))
 
-    employee = response.data[0]
-    return render_template('manager/employee_detail.html', employee=employee)
+        employee = response.data[0]
+        return render_template('manager/employee_detail.html', employee=employee)
+    except Exception as e:
+        logger.error(f"Lỗi khi lấy chi tiết nhân viên {manv}: {str(e)}")
+        flash(f'Lỗi: {str(e)}', 'error')
+        return redirect(url_for('manager.list_employees'))
 
+# Chỉnh sửa nhân viên
 # Chỉnh sửa nhân viên
 @manager_bp.route("/employees/edit/<manv>", methods=['GET', 'POST'])
 @login_required
 def edit_employee(manv):
-    employee_response = supabase.table("nhanvien").select("*").eq("manv", manv).execute()
-    if not employee_response.data:
-        flash('Nhân viên không tồn tại.', 'error')
+    try:
+        # Lấy thông tin nhân viên
+        employee_response = supabase.table("nhanvien").select("*").eq("manhanvien", manv).execute()
+        if not employee_response.data:
+            flash('Nhân viên không tồn tại.', 'error')
+            return redirect(url_for('manager.dashboard'))
+
+        employee = employee_response.data[0]
+
+        if request.method == 'POST':
+            try:
+                hoten = request.form['hoten'].strip()
+                chucvu = request.form['chucvu'].strip()
+                email = request.form['email'].strip()
+                sodienthoai = request.form['sodienthoai'].strip()
+                matkhau = request.form['matkhau'] if request.form['matkhau'] else employee['matkhau']
+
+                # Kiểm tra định dạng email
+                email_pattern = r'^[\w\.-]+@[\w\.-]+\.\w+$'
+                if not re.match(email_pattern, email):
+                    raise ValueError('Email không hợp lệ.')
+
+                # Kiểm tra định dạng số điện thoại (10 chữ số)
+                phone_pattern = r'^\d{10}$'
+                if not re.match(phone_pattern, sodienthoai):
+                    raise ValueError('Số điện thoại không hợp lệ (phải có 10 chữ số).')
+
+                # Kiểm tra email trùng lặp với nhân viên khác
+                existing_email = supabase.table("nhanvien").select("*").eq("email", email).neq("manhanvien", manv).execute()
+                if existing_email.data:
+                    raise ValueError('Email đã được sử dụng bởi nhân viên khác.')
+
+                # Cập nhật nhân viên
+                response = update_employee(manv, {
+                    'hoten': hoten,
+                    'chucvu': chucvu,
+                    'email': email,
+                    'matkhau': matkhau,
+                    'sodienthoai': sodienthoai
+                })
+
+                if response:
+                    flash('Cập nhật nhân viên thành công!', 'success')
+                else:
+                    flash('Cập nhật nhân viên thất bại.', 'error')
+
+            except ValueError as ve:
+                flash(f'Dữ liệu không hợp lệ: {str(ve)}', 'error')
+                return render_template('manager/edit_employee.html', employee=employee, form_data=request.form)
+            except Exception as e:
+                logger.error(f"Lỗi khi cập nhật nhân viên {manv}: {str(e)}")
+                flash(f'Có lỗi: {str(e)}', 'error')
+                return render_template('manager/edit_employee.html', employee=employee, form_data=request.form)
+
+            # Sau khi cập nhật xong → quay về dashboard
+            return redirect(url_for('manager.dashboard'))
+
+        # Nếu là GET → render form chỉnh sửa
+        return render_template('manager/edit_employee.html', employee=employee)
+
+    except Exception as e:
+        logger.error(f"Lỗi khi lấy thông tin nhân viên {manv}: {str(e)}")
+        flash(f'Lỗi: {str(e)}', 'error')
+        return redirect(url_for('manager.dashboard'))
+
+
+# Xóa nhân viên
+@manager_bp.route("/employees/delete/<manv>", methods=['POST'])
+@login_required
+def delete_employee(manv):
+    try:
+        response = supabase.table("nhanvien").delete().eq("manhanvien", manv).execute()
+        if response.data:
+            flash('Xóa nhân viên thành công!', 'success')
+            logger.info(f"Quản lý xóa nhân viên với mã {manv}")
+        else:
+            flash('Không tìm thấy nhân viên để xóa!', 'error')
+            logger.warning(f"Không tìm thấy nhân viên với mã {manv}")
         return redirect(url_for('manager.list_employees'))
-
-    employee = employee_response.data[0]
-
-    if request.method == 'POST':
-        hoten = request.form['hoten']
-        chucvu = request.form['chucvu']
-        email = request.form['email']
-        sodienthoai = request.form['sodienthoai']  # Thêm trường số điện thoại
-        matkhau = request.form['matkhau'] if request.form['matkhau'] else employee['matkhau']
-
-        existing_email = supabase.table("nhanvien").select("*").eq("email", email).neq("manv", manv).execute()
-        if existing_email.data:
-            flash('Email đã được sử dụng bởi nhân viên khác.', 'error')
-            return redirect(url_for('manager.edit_employee', manv=manv))
-
-        response = update_employee(manv, {
-            'hoten': hoten,
-            'chucvu': chucvu,
-            'email': email,
-            'matkhau': matkhau,
-            'sodienthoai': sodienthoai  # Thêm vào dữ liệu cập nhật
-        })
-
-        flash('Cập nhật nhân viên thành công!' if response.data else 'Cập nhật thất bại.', 'success' if response.data else 'error')
+    except Exception as e:
+        logger.error(f"Lỗi khi xóa nhân viên {manv}: {str(e)}")
+        flash(f'Lỗi khi xóa nhân viên: {str(e)}', 'error')
         return redirect(url_for('manager.list_employees'))
-
-    return render_template('manager/edit_employee.html', employee=employee)

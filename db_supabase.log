@@ -1,0 +1,925 @@
+2025-10-07 14:33:29,924 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong?select=maphong%2Cloaiphong%2Cgiaphong%2Csucchua%2Cdientich%2Chinhanh "HTTP/2 200 OK"
+2025-10-07 14:33:30,038 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/dichvu?select=%2A "HTTP/2 200 OK"
+2025-10-07 14:33:30,040 - INFO - Danh sách d\u1ecbch v\u1ee5 t\u1eeb Supabase: [{'madichvu': 1, 'tendichvu': 'B\u1eefa sáng', 'giadichvu': 150000.0, 'mota': 'Buffet t\u1ef1 ch\u1ecdn', 'hinhanh': 'https://cloud.com/services/breakfast.jpg'}, {'madichvu': 2, 'tendichvu': 'Gi\u1eb7t \u1ee7i', 'giadichvu': 50000.0, 'mota': 'Gi\u1eb7t + s\u1ea5y', 'hinhanh': 'https://cloud.com/services/laundry.jpg'}, {'madichvu': 3, 'tendichvu': 'Massage', 'giadichvu': 300000.0, 'mota': 'Th\u01b0 giãn 60 phút', 'hinhanh': 'https://cloud.com/services/massage.jpg'}]
+2025-10-07 14:33:30,040 - INFO - Hi\u1ec3n th\u1ecb trang \u0111\u1eb7t phòng v\u1edbi 24 phòng tr\u1ed1ng và 3 d\u1ecbch v\u1ee5
+2025-10-07 14:33:30,044 - INFO - 127.0.0.1 - - [07/Oct/2025 14:33:30] "GET /booking/dat_phong HTTP/1.1" 200 -
+2025-10-07 14:33:34,025 - INFO - Session user: {'email': 'minh1@gmail.com', 'hoten': 'Bùi Anh Minh', 'id': 4, 'makhachhang': 4}
+2025-10-07 14:33:34,025 - INFO - makhachhang: 4
+2025-10-07 14:33:34,140 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=%2A%2Cphong%28loaiphong%29&makhachhang=eq.4 "HTTP/2 200 OK"
+2025-10-07 14:33:34,263 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.17 "HTTP/2 200 OK"
+2025-10-07 14:33:34,366 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.4 "HTTP/2 200 OK"
+2025-10-07 14:33:34,457 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.5 "HTTP/2 200 OK"
+2025-10-07 14:33:34,573 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.6 "HTTP/2 200 OK"
+2025-10-07 14:33:34,674 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.14 "HTTP/2 200 OK"
+2025-10-07 14:33:34,773 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.23 "HTTP/2 200 OK"
+2025-10-07 14:33:34,885 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.22 "HTTP/2 200 OK"
+2025-10-07 14:33:34,989 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.25 "HTTP/2 200 OK"
+2025-10-07 14:33:35,089 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.24 "HTTP/2 200 OK"
+2025-10-07 14:33:35,204 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.27 "HTTP/2 200 OK"
+2025-10-07 14:33:35,307 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.28 "HTTP/2 200 OK"
+2025-10-07 14:33:35,424 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.7 "HTTP/2 200 OK"
+2025-10-07 14:33:35,545 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.18 "HTTP/2 200 OK"
+2025-10-07 14:33:35,641 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.8 "HTTP/2 200 OK"
+2025-10-07 14:33:35,754 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.26 "HTTP/2 200 OK"
+2025-10-07 14:33:35,861 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.46 "HTTP/2 200 OK"
+2025-10-07 14:33:35,973 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.47 "HTTP/2 200 OK"
+2025-10-07 14:33:36,107 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.48 "HTTP/2 200 OK"
+2025-10-07 14:33:36,218 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.50 "HTTP/2 200 OK"
+2025-10-07 14:33:36,333 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.16 "HTTP/2 200 OK"
+2025-10-07 14:33:36,436 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.42 "HTTP/2 200 OK"
+2025-10-07 14:33:36,546 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.51 "HTTP/2 200 OK"
+2025-10-07 14:33:36,657 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.52 "HTTP/2 200 OK"
+2025-10-07 14:33:36,770 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.43 "HTTP/2 200 OK"
+2025-10-07 14:33:36,889 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.9 "HTTP/2 200 OK"
+2025-10-07 14:33:36,990 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.10 "HTTP/2 200 OK"
+2025-10-07 14:33:37,108 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.39 "HTTP/2 200 OK"
+2025-10-07 14:33:37,239 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.21 "HTTP/2 200 OK"
+2025-10-07 14:33:37,363 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.41 "HTTP/2 200 OK"
+2025-10-07 14:33:37,457 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.49 "HTTP/2 200 OK"
+2025-10-07 14:33:37,572 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.38 "HTTP/2 200 OK"
+2025-10-07 14:33:37,673 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.71 "HTTP/2 200 OK"
+2025-10-07 14:33:37,796 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.72 "HTTP/2 200 OK"
+2025-10-07 14:33:37,900 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.73 "HTTP/2 200 OK"
+2025-10-07 14:33:38,005 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.74 "HTTP/2 200 OK"
+2025-10-07 14:33:38,111 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.75 "HTTP/2 200 OK"
+2025-10-07 14:33:38,222 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.76 "HTTP/2 200 OK"
+2025-10-07 14:33:38,333 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.77 "HTTP/2 200 OK"
+2025-10-07 14:33:38,334 - INFO - Hi\u1ec3n th\u1ecb l\u1ecbch s\u1eed \u0111\u1eb7t phòng cho makhachhang=4 v\u1edbi 38 \u0111\u01a1n
+2025-10-07 14:33:38,339 - INFO - 127.0.0.1 - - [07/Oct/2025 14:33:38] "GET /booking/booking_history HTTP/1.1" 200 -
+2025-10-07 14:33:54,663 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=%2A%2Cphong%28loaiphong%29&madatphong=eq.5 "HTTP/2 200 OK"
+2025-10-07 14:33:54,783 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%2Cgiadichvu%29&madatphong=eq.5 "HTTP/2 200 OK"
+2025-10-07 14:33:54,901 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/dichvu?select=%2A "HTTP/2 200 OK"
+2025-10-07 14:33:54,903 - INFO - Danh sách d\u1ecbch v\u1ee5 t\u1eeb Supabase: [{'madichvu': 1, 'tendichvu': 'B\u1eefa sáng', 'giadichvu': 150000.0, 'mota': 'Buffet t\u1ef1 ch\u1ecdn', 'hinhanh': 'https://cloud.com/services/breakfast.jpg'}, {'madichvu': 2, 'tendichvu': 'Gi\u1eb7t \u1ee7i', 'giadichvu': 50000.0, 'mota': 'Gi\u1eb7t + s\u1ea5y', 'hinhanh': 'https://cloud.com/services/laundry.jpg'}, {'madichvu': 3, 'tendichvu': 'Massage', 'giadichvu': 300000.0, 'mota': 'Th\u01b0 giãn 60 phút', 'hinhanh': 'https://cloud.com/services/massage.jpg'}]
+2025-10-07 14:33:54,904 - INFO - 127.0.0.1 - - [07/Oct/2025 14:33:54] "GET /booking/booking/5 HTTP/1.1" 200 -
+2025-10-07 14:34:01,870 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=madatphong%2Cmaphong%2Cngaynhanphong%2Cngaytraphong%2Csonguoi%2Ctongtien%2Ctrangthai&madatphong=eq.5 "HTTP/2 200 OK"
+2025-10-07 14:34:01,986 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/dichvu?select=%2A "HTTP/2 200 OK"
+2025-10-07 14:34:01,991 - INFO - Danh sách d\u1ecbch v\u1ee5 t\u1eeb Supabase: [{'madichvu': 1, 'tendichvu': 'B\u1eefa sáng', 'giadichvu': 150000.0, 'mota': 'Buffet t\u1ef1 ch\u1ecdn', 'hinhanh': 'https://cloud.com/services/breakfast.jpg'}, {'madichvu': 2, 'tendichvu': 'Gi\u1eb7t \u1ee7i', 'giadichvu': 50000.0, 'mota': 'Gi\u1eb7t + s\u1ea5y', 'hinhanh': 'https://cloud.com/services/laundry.jpg'}, {'madichvu': 3, 'tendichvu': 'Massage', 'giadichvu': 300000.0, 'mota': 'Th\u01b0 giãn 60 phút', 'hinhanh': 'https://cloud.com/services/massage.jpg'}]
+2025-10-07 14:34:01,992 - INFO - 127.0.0.1 - - [07/Oct/2025 14:34:01] "[32mPOST /booking/5/add-service HTTP/1.1[0m" 302 -
+2025-10-07 14:34:02,002 - INFO - Ki\u1ec3m tra session booking: {'existing_booking_id': 5, 'ghichudatphong': '', 'makhachhang': 4, 'maphong': 1, 'mode': 'services_only', 'ngaynhanphong': '2025-04-15', 'ngaytraphong': '2025-04-11', 'service_details': [{'madichvu': 1, 'soluong': 1, 'thanhtien': 150000.0}], 'sokhachdicung': '0', 'songuoi': 3, 'thoigiancheckindukien': '', 'tongtien': 150000.0, 'yeucaudacbiet': ''}
+2025-10-07 14:34:02,003 - INFO - Thông tin thanh toán: maphong=1, tongtien=150000.0 VN\u0110, amount_in_usd=6.00 USD
+2025-10-07 14:34:02,003 - INFO - PayPal-Request-Id: 9e17d997-5e89-49ec-8ddc-eb6cb04a0401
+2025-10-07 14:34:02,004 - INFO - Request[POST]: https://api.sandbox.paypal.com/v1/payments/payment
+2025-10-07 14:34:03,464 - INFO - Response[201]: Created, Duration: 1.460022s.
+2025-10-07 14:34:03,465 - INFO - \u0110ã t\u1ea1o giao d\u1ecbch PayPal thành công, chuy\u1ec3n h\u01b0\u1edbng \u0111\u1ebfn: https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-4L048187E63630805
+2025-10-07 14:34:03,466 - INFO - 127.0.0.1 - - [07/Oct/2025 14:34:03] "[32mGET /payment/ HTTP/1.1[0m" 302 -
+2025-10-07 14:34:08,551 - INFO - Request[GET]: https://api.sandbox.paypal.com/v1/payments/payment/PAYID-NDSME2Y3MS25400VW2871017
+2025-10-07 14:34:09,605 - INFO - Response[200]: OK, Duration: 1.53827s.
+2025-10-07 14:34:09,606 - INFO - Payment PAYID-NDSME2Y3MS25400VW2871017 initial state=created
+2025-10-07 14:34:09,606 - INFO - PayPal-Request-Id: 1dad6623-3293-4b83-8511-289b059d53c2
+2025-10-07 14:34:09,606 - INFO - Request[POST]: https://api.sandbox.paypal.com/v1/payments/payment/PAYID-NDSME2Y3MS25400VW2871017/execute
+2025-10-07 14:34:11,298 - INFO - Response[200]: OK, Duration: 1.690265s.
+2025-10-07 14:34:11,299 - INFO - Request[GET]: https://api.sandbox.paypal.com/v1/payments/payment/PAYID-NDSME2Y3MS25400VW2871017
+2025-10-07 14:34:12,378 - INFO - Response[200]: OK, Duration: 1.78310s.
+2025-10-07 14:34:12,378 - INFO - Payment PAYID-NDSME2Y3MS25400VW2871017 executed -> state=approved
+2025-10-07 14:34:12,578 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=madatphong%2Ctrangthai&madatphong=eq.5 "HTTP/2 200 OK"
+2025-10-07 14:34:12,578 - INFO - Insert service (services_only): {'madatphong': 5, 'madichvu': 1, 'soluong': 1, 'thanhtien': 150000.0, 'trangthai': '\u0110ã hoàn thành', 'trangthaithanhtoan': '\u0110ã thanh toán', 'magiaodich': 'PAYID-NDSME2Y3MS25400VW2871017', 'ngaydat': '2025-10-07T14:34:12.378571'}
+2025-10-07 14:34:12,693 - INFO - HTTP Request: POST https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu "HTTP/2 201 Created"
+2025-10-07 14:34:12,710 - INFO - Inserted service usage: [{'machitiet': 16, 'madatphong': 5, 'madichvu': 1, 'soluong': 1, 'thanhtien': 150000.0, 'ngaydat': '2025-10-07T14:34:12.378571+00:00', 'trangthaithanhtoan': '\u0110ã thanh toán', 'magiaodich': 'PAYID-NDSME2Y3MS25400VW2871017', 'trangthai': '\u0110ã hoàn thành'}]
+2025-10-07 14:34:12,826 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/hoadon?select=mahoadon%2Ctongtien&madatphong=eq.5 "HTTP/2 200 OK"
+2025-10-07 14:34:12,941 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=trangthai%2Ctongtien&madatphong=eq.5 "HTTP/2 200 OK"
+2025-10-07 14:34:12,944 - ERROR - L\u1ed7i khi t\u1ea1o hóa \u0111\u01a1n cho madatphong 5: \u0110\u1eb7t phòng 5 ch\u01b0a \u0111\u01b0\u1ee3c thanh toán. Tr\u1ea1ng thái hi\u1ec7n t\u1ea1i: \u0110ã xác nh\u1eadn
+2025-10-07 14:34:12,945 - ERROR - /success exception: \u0110\u1eb7t phòng 5 ch\u01b0a \u0111\u01b0\u1ee3c thanh toán. Tr\u1ea1ng thái hi\u1ec7n t\u1ea1i: \u0110ã xác nh\u1eadn
+Traceback (most recent call last):
+  File "C:\Users\Minh\Documents\GitHub\doan2\routes\payment.py", line 263, in success
+    _safe_create_or_update_invoice_for_services(
+  File "C:\Users\Minh\Documents\GitHub\doan2\routes\payment.py", line 151, in _safe_create_or_update_invoice_for_services
+    create_invoice(
+  File "C:\Users\Minh\Documents\GitHub\doan2\utils\db_supabase.py", line 426, in create_invoice
+    raise ValueError(f"\u0110\u1eb7t phòng {madatphong} ch\u01b0a \u0111\u01b0\u1ee3c thanh toán. Tr\u1ea1ng thái hi\u1ec7n t\u1ea1i: {booking[0]['trangthai']}")
+ValueError: \u0110\u1eb7t phòng 5 ch\u01b0a \u0111\u01b0\u1ee3c thanh toán. Tr\u1ea1ng thái hi\u1ec7n t\u1ea1i: \u0110ã xác nh\u1eadn
+
+2025-10-07 14:34:12,946 - INFO - 127.0.0.1 - - [07/Oct/2025 14:34:12] "GET /payment/success?paymentId=PAYID-NDSME2Y3MS25400VW2871017&token=EC-4L048187E63630805&PayerID=EZEAHEJEKML38 HTTP/1.1" 200 -
+2025-10-07 14:37:36,007 - INFO -  * Detected change in 'C:\\Users\\Minh\\Documents\\GitHub\\doan2\\utils\\db_supabase.py', reloading
+2025-10-07 14:37:36,400 - INFO -  * Restarting with stat
+2025-10-07 14:37:38,572 - WARNING -  * Debugger is active!
+2025-10-07 14:37:38,580 - INFO -  * Debugger PIN: 458-905-620
+2025-10-07 14:41:21,897 - INFO -  * Detected change in 'C:\\Users\\Minh\\Documents\\GitHub\\doan2\\routes\\payment.py', reloading
+2025-10-07 14:41:22,069 - INFO -  * Restarting with stat
+2025-10-07 14:41:23,224 - WARNING -  * Debugger is active!
+2025-10-07 14:41:23,234 - INFO -  * Debugger PIN: 458-905-620
+2025-10-07 14:41:24,944 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong?select=maphong%2Cloaiphong%2Cgiaphong%2Csucchua%2Cdientich%2Chinhanh "HTTP/2 200 OK"
+2025-10-07 14:41:25,047 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/dichvu?select=%2A "HTTP/2 200 OK"
+2025-10-07 14:41:25,048 - INFO - Danh sách d\u1ecbch v\u1ee5 t\u1eeb Supabase: [{'madichvu': 1, 'tendichvu': 'B\u1eefa sáng', 'giadichvu': 150000.0, 'mota': 'Buffet t\u1ef1 ch\u1ecdn', 'hinhanh': 'https://cloud.com/services/breakfast.jpg'}, {'madichvu': 2, 'tendichvu': 'Gi\u1eb7t \u1ee7i', 'giadichvu': 50000.0, 'mota': 'Gi\u1eb7t + s\u1ea5y', 'hinhanh': 'https://cloud.com/services/laundry.jpg'}, {'madichvu': 3, 'tendichvu': 'Massage', 'giadichvu': 300000.0, 'mota': 'Th\u01b0 giãn 60 phút', 'hinhanh': 'https://cloud.com/services/massage.jpg'}]
+2025-10-07 14:41:25,048 - INFO - Hi\u1ec3n th\u1ecb trang \u0111\u1eb7t phòng v\u1edbi 24 phòng tr\u1ed1ng và 3 d\u1ecbch v\u1ee5
+2025-10-07 14:41:25,080 - INFO - 127.0.0.1 - - [07/Oct/2025 14:41:25] "GET /booking/dat_phong HTTP/1.1" 200 -
+2025-10-07 14:41:27,737 - INFO - Session user: {'email': 'minh1@gmail.com', 'hoten': 'Bùi Anh Minh', 'id': 4, 'makhachhang': 4}
+2025-10-07 14:41:27,737 - INFO - makhachhang: 4
+2025-10-07 14:41:27,849 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=%2A%2Cphong%28loaiphong%29&makhachhang=eq.4 "HTTP/2 200 OK"
+2025-10-07 14:41:27,965 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.17 "HTTP/2 200 OK"
+2025-10-07 14:41:28,070 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.4 "HTTP/2 200 OK"
+2025-10-07 14:41:28,169 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.5 "HTTP/2 200 OK"
+2025-10-07 14:41:28,272 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.6 "HTTP/2 200 OK"
+2025-10-07 14:41:28,382 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.14 "HTTP/2 200 OK"
+2025-10-07 14:41:28,482 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.23 "HTTP/2 200 OK"
+2025-10-07 14:41:28,582 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.22 "HTTP/2 200 OK"
+2025-10-07 14:41:28,682 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.25 "HTTP/2 200 OK"
+2025-10-07 14:41:28,797 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.24 "HTTP/2 200 OK"
+2025-10-07 14:41:28,896 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.27 "HTTP/2 200 OK"
+2025-10-07 14:41:29,001 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.28 "HTTP/2 200 OK"
+2025-10-07 14:41:29,099 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.7 "HTTP/2 200 OK"
+2025-10-07 14:41:29,198 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.18 "HTTP/2 200 OK"
+2025-10-07 14:41:29,300 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.8 "HTTP/2 200 OK"
+2025-10-07 14:41:29,405 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.26 "HTTP/2 200 OK"
+2025-10-07 14:41:29,500 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.46 "HTTP/2 200 OK"
+2025-10-07 14:41:29,605 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.47 "HTTP/2 200 OK"
+2025-10-07 14:41:29,716 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.48 "HTTP/2 200 OK"
+2025-10-07 14:41:29,831 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.50 "HTTP/2 200 OK"
+2025-10-07 14:41:29,935 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.16 "HTTP/2 200 OK"
+2025-10-07 14:41:30,036 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.42 "HTTP/2 200 OK"
+2025-10-07 14:41:30,136 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.51 "HTTP/2 200 OK"
+2025-10-07 14:41:30,236 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.52 "HTTP/2 200 OK"
+2025-10-07 14:41:30,348 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.43 "HTTP/2 200 OK"
+2025-10-07 14:41:30,451 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.9 "HTTP/2 200 OK"
+2025-10-07 14:41:30,563 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.10 "HTTP/2 200 OK"
+2025-10-07 14:41:30,664 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.39 "HTTP/2 200 OK"
+2025-10-07 14:41:30,765 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.21 "HTTP/2 200 OK"
+2025-10-07 14:41:30,864 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.41 "HTTP/2 200 OK"
+2025-10-07 14:41:30,963 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.49 "HTTP/2 200 OK"
+2025-10-07 14:41:31,060 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.38 "HTTP/2 200 OK"
+2025-10-07 14:41:31,162 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.71 "HTTP/2 200 OK"
+2025-10-07 14:41:31,260 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.72 "HTTP/2 200 OK"
+2025-10-07 14:41:31,366 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.73 "HTTP/2 200 OK"
+2025-10-07 14:41:31,465 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.74 "HTTP/2 200 OK"
+2025-10-07 14:41:31,573 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.75 "HTTP/2 200 OK"
+2025-10-07 14:41:31,674 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.76 "HTTP/2 200 OK"
+2025-10-07 14:41:31,782 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.77 "HTTP/2 200 OK"
+2025-10-07 14:41:31,786 - INFO - Hi\u1ec3n th\u1ecb l\u1ecbch s\u1eed \u0111\u1eb7t phòng cho makhachhang=4 v\u1edbi 38 \u0111\u01a1n
+2025-10-07 14:41:31,821 - INFO - 127.0.0.1 - - [07/Oct/2025 14:41:31] "GET /booking/booking_history HTTP/1.1" 200 -
+2025-10-07 14:41:34,173 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=%2A%2Cphong%28loaiphong%29&madatphong=eq.5 "HTTP/2 200 OK"
+2025-10-07 14:41:34,273 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%2Cgiadichvu%29&madatphong=eq.5 "HTTP/2 200 OK"
+2025-10-07 14:41:34,377 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/dichvu?select=%2A "HTTP/2 200 OK"
+2025-10-07 14:41:34,379 - INFO - Danh sách d\u1ecbch v\u1ee5 t\u1eeb Supabase: [{'madichvu': 1, 'tendichvu': 'B\u1eefa sáng', 'giadichvu': 150000.0, 'mota': 'Buffet t\u1ef1 ch\u1ecdn', 'hinhanh': 'https://cloud.com/services/breakfast.jpg'}, {'madichvu': 2, 'tendichvu': 'Gi\u1eb7t \u1ee7i', 'giadichvu': 50000.0, 'mota': 'Gi\u1eb7t + s\u1ea5y', 'hinhanh': 'https://cloud.com/services/laundry.jpg'}, {'madichvu': 3, 'tendichvu': 'Massage', 'giadichvu': 300000.0, 'mota': 'Th\u01b0 giãn 60 phút', 'hinhanh': 'https://cloud.com/services/massage.jpg'}]
+2025-10-07 14:41:34,395 - INFO - 127.0.0.1 - - [07/Oct/2025 14:41:34] "GET /booking/booking/5 HTTP/1.1" 200 -
+2025-10-07 14:41:38,393 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=madatphong%2Cmaphong%2Cngaynhanphong%2Cngaytraphong%2Csonguoi%2Ctongtien%2Ctrangthai&madatphong=eq.5 "HTTP/2 200 OK"
+2025-10-07 14:41:38,494 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/dichvu?select=%2A "HTTP/2 200 OK"
+2025-10-07 14:41:38,502 - INFO - Danh sách d\u1ecbch v\u1ee5 t\u1eeb Supabase: [{'madichvu': 1, 'tendichvu': 'B\u1eefa sáng', 'giadichvu': 150000.0, 'mota': 'Buffet t\u1ef1 ch\u1ecdn', 'hinhanh': 'https://cloud.com/services/breakfast.jpg'}, {'madichvu': 2, 'tendichvu': 'Gi\u1eb7t \u1ee7i', 'giadichvu': 50000.0, 'mota': 'Gi\u1eb7t + s\u1ea5y', 'hinhanh': 'https://cloud.com/services/laundry.jpg'}, {'madichvu': 3, 'tendichvu': 'Massage', 'giadichvu': 300000.0, 'mota': 'Th\u01b0 giãn 60 phút', 'hinhanh': 'https://cloud.com/services/massage.jpg'}]
+2025-10-07 14:41:38,505 - INFO - 127.0.0.1 - - [07/Oct/2025 14:41:38] "[32mPOST /booking/5/add-service HTTP/1.1[0m" 302 -
+2025-10-07 14:41:38,513 - INFO - Ki\u1ec3m tra session booking: {'existing_booking_id': 5, 'ghichudatphong': '', 'makhachhang': 4, 'maphong': 1, 'mode': 'services_only', 'ngaynhanphong': '2025-04-15', 'ngaytraphong': '2025-04-11', 'service_details': [{'madichvu': 3, 'soluong': 1, 'thanhtien': 300000.0}], 'sokhachdicung': '0', 'songuoi': 3, 'thoigiancheckindukien': '', 'tongtien': 300000.0, 'yeucaudacbiet': ''}
+2025-10-07 14:41:38,513 - INFO - Thông tin thanh toán: maphong=1, tongtien=300000.0 VN\u0110, amount_in_usd=12.00 USD
+2025-10-07 14:41:38,514 - INFO - Request[POST]: https://api.sandbox.paypal.com/v1/oauth2/token
+2025-10-07 14:41:39,590 - INFO - Response[200]: OK, Duration: 1.74702s.
+2025-10-07 14:41:39,591 - INFO - PayPal-Request-Id: aa371157-1534-468b-ba99-5818c59d705d
+2025-10-07 14:41:39,591 - INFO - Request[POST]: https://api.sandbox.paypal.com/v1/payments/payment
+2025-10-07 14:41:41,052 - INFO - Response[201]: Created, Duration: 1.460154s.
+2025-10-07 14:41:41,053 - INFO - \u0110ã t\u1ea1o giao d\u1ecbch PayPal thành công, chuy\u1ec3n h\u01b0\u1edbng \u0111\u1ebfn: https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-4N070810PX1610103
+2025-10-07 14:41:41,053 - INFO - 127.0.0.1 - - [07/Oct/2025 14:41:41] "[32mGET /payment/ HTTP/1.1[0m" 302 -
+2025-10-07 14:41:45,367 - INFO - Request[GET]: https://api.sandbox.paypal.com/v1/payments/payment/PAYID-NDSMINA7ME57037ST6581925
+2025-10-07 14:41:46,431 - INFO - Response[200]: OK, Duration: 1.62183s.
+2025-10-07 14:41:46,431 - INFO - Payment PAYID-NDSMINA7ME57037ST6581925 initial state=created
+2025-10-07 14:41:46,432 - INFO - PayPal-Request-Id: a313685e-64f4-42ec-af96-48f0391138d2
+2025-10-07 14:41:46,432 - INFO - Request[POST]: https://api.sandbox.paypal.com/v1/payments/payment/PAYID-NDSMINA7ME57037ST6581925/execute
+2025-10-07 14:41:48,139 - INFO - Response[200]: OK, Duration: 1.707470s.
+2025-10-07 14:41:48,139 - INFO - Request[GET]: https://api.sandbox.paypal.com/v1/payments/payment/PAYID-NDSMINA7ME57037ST6581925
+2025-10-07 14:41:49,280 - INFO - Response[200]: OK, Duration: 1.140919s.
+2025-10-07 14:41:49,498 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=madatphong%2Ctrangthai&madatphong=eq.5 "HTTP/2 200 OK"
+2025-10-07 14:41:49,637 - INFO - HTTP Request: POST https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu "HTTP/2 201 Created"
+2025-10-07 14:41:49,637 - INFO - Inserted service usage: [{'machitiet': 17, 'madatphong': 5, 'madichvu': 3, 'soluong': 1, 'thanhtien': 300000.0, 'ngaydat': '2025-10-07T14:41:49.28199+00:00', 'trangthaithanhtoan': '\u0110ã thanh toán', 'magiaodich': 'PAYID-NDSMINA7ME57037ST6581925', 'trangthai': '\u0110ã hoàn thành'}]
+2025-10-07 14:41:49,781 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?madatphong=eq.5 "HTTP/2 200 OK"
+2025-10-07 14:41:49,783 - INFO - C\u1eadp nh\u1eadt mã giao d\u1ecbch PayPal cho madatphong 5: {'madatphong': 5, 'makhachhang': 4, 'maphong': 1, 'ngaydat': '2025-04-08', 'ngaynhanphong': '2025-04-15', 'ngaytraphong': '2025-04-11', 'songuoi': 3, 'trangthai': '\u0110ã thanh toán', 'yeucaudacbiet': '', 'sokhachdicung': None, 'ghichudatphong': None, 'thoigiandat': '2025-04-08T12:55:50.976095', 'tongtien': -2000000, 'magiaodichpaypal': '\u0110ã thanh toán', 'thoigiancheckindukien': None, 'ngaytraphongthucte': None}
+2025-10-07 14:41:49,970 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/hoadon?select=mahoadon%2Ctongtien&madatphong=eq.5 "HTTP/2 200 OK"
+2025-10-07 14:41:50,080 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?madatphong=eq.5 "HTTP/2 200 OK"
+2025-10-07 14:41:50,081 - INFO - C\u1eadp nh\u1eadt mã giao d\u1ecbch PayPal cho madatphong 5: {'madatphong': 5, 'makhachhang': 4, 'maphong': 1, 'ngaydat': '2025-04-08', 'ngaynhanphong': '2025-04-15', 'ngaytraphong': '2025-04-11', 'songuoi': 3, 'trangthai': '\u0110ã thanh toán', 'yeucaudacbiet': '', 'sokhachdicung': None, 'ghichudatphong': None, 'thoigiandat': '2025-04-08T12:55:50.976095', 'tongtien': -2000000, 'magiaodichpaypal': '\u0110ã thanh toán', 'thoigiancheckindukien': None, 'ngaytraphongthucte': None}
+2025-10-07 14:41:50,195 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=trangthai%2Ctongtien&madatphong=eq.5 "HTTP/2 200 OK"
+2025-10-07 14:41:50,196 - ERROR - L\u1ed7i khi t\u1ea1o hóa \u0111\u01a1n cho madatphong 5: T\u1ed5ng ti\u1ec1n c\u1ee7a \u0111\u1eb7t phòng 5 không h\u1ee3p l\u1ec7: -2000000
+2025-10-07 14:41:50,198 - ERROR - /success exception: T\u1ed5ng ti\u1ec1n c\u1ee7a \u0111\u1eb7t phòng 5 không h\u1ee3p l\u1ec7: -2000000
+Traceback (most recent call last):
+  File "C:\Users\Minh\Documents\GitHub\doan2\routes\payment.py", line 240, in success
+    _safe_create_or_update_invoice_for_services(
+  File "C:\Users\Minh\Documents\GitHub\doan2\routes\payment.py", line 147, in _safe_create_or_update_invoice_for_services
+    create_invoice(
+  File "C:\Users\Minh\Documents\GitHub\doan2\utils\db_supabase.py", line 428, in create_invoice
+    raise ValueError(f"T\u1ed5ng ti\u1ec1n c\u1ee7a \u0111\u1eb7t phòng {madatphong} không h\u1ee3p l\u1ec7: {booking[0]['tongtien']}")
+ValueError: T\u1ed5ng ti\u1ec1n c\u1ee7a \u0111\u1eb7t phòng 5 không h\u1ee3p l\u1ec7: -2000000
+
+2025-10-07 14:41:50,206 - INFO - 127.0.0.1 - - [07/Oct/2025 14:41:50] "GET /payment/success?paymentId=PAYID-NDSMINA7ME57037ST6581925&token=EC-4N070810PX1610103&PayerID=EZEAHEJEKML38 HTTP/1.1" 200 -
+2025-10-07 14:44:42,883 - INFO -  * Detected change in 'C:\\Users\\Minh\\Documents\\GitHub\\doan2\\routes\\payment.py', reloading
+2025-10-07 14:44:43,047 - INFO -  * Restarting with stat
+2025-10-07 14:44:44,178 - WARNING -  * Debugger is active!
+2025-10-07 14:44:44,198 - INFO -  * Debugger PIN: 458-905-620
+2025-10-07 14:44:46,538 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong?select=maphong%2Cloaiphong%2Cgiaphong%2Csucchua%2Cdientich%2Chinhanh "HTTP/2 200 OK"
+2025-10-07 14:44:46,643 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/dichvu?select=%2A "HTTP/2 200 OK"
+2025-10-07 14:44:46,645 - INFO - Danh sách d\u1ecbch v\u1ee5 t\u1eeb Supabase: [{'madichvu': 1, 'tendichvu': 'B\u1eefa sáng', 'giadichvu': 150000.0, 'mota': 'Buffet t\u1ef1 ch\u1ecdn', 'hinhanh': 'https://cloud.com/services/breakfast.jpg'}, {'madichvu': 2, 'tendichvu': 'Gi\u1eb7t \u1ee7i', 'giadichvu': 50000.0, 'mota': 'Gi\u1eb7t + s\u1ea5y', 'hinhanh': 'https://cloud.com/services/laundry.jpg'}, {'madichvu': 3, 'tendichvu': 'Massage', 'giadichvu': 300000.0, 'mota': 'Th\u01b0 giãn 60 phút', 'hinhanh': 'https://cloud.com/services/massage.jpg'}]
+2025-10-07 14:44:46,645 - INFO - Hi\u1ec3n th\u1ecb trang \u0111\u1eb7t phòng v\u1edbi 24 phòng tr\u1ed1ng và 3 d\u1ecbch v\u1ee5
+2025-10-07 14:44:46,670 - INFO - 127.0.0.1 - - [07/Oct/2025 14:44:46] "GET /booking/dat_phong HTTP/1.1" 200 -
+2025-10-07 14:44:48,159 - INFO - Session user: {'email': 'minh1@gmail.com', 'hoten': 'Bùi Anh Minh', 'id': 4, 'makhachhang': 4}
+2025-10-07 14:44:48,160 - INFO - makhachhang: 4
+2025-10-07 14:44:48,280 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=%2A%2Cphong%28loaiphong%29&makhachhang=eq.4 "HTTP/2 200 OK"
+2025-10-07 14:44:48,383 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.17 "HTTP/2 200 OK"
+2025-10-07 14:44:48,480 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.4 "HTTP/2 200 OK"
+2025-10-07 14:44:48,614 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.6 "HTTP/2 200 OK"
+2025-10-07 14:44:48,710 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.14 "HTTP/2 200 OK"
+2025-10-07 14:44:48,815 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.23 "HTTP/2 200 OK"
+2025-10-07 14:44:48,917 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.22 "HTTP/2 200 OK"
+2025-10-07 14:44:49,020 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.25 "HTTP/2 200 OK"
+2025-10-07 14:44:49,144 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.24 "HTTP/2 200 OK"
+2025-10-07 14:44:49,247 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.27 "HTTP/2 200 OK"
+2025-10-07 14:44:49,347 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.28 "HTTP/2 200 OK"
+2025-10-07 14:44:49,451 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.7 "HTTP/2 200 OK"
+2025-10-07 14:44:49,568 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.18 "HTTP/2 200 OK"
+2025-10-07 14:44:49,673 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.8 "HTTP/2 200 OK"
+2025-10-07 14:44:49,781 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.26 "HTTP/2 200 OK"
+2025-10-07 14:44:49,878 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.46 "HTTP/2 200 OK"
+2025-10-07 14:44:49,980 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.47 "HTTP/2 200 OK"
+2025-10-07 14:44:50,079 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.48 "HTTP/2 200 OK"
+2025-10-07 14:44:50,182 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.50 "HTTP/2 200 OK"
+2025-10-07 14:44:50,281 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.16 "HTTP/2 200 OK"
+2025-10-07 14:44:50,381 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.42 "HTTP/2 200 OK"
+2025-10-07 14:44:50,489 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.51 "HTTP/2 200 OK"
+2025-10-07 14:44:50,592 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.52 "HTTP/2 200 OK"
+2025-10-07 14:44:50,712 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.43 "HTTP/2 200 OK"
+2025-10-07 14:44:50,831 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.9 "HTTP/2 200 OK"
+2025-10-07 14:44:50,935 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.10 "HTTP/2 200 OK"
+2025-10-07 14:44:51,054 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.39 "HTTP/2 200 OK"
+2025-10-07 14:44:51,156 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.21 "HTTP/2 200 OK"
+2025-10-07 14:44:51,266 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.41 "HTTP/2 200 OK"
+2025-10-07 14:44:51,375 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.49 "HTTP/2 200 OK"
+2025-10-07 14:44:51,476 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.5 "HTTP/2 200 OK"
+2025-10-07 14:44:51,594 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.38 "HTTP/2 200 OK"
+2025-10-07 14:44:51,696 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.71 "HTTP/2 200 OK"
+2025-10-07 14:44:51,805 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.72 "HTTP/2 200 OK"
+2025-10-07 14:44:51,925 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.73 "HTTP/2 200 OK"
+2025-10-07 14:44:52,026 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.74 "HTTP/2 200 OK"
+2025-10-07 14:44:52,146 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.75 "HTTP/2 200 OK"
+2025-10-07 14:44:52,247 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.76 "HTTP/2 200 OK"
+2025-10-07 14:44:52,352 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.77 "HTTP/2 200 OK"
+2025-10-07 14:44:52,356 - INFO - Hi\u1ec3n th\u1ecb l\u1ecbch s\u1eed \u0111\u1eb7t phòng cho makhachhang=4 v\u1edbi 38 \u0111\u01a1n
+2025-10-07 14:44:52,387 - INFO - 127.0.0.1 - - [07/Oct/2025 14:44:52] "GET /booking/booking_history HTTP/1.1" 200 -
+2025-10-07 14:44:57,441 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=%2A%2Cphong%28loaiphong%29&madatphong=eq.6 "HTTP/2 200 OK"
+2025-10-07 14:44:57,558 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%2Cgiadichvu%29&madatphong=eq.6 "HTTP/2 200 OK"
+2025-10-07 14:44:57,661 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/dichvu?select=%2A "HTTP/2 200 OK"
+2025-10-07 14:44:57,661 - INFO - Danh sách d\u1ecbch v\u1ee5 t\u1eeb Supabase: [{'madichvu': 1, 'tendichvu': 'B\u1eefa sáng', 'giadichvu': 150000.0, 'mota': 'Buffet t\u1ef1 ch\u1ecdn', 'hinhanh': 'https://cloud.com/services/breakfast.jpg'}, {'madichvu': 2, 'tendichvu': 'Gi\u1eb7t \u1ee7i', 'giadichvu': 50000.0, 'mota': 'Gi\u1eb7t + s\u1ea5y', 'hinhanh': 'https://cloud.com/services/laundry.jpg'}, {'madichvu': 3, 'tendichvu': 'Massage', 'giadichvu': 300000.0, 'mota': 'Th\u01b0 giãn 60 phút', 'hinhanh': 'https://cloud.com/services/massage.jpg'}]
+2025-10-07 14:44:57,676 - INFO - 127.0.0.1 - - [07/Oct/2025 14:44:57] "GET /booking/booking/6 HTTP/1.1" 200 -
+2025-10-07 14:45:00,534 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=madatphong%2Cmaphong%2Cngaynhanphong%2Cngaytraphong%2Csonguoi%2Ctongtien%2Ctrangthai&madatphong=eq.6 "HTTP/2 200 OK"
+2025-10-07 14:45:00,649 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/dichvu?select=%2A "HTTP/2 200 OK"
+2025-10-07 14:45:00,656 - INFO - Danh sách d\u1ecbch v\u1ee5 t\u1eeb Supabase: [{'madichvu': 1, 'tendichvu': 'B\u1eefa sáng', 'giadichvu': 150000.0, 'mota': 'Buffet t\u1ef1 ch\u1ecdn', 'hinhanh': 'https://cloud.com/services/breakfast.jpg'}, {'madichvu': 2, 'tendichvu': 'Gi\u1eb7t \u1ee7i', 'giadichvu': 50000.0, 'mota': 'Gi\u1eb7t + s\u1ea5y', 'hinhanh': 'https://cloud.com/services/laundry.jpg'}, {'madichvu': 3, 'tendichvu': 'Massage', 'giadichvu': 300000.0, 'mota': 'Th\u01b0 giãn 60 phút', 'hinhanh': 'https://cloud.com/services/massage.jpg'}]
+2025-10-07 14:45:00,657 - INFO - 127.0.0.1 - - [07/Oct/2025 14:45:00] "[32mPOST /booking/6/add-service HTTP/1.1[0m" 302 -
+2025-10-07 14:45:00,664 - INFO - Ki\u1ec3m tra session booking: {'existing_booking_id': 6, 'ghichudatphong': '', 'makhachhang': 4, 'maphong': 1, 'mode': 'services_only', 'ngaynhanphong': '2025-04-16', 'ngaytraphong': '2025-04-17', 'service_details': [{'madichvu': 1, 'soluong': 1, 'thanhtien': 150000.0}], 'sokhachdicung': '0', 'songuoi': 3, 'thoigiancheckindukien': '', 'tongtien': 150000.0, 'yeucaudacbiet': ''}
+2025-10-07 14:45:00,665 - INFO - Thông tin thanh toán: maphong=1, tongtien=150000.0 VN\u0110, amount_in_usd=6.00 USD
+2025-10-07 14:45:00,665 - INFO - Request[POST]: https://api.sandbox.paypal.com/v1/oauth2/token
+2025-10-07 14:45:02,045 - INFO - Response[200]: OK, Duration: 1.379925s.
+2025-10-07 14:45:02,046 - INFO - PayPal-Request-Id: a61ce477-cba4-4f91-a836-384d39a209c2
+2025-10-07 14:45:02,046 - INFO - Request[POST]: https://api.sandbox.paypal.com/v1/payments/payment
+2025-10-07 14:45:03,469 - INFO - Response[201]: Created, Duration: 1.422990s.
+2025-10-07 14:45:03,470 - INFO - \u0110ã t\u1ea1o giao d\u1ecbch PayPal thành công, chuy\u1ec3n h\u01b0\u1edbng \u0111\u1ebfn: https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-085405430W340594G
+2025-10-07 14:45:03,471 - INFO - 127.0.0.1 - - [07/Oct/2025 14:45:03] "[32mGET /payment/ HTTP/1.1[0m" 302 -
+2025-10-07 14:45:08,011 - INFO - Request[GET]: https://api.sandbox.paypal.com/v1/payments/payment/PAYID-NDSMJ7Y6EG990393Y669534R
+2025-10-07 14:45:10,390 - INFO - Response[200]: OK, Duration: 2.378360s.
+2025-10-07 14:45:10,391 - INFO - Payment PAYID-NDSMJ7Y6EG990393Y669534R initial state=created
+2025-10-07 14:45:10,391 - INFO - PayPal-Request-Id: 07e0732b-947e-46be-adba-686d9d585857
+2025-10-07 14:45:10,391 - INFO - Request[POST]: https://api.sandbox.paypal.com/v1/payments/payment/PAYID-NDSMJ7Y6EG990393Y669534R/execute
+2025-10-07 14:45:12,937 - INFO - Response[200]: OK, Duration: 2.543958s.
+2025-10-07 14:45:12,938 - INFO - Request[GET]: https://api.sandbox.paypal.com/v1/payments/payment/PAYID-NDSMJ7Y6EG990393Y669534R
+2025-10-07 14:45:14,063 - INFO - Response[200]: OK, Duration: 1.125230s.
+2025-10-07 14:45:14,318 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=madatphong%2Ctrangthai&madatphong=eq.6 "HTTP/2 200 OK"
+2025-10-07 14:45:14,435 - INFO - HTTP Request: POST https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu "HTTP/2 201 Created"
+2025-10-07 14:45:14,442 - INFO - Inserted service usage: [{'machitiet': 18, 'madatphong': 6, 'madichvu': 1, 'soluong': 1, 'thanhtien': 150000.0, 'ngaydat': '2025-10-07T14:45:14.064936+00:00', 'trangthaithanhtoan': '\u0110ã thanh toán', 'magiaodich': 'PAYID-NDSMJ7Y6EG990393Y669534R', 'trangthai': '\u0110ã hoàn thành'}]
+2025-10-07 14:45:14,535 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?madatphong=eq.6 "HTTP/2 200 OK"
+2025-10-07 14:45:14,550 - INFO - C\u1eadp nh\u1eadt mã giao d\u1ecbch PayPal cho madatphong 6: {'madatphong': 6, 'makhachhang': 4, 'maphong': 1, 'ngaydat': '2025-04-08', 'ngaynhanphong': '2025-04-16', 'ngaytraphong': '2025-04-17', 'songuoi': 3, 'trangthai': '\u0110ã thanh toán', 'yeucaudacbiet': '', 'sokhachdicung': None, 'ghichudatphong': None, 'thoigiandat': '2025-04-08T13:12:28.240946', 'tongtien': 500000, 'magiaodichpaypal': '\u0110ã thanh toán', 'thoigiancheckindukien': None, 'ngaytraphongthucte': None}
+2025-10-07 14:45:14,649 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/hoadon?select=mahoadon%2Ctongtien&madatphong=eq.6 "HTTP/2 200 OK"
+2025-10-07 14:45:14,771 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?madatphong=eq.6 "HTTP/2 200 OK"
+2025-10-07 14:45:14,772 - INFO - C\u1eadp nh\u1eadt mã giao d\u1ecbch PayPal cho madatphong 6: {'madatphong': 6, 'makhachhang': 4, 'maphong': 1, 'ngaydat': '2025-04-08', 'ngaynhanphong': '2025-04-16', 'ngaytraphong': '2025-04-17', 'songuoi': 3, 'trangthai': '\u0110ã thanh toán', 'yeucaudacbiet': '', 'sokhachdicung': None, 'ghichudatphong': None, 'thoigiandat': '2025-04-08T13:12:28.240946', 'tongtien': 500000, 'magiaodichpaypal': '\u0110ã thanh toán', 'thoigiancheckindukien': None, 'ngaytraphongthucte': None}
+2025-10-07 14:45:14,870 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=trangthai%2Ctongtien&madatphong=eq.6 "HTTP/2 200 OK"
+2025-10-07 14:45:14,974 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=trangthai%2Cthanhtien&madatphong=eq.6 "HTTP/2 200 OK"
+2025-10-07 14:45:15,067 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/hoadon?select=mahoadon&madatphong=eq.6 "HTTP/2 200 OK"
+2025-10-07 14:45:15,197 - INFO - HTTP Request: POST https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/hoadon "HTTP/2 201 Created"
+2025-10-07 14:45:15,198 - INFO - Hóa \u0111\u01a1n \u0111\u01b0\u1ee3c t\u1ea1o: {'mahoadon': 23, 'madatphong': 6, 'makhachhang': 4, 'ngaylap': '2025-10-07', 'tongtien': 150000.0, 'phuongthucthanhtoan': 'PayPal', 'tongtien_dichvu': 0.0, 'manhanvien': None}
+2025-10-07 14:45:15,198 - INFO - [invoice] Created new invoice for madatphong=6, amount=150000.0
+2025-10-07 14:45:15,201 - INFO - 127.0.0.1 - - [07/Oct/2025 14:45:15] "GET /payment/success?paymentId=PAYID-NDSMJ7Y6EG990393Y669534R&token=EC-085405430W340594G&PayerID=EZEAHEJEKML38 HTTP/1.1" 200 -
+2025-10-07 14:45:18,831 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong?select=maphong%2Cloaiphong%2Cgiaphong%2Csucchua%2Cdientich%2Chinhanh "HTTP/2 200 OK"
+2025-10-07 14:45:18,938 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/dichvu?select=%2A "HTTP/2 200 OK"
+2025-10-07 14:45:18,941 - INFO - Danh sách d\u1ecbch v\u1ee5 t\u1eeb Supabase: [{'madichvu': 1, 'tendichvu': 'B\u1eefa sáng', 'giadichvu': 150000.0, 'mota': 'Buffet t\u1ef1 ch\u1ecdn', 'hinhanh': 'https://cloud.com/services/breakfast.jpg'}, {'madichvu': 2, 'tendichvu': 'Gi\u1eb7t \u1ee7i', 'giadichvu': 50000.0, 'mota': 'Gi\u1eb7t + s\u1ea5y', 'hinhanh': 'https://cloud.com/services/laundry.jpg'}, {'madichvu': 3, 'tendichvu': 'Massage', 'giadichvu': 300000.0, 'mota': 'Th\u01b0 giãn 60 phút', 'hinhanh': 'https://cloud.com/services/massage.jpg'}]
+2025-10-07 14:45:18,941 - INFO - Hi\u1ec3n th\u1ecb trang \u0111\u1eb7t phòng v\u1edbi 24 phòng tr\u1ed1ng và 3 d\u1ecbch v\u1ee5
+2025-10-07 14:45:18,948 - INFO - 127.0.0.1 - - [07/Oct/2025 14:45:18] "GET /booking/dat_phong HTTP/1.1" 200 -
+2025-10-07 14:48:18,402 - INFO - Session user: {'email': 'minh1@gmail.com', 'hoten': 'Bùi Anh Minh', 'id': 4, 'makhachhang': 4}
+2025-10-07 14:48:18,402 - INFO - makhachhang: 4
+2025-10-07 14:48:18,892 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=%2A%2Cphong%28loaiphong%29&makhachhang=eq.4 "HTTP/2 200 OK"
+2025-10-07 14:48:19,009 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.17 "HTTP/2 200 OK"
+2025-10-07 14:48:19,113 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.4 "HTTP/2 200 OK"
+2025-10-07 14:48:19,215 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.14 "HTTP/2 200 OK"
+2025-10-07 14:48:19,317 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.23 "HTTP/2 200 OK"
+2025-10-07 14:48:19,419 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.22 "HTTP/2 200 OK"
+2025-10-07 14:48:19,528 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.25 "HTTP/2 200 OK"
+2025-10-07 14:48:19,627 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.24 "HTTP/2 200 OK"
+2025-10-07 14:48:19,725 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.27 "HTTP/2 200 OK"
+2025-10-07 14:48:19,842 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.28 "HTTP/2 200 OK"
+2025-10-07 14:48:19,944 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.7 "HTTP/2 200 OK"
+2025-10-07 14:48:20,040 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.18 "HTTP/2 200 OK"
+2025-10-07 14:48:20,425 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.8 "HTTP/2 200 OK"
+2025-10-07 14:48:20,526 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.26 "HTTP/2 200 OK"
+2025-10-07 14:48:20,641 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.46 "HTTP/2 200 OK"
+2025-10-07 14:48:20,744 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.47 "HTTP/2 200 OK"
+2025-10-07 14:48:20,842 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.48 "HTTP/2 200 OK"
+2025-10-07 14:48:20,959 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.5 "HTTP/2 200 OK"
+2025-10-07 14:48:21,064 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.50 "HTTP/2 200 OK"
+2025-10-07 14:48:21,157 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.16 "HTTP/2 200 OK"
+2025-10-07 14:48:21,260 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.42 "HTTP/2 200 OK"
+2025-10-07 14:48:21,381 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.51 "HTTP/2 200 OK"
+2025-10-07 14:48:21,490 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.52 "HTTP/2 200 OK"
+2025-10-07 14:48:21,606 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.43 "HTTP/2 200 OK"
+2025-10-07 14:48:21,708 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.9 "HTTP/2 200 OK"
+2025-10-07 14:48:21,815 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.10 "HTTP/2 200 OK"
+2025-10-07 14:48:21,927 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.39 "HTTP/2 200 OK"
+2025-10-07 14:48:22,025 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.21 "HTTP/2 200 OK"
+2025-10-07 14:48:22,125 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.41 "HTTP/2 200 OK"
+2025-10-07 14:48:22,228 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.49 "HTTP/2 200 OK"
+2025-10-07 14:48:22,355 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.6 "HTTP/2 200 OK"
+2025-10-07 14:48:22,465 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.38 "HTTP/2 200 OK"
+2025-10-07 14:48:22,571 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.71 "HTTP/2 200 OK"
+2025-10-07 14:48:22,698 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.72 "HTTP/2 200 OK"
+2025-10-07 14:48:22,801 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.73 "HTTP/2 200 OK"
+2025-10-07 14:48:22,906 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.74 "HTTP/2 200 OK"
+2025-10-07 14:48:23,017 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.75 "HTTP/2 200 OK"
+2025-10-07 14:48:23,147 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.76 "HTTP/2 200 OK"
+2025-10-07 14:48:23,257 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%29&madatphong=eq.77 "HTTP/2 200 OK"
+2025-10-07 14:48:23,258 - INFO - Hi\u1ec3n th\u1ecb l\u1ecbch s\u1eed \u0111\u1eb7t phòng cho makhachhang=4 v\u1edbi 38 \u0111\u01a1n
+2025-10-07 14:48:23,264 - INFO - 127.0.0.1 - - [07/Oct/2025 14:48:23] "GET /booking/booking_history HTTP/1.1" 200 -
+2025-10-07 14:48:49,747 - INFO -  * Detected change in 'C:\\Users\\Minh\\Documents\\GitHub\\doan2\\routes\\booking.py', reloading
+2025-10-07 14:48:49,895 - INFO -  * Restarting with stat
+2025-10-07 14:48:50,994 - WARNING -  * Debugger is active!
+2025-10-07 14:48:51,006 - INFO -  * Debugger PIN: 458-905-620
+2025-10-07 14:48:56,427 - INFO -  * Detected change in 'C:\\Users\\Minh\\Documents\\GitHub\\doan2\\routes\\booking.py', reloading
+2025-10-07 14:48:56,602 - INFO -  * Restarting with stat
+2025-10-07 14:48:57,775 - WARNING -  * Debugger is active!
+2025-10-07 14:48:57,794 - INFO -  * Debugger PIN: 458-905-620
+2025-10-07 14:49:02,331 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=%2A%2Cphong%28loaiphong%29&madatphong=eq.5 "HTTP/2 200 OK"
+2025-10-07 14:49:02,461 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=%2A%2Cdichvu%28tendichvu%2Cgiadichvu%29&madatphong=eq.5 "HTTP/2 200 OK"
+2025-10-07 14:49:02,560 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/dichvu?select=%2A "HTTP/2 200 OK"
+2025-10-07 14:49:02,560 - INFO - Danh sách d\u1ecbch v\u1ee5 t\u1eeb Supabase: [{'madichvu': 1, 'tendichvu': 'B\u1eefa sáng', 'giadichvu': 150000.0, 'mota': 'Buffet t\u1ef1 ch\u1ecdn', 'hinhanh': 'https://cloud.com/services/breakfast.jpg'}, {'madichvu': 2, 'tendichvu': 'Gi\u1eb7t \u1ee7i', 'giadichvu': 50000.0, 'mota': 'Gi\u1eb7t + s\u1ea5y', 'hinhanh': 'https://cloud.com/services/laundry.jpg'}, {'madichvu': 3, 'tendichvu': 'Massage', 'giadichvu': 300000.0, 'mota': 'Th\u01b0 giãn 60 phút', 'hinhanh': 'https://cloud.com/services/massage.jpg'}]
+2025-10-07 14:49:02,579 - INFO - 127.0.0.1 - - [07/Oct/2025 14:49:02] "GET /booking/booking/5 HTTP/1.1" 200 -
+2025-10-07 14:49:06,974 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=madatphong%2Cmaphong%2Cngaynhanphong%2Cngaytraphong%2Csonguoi%2Ctongtien%2Ctrangthai&madatphong=eq.5 "HTTP/2 200 OK"
+2025-10-07 14:49:07,104 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/dichvu?select=%2A "HTTP/2 200 OK"
+2025-10-07 14:49:07,109 - INFO - Danh sách d\u1ecbch v\u1ee5 t\u1eeb Supabase: [{'madichvu': 1, 'tendichvu': 'B\u1eefa sáng', 'giadichvu': 150000.0, 'mota': 'Buffet t\u1ef1 ch\u1ecdn', 'hinhanh': 'https://cloud.com/services/breakfast.jpg'}, {'madichvu': 2, 'tendichvu': 'Gi\u1eb7t \u1ee7i', 'giadichvu': 50000.0, 'mota': 'Gi\u1eb7t + s\u1ea5y', 'hinhanh': 'https://cloud.com/services/laundry.jpg'}, {'madichvu': 3, 'tendichvu': 'Massage', 'giadichvu': 300000.0, 'mota': 'Th\u01b0 giãn 60 phút', 'hinhanh': 'https://cloud.com/services/massage.jpg'}]
+2025-10-07 14:49:07,109 - INFO - [add_service] Chu\u1ea9n b\u1ecb thanh toán cho \u0111\u01a1n #5 v\u1edbi t\u1ed5ng d\u1ecbch v\u1ee5 = 150000.0
+2025-10-07 14:49:07,110 - INFO - 127.0.0.1 - - [07/Oct/2025 14:49:07] "[32mPOST /booking/5/add-service HTTP/1.1[0m" 302 -
+2025-10-07 14:49:07,117 - INFO - Ki\u1ec3m tra session booking: {'existing_booking_id': 5, 'ghichudatphong': '', 'makhachhang': 4, 'maphong': 1, 'mode': 'services_only', 'ngaynhanphong': '2025-04-15', 'ngaytraphong': '2025-04-11', 'service_details': [{'madichvu': 1, 'soluong': 1, 'thanhtien': 150000.0}], 'sokhachdicung': '0', 'songuoi': 3, 'thoigiancheckindukien': '', 'tongtien': 150000.0, 'yeucaudacbiet': ''}
+2025-10-07 14:49:07,117 - INFO - Thông tin thanh toán: maphong=1, tongtien=150000.0 VN\u0110, amount_in_usd=6.00 USD
+2025-10-07 14:49:07,118 - INFO - Request[POST]: https://api.sandbox.paypal.com/v1/oauth2/token
+2025-10-07 14:49:08,461 - INFO - Response[200]: OK, Duration: 1.342775s.
+2025-10-07 14:49:08,462 - INFO - PayPal-Request-Id: ed628ddc-16a8-4ef7-b37a-a355dd356cd9
+2025-10-07 14:49:08,462 - INFO - Request[POST]: https://api.sandbox.paypal.com/v1/payments/payment
+2025-10-07 14:49:10,255 - INFO - Response[201]: Created, Duration: 1.792826s.
+2025-10-07 14:49:10,256 - INFO - \u0110ã t\u1ea1o giao d\u1ecbch PayPal thành công, chuy\u1ec3n h\u01b0\u1edbng \u0111\u1ebfn: https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-2GK98032B16446808
+2025-10-07 14:49:10,257 - INFO - 127.0.0.1 - - [07/Oct/2025 14:49:10] "[32mGET /payment/ HTTP/1.1[0m" 302 -
+2025-10-07 14:49:14,561 - INFO - Request[GET]: https://api.sandbox.paypal.com/v1/payments/payment/PAYID-NDSML5I8K713783HV813901H
+2025-10-07 14:49:15,953 - INFO - Response[200]: OK, Duration: 1.392393s.
+2025-10-07 14:49:15,954 - INFO - Payment PAYID-NDSML5I8K713783HV813901H initial state=created
+2025-10-07 14:49:15,954 - INFO - PayPal-Request-Id: d8bad4af-9008-4d8d-9a69-555f6fea278d
+2025-10-07 14:49:15,954 - INFO - Request[POST]: https://api.sandbox.paypal.com/v1/payments/payment/PAYID-NDSML5I8K713783HV813901H/execute
+2025-10-07 14:49:17,618 - INFO - Response[200]: OK, Duration: 1.663729s.
+2025-10-07 14:49:17,618 - INFO - Request[GET]: https://api.sandbox.paypal.com/v1/payments/payment/PAYID-NDSML5I8K713783HV813901H
+2025-10-07 14:49:18,727 - INFO - Response[200]: OK, Duration: 1.108730s.
+2025-10-07 14:49:18,928 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=madatphong%2Ctrangthai&madatphong=eq.5 "HTTP/2 200 OK"
+2025-10-07 14:49:19,039 - INFO - HTTP Request: POST https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu "HTTP/2 201 Created"
+2025-10-07 14:49:19,043 - INFO - Inserted service usage: [{'machitiet': 19, 'madatphong': 5, 'madichvu': 1, 'soluong': 1, 'thanhtien': 150000.0, 'ngaydat': '2025-10-07T14:49:18.728357+00:00', 'trangthaithanhtoan': '\u0110ã thanh toán', 'magiaodich': 'PAYID-NDSML5I8K713783HV813901H', 'trangthai': '\u0110ã hoàn thành'}]
+2025-10-07 14:49:19,134 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?madatphong=eq.5 "HTTP/2 200 OK"
+2025-10-07 14:49:19,134 - INFO - C\u1eadp nh\u1eadt mã giao d\u1ecbch PayPal cho madatphong 5: {'madatphong': 5, 'makhachhang': 4, 'maphong': 1, 'ngaydat': '2025-04-08', 'ngaynhanphong': '2025-04-15', 'ngaytraphong': '2025-04-11', 'songuoi': 3, 'trangthai': '\u0110ã thanh toán', 'yeucaudacbiet': '', 'sokhachdicung': None, 'ghichudatphong': None, 'thoigiandat': '2025-04-08T12:55:50.976095', 'tongtien': 2000000, 'magiaodichpaypal': '\u0110ã thanh toán', 'thoigiancheckindukien': None, 'ngaytraphongthucte': None}
+2025-10-07 14:49:19,238 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/hoadon?select=mahoadon%2Ctongtien&madatphong=eq.5 "HTTP/2 200 OK"
+2025-10-07 14:49:19,351 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?madatphong=eq.5 "HTTP/2 200 OK"
+2025-10-07 14:49:19,351 - INFO - C\u1eadp nh\u1eadt mã giao d\u1ecbch PayPal cho madatphong 5: {'madatphong': 5, 'makhachhang': 4, 'maphong': 1, 'ngaydat': '2025-04-08', 'ngaynhanphong': '2025-04-15', 'ngaytraphong': '2025-04-11', 'songuoi': 3, 'trangthai': '\u0110ã thanh toán', 'yeucaudacbiet': '', 'sokhachdicung': None, 'ghichudatphong': None, 'thoigiandat': '2025-04-08T12:55:50.976095', 'tongtien': 2000000, 'magiaodichpaypal': '\u0110ã thanh toán', 'thoigiancheckindukien': None, 'ngaytraphongthucte': None}
+2025-10-07 14:49:19,457 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=trangthai%2Ctongtien&madatphong=eq.5 "HTTP/2 200 OK"
+2025-10-07 14:49:19,554 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=trangthai%2Cthanhtien&madatphong=eq.5 "HTTP/2 200 OK"
+2025-10-07 14:49:19,654 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/hoadon?select=mahoadon&madatphong=eq.5 "HTTP/2 200 OK"
+2025-10-07 14:49:19,765 - INFO - HTTP Request: POST https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/hoadon "HTTP/2 201 Created"
+2025-10-07 14:49:19,766 - INFO - Hóa \u0111\u01a1n \u0111\u01b0\u1ee3c t\u1ea1o: {'mahoadon': 24, 'madatphong': 5, 'makhachhang': 4, 'ngaylap': '2025-10-07', 'tongtien': 150000.0, 'phuongthucthanhtoan': 'PayPal', 'tongtien_dichvu': 0.0, 'manhanvien': None}
+2025-10-07 14:49:19,767 - INFO - [invoice] Created new invoice for madatphong=5, amount=150000.0
+2025-10-07 14:49:19,776 - INFO - 127.0.0.1 - - [07/Oct/2025 14:49:19] "GET /payment/success?paymentId=PAYID-NDSML5I8K713783HV813901H&token=EC-2GK98032B16446808&PayerID=EZEAHEJEKML38 HTTP/1.1" 200 -
+2025-10-07 14:49:22,280 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong?select=maphong%2Cloaiphong%2Cgiaphong%2Csucchua%2Cdientich%2Chinhanh "HTTP/2 200 OK"
+2025-10-07 14:49:22,384 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/dichvu?select=%2A "HTTP/2 200 OK"
+2025-10-07 14:49:22,385 - INFO - Danh sách d\u1ecbch v\u1ee5 t\u1eeb Supabase: [{'madichvu': 1, 'tendichvu': 'B\u1eefa sáng', 'giadichvu': 150000.0, 'mota': 'Buffet t\u1ef1 ch\u1ecdn', 'hinhanh': 'https://cloud.com/services/breakfast.jpg'}, {'madichvu': 2, 'tendichvu': 'Gi\u1eb7t \u1ee7i', 'giadichvu': 50000.0, 'mota': 'Gi\u1eb7t + s\u1ea5y', 'hinhanh': 'https://cloud.com/services/laundry.jpg'}, {'madichvu': 3, 'tendichvu': 'Massage', 'giadichvu': 300000.0, 'mota': 'Th\u01b0 giãn 60 phút', 'hinhanh': 'https://cloud.com/services/massage.jpg'}]
+2025-10-07 14:49:22,387 - INFO - Hi\u1ec3n th\u1ecb trang \u0111\u1eb7t phòng v\u1edbi 24 phòng tr\u1ed1ng và 3 d\u1ecbch v\u1ee5
+2025-10-07 14:49:22,425 - INFO - 127.0.0.1 - - [07/Oct/2025 14:49:22] "GET /booking/dat_phong HTTP/1.1" 200 -
+2025-10-07 14:56:25,691 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-10-07 14:56:25,692 - INFO - [33mPress CTRL+C to quit[0m
+2025-10-07 14:56:25,695 - INFO -  * Restarting with stat
+2025-10-07 14:56:26,960 - WARNING -  * Debugger is active!
+2025-10-07 14:56:26,970 - INFO -  * Debugger PIN: 139-536-975
+2025-10-07 14:56:32,570 - INFO - 127.0.0.1 - - [07/Oct/2025 14:56:32] "[32mGET /auth/logout HTTP/1.1[0m" 302 -
+2025-10-07 14:56:32,593 - INFO - 127.0.0.1 - - [07/Oct/2025 14:56:32] "GET /auth/login HTTP/1.1" 200 -
+2025-10-07 14:56:41,155 - INFO - 127.0.0.1 - - [07/Oct/2025 14:56:41] "GET /admin/login HTTP/1.1" 200 -
+2025-10-07 14:56:45,981 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/nhanvien?select=%2A&email=eq.letaan%40example.com "HTTP/2 200 OK"
+2025-10-07 14:56:45,983 - INFO - L\u1ea5y thông tin nhân viên v\u1edbi email letaan@example.com: None
+2025-10-07 14:56:45,983 - INFO - 127.0.0.1 - - [07/Oct/2025 14:56:45] "POST /admin/login HTTP/1.1" 200 -
+2025-10-07 14:56:50,559 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/nhanvien?select=%2A&email=eq.letan%40example.com "HTTP/2 200 OK"
+2025-10-07 14:56:50,564 - INFO - L\u1ea5y thông tin nhân viên v\u1edbi email letan@example.com: {'manhanvien': 7, 'hoten': 'Hoàng Th\u1ecb Lan', 'chucvu': 'letan', 'sodienthoai': '0987654321', 'email': 'letan@example.com', 'matkhau': '123'}
+2025-10-07 14:56:50,565 - INFO - 127.0.0.1 - - [07/Oct/2025 14:56:50] "[32mPOST /admin/login HTTP/1.1[0m" 302 -
+2025-10-07 14:56:50,864 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=%2A%2Ckhachhang%28hoten%2Csodienthoai%29%2Cphong%28maphong%2Cloaiphong%29&trangthai=eq.Ch%E1%BB%9D+x%C3%A1c+nh%E1%BA%ADn "HTTP/2 200 OK"
+2025-10-07 14:56:50,864 - INFO - L\u1ea5y danh sách \u0111\u1eb7t phòng: 1 booking(s)
+2025-10-07 14:56:50,898 - INFO - 127.0.0.1 - - [07/Oct/2025 14:56:50] "GET /employee/letan HTTP/1.1" 200 -
+2025-10-07 14:56:53,922 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=madatphong%2Cmaphong%2Cngaynhanphong%2Cngaytraphong%2Ctrangthai%2Ctongtien%2Ckhachhang%28hoten%29%2Cphong%28loaiphong%29&ngaytraphong=lt.2025-10-07&trangthai=neq.%C4%90%C3%A3+tr%E1%BA%A3+ph%C3%B2ng&trangthai=neq.%C4%90%C3%A3+h%E1%BB%A7y "HTTP/2 200 OK"
+2025-10-07 14:56:53,946 - INFO - 127.0.0.1 - - [07/Oct/2025 14:56:53] "GET /employee/auto-checkout HTTP/1.1" 200 -
+2025-10-07 14:56:58,295 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=madatphong%2Cmaphong%2Cngaynhanphong%2Cngaytraphong%2Ctrangthai%2Ctongtien%2Ckhachhang%28hoten%29%2Cphong%28loaiphong%29&ngaytraphong=lt.2025-10-07&trangthai=neq.%C4%90%C3%A3+tr%E1%BA%A3+ph%C3%B2ng&trangthai=neq.%C4%90%C3%A3+h%E1%BB%A7y "HTTP/2 200 OK"
+2025-10-07 14:56:58,296 - INFO - 127.0.0.1 - - [07/Oct/2025 14:56:58] "[32mPOST /employee/auto-checkout HTTP/1.1[0m" 302 -
+2025-10-07 14:56:58,566 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=madatphong%2Cmaphong%2Cngaynhanphong%2Cngaytraphong%2Ctrangthai%2Ctongtien%2Ckhachhang%28hoten%29%2Cphong%28loaiphong%29&ngaytraphong=lt.2025-10-07&trangthai=neq.%C4%90%C3%A3+tr%E1%BA%A3+ph%C3%B2ng&trangthai=neq.%C4%90%C3%A3+h%E1%BB%A7y "HTTP/2 200 OK"
+2025-10-07 14:56:58,577 - INFO - 127.0.0.1 - - [07/Oct/2025 14:56:58] "GET /employee/auto-checkout HTTP/1.1" 200 -
+2025-10-07 14:57:03,588 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=madatphong%2Cmaphong%2Cngaynhanphong%2Cngaytraphong%2Ctrangthai%2Ctongtien%2Ckhachhang%28hoten%29%2Cphong%28loaiphong%29&ngaytraphong=lt.2025-10-07&trangthai=neq.%C4%90%C3%A3+tr%E1%BA%A3+ph%C3%B2ng&trangthai=neq.%C4%90%C3%A3+h%E1%BB%A7y "HTTP/2 200 OK"
+2025-10-07 14:57:03,719 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?madatphong=eq.4 "HTTP/2 200 OK"
+2025-10-07 14:57:03,830 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong?maphong=eq.1 "HTTP/2 200 OK"
+2025-10-07 14:57:03,831 - INFO - Auto checkout thành công: Phòng 1 (\u0110\u01a1n #4)
+2025-10-07 14:57:03,970 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?madatphong=eq.11 "HTTP/2 200 OK"
+2025-10-07 14:57:04,076 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong?maphong=eq.4 "HTTP/2 200 OK"
+2025-10-07 14:57:04,078 - INFO - Auto checkout thành công: Phòng 4 (\u0110\u01a1n #11)
+2025-10-07 14:57:04,188 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?madatphong=eq.13 "HTTP/2 200 OK"
+2025-10-07 14:57:04,294 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong?maphong=eq.1 "HTTP/2 200 OK"
+2025-10-07 14:57:04,294 - INFO - Auto checkout thành công: Phòng 1 (\u0110\u01a1n #13)
+2025-10-07 14:57:04,428 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?madatphong=eq.14 "HTTP/2 200 OK"
+2025-10-07 14:57:04,546 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong?maphong=eq.4 "HTTP/2 200 OK"
+2025-10-07 14:57:04,546 - INFO - Auto checkout thành công: Phòng 4 (\u0110\u01a1n #14)
+2025-10-07 14:57:04,656 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?madatphong=eq.23 "HTTP/2 200 OK"
+2025-10-07 14:57:04,761 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong?maphong=eq.7 "HTTP/2 200 OK"
+2025-10-07 14:57:04,761 - INFO - Auto checkout thành công: Phòng 7 (\u0110\u01a1n #23)
+2025-10-07 14:57:04,862 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?madatphong=eq.22 "HTTP/2 200 OK"
+2025-10-07 14:57:04,978 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong?maphong=eq.2 "HTTP/2 200 OK"
+2025-10-07 14:57:04,980 - INFO - Auto checkout thành công: Phòng 2 (\u0110\u01a1n #22)
+2025-10-07 14:57:05,075 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?madatphong=eq.25 "HTTP/2 200 OK"
+2025-10-07 14:57:05,177 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong?maphong=eq.9 "HTTP/2 200 OK"
+2025-10-07 14:57:05,178 - INFO - Auto checkout thành công: Phòng 9 (\u0110\u01a1n #25)
+2025-10-07 14:57:05,275 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?madatphong=eq.27 "HTTP/2 200 OK"
+2025-10-07 14:57:05,359 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong?maphong=eq.18 "HTTP/2 200 OK"
+2025-10-07 14:57:05,359 - INFO - Auto checkout thành công: Phòng 18 (\u0110\u01a1n #27)
+2025-10-07 14:57:05,475 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?madatphong=eq.32 "HTTP/2 200 OK"
+2025-10-07 14:57:05,604 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong?maphong=eq.11 "HTTP/2 200 OK"
+2025-10-07 14:57:05,605 - INFO - Auto checkout thành công: Phòng 11 (\u0110\u01a1n #32)
+2025-10-07 14:57:05,717 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?madatphong=eq.28 "HTTP/2 200 OK"
+2025-10-07 14:57:05,809 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong?maphong=eq.17 "HTTP/2 200 OK"
+2025-10-07 14:57:05,867 - INFO - Auto checkout thành công: Phòng 17 (\u0110\u01a1n #28)
+2025-10-07 14:57:05,960 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?madatphong=eq.29 "HTTP/2 200 OK"
+2025-10-07 14:57:06,064 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong?maphong=eq.13 "HTTP/2 200 OK"
+2025-10-07 14:57:06,064 - INFO - Auto checkout thành công: Phòng 13 (\u0110\u01a1n #29)
+2025-10-07 14:57:06,159 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?madatphong=eq.30 "HTTP/2 200 OK"
+2025-10-07 14:57:06,267 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong?maphong=eq.19 "HTTP/2 200 OK"
+2025-10-07 14:57:06,270 - INFO - Auto checkout thành công: Phòng 19 (\u0110\u01a1n #30)
+2025-10-07 14:57:06,430 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?madatphong=eq.31 "HTTP/2 200 OK"
+2025-10-07 14:57:06,559 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong?maphong=eq.8 "HTTP/2 200 OK"
+2025-10-07 14:57:06,574 - INFO - Auto checkout thành công: Phòng 8 (\u0110\u01a1n #31)
+2025-10-07 14:57:06,671 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?madatphong=eq.40 "HTTP/2 200 OK"
+2025-10-07 14:57:06,767 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong?maphong=eq.12 "HTTP/2 200 OK"
+2025-10-07 14:57:06,768 - INFO - Auto checkout thành công: Phòng 12 (\u0110\u01a1n #40)
+2025-10-07 14:57:06,894 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?madatphong=eq.46 "HTTP/2 200 OK"
+2025-10-07 14:57:06,990 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong?maphong=eq.3 "HTTP/2 200 OK"
+2025-10-07 14:57:06,991 - INFO - Auto checkout thành công: Phòng 3 (\u0110\u01a1n #46)
+2025-10-07 14:57:07,085 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?madatphong=eq.47 "HTTP/2 200 OK"
+2025-10-07 14:57:07,181 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong?maphong=eq.20 "HTTP/2 200 OK"
+2025-10-07 14:57:07,182 - INFO - Auto checkout thành công: Phòng 20 (\u0110\u01a1n #47)
+2025-10-07 14:57:07,275 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?madatphong=eq.48 "HTTP/2 200 OK"
+2025-10-07 14:57:07,380 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong?maphong=eq.21 "HTTP/2 200 OK"
+2025-10-07 14:57:07,383 - INFO - Auto checkout thành công: Phòng 21 (\u0110\u01a1n #48)
+2025-10-07 14:57:07,478 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?madatphong=eq.5 "HTTP/2 200 OK"
+2025-10-07 14:57:07,581 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong?maphong=eq.1 "HTTP/2 200 OK"
+2025-10-07 14:57:07,582 - INFO - Auto checkout thành công: Phòng 1 (\u0110\u01a1n #5)
+2025-10-07 14:57:07,677 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?madatphong=eq.50 "HTTP/2 200 OK"
+2025-10-07 14:57:07,805 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong?maphong=eq.25 "HTTP/2 200 OK"
+2025-10-07 14:57:07,807 - INFO - Auto checkout thành công: Phòng 25 (\u0110\u01a1n #50)
+2025-10-07 14:57:07,901 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?madatphong=eq.2 "HTTP/2 200 OK"
+2025-10-07 14:57:07,996 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong?maphong=eq.2 "HTTP/2 200 OK"
+2025-10-07 14:57:07,997 - INFO - Auto checkout thành công: Phòng 2 (\u0110\u01a1n #2)
+2025-10-07 14:57:08,092 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?madatphong=eq.16 "HTTP/2 200 OK"
+2025-10-07 14:57:08,196 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong?maphong=eq.4 "HTTP/2 200 OK"
+2025-10-07 14:57:08,197 - INFO - Auto checkout thành công: Phòng 4 (\u0110\u01a1n #16)
+2025-10-07 14:57:08,293 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?madatphong=eq.42 "HTTP/2 200 OK"
+2025-10-07 14:57:08,400 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong?maphong=eq.5 "HTTP/2 200 OK"
+2025-10-07 14:57:08,401 - INFO - Auto checkout thành công: Phòng 5 (\u0110\u01a1n #42)
+2025-10-07 14:57:08,493 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?madatphong=eq.3 "HTTP/2 200 OK"
+2025-10-07 14:57:08,596 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong?maphong=eq.3 "HTTP/2 200 OK"
+2025-10-07 14:57:08,597 - INFO - Auto checkout thành công: Phòng 3 (\u0110\u01a1n #3)
+2025-10-07 14:57:08,693 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?madatphong=eq.33 "HTTP/2 200 OK"
+2025-10-07 14:57:08,792 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong?maphong=eq.6 "HTTP/2 200 OK"
+2025-10-07 14:57:08,793 - INFO - Auto checkout thành công: Phòng 6 (\u0110\u01a1n #33)
+2025-10-07 14:57:08,892 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?madatphong=eq.51 "HTTP/2 200 OK"
+2025-10-07 14:57:08,988 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong?maphong=eq.24 "HTTP/2 200 OK"
+2025-10-07 14:57:08,990 - INFO - Auto checkout thành công: Phòng 24 (\u0110\u01a1n #51)
+2025-10-07 14:57:09,092 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?madatphong=eq.34 "HTTP/2 200 OK"
+2025-10-07 14:57:09,183 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong?maphong=eq.5 "HTTP/2 200 OK"
+2025-10-07 14:57:09,186 - INFO - Auto checkout thành công: Phòng 5 (\u0110\u01a1n #34)
+2025-10-07 14:57:09,281 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?madatphong=eq.52 "HTTP/2 200 OK"
+2025-10-07 14:57:09,379 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong?maphong=eq.19 "HTTP/2 200 OK"
+2025-10-07 14:57:09,382 - INFO - Auto checkout thành công: Phòng 19 (\u0110\u01a1n #52)
+2025-10-07 14:57:09,474 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?madatphong=eq.43 "HTTP/2 200 OK"
+2025-10-07 14:57:09,558 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong?maphong=eq.2 "HTTP/2 200 OK"
+2025-10-07 14:57:09,558 - INFO - Auto checkout thành công: Phòng 2 (\u0110\u01a1n #43)
+2025-10-07 14:57:09,665 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?madatphong=eq.36 "HTTP/2 200 OK"
+2025-10-07 14:57:09,758 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong?maphong=eq.22 "HTTP/2 200 OK"
+2025-10-07 14:57:09,758 - INFO - Auto checkout thành công: Phòng 22 (\u0110\u01a1n #36)
+2025-10-07 14:57:09,853 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?madatphong=eq.60 "HTTP/2 200 OK"
+2025-10-07 14:57:09,941 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong?maphong=eq.2 "HTTP/2 200 OK"
+2025-10-07 14:57:09,941 - INFO - Auto checkout thành công: Phòng 2 (\u0110\u01a1n #60)
+2025-10-07 14:57:10,052 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?madatphong=eq.63 "HTTP/2 200 OK"
+2025-10-07 14:57:10,141 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong?maphong=eq.13 "HTTP/2 200 OK"
+2025-10-07 14:57:10,141 - INFO - Auto checkout thành công: Phòng 13 (\u0110\u01a1n #63)
+2025-10-07 14:57:10,250 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?madatphong=eq.64 "HTTP/2 200 OK"
+2025-10-07 14:57:10,347 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong?maphong=eq.7 "HTTP/2 200 OK"
+2025-10-07 14:57:10,349 - INFO - Auto checkout thành công: Phòng 7 (\u0110\u01a1n #64)
+2025-10-07 14:57:10,448 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?madatphong=eq.65 "HTTP/2 200 OK"
+2025-10-07 14:57:10,544 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong?maphong=eq.27 "HTTP/2 200 OK"
+2025-10-07 14:57:10,545 - INFO - Auto checkout thành công: Phòng 27 (\u0110\u01a1n #65)
+2025-10-07 14:57:10,636 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?madatphong=eq.56 "HTTP/2 200 OK"
+2025-10-07 14:57:10,732 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong?maphong=eq.17 "HTTP/2 200 OK"
+2025-10-07 14:57:10,734 - INFO - Auto checkout thành công: Phòng 17 (\u0110\u01a1n #56)
+2025-10-07 14:57:10,830 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?madatphong=eq.39 "HTTP/2 200 OK"
+2025-10-07 14:57:10,941 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong?maphong=eq.25 "HTTP/2 200 OK"
+2025-10-07 14:57:10,942 - INFO - Auto checkout thành công: Phòng 25 (\u0110\u01a1n #39)
+2025-10-07 14:57:11,036 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?madatphong=eq.53 "HTTP/2 200 OK"
+2025-10-07 14:57:11,129 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong?maphong=eq.9 "HTTP/2 200 OK"
+2025-10-07 14:57:11,130 - INFO - Auto checkout thành công: Phòng 9 (\u0110\u01a1n #53)
+2025-10-07 14:57:11,223 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?madatphong=eq.54 "HTTP/2 200 OK"
+2025-10-07 14:57:11,335 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong?maphong=eq.1 "HTTP/2 200 OK"
+2025-10-07 14:57:11,335 - INFO - Auto checkout thành công: Phòng 1 (\u0110\u01a1n #54)
+2025-10-07 14:57:11,447 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?madatphong=eq.55 "HTTP/2 200 OK"
+2025-10-07 14:57:11,541 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong?maphong=eq.8 "HTTP/2 200 OK"
+2025-10-07 14:57:11,541 - INFO - Auto checkout thành công: Phòng 8 (\u0110\u01a1n #55)
+2025-10-07 14:57:11,623 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?madatphong=eq.57 "HTTP/2 200 OK"
+2025-10-07 14:57:11,756 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong?maphong=eq.18 "HTTP/2 200 OK"
+2025-10-07 14:57:11,757 - INFO - Auto checkout thành công: Phòng 18 (\u0110\u01a1n #57)
+2025-10-07 14:57:11,862 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?madatphong=eq.59 "HTTP/2 200 OK"
+2025-10-07 14:57:11,953 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong?maphong=eq.6 "HTTP/2 200 OK"
+2025-10-07 14:57:11,956 - INFO - Auto checkout thành công: Phòng 6 (\u0110\u01a1n #59)
+2025-10-07 14:57:12,047 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?madatphong=eq.61 "HTTP/2 200 OK"
+2025-10-07 14:57:12,141 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong?maphong=eq.13 "HTTP/2 200 OK"
+2025-10-07 14:57:12,141 - INFO - Auto checkout thành công: Phòng 13 (\u0110\u01a1n #61)
+2025-10-07 14:57:12,240 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?madatphong=eq.62 "HTTP/2 200 OK"
+2025-10-07 14:57:12,332 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong?maphong=eq.26 "HTTP/2 200 OK"
+2025-10-07 14:57:12,333 - INFO - Auto checkout thành công: Phòng 26 (\u0110\u01a1n #62)
+2025-10-07 14:57:12,427 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?madatphong=eq.41 "HTTP/2 200 OK"
+2025-10-07 14:57:12,529 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong?maphong=eq.5 "HTTP/2 200 OK"
+2025-10-07 14:57:12,530 - INFO - Auto checkout thành công: Phòng 5 (\u0110\u01a1n #41)
+2025-10-07 14:57:12,629 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?madatphong=eq.49 "HTTP/2 200 OK"
+2025-10-07 14:57:12,726 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong?maphong=eq.22 "HTTP/2 200 OK"
+2025-10-07 14:57:12,728 - INFO - Auto checkout thành công: Phòng 22 (\u0110\u01a1n #49)
+2025-10-07 14:57:12,830 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?madatphong=eq.6 "HTTP/2 200 OK"
+2025-10-07 14:57:12,923 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong?maphong=eq.1 "HTTP/2 200 OK"
+2025-10-07 14:57:12,924 - INFO - Auto checkout thành công: Phòng 1 (\u0110\u01a1n #6)
+2025-10-07 14:57:13,019 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?madatphong=eq.66 "HTTP/2 200 OK"
+2025-10-07 14:57:13,114 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong?maphong=eq.23 "HTTP/2 200 OK"
+2025-10-07 14:57:13,115 - INFO - Auto checkout thành công: Phòng 23 (\u0110\u01a1n #66)
+2025-10-07 14:57:13,208 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?madatphong=eq.67 "HTTP/2 200 OK"
+2025-10-07 14:57:13,291 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong?maphong=eq.22 "HTTP/2 200 OK"
+2025-10-07 14:57:13,291 - INFO - Auto checkout thành công: Phòng 22 (\u0110\u01a1n #67)
+2025-10-07 14:57:13,489 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?madatphong=eq.68 "HTTP/2 200 OK"
+2025-10-07 14:57:13,584 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong?maphong=eq.23 "HTTP/2 200 OK"
+2025-10-07 14:57:13,586 - INFO - Auto checkout thành công: Phòng 23 (\u0110\u01a1n #68)
+2025-10-07 14:57:13,673 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?madatphong=eq.38 "HTTP/2 200 OK"
+2025-10-07 14:57:13,786 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong?maphong=eq.24 "HTTP/2 200 OK"
+2025-10-07 14:57:13,787 - INFO - Auto checkout thành công: Phòng 24 (\u0110\u01a1n #38)
+2025-10-07 14:57:13,873 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?madatphong=eq.69 "HTTP/2 200 OK"
+2025-10-07 14:57:13,983 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong?maphong=eq.12 "HTTP/2 200 OK"
+2025-10-07 14:57:13,985 - INFO - Auto checkout thành công: Phòng 12 (\u0110\u01a1n #69)
+2025-10-07 14:57:14,089 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?madatphong=eq.71 "HTTP/2 200 OK"
+2025-10-07 14:57:14,186 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong?maphong=eq.17 "HTTP/2 200 OK"
+2025-10-07 14:57:14,187 - INFO - Auto checkout thành công: Phòng 17 (\u0110\u01a1n #71)
+2025-10-07 14:57:14,273 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?madatphong=eq.72 "HTTP/2 200 OK"
+2025-10-07 14:57:14,390 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong?maphong=eq.11 "HTTP/2 200 OK"
+2025-10-07 14:57:14,392 - INFO - Auto checkout thành công: Phòng 11 (\u0110\u01a1n #72)
+2025-10-07 14:57:14,473 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?madatphong=eq.73 "HTTP/2 200 OK"
+2025-10-07 14:57:14,574 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong?maphong=eq.13 "HTTP/2 200 OK"
+2025-10-07 14:57:14,574 - INFO - Auto checkout thành công: Phòng 13 (\u0110\u01a1n #73)
+2025-10-07 14:57:14,673 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?madatphong=eq.74 "HTTP/2 200 OK"
+2025-10-07 14:57:14,771 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong?maphong=eq.20 "HTTP/2 200 OK"
+2025-10-07 14:57:14,773 - INFO - Auto checkout thành công: Phòng 20 (\u0110\u01a1n #74)
+2025-10-07 14:57:14,870 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?madatphong=eq.75 "HTTP/2 200 OK"
+2025-10-07 14:57:14,966 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong?maphong=eq.14 "HTTP/2 200 OK"
+2025-10-07 14:57:14,967 - INFO - Auto checkout thành công: Phòng 14 (\u0110\u01a1n #75)
+2025-10-07 14:57:15,061 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?madatphong=eq.76 "HTTP/2 200 OK"
+2025-10-07 14:57:15,155 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong?maphong=eq.26 "HTTP/2 200 OK"
+2025-10-07 14:57:15,155 - INFO - Auto checkout thành công: Phòng 26 (\u0110\u01a1n #76)
+2025-10-07 14:57:15,255 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?madatphong=eq.77 "HTTP/2 200 OK"
+2025-10-07 14:57:15,355 - INFO - HTTP Request: PATCH https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong?maphong=eq.7 "HTTP/2 200 OK"
+2025-10-07 14:57:15,356 - INFO - Auto checkout thành công: Phòng 7 (\u0110\u01a1n #77)
+2025-10-07 14:57:15,357 - INFO - 127.0.0.1 - - [07/Oct/2025 14:57:15] "[32mPOST /employee/auto-checkout HTTP/1.1[0m" 302 -
+2025-10-07 14:57:15,594 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=madatphong%2Cmaphong%2Cngaynhanphong%2Cngaytraphong%2Ctrangthai%2Ctongtien%2Ckhachhang%28hoten%29%2Cphong%28loaiphong%29&ngaytraphong=lt.2025-10-07&trangthai=neq.%C4%90%C3%A3+tr%E1%BA%A3+ph%C3%B2ng&trangthai=neq.%C4%90%C3%A3+h%E1%BB%A7y "HTTP/2 200 OK"
+2025-10-07 14:57:15,599 - INFO - 127.0.0.1 - - [07/Oct/2025 14:57:15] "GET /employee/auto-checkout HTTP/1.1" 200 -
+2025-10-07 14:57:30,451 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=madatphong%2Cmaphong%2Cngaynhanphong%2Cngaytraphong%2Ctrangthai%2Ctongtien%2Ckhachhang%28hoten%29%2Cphong%28loaiphong%29&ngaytraphong=lt.2025-10-07&trangthai=neq.%C4%90%C3%A3+tr%E1%BA%A3+ph%C3%B2ng&trangthai=neq.%C4%90%C3%A3+h%E1%BB%A7y "HTTP/2 200 OK"
+2025-10-07 14:57:30,467 - INFO - 127.0.0.1 - - [07/Oct/2025 14:57:30] "GET /employee/auto-checkout HTTP/1.1" 200 -
+2025-10-07 16:49:45,454 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-10-07 16:49:45,454 - INFO - [33mPress CTRL+C to quit[0m
+2025-10-07 16:49:45,455 - INFO -  * Restarting with stat
+2025-10-07 16:49:46,856 - WARNING -  * Debugger is active!
+2025-10-07 16:49:46,862 - INFO -  * Debugger PIN: 139-536-975
+2025-10-07 16:49:57,284 - INFO - 127.0.0.1 - - [07/Oct/2025 16:49:57] "GET /admin/login HTTP/1.1" 200 -
+2025-10-07 16:49:57,596 - INFO - 127.0.0.1 - - [07/Oct/2025 16:49:57] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-10-07 16:50:03,893 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong?select=maphong%2Cloaiphong%2Cgiaphong%2Csucchua%2Cdientich%2Chinhanh "HTTP/2 200 OK"
+2025-10-07 16:50:04,088 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=maphong&trangthai=in.%28%C4%90%C3%A3+x%C3%A1c+nh%E1%BA%ADn%2C%C4%90%C3%A3+thanh+to%C3%A1n%2C%C4%90%C3%A3+check-in%29 "HTTP/2 200 OK"
+2025-10-07 16:50:04,124 - INFO - 127.0.0.1 - - [07/Oct/2025 16:50:04] "GET / HTTP/1.1" 200 -
+2025-10-07 16:52:34,221 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/phong?select=maphong%2Cloaiphong%2Cgiaphong%2Csucchua%2Cdientich%2Chinhanh "HTTP/2 200 OK"
+2025-10-07 16:52:34,369 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=maphong&trangthai=in.%28%C4%90%C3%A3+x%C3%A1c+nh%E1%BA%ADn%2C%C4%90%C3%A3+thanh+to%C3%A1n%2C%C4%90%C3%A3+check-in%29 "HTTP/2 200 OK"
+2025-10-07 16:52:34,386 - INFO - 127.0.0.1 - - [07/Oct/2025 16:52:34] "GET / HTTP/1.1" 200 -
+2025-10-07 16:54:09,713 - INFO - 127.0.0.1 - - [07/Oct/2025 16:54:09] "GET /admin/login HTTP/1.1" 200 -
+2025-10-07 16:54:11,663 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/nhanvien?select=%2A&email=eq.ketoan%40example.com "HTTP/2 200 OK"
+2025-10-07 16:54:11,663 - INFO - L\u1ea5y thông tin nhân viên v\u1edbi email ketoan@example.com: {'manhanvien': 8, 'hoten': 'Lê Minh Tu\u1ea5n', 'chucvu': 'ketoan', 'sodienthoai': '0976543210', 'email': 'ketoan@example.com', 'matkhau': '123'}
+2025-10-07 16:54:11,663 - INFO - 127.0.0.1 - - [07/Oct/2025 16:54:11] "[32mPOST /admin/login HTTP/1.1[0m" 302 -
+2025-10-07 16:54:11,968 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/hoadon?select=tongtien%2Ctongtien_dichvu&tongtien=gt.0&ngaylap=gte.2025-10-01&ngaylap=lte.2025-11-01 "HTTP/2 200 OK"
+2025-10-07 16:54:12,107 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/dichvu?select=%2A "HTTP/2 200 OK"
+2025-10-07 16:54:12,109 - INFO - Danh sách d\u1ecbch v\u1ee5 t\u1eeb Supabase: [{'madichvu': 1, 'tendichvu': 'B\u1eefa sáng', 'giadichvu': 150000.0, 'mota': 'Buffet t\u1ef1 ch\u1ecdn', 'hinhanh': 'https://cloud.com/services/breakfast.jpg'}, {'madichvu': 2, 'tendichvu': 'Gi\u1eb7t \u1ee7i', 'giadichvu': 50000.0, 'mota': 'Gi\u1eb7t + s\u1ea5y', 'hinhanh': 'https://cloud.com/services/laundry.jpg'}, {'madichvu': 3, 'tendichvu': 'Massage', 'giadichvu': 300000.0, 'mota': 'Th\u01b0 giãn 60 phút', 'hinhanh': 'https://cloud.com/services/massage.jpg'}]
+2025-10-07 16:54:12,109 - INFO - Doanh thu tháng: 300000.0, S\u1ed1 d\u1ecbch v\u1ee5: 3
+2025-10-07 16:54:12,123 - INFO - 127.0.0.1 - - [07/Oct/2025 16:54:12] "GET /employee/ketoan HTTP/1.1" 200 -
+2025-10-07 16:54:13,429 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/hoadon?select=mahoadon%2Cmadatphong%2Cngaylap%2Ctongtien%2Ctongtien_dichvu%2Cdatphong%28maphong%29%2Ckhachhang%28hoten%29&tongtien=gt.0 "HTTP/2 200 OK"
+2025-10-07 16:54:13,429 - INFO - Doanh thu t\u1eeb None \u0111\u1ebfn None: 156200006.0
+2025-10-07 16:54:13,450 - INFO - 127.0.0.1 - - [07/Oct/2025 16:54:13] "GET /employee/revenue HTTP/1.1" 200 -
+2025-10-07 16:54:14,926 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/hoadon?select=mahoadon%2Cmadatphong%2Cngaylap%2Ctongtien%2Ctongtien_dichvu&tongtien=gt.0 "HTTP/2 200 OK"
+2025-10-07 16:54:14,932 - INFO - Báo cáo tài chính n\u0103m 2025: 156200006.0
+2025-10-07 16:54:14,947 - INFO - 127.0.0.1 - - [07/Oct/2025 16:54:14] "GET /employee/financial-report HTTP/1.1" 200 -
+2025-10-07 16:54:16,295 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/hoadon?select=mahoadon%2Cmadatphong%2Cmakhachhang%2Ctongtien%2Cphuongthucthanhtoan%2Cngaylap%2Ctongtien_dichvu%2Cdatphong%28maphong%2Cngaynhanphong%2Cngaytraphong%29%2Ckhachhang%28hoten%29&tongtien=gt.0 "HTTP/2 200 OK"
+2025-10-07 16:54:16,304 - INFO - L\u1ea5y danh sách hóa \u0111\u01a1n: 24 hóa \u0111\u01a1n
+2025-10-07 16:54:16,319 - INFO - 127.0.0.1 - - [07/Oct/2025 16:54:16] "GET /employee/invoices HTTP/1.1" 200 -
+2025-10-07 16:54:21,683 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/hoadon?select=mahoadon%2Cmadatphong%2Cngaylap%2Ctongtien%2Ctongtien_dichvu%2Cdatphong%28maphong%29%2Ckhachhang%28hoten%29&tongtien=gt.0 "HTTP/2 200 OK"
+2025-10-07 16:54:21,688 - INFO - Doanh thu t\u1eeb None \u0111\u1ebfn None: 156200006.0
+2025-10-07 16:54:21,691 - INFO - 127.0.0.1 - - [07/Oct/2025 16:54:21] "GET /employee/revenue HTTP/1.1" 200 -
+2025-10-07 16:54:24,270 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/hoadon?select=mahoadon%2Cmadatphong%2Cngaylap%2Ctongtien%2Ctongtien_dichvu&tongtien=gt.0 "HTTP/2 200 OK"
+2025-10-07 16:54:24,276 - INFO - Báo cáo tài chính n\u0103m 2025: 156200006.0
+2025-10-07 16:54:24,278 - INFO - 127.0.0.1 - - [07/Oct/2025 16:54:24] "GET /employee/financial-report HTTP/1.1" 200 -
+2025-10-07 16:54:27,420 - INFO - 127.0.0.1 - - [07/Oct/2025 16:54:27] "[32mGET /admin/logout HTTP/1.1[0m" 302 -
+2025-10-07 16:54:27,429 - INFO - 127.0.0.1 - - [07/Oct/2025 16:54:27] "GET /admin/login HTTP/1.1" 200 -
+2025-10-07 16:54:31,664 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/nhanvien?select=%2A&email=eq.letan%40example.com "HTTP/2 200 OK"
+2025-10-07 16:54:31,664 - INFO - L\u1ea5y thông tin nhân viên v\u1edbi email letan@example.com: {'manhanvien': 7, 'hoten': 'Hoàng Th\u1ecb Lan', 'chucvu': 'letan', 'sodienthoai': '0987654321', 'email': 'letan@example.com', 'matkhau': '123'}
+2025-10-07 16:54:31,664 - INFO - 127.0.0.1 - - [07/Oct/2025 16:54:31] "[32mPOST /admin/login HTTP/1.1[0m" 302 -
+2025-10-07 16:54:31,935 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=%2A%2Ckhachhang%28hoten%2Csodienthoai%29%2Cphong%28maphong%2Cloaiphong%29&trangthai=eq.Ch%E1%BB%9D+x%C3%A1c+nh%E1%BA%ADn "HTTP/2 200 OK"
+2025-10-07 16:54:31,939 - INFO - L\u1ea5y danh sách \u0111\u1eb7t phòng: 0 booking(s)
+2025-10-07 16:54:31,950 - INFO - 127.0.0.1 - - [07/Oct/2025 16:54:31] "GET /employee/letan HTTP/1.1" 200 -
+2025-10-07 16:54:34,112 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=%2A%2Ckhachhang%28hoten%2Csodienthoai%29%2Cphong%28maphong%2Cloaiphong%29&trangthai=eq.Ch%E1%BB%9D+x%C3%A1c+nh%E1%BA%ADn "HTTP/2 200 OK"
+2025-10-07 16:54:34,293 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=%2A%2Ckhachhang%28hoten%2Csodienthoai%29%2Cphong%28maphong%2Cloaiphong%29&trangthai=eq.%C4%90%C3%A3+x%C3%A1c+nh%E1%BA%ADn "HTTP/2 200 OK"
+2025-10-07 16:54:34,426 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=%2A%2Ckhachhang%28hoten%2Csodienthoai%29%2Cphong%28maphong%2Cloaiphong%29 "HTTP/2 200 OK"
+2025-10-07 16:54:34,430 - INFO - Qu\u1ea3n lý \u0111\u1eb7t phòng: 0 ch\u1edd xác nh\u1eadn, 0 \u0111ã xác nh\u1eadn
+2025-10-07 16:54:34,447 - INFO - 127.0.0.1 - - [07/Oct/2025 16:54:34] "GET /employee/booking HTTP/1.1" 200 -
+2025-10-07 16:55:02,588 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=%2A%2Ckhachhang%28hoten%2Csodienthoai%29%2Cphong%28maphong%2Cloaiphong%29&trangthai=eq.Ch%E1%BB%9D+x%C3%A1c+nh%E1%BA%ADn "HTTP/2 200 OK"
+2025-10-07 16:55:02,690 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=%2A%2Ckhachhang%28hoten%2Csodienthoai%29%2Cphong%28maphong%2Cloaiphong%29&trangthai=eq.%C4%90%C3%A3+x%C3%A1c+nh%E1%BA%ADn "HTTP/2 200 OK"
+2025-10-07 16:55:02,801 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=%2A%2Ckhachhang%28hoten%2Csodienthoai%29%2Cphong%28maphong%2Cloaiphong%29 "HTTP/2 200 OK"
+2025-10-07 16:55:02,805 - INFO - Qu\u1ea3n lý \u0111\u1eb7t phòng: 0 ch\u1edd xác nh\u1eadn, 0 \u0111ã xác nh\u1eadn
+2025-10-07 16:55:02,807 - INFO - 127.0.0.1 - - [07/Oct/2025 16:55:02] "GET /employee/booking HTTP/1.1" 200 -
+2025-10-07 16:56:14,287 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=%2A%2Ckhachhang%28hoten%2Csodienthoai%29%2Cphong%28maphong%2Cloaiphong%29&trangthai=eq.Ch%E1%BB%9D+x%C3%A1c+nh%E1%BA%ADn "HTTP/2 200 OK"
+2025-10-07 16:56:14,386 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=%2A%2Ckhachhang%28hoten%2Csodienthoai%29%2Cphong%28maphong%2Cloaiphong%29&trangthai=eq.%C4%90%C3%A3+x%C3%A1c+nh%E1%BA%ADn "HTTP/2 200 OK"
+2025-10-07 16:56:14,512 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=%2A%2Ckhachhang%28hoten%2Csodienthoai%29%2Cphong%28maphong%2Cloaiphong%29 "HTTP/2 200 OK"
+2025-10-07 16:56:14,538 - INFO - Qu\u1ea3n lý \u0111\u1eb7t phòng: 0 ch\u1edd xác nh\u1eadn, 0 \u0111ã xác nh\u1eadn
+2025-10-07 16:56:14,548 - INFO - 127.0.0.1 - - [07/Oct/2025 16:56:14] "GET /employee/booking HTTP/1.1" 200 -
+2025-10-07 16:56:30,444 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=%2A%2Ckhachhang%28hoten%2Csodienthoai%29%2Cphong%28maphong%2Cloaiphong%29&trangthai=eq.Ch%E1%BB%9D+x%C3%A1c+nh%E1%BA%ADn "HTTP/2 200 OK"
+2025-10-07 16:56:30,555 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=%2A%2Ckhachhang%28hoten%2Csodienthoai%29%2Cphong%28maphong%2Cloaiphong%29&trangthai=eq.%C4%90%C3%A3+x%C3%A1c+nh%E1%BA%ADn "HTTP/2 200 OK"
+2025-10-07 16:56:30,664 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=%2A%2Ckhachhang%28hoten%2Csodienthoai%29%2Cphong%28maphong%2Cloaiphong%29 "HTTP/2 200 OK"
+2025-10-07 16:56:30,681 - INFO - Qu\u1ea3n lý \u0111\u1eb7t phòng: 0 ch\u1edd xác nh\u1eadn, 0 \u0111ã xác nh\u1eadn
+2025-10-07 16:56:30,688 - INFO - 127.0.0.1 - - [07/Oct/2025 16:56:30] "GET /employee/booking HTTP/1.1" 200 -
+2025-10-07 16:56:53,305 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=%2A%2Ckhachhang%28hoten%2Csodienthoai%29%2Cphong%28maphong%2Cloaiphong%29&trangthai=eq.Ch%E1%BB%9D+x%C3%A1c+nh%E1%BA%ADn "HTTP/2 200 OK"
+2025-10-07 16:56:53,409 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=%2A%2Ckhachhang%28hoten%2Csodienthoai%29%2Cphong%28maphong%2Cloaiphong%29&trangthai=eq.%C4%90%C3%A3+x%C3%A1c+nh%E1%BA%ADn "HTTP/2 200 OK"
+2025-10-07 16:56:53,528 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=%2A%2Ckhachhang%28hoten%2Csodienthoai%29%2Cphong%28maphong%2Cloaiphong%29 "HTTP/2 200 OK"
+2025-10-07 16:56:53,530 - INFO - Qu\u1ea3n lý \u0111\u1eb7t phòng: 0 ch\u1edd xác nh\u1eadn, 0 \u0111ã xác nh\u1eadn
+2025-10-07 16:56:53,538 - INFO - 127.0.0.1 - - [07/Oct/2025 16:56:53] "GET /employee/booking HTTP/1.1" 200 -
+2025-10-07 16:57:47,543 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=%2A%2Ckhachhang%28hoten%2Csodienthoai%29%2Cphong%28maphong%2Cloaiphong%29&trangthai=eq.Ch%E1%BB%9D+x%C3%A1c+nh%E1%BA%ADn "HTTP/2 200 OK"
+2025-10-07 16:57:47,655 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=%2A%2Ckhachhang%28hoten%2Csodienthoai%29%2Cphong%28maphong%2Cloaiphong%29&trangthai=eq.%C4%90%C3%A3+x%C3%A1c+nh%E1%BA%ADn "HTTP/2 200 OK"
+2025-10-07 16:57:47,767 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=%2A%2Ckhachhang%28hoten%2Csodienthoai%29%2Cphong%28maphong%2Cloaiphong%29 "HTTP/2 200 OK"
+2025-10-07 16:57:47,772 - INFO - Qu\u1ea3n lý \u0111\u1eb7t phòng: 0 ch\u1edd xác nh\u1eadn, 0 \u0111ã xác nh\u1eadn
+2025-10-07 16:57:47,781 - INFO - 127.0.0.1 - - [07/Oct/2025 16:57:47] "GET /employee/booking HTTP/1.1" 200 -
+2025-10-07 16:58:03,895 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=%2A%2Ckhachhang%28hoten%2Csodienthoai%29%2Cphong%28maphong%2Cloaiphong%29&trangthai=eq.Ch%E1%BB%9D+x%C3%A1c+nh%E1%BA%ADn "HTTP/2 200 OK"
+2025-10-07 16:58:04,003 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=%2A%2Ckhachhang%28hoten%2Csodienthoai%29%2Cphong%28maphong%2Cloaiphong%29&trangthai=eq.%C4%90%C3%A3+x%C3%A1c+nh%E1%BA%ADn "HTTP/2 200 OK"
+2025-10-07 16:58:04,125 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=%2A%2Ckhachhang%28hoten%2Csodienthoai%29%2Cphong%28maphong%2Cloaiphong%29 "HTTP/2 200 OK"
+2025-10-07 16:58:04,127 - INFO - Qu\u1ea3n lý \u0111\u1eb7t phòng: 0 ch\u1edd xác nh\u1eadn, 0 \u0111ã xác nh\u1eadn
+2025-10-07 16:58:04,137 - INFO - 127.0.0.1 - - [07/Oct/2025 16:58:04] "GET /employee/booking HTTP/1.1" 200 -
+2025-10-07 16:58:18,698 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=%2A%2Ckhachhang%28hoten%2Csodienthoai%29%2Cphong%28maphong%2Cloaiphong%29&trangthai=eq.Ch%E1%BB%9D+x%C3%A1c+nh%E1%BA%ADn "HTTP/2 200 OK"
+2025-10-07 16:58:18,802 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=%2A%2Ckhachhang%28hoten%2Csodienthoai%29%2Cphong%28maphong%2Cloaiphong%29&trangthai=eq.%C4%90%C3%A3+x%C3%A1c+nh%E1%BA%ADn "HTTP/2 200 OK"
+2025-10-07 16:58:18,908 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=%2A%2Ckhachhang%28hoten%2Csodienthoai%29%2Cphong%28maphong%2Cloaiphong%29 "HTTP/2 200 OK"
+2025-10-07 16:58:18,911 - INFO - Qu\u1ea3n lý \u0111\u1eb7t phòng: 0 ch\u1edd xác nh\u1eadn, 0 \u0111ã xác nh\u1eadn
+2025-10-07 16:58:18,920 - INFO - 127.0.0.1 - - [07/Oct/2025 16:58:18] "GET /employee/booking HTTP/1.1" 200 -
+2025-10-07 16:58:50,596 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=%2A%2Ckhachhang%28hoten%2Csodienthoai%29%2Cphong%28maphong%2Cloaiphong%29&trangthai=eq.%C4%90%C3%A3+thanh+to%C3%A1n "HTTP/2 200 OK"
+2025-10-07 16:58:50,599 - INFO - L\u1ea5y danh sách \u0111\u1eb7t phòng \u0111ã thanh toán: 0
+2025-10-07 16:58:50,608 - INFO - 127.0.0.1 - - [07/Oct/2025 16:58:50] "GET /employee/checkin HTTP/1.1" 200 -
+2025-10-07 16:59:56,925 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=%2A%2Ckhachhang%28hoten%2Csodienthoai%29%2Cphong%28maphong%2Cloaiphong%29&trangthai=eq.%C4%90%C3%A3+thanh+to%C3%A1n "HTTP/2 200 OK"
+2025-10-07 16:59:56,928 - INFO - L\u1ea5y danh sách \u0111\u1eb7t phòng \u0111ã thanh toán: 0
+2025-10-07 16:59:56,934 - INFO - 127.0.0.1 - - [07/Oct/2025 16:59:56] "GET /employee/checkin HTTP/1.1" 200 -
+2025-10-07 16:59:58,243 - INFO - 127.0.0.1 - - [07/Oct/2025 16:59:58] "GET /employee/search-room HTTP/1.1" 200 -
+2025-10-07 17:00:10,981 - INFO - 127.0.0.1 - - [07/Oct/2025 17:00:10] "GET /employee/search-room HTTP/1.1" 200 -
+2025-10-07 17:00:15,172 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/dichvu?select=%2A "HTTP/2 200 OK"
+2025-10-07 17:00:15,189 - INFO - Danh sách d\u1ecbch v\u1ee5 t\u1eeb Supabase: [{'madichvu': 1, 'tendichvu': 'B\u1eefa sáng', 'giadichvu': 150000.0, 'mota': 'Buffet t\u1ef1 ch\u1ecdn', 'hinhanh': 'https://cloud.com/services/breakfast.jpg'}, {'madichvu': 2, 'tendichvu': 'Gi\u1eb7t \u1ee7i', 'giadichvu': 50000.0, 'mota': 'Gi\u1eb7t + s\u1ea5y', 'hinhanh': 'https://cloud.com/services/laundry.jpg'}, {'madichvu': 3, 'tendichvu': 'Massage', 'giadichvu': 300000.0, 'mota': 'Th\u01b0 giãn 60 phút', 'hinhanh': 'https://cloud.com/services/massage.jpg'}]
+2025-10-07 17:00:15,425 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=machitiet%2Cmadatphong%2Cmadichvu%2Csoluong%2Cthanhtien%2Ctrangthaithanhtoan%2Cngaydat%2Cdichvu%28tendichvu%2Cgiadichvu%29%2Cdatphong%28maphong%2Ckhachhang%28hoten%29%29 "HTTP/2 200 OK"
+2025-10-07 17:00:15,427 - INFO - Qu\u1ea3n lý d\u1ecbch v\u1ee5: 3 d\u1ecbch v\u1ee5, 19 chi ti\u1ebft d\u1ecbch v\u1ee5
+2025-10-07 17:00:15,444 - INFO - 127.0.0.1 - - [07/Oct/2025 17:00:15] "GET /employee/services HTTP/1.1" 200 -
+2025-10-07 17:00:58,275 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/dichvu?select=%2A "HTTP/2 200 OK"
+2025-10-07 17:00:58,275 - INFO - Danh sách d\u1ecbch v\u1ee5 t\u1eeb Supabase: [{'madichvu': 1, 'tendichvu': 'B\u1eefa sáng', 'giadichvu': 150000.0, 'mota': 'Buffet t\u1ef1 ch\u1ecdn', 'hinhanh': 'https://cloud.com/services/breakfast.jpg'}, {'madichvu': 2, 'tendichvu': 'Gi\u1eb7t \u1ee7i', 'giadichvu': 50000.0, 'mota': 'Gi\u1eb7t + s\u1ea5y', 'hinhanh': 'https://cloud.com/services/laundry.jpg'}, {'madichvu': 3, 'tendichvu': 'Massage', 'giadichvu': 300000.0, 'mota': 'Th\u01b0 giãn 60 phút', 'hinhanh': 'https://cloud.com/services/massage.jpg'}]
+2025-10-07 17:00:58,592 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=machitiet%2Cmadatphong%2Cmadichvu%2Csoluong%2Cthanhtien%2Ctrangthaithanhtoan%2Cngaydat%2Cdichvu%28tendichvu%2Cgiadichvu%29%2Cdatphong%28maphong%2Ckhachhang%28hoten%29%29 "HTTP/2 200 OK"
+2025-10-07 17:00:58,592 - INFO - Qu\u1ea3n lý d\u1ecbch v\u1ee5: 3 d\u1ecbch v\u1ee5, 19 chi ti\u1ebft d\u1ecbch v\u1ee5
+2025-10-07 17:00:58,612 - INFO - 127.0.0.1 - - [07/Oct/2025 17:00:58] "GET /employee/services HTTP/1.1" 200 -
+2025-10-07 17:01:01,291 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/khachhang?select=%2A%2Choadon%28count%29 "HTTP/2 200 OK"
+2025-10-07 17:01:01,308 - INFO - L\u1ea5y danh sách khách hàng: 13 khách hàng
+2025-10-07 17:01:01,332 - INFO - 127.0.0.1 - - [07/Oct/2025 17:01:01] "GET /employee/customers HTTP/1.1" 200 -
+2025-10-07 17:01:38,423 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/khachhang?select=%2A%2Choadon%28count%29 "HTTP/2 200 OK"
+2025-10-07 17:01:38,426 - INFO - L\u1ea5y danh sách khách hàng: 13 khách hàng
+2025-10-07 17:01:38,435 - INFO - 127.0.0.1 - - [07/Oct/2025 17:01:38] "GET /employee/customers HTTP/1.1" 200 -
+2025-10-07 17:01:40,178 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/dichvu?select=%2A "HTTP/2 200 OK"
+2025-10-07 17:01:40,180 - INFO - Danh sách d\u1ecbch v\u1ee5 t\u1eeb Supabase: [{'madichvu': 1, 'tendichvu': 'B\u1eefa sáng', 'giadichvu': 150000.0, 'mota': 'Buffet t\u1ef1 ch\u1ecdn', 'hinhanh': 'https://cloud.com/services/breakfast.jpg'}, {'madichvu': 2, 'tendichvu': 'Gi\u1eb7t \u1ee7i', 'giadichvu': 50000.0, 'mota': 'Gi\u1eb7t + s\u1ea5y', 'hinhanh': 'https://cloud.com/services/laundry.jpg'}, {'madichvu': 3, 'tendichvu': 'Massage', 'giadichvu': 300000.0, 'mota': 'Th\u01b0 giãn 60 phút', 'hinhanh': 'https://cloud.com/services/massage.jpg'}]
+2025-10-07 17:01:40,422 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=machitiet%2Cmadatphong%2Cmadichvu%2Csoluong%2Cthanhtien%2Ctrangthaithanhtoan%2Cngaydat%2Cdichvu%28tendichvu%2Cgiadichvu%29%2Cdatphong%28maphong%2Ckhachhang%28hoten%29%29 "HTTP/2 200 OK"
+2025-10-07 17:01:40,423 - INFO - Qu\u1ea3n lý d\u1ecbch v\u1ee5: 3 d\u1ecbch v\u1ee5, 19 chi ti\u1ebft d\u1ecbch v\u1ee5
+2025-10-07 17:01:40,451 - INFO - 127.0.0.1 - - [07/Oct/2025 17:01:40] "GET /employee/services HTTP/1.1" 200 -
+2025-10-07 17:01:43,029 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/dichvu?select=%2A "HTTP/2 200 OK"
+2025-10-07 17:01:43,036 - INFO - Danh sách d\u1ecbch v\u1ee5 t\u1eeb Supabase: [{'madichvu': 1, 'tendichvu': 'B\u1eefa sáng', 'giadichvu': 150000.0, 'mota': 'Buffet t\u1ef1 ch\u1ecdn', 'hinhanh': 'https://cloud.com/services/breakfast.jpg'}, {'madichvu': 2, 'tendichvu': 'Gi\u1eb7t \u1ee7i', 'giadichvu': 50000.0, 'mota': 'Gi\u1eb7t + s\u1ea5y', 'hinhanh': 'https://cloud.com/services/laundry.jpg'}, {'madichvu': 3, 'tendichvu': 'Massage', 'giadichvu': 300000.0, 'mota': 'Th\u01b0 giãn 60 phút', 'hinhanh': 'https://cloud.com/services/massage.jpg'}]
+2025-10-07 17:01:43,242 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=machitiet%2Cmadatphong%2Cmadichvu%2Csoluong%2Cthanhtien%2Ctrangthaithanhtoan%2Cngaydat%2Cdichvu%28tendichvu%2Cgiadichvu%29%2Cdatphong%28maphong%2Ckhachhang%28hoten%29%29 "HTTP/2 200 OK"
+2025-10-07 17:01:43,242 - INFO - Qu\u1ea3n lý d\u1ecbch v\u1ee5: 3 d\u1ecbch v\u1ee5, 19 chi ti\u1ebft d\u1ecbch v\u1ee5
+2025-10-07 17:01:43,242 - INFO - 127.0.0.1 - - [07/Oct/2025 17:01:43] "GET /employee/services HTTP/1.1" 200 -
+2025-10-07 17:01:45,110 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/khachhang?select=%2A%2Choadon%28count%29 "HTTP/2 200 OK"
+2025-10-07 17:01:45,114 - INFO - L\u1ea5y danh sách khách hàng: 13 khách hàng
+2025-10-07 17:01:45,117 - INFO - 127.0.0.1 - - [07/Oct/2025 17:01:45] "GET /employee/customers HTTP/1.1" 200 -
+2025-10-07 17:01:46,790 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/khachhang?select=%2A%2Choadon%28count%29 "HTTP/2 200 OK"
+2025-10-07 17:01:46,795 - INFO - L\u1ea5y danh sách khách hàng: 13 khách hàng
+2025-10-07 17:01:46,797 - INFO - 127.0.0.1 - - [07/Oct/2025 17:01:46] "GET /employee/customers HTTP/1.1" 200 -
+2025-10-07 17:01:48,074 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/dichvu?select=%2A "HTTP/2 200 OK"
+2025-10-07 17:01:48,094 - INFO - Danh sách d\u1ecbch v\u1ee5 t\u1eeb Supabase: [{'madichvu': 1, 'tendichvu': 'B\u1eefa sáng', 'giadichvu': 150000.0, 'mota': 'Buffet t\u1ef1 ch\u1ecdn', 'hinhanh': 'https://cloud.com/services/breakfast.jpg'}, {'madichvu': 2, 'tendichvu': 'Gi\u1eb7t \u1ee7i', 'giadichvu': 50000.0, 'mota': 'Gi\u1eb7t + s\u1ea5y', 'hinhanh': 'https://cloud.com/services/laundry.jpg'}, {'madichvu': 3, 'tendichvu': 'Massage', 'giadichvu': 300000.0, 'mota': 'Th\u01b0 giãn 60 phút', 'hinhanh': 'https://cloud.com/services/massage.jpg'}]
+2025-10-07 17:01:48,317 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=machitiet%2Cmadatphong%2Cmadichvu%2Csoluong%2Cthanhtien%2Ctrangthaithanhtoan%2Cngaydat%2Cdichvu%28tendichvu%2Cgiadichvu%29%2Cdatphong%28maphong%2Ckhachhang%28hoten%29%29 "HTTP/2 200 OK"
+2025-10-07 17:01:48,318 - INFO - Qu\u1ea3n lý d\u1ecbch v\u1ee5: 3 d\u1ecbch v\u1ee5, 19 chi ti\u1ebft d\u1ecbch v\u1ee5
+2025-10-07 17:01:48,321 - INFO - 127.0.0.1 - - [07/Oct/2025 17:01:48] "GET /employee/services HTTP/1.1" 200 -
+2025-10-07 17:01:50,090 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/dichvu?select=%2A "HTTP/2 200 OK"
+2025-10-07 17:01:50,096 - INFO - Danh sách d\u1ecbch v\u1ee5 t\u1eeb Supabase: [{'madichvu': 1, 'tendichvu': 'B\u1eefa sáng', 'giadichvu': 150000.0, 'mota': 'Buffet t\u1ef1 ch\u1ecdn', 'hinhanh': 'https://cloud.com/services/breakfast.jpg'}, {'madichvu': 2, 'tendichvu': 'Gi\u1eb7t \u1ee7i', 'giadichvu': 50000.0, 'mota': 'Gi\u1eb7t + s\u1ea5y', 'hinhanh': 'https://cloud.com/services/laundry.jpg'}, {'madichvu': 3, 'tendichvu': 'Massage', 'giadichvu': 300000.0, 'mota': 'Th\u01b0 giãn 60 phút', 'hinhanh': 'https://cloud.com/services/massage.jpg'}]
+2025-10-07 17:01:50,305 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=machitiet%2Cmadatphong%2Cmadichvu%2Csoluong%2Cthanhtien%2Ctrangthaithanhtoan%2Cngaydat%2Cdichvu%28tendichvu%2Cgiadichvu%29%2Cdatphong%28maphong%2Ckhachhang%28hoten%29%29 "HTTP/2 200 OK"
+2025-10-07 17:01:50,309 - INFO - Qu\u1ea3n lý d\u1ecbch v\u1ee5: 3 d\u1ecbch v\u1ee5, 19 chi ti\u1ebft d\u1ecbch v\u1ee5
+2025-10-07 17:01:50,309 - INFO - 127.0.0.1 - - [07/Oct/2025 17:01:50] "GET /employee/services HTTP/1.1" 200 -
+2025-10-07 17:01:51,540 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/khachhang?select=%2A%2Choadon%28count%29 "HTTP/2 200 OK"
+2025-10-07 17:01:51,556 - INFO - L\u1ea5y danh sách khách hàng: 13 khách hàng
+2025-10-07 17:01:51,557 - INFO - 127.0.0.1 - - [07/Oct/2025 17:01:51] "GET /employee/customers HTTP/1.1" 200 -
+2025-10-07 17:02:07,986 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/khachhang?select=%2A%2Choadon%28count%29 "HTTP/2 200 OK"
+2025-10-07 17:02:07,989 - INFO - L\u1ea5y danh sách khách hàng: 13 khách hàng
+2025-10-07 17:02:07,990 - INFO - 127.0.0.1 - - [07/Oct/2025 17:02:07] "GET /employee/customers HTTP/1.1" 200 -
+2025-10-07 17:02:08,979 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/dichvu?select=%2A "HTTP/2 200 OK"
+2025-10-07 17:02:08,982 - INFO - Danh sách d\u1ecbch v\u1ee5 t\u1eeb Supabase: [{'madichvu': 1, 'tendichvu': 'B\u1eefa sáng', 'giadichvu': 150000.0, 'mota': 'Buffet t\u1ef1 ch\u1ecdn', 'hinhanh': 'https://cloud.com/services/breakfast.jpg'}, {'madichvu': 2, 'tendichvu': 'Gi\u1eb7t \u1ee7i', 'giadichvu': 50000.0, 'mota': 'Gi\u1eb7t + s\u1ea5y', 'hinhanh': 'https://cloud.com/services/laundry.jpg'}, {'madichvu': 3, 'tendichvu': 'Massage', 'giadichvu': 300000.0, 'mota': 'Th\u01b0 giãn 60 phút', 'hinhanh': 'https://cloud.com/services/massage.jpg'}]
+2025-10-07 17:02:09,183 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=machitiet%2Cmadatphong%2Cmadichvu%2Csoluong%2Cthanhtien%2Ctrangthaithanhtoan%2Cngaydat%2Cdichvu%28tendichvu%2Cgiadichvu%29%2Cdatphong%28maphong%2Ckhachhang%28hoten%29%29 "HTTP/2 200 OK"
+2025-10-07 17:02:09,184 - INFO - Qu\u1ea3n lý d\u1ecbch v\u1ee5: 3 d\u1ecbch v\u1ee5, 19 chi ti\u1ebft d\u1ecbch v\u1ee5
+2025-10-07 17:02:09,185 - INFO - 127.0.0.1 - - [07/Oct/2025 17:02:09] "GET /employee/services HTTP/1.1" 200 -
+2025-10-07 17:02:33,275 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/khachhang?select=%2A%2Choadon%28count%29 "HTTP/2 200 OK"
+2025-10-07 17:02:33,277 - INFO - L\u1ea5y danh sách khách hàng: 13 khách hàng
+2025-10-07 17:02:33,278 - INFO - 127.0.0.1 - - [07/Oct/2025 17:02:33] "GET /employee/customers HTTP/1.1" 200 -
+2025-10-07 17:03:11,788 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/khachhang?select=%2A%2Choadon%28count%29 "HTTP/2 200 OK"
+2025-10-07 17:03:11,792 - INFO - L\u1ea5y danh sách khách hàng: 13 khách hàng
+2025-10-07 17:03:11,806 - INFO - 127.0.0.1 - - [07/Oct/2025 17:03:11] "GET /employee/customers HTTP/1.1" 200 -
+2025-10-07 17:03:16,727 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/khachhang?select=%2A%2Choadon%28count%29 "HTTP/2 200 OK"
+2025-10-07 17:03:16,730 - INFO - L\u1ea5y danh sách khách hàng: 13 khách hàng
+2025-10-07 17:03:16,749 - INFO - 127.0.0.1 - - [07/Oct/2025 17:03:16] "GET /employee/customers HTTP/1.1" 200 -
+2025-10-07 17:03:23,081 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/dichvu?select=%2A "HTTP/2 200 OK"
+2025-10-07 17:03:23,083 - INFO - Danh sách d\u1ecbch v\u1ee5 t\u1eeb Supabase: [{'madichvu': 1, 'tendichvu': 'B\u1eefa sáng', 'giadichvu': 150000.0, 'mota': 'Buffet t\u1ef1 ch\u1ecdn', 'hinhanh': 'https://cloud.com/services/breakfast.jpg'}, {'madichvu': 2, 'tendichvu': 'Gi\u1eb7t \u1ee7i', 'giadichvu': 50000.0, 'mota': 'Gi\u1eb7t + s\u1ea5y', 'hinhanh': 'https://cloud.com/services/laundry.jpg'}, {'madichvu': 3, 'tendichvu': 'Massage', 'giadichvu': 300000.0, 'mota': 'Th\u01b0 giãn 60 phút', 'hinhanh': 'https://cloud.com/services/massage.jpg'}]
+2025-10-07 17:03:23,312 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=machitiet%2Cmadatphong%2Cmadichvu%2Csoluong%2Cthanhtien%2Ctrangthaithanhtoan%2Cngaydat%2Cdichvu%28tendichvu%2Cgiadichvu%29%2Cdatphong%28maphong%2Ckhachhang%28hoten%29%29 "HTTP/2 200 OK"
+2025-10-07 17:03:23,313 - INFO - Qu\u1ea3n lý d\u1ecbch v\u1ee5: 3 d\u1ecbch v\u1ee5, 19 chi ti\u1ebft d\u1ecbch v\u1ee5
+2025-10-07 17:03:23,315 - INFO - 127.0.0.1 - - [07/Oct/2025 17:03:23] "GET /employee/services HTTP/1.1" 200 -
+2025-10-07 17:03:25,318 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/khachhang?select=%2A%2Choadon%28count%29 "HTTP/2 200 OK"
+2025-10-07 17:03:25,323 - INFO - L\u1ea5y danh sách khách hàng: 13 khách hàng
+2025-10-07 17:03:25,324 - INFO - 127.0.0.1 - - [07/Oct/2025 17:03:25] "GET /employee/customers HTTP/1.1" 200 -
+2025-10-07 17:03:30,804 - INFO - 127.0.0.1 - - [07/Oct/2025 17:03:30] "GET /employee/search-room HTTP/1.1" 200 -
+2025-10-07 17:03:34,437 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/khachhang?select=%2A%2Choadon%28count%29 "HTTP/2 200 OK"
+2025-10-07 17:03:34,442 - INFO - L\u1ea5y danh sách khách hàng: 13 khách hàng
+2025-10-07 17:03:34,444 - INFO - 127.0.0.1 - - [07/Oct/2025 17:03:34] "GET /employee/customers HTTP/1.1" 200 -
+2025-10-07 17:03:45,671 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/khachhang?select=%2A%2Choadon%28count%29 "HTTP/2 200 OK"
+2025-10-07 17:03:45,697 - INFO - L\u1ea5y danh sách khách hàng: 13 khách hàng
+2025-10-07 17:03:45,706 - INFO - 127.0.0.1 - - [07/Oct/2025 17:03:45] "GET /employee/customers HTTP/1.1" 200 -
+2025-10-07 17:03:46,860 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/dichvu?select=%2A "HTTP/2 200 OK"
+2025-10-07 17:03:46,863 - INFO - Danh sách d\u1ecbch v\u1ee5 t\u1eeb Supabase: [{'madichvu': 1, 'tendichvu': 'B\u1eefa sáng', 'giadichvu': 150000.0, 'mota': 'Buffet t\u1ef1 ch\u1ecdn', 'hinhanh': 'https://cloud.com/services/breakfast.jpg'}, {'madichvu': 2, 'tendichvu': 'Gi\u1eb7t \u1ee7i', 'giadichvu': 50000.0, 'mota': 'Gi\u1eb7t + s\u1ea5y', 'hinhanh': 'https://cloud.com/services/laundry.jpg'}, {'madichvu': 3, 'tendichvu': 'Massage', 'giadichvu': 300000.0, 'mota': 'Th\u01b0 giãn 60 phút', 'hinhanh': 'https://cloud.com/services/massage.jpg'}]
+2025-10-07 17:03:47,075 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=machitiet%2Cmadatphong%2Cmadichvu%2Csoluong%2Cthanhtien%2Ctrangthaithanhtoan%2Cngaydat%2Cdichvu%28tendichvu%2Cgiadichvu%29%2Cdatphong%28maphong%2Ckhachhang%28hoten%29%29 "HTTP/2 200 OK"
+2025-10-07 17:03:47,077 - INFO - Qu\u1ea3n lý d\u1ecbch v\u1ee5: 3 d\u1ecbch v\u1ee5, 19 chi ti\u1ebft d\u1ecbch v\u1ee5
+2025-10-07 17:03:47,078 - INFO - 127.0.0.1 - - [07/Oct/2025 17:03:47] "GET /employee/services HTTP/1.1" 200 -
+2025-10-07 17:03:47,872 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/khachhang?select=%2A%2Choadon%28count%29 "HTTP/2 200 OK"
+2025-10-07 17:03:47,874 - INFO - L\u1ea5y danh sách khách hàng: 13 khách hàng
+2025-10-07 17:03:47,875 - INFO - 127.0.0.1 - - [07/Oct/2025 17:03:47] "GET /employee/customers HTTP/1.1" 200 -
+2025-10-07 17:03:48,789 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=%2A%2Ckhachhang%28hoten%2Csodienthoai%29%2Cphong%28maphong%2Cloaiphong%29&trangthai=eq.%C4%90%C3%A3+check-in "HTTP/2 200 OK"
+2025-10-07 17:03:48,791 - INFO - L\u1ea5y danh sách \u0111\u1eb7t phòng \u0111ã check-in: 1
+2025-10-07 17:03:48,796 - INFO - 127.0.0.1 - - [07/Oct/2025 17:03:48] "GET /employee/checkout HTTP/1.1" 200 -
+2025-10-07 17:04:11,609 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=%2A%2Ckhachhang%28hoten%2Csodienthoai%29%2Cphong%28maphong%2Cloaiphong%29&trangthai=eq.%C4%90%C3%A3+check-in "HTTP/2 200 OK"
+2025-10-07 17:04:11,611 - INFO - L\u1ea5y danh sách \u0111\u1eb7t phòng \u0111ã check-in: 1
+2025-10-07 17:04:11,620 - INFO - 127.0.0.1 - - [07/Oct/2025 17:04:11] "GET /employee/checkout HTTP/1.1" 200 -
+2025-10-07 17:04:13,962 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/hoadon?select=mahoadon%2Ctongtien%2Ctongtien_dichvu%2Cngaylap%2Cdatphong%28madatphong%2Cphong%28maphong%2Cloaiphong%29%2Ckhachhang%28hoten%29%29&order=mahoadon.desc "HTTP/2 200 OK"
+2025-10-07 17:04:13,964 - INFO - paid_bookings count=24; sample={'madatphong': 5, 'mahoadon': 24, 'maphong': 1, 'loaiphong': 'Standard', 'hoten': 'Bùi Anh Minh', 'tongtien_tonghop': 150000.0}
+2025-10-07 17:04:13,972 - INFO - 127.0.0.1 - - [07/Oct/2025 17:04:13] "GET /employee/paid-bookings HTTP/1.1" 200 -
+2025-10-07 17:10:39,587 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/hoadon?select=mahoadon%2Ctongtien%2Ctongtien_dichvu%2Cngaylap%2Cdatphong%28madatphong%2Cphong%28maphong%2Cloaiphong%29%2Ckhachhang%28hoten%29%29&order=mahoadon.desc "HTTP/2 200 OK"
+2025-10-07 17:10:39,591 - INFO - paid_bookings count=24; sample={'madatphong': 5, 'mahoadon': 24, 'maphong': 1, 'loaiphong': 'Standard', 'hoten': 'Bùi Anh Minh', 'tongtien_tonghop': 150000.0}
+2025-10-07 17:10:39,591 - INFO - 127.0.0.1 - - [07/Oct/2025 17:10:39] "GET /employee/paid-bookings HTTP/1.1" 200 -
+2025-10-07 17:11:06,720 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=%2A%2Ckhachhang%28hoten%2Csodienthoai%29%2Cphong%28maphong%2Cloaiphong%29&trangthai=eq.Ch%E1%BB%9D+x%C3%A1c+nh%E1%BA%ADn "HTTP/2 200 OK"
+2025-10-07 17:11:06,725 - INFO - L\u1ea5y danh sách \u0111\u1eb7t phòng: 0 booking(s)
+2025-10-07 17:11:06,737 - INFO - 127.0.0.1 - - [07/Oct/2025 17:11:06] "GET /employee/letan HTTP/1.1" 200 -
+2025-10-07 17:11:09,813 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=madatphong%2Cmaphong%2Cngaynhanphong%2Cngaytraphong%2Ctrangthai%2Ctongtien%2Ckhachhang%28hoten%29%2Cphong%28loaiphong%29&ngaytraphong=lt.2025-10-07&trangthai=neq.%C4%90%C3%A3+tr%E1%BA%A3+ph%C3%B2ng&trangthai=neq.%C4%90%C3%A3+h%E1%BB%A7y "HTTP/2 200 OK"
+2025-10-07 17:11:09,831 - INFO - 127.0.0.1 - - [07/Oct/2025 17:11:09] "GET /employee/auto-checkout HTTP/1.1" 200 -
+2025-10-07 17:11:40,223 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/hoadon?select=mahoadon%2Ctongtien%2Ctongtien_dichvu%2Cngaylap%2Cdatphong%28madatphong%2Cphong%28maphong%2Cloaiphong%29%2Ckhachhang%28hoten%29%29&order=mahoadon.desc "HTTP/2 200 OK"
+2025-10-07 17:11:40,230 - INFO - paid_bookings count=24; sample={'madatphong': 5, 'mahoadon': 24, 'maphong': 1, 'loaiphong': 'Standard', 'hoten': 'Bùi Anh Minh', 'tongtien_tonghop': 150000.0}
+2025-10-07 17:11:40,241 - INFO - 127.0.0.1 - - [07/Oct/2025 17:11:40] "GET /employee/paid-bookings HTTP/1.1" 200 -
+2025-10-07 17:11:43,193 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=madatphong%2Cmaphong%2Cngaynhanphong%2Cngaytraphong%2Ctrangthai%2Ctongtien%2Ckhachhang%28hoten%29%2Cphong%28loaiphong%29&ngaytraphong=lt.2025-10-07&trangthai=neq.%C4%90%C3%A3+tr%E1%BA%A3+ph%C3%B2ng&trangthai=neq.%C4%90%C3%A3+h%E1%BB%A7y "HTTP/2 200 OK"
+2025-10-07 17:11:43,200 - INFO - 127.0.0.1 - - [07/Oct/2025 17:11:43] "GET /employee/auto-checkout HTTP/1.1" 200 -
+2025-10-07 17:11:45,694 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=%2A%2Ckhachhang%28hoten%2Csodienthoai%29%2Cphong%28maphong%2Cloaiphong%29&trangthai=eq.%C4%90%C3%A3+check-in "HTTP/2 200 OK"
+2025-10-07 17:11:45,698 - INFO - L\u1ea5y danh sách \u0111\u1eb7t phòng \u0111ã check-in: 1
+2025-10-07 17:11:45,699 - INFO - 127.0.0.1 - - [07/Oct/2025 17:11:45] "GET /employee/checkout HTTP/1.1" 200 -
+2025-10-07 17:11:49,367 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/khachhang?select=%2A%2Choadon%28count%29 "HTTP/2 200 OK"
+2025-10-07 17:11:49,372 - INFO - L\u1ea5y danh sách khách hàng: 13 khách hàng
+2025-10-07 17:11:49,374 - INFO - 127.0.0.1 - - [07/Oct/2025 17:11:49] "GET /employee/customers HTTP/1.1" 200 -
+2025-10-07 17:11:50,400 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/dichvu?select=%2A "HTTP/2 200 OK"
+2025-10-07 17:11:50,404 - INFO - Danh sách d\u1ecbch v\u1ee5 t\u1eeb Supabase: [{'madichvu': 1, 'tendichvu': 'B\u1eefa sáng', 'giadichvu': 150000.0, 'mota': 'Buffet t\u1ef1 ch\u1ecdn', 'hinhanh': 'https://cloud.com/services/breakfast.jpg'}, {'madichvu': 2, 'tendichvu': 'Gi\u1eb7t \u1ee7i', 'giadichvu': 50000.0, 'mota': 'Gi\u1eb7t + s\u1ea5y', 'hinhanh': 'https://cloud.com/services/laundry.jpg'}, {'madichvu': 3, 'tendichvu': 'Massage', 'giadichvu': 300000.0, 'mota': 'Th\u01b0 giãn 60 phút', 'hinhanh': 'https://cloud.com/services/massage.jpg'}]
+2025-10-07 17:11:50,616 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=machitiet%2Cmadatphong%2Cmadichvu%2Csoluong%2Cthanhtien%2Ctrangthaithanhtoan%2Cngaydat%2Cdichvu%28tendichvu%2Cgiadichvu%29%2Cdatphong%28maphong%2Ckhachhang%28hoten%29%29 "HTTP/2 200 OK"
+2025-10-07 17:11:50,619 - INFO - Qu\u1ea3n lý d\u1ecbch v\u1ee5: 3 d\u1ecbch v\u1ee5, 19 chi ti\u1ebft d\u1ecbch v\u1ee5
+2025-10-07 17:11:50,622 - INFO - 127.0.0.1 - - [07/Oct/2025 17:11:50] "GET /employee/services HTTP/1.1" 200 -
+2025-10-07 17:11:51,302 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/hoadon?select=mahoadon%2Ctongtien%2Ctongtien_dichvu%2Cngaylap%2Cdatphong%28madatphong%2Cphong%28maphong%2Cloaiphong%29%2Ckhachhang%28hoten%29%29&order=mahoadon.desc "HTTP/2 200 OK"
+2025-10-07 17:11:51,313 - INFO - paid_bookings count=24; sample={'madatphong': 5, 'mahoadon': 24, 'maphong': 1, 'loaiphong': 'Standard', 'hoten': 'Bùi Anh Minh', 'tongtien_tonghop': 150000.0}
+2025-10-07 17:11:51,315 - INFO - 127.0.0.1 - - [07/Oct/2025 17:11:51] "GET /employee/paid-bookings HTTP/1.1" 200 -
+2025-10-07 17:14:55,435 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/hoadon?select=mahoadon%2Ctongtien%2Ctongtien_dichvu%2Cngaylap%2Cdatphong%28madatphong%2Cphong%28maphong%2Cloaiphong%29%2Ckhachhang%28hoten%29%29&order=mahoadon.desc "HTTP/2 200 OK"
+2025-10-07 17:14:55,437 - INFO - paid_bookings count=24; sample={'madatphong': 5, 'mahoadon': 24, 'maphong': 1, 'loaiphong': 'Standard', 'hoten': 'Bùi Anh Minh', 'tongtien_tonghop': 150000.0}
+2025-10-07 17:14:55,455 - INFO - 127.0.0.1 - - [07/Oct/2025 17:14:55] "GET /employee/paid-bookings HTTP/1.1" 200 -
+2025-10-07 17:14:56,707 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=%2A%2Ckhachhang%28hoten%2Csodienthoai%29%2Cphong%28maphong%2Cloaiphong%29&trangthai=eq.%C4%90%C3%A3+check-in "HTTP/2 200 OK"
+2025-10-07 17:14:56,709 - INFO - L\u1ea5y danh sách \u0111\u1eb7t phòng \u0111ã check-in: 1
+2025-10-07 17:14:56,710 - INFO - 127.0.0.1 - - [07/Oct/2025 17:14:56] "GET /employee/checkout HTTP/1.1" 200 -
+2025-10-07 17:14:57,700 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/hoadon?select=mahoadon%2Ctongtien%2Ctongtien_dichvu%2Cngaylap%2Cdatphong%28madatphong%2Cphong%28maphong%2Cloaiphong%29%2Ckhachhang%28hoten%29%29&order=mahoadon.desc "HTTP/2 200 OK"
+2025-10-07 17:14:57,702 - INFO - paid_bookings count=24; sample={'madatphong': 5, 'mahoadon': 24, 'maphong': 1, 'loaiphong': 'Standard', 'hoten': 'Bùi Anh Minh', 'tongtien_tonghop': 150000.0}
+2025-10-07 17:14:57,704 - INFO - 127.0.0.1 - - [07/Oct/2025 17:14:57] "GET /employee/paid-bookings HTTP/1.1" 200 -
+2025-10-07 17:14:58,629 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=%2A%2Ckhachhang%28hoten%2Csodienthoai%29%2Cphong%28maphong%2Cloaiphong%29&trangthai=eq.%C4%90%C3%A3+check-in "HTTP/2 200 OK"
+2025-10-07 17:14:58,637 - INFO - L\u1ea5y danh sách \u0111\u1eb7t phòng \u0111ã check-in: 1
+2025-10-07 17:14:58,638 - INFO - 127.0.0.1 - - [07/Oct/2025 17:14:58] "GET /employee/checkout HTTP/1.1" 200 -
+2025-10-07 17:14:59,609 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/hoadon?select=mahoadon%2Ctongtien%2Ctongtien_dichvu%2Cngaylap%2Cdatphong%28madatphong%2Cphong%28maphong%2Cloaiphong%29%2Ckhachhang%28hoten%29%29&order=mahoadon.desc "HTTP/2 200 OK"
+2025-10-07 17:14:59,615 - INFO - paid_bookings count=24; sample={'madatphong': 5, 'mahoadon': 24, 'maphong': 1, 'loaiphong': 'Standard', 'hoten': 'Bùi Anh Minh', 'tongtien_tonghop': 150000.0}
+2025-10-07 17:14:59,618 - INFO - 127.0.0.1 - - [07/Oct/2025 17:14:59] "GET /employee/paid-bookings HTTP/1.1" 200 -
+2025-10-07 17:15:00,830 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=%2A%2Ckhachhang%28hoten%2Csodienthoai%29%2Cphong%28maphong%2Cloaiphong%29&trangthai=eq.%C4%90%C3%A3+check-in "HTTP/2 200 OK"
+2025-10-07 17:15:00,834 - INFO - L\u1ea5y danh sách \u0111\u1eb7t phòng \u0111ã check-in: 1
+2025-10-07 17:15:00,835 - INFO - 127.0.0.1 - - [07/Oct/2025 17:15:00] "GET /employee/checkout HTTP/1.1" 200 -
+2025-10-07 17:15:01,753 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/hoadon?select=mahoadon%2Ctongtien%2Ctongtien_dichvu%2Cngaylap%2Cdatphong%28madatphong%2Cphong%28maphong%2Cloaiphong%29%2Ckhachhang%28hoten%29%29&order=mahoadon.desc "HTTP/2 200 OK"
+2025-10-07 17:15:01,770 - INFO - paid_bookings count=24; sample={'madatphong': 5, 'mahoadon': 24, 'maphong': 1, 'loaiphong': 'Standard', 'hoten': 'Bùi Anh Minh', 'tongtien_tonghop': 150000.0}
+2025-10-07 17:15:01,772 - INFO - 127.0.0.1 - - [07/Oct/2025 17:15:01] "GET /employee/paid-bookings HTTP/1.1" 200 -
+2025-10-07 17:16:33,940 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/hoadon?select=mahoadon%2Ctongtien%2Ctongtien_dichvu%2Cngaylap%2Cdatphong%28madatphong%2Cphong%28maphong%2Cloaiphong%29%2Ckhachhang%28hoten%29%29&order=mahoadon.desc "HTTP/2 200 OK"
+2025-10-07 17:16:33,945 - INFO - paid_bookings count=24; sample={'madatphong': 5, 'mahoadon': 24, 'maphong': 1, 'loaiphong': 'Standard', 'hoten': 'Bùi Anh Minh', 'tongtien_tonghop': 150000.0}
+2025-10-07 17:16:33,955 - INFO - 127.0.0.1 - - [07/Oct/2025 17:16:33] "GET /employee/paid-bookings HTTP/1.1" 200 -
+2025-10-07 17:16:35,337 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=%2A%2Ckhachhang%28hoten%2Csodienthoai%29%2Cphong%28maphong%2Cloaiphong%29&trangthai=eq.%C4%90%C3%A3+check-in "HTTP/2 200 OK"
+2025-10-07 17:16:35,355 - INFO - L\u1ea5y danh sách \u0111\u1eb7t phòng \u0111ã check-in: 1
+2025-10-07 17:16:35,355 - INFO - 127.0.0.1 - - [07/Oct/2025 17:16:35] "GET /employee/checkout HTTP/1.1" 200 -
+2025-10-07 17:16:36,728 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=%2A%2Ckhachhang%28hoten%2Csodienthoai%29%2Cphong%28maphong%2Cloaiphong%29&trangthai=eq.%C4%90%C3%A3+check-in "HTTP/2 200 OK"
+2025-10-07 17:16:36,733 - INFO - L\u1ea5y danh sách \u0111\u1eb7t phòng \u0111ã check-in: 1
+2025-10-07 17:16:36,735 - INFO - 127.0.0.1 - - [07/Oct/2025 17:16:36] "GET /employee/checkout HTTP/1.1" 200 -
+2025-10-07 17:16:39,066 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=madatphong%2Cmaphong%2Cngaynhanphong%2Cngaytraphong%2Ctrangthai%2Ctongtien%2Ckhachhang%28hoten%29%2Cphong%28loaiphong%29&ngaytraphong=lt.2025-10-07&trangthai=neq.%C4%90%C3%A3+tr%E1%BA%A3+ph%C3%B2ng&trangthai=neq.%C4%90%C3%A3+h%E1%BB%A7y "HTTP/2 200 OK"
+2025-10-07 17:16:39,071 - INFO - 127.0.0.1 - - [07/Oct/2025 17:16:39] "GET /employee/auto-checkout HTTP/1.1" 200 -
+2025-10-07 17:16:41,800 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/hoadon?select=mahoadon%2Ctongtien%2Ctongtien_dichvu%2Cngaylap%2Cdatphong%28madatphong%2Cphong%28maphong%2Cloaiphong%29%2Ckhachhang%28hoten%29%29&order=mahoadon.desc "HTTP/2 200 OK"
+2025-10-07 17:16:41,804 - INFO - paid_bookings count=24; sample={'madatphong': 5, 'mahoadon': 24, 'maphong': 1, 'loaiphong': 'Standard', 'hoten': 'Bùi Anh Minh', 'tongtien_tonghop': 150000.0}
+2025-10-07 17:16:41,805 - INFO - 127.0.0.1 - - [07/Oct/2025 17:16:41] "GET /employee/paid-bookings HTTP/1.1" 200 -
+2025-10-07 17:16:48,654 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=%2A%2Ckhachhang%28hoten%2Csodienthoai%29%2Cphong%28maphong%2Cloaiphong%29&trangthai=eq.Ch%E1%BB%9D+x%C3%A1c+nh%E1%BA%ADn "HTTP/2 200 OK"
+2025-10-07 17:16:48,750 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=%2A%2Ckhachhang%28hoten%2Csodienthoai%29%2Cphong%28maphong%2Cloaiphong%29&trangthai=eq.%C4%90%C3%A3+x%C3%A1c+nh%E1%BA%ADn "HTTP/2 200 OK"
+2025-10-07 17:16:48,889 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=%2A%2Ckhachhang%28hoten%2Csodienthoai%29%2Cphong%28maphong%2Cloaiphong%29 "HTTP/2 200 OK"
+2025-10-07 17:16:48,892 - INFO - Qu\u1ea3n lý \u0111\u1eb7t phòng: 0 ch\u1edd xác nh\u1eadn, 0 \u0111ã xác nh\u1eadn
+2025-10-07 17:16:48,895 - INFO - 127.0.0.1 - - [07/Oct/2025 17:16:48] "GET /employee/booking HTTP/1.1" 200 -
+2025-10-07 17:16:51,204 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/hoadon?select=mahoadon%2Ctongtien%2Ctongtien_dichvu%2Cngaylap%2Cdatphong%28madatphong%2Cphong%28maphong%2Cloaiphong%29%2Ckhachhang%28hoten%29%29&order=mahoadon.desc "HTTP/2 200 OK"
+2025-10-07 17:16:51,209 - INFO - paid_bookings count=24; sample={'madatphong': 5, 'mahoadon': 24, 'maphong': 1, 'loaiphong': 'Standard', 'hoten': 'Bùi Anh Minh', 'tongtien_tonghop': 150000.0}
+2025-10-07 17:16:51,211 - INFO - 127.0.0.1 - - [07/Oct/2025 17:16:51] "GET /employee/paid-bookings HTTP/1.1" 200 -
+2025-10-07 17:18:30,540 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/hoadon?select=mahoadon%2Ctongtien%2Ctongtien_dichvu%2Cngaylap%2Cdatphong%28madatphong%2Cphong%28maphong%2Cloaiphong%29%2Ckhachhang%28hoten%29%29&order=mahoadon.desc "HTTP/2 200 OK"
+2025-10-07 17:18:30,542 - INFO - paid_bookings count=24; sample={'madatphong': 5, 'mahoadon': 24, 'maphong': 1, 'loaiphong': 'Standard', 'hoten': 'Bùi Anh Minh', 'tongtien_tonghop': 150000.0}
+2025-10-07 17:18:30,548 - INFO - 127.0.0.1 - - [07/Oct/2025 17:18:30] "GET /employee/paid-bookings HTTP/1.1" 200 -
+2025-10-07 17:18:31,989 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=%2A%2Ckhachhang%28hoten%2Csodienthoai%29%2Cphong%28maphong%2Cloaiphong%29&trangthai=eq.%C4%90%C3%A3+check-in "HTTP/2 200 OK"
+2025-10-07 17:18:31,991 - INFO - L\u1ea5y danh sách \u0111\u1eb7t phòng \u0111ã check-in: 1
+2025-10-07 17:18:31,992 - INFO - 127.0.0.1 - - [07/Oct/2025 17:18:31] "GET /employee/checkout HTTP/1.1" 200 -
+2025-10-07 17:18:32,983 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/khachhang?select=%2A%2Choadon%28count%29 "HTTP/2 200 OK"
+2025-10-07 17:18:32,987 - INFO - L\u1ea5y danh sách khách hàng: 13 khách hàng
+2025-10-07 17:18:32,987 - INFO - 127.0.0.1 - - [07/Oct/2025 17:18:32] "GET /employee/customers HTTP/1.1" 200 -
+2025-10-07 17:18:33,598 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/hoadon?select=mahoadon%2Ctongtien%2Ctongtien_dichvu%2Cngaylap%2Cdatphong%28madatphong%2Cphong%28maphong%2Cloaiphong%29%2Ckhachhang%28hoten%29%29&order=mahoadon.desc "HTTP/2 200 OK"
+2025-10-07 17:18:33,603 - INFO - paid_bookings count=24; sample={'madatphong': 5, 'mahoadon': 24, 'maphong': 1, 'loaiphong': 'Standard', 'hoten': 'Bùi Anh Minh', 'tongtien_tonghop': 150000.0}
+2025-10-07 17:18:33,604 - INFO - 127.0.0.1 - - [07/Oct/2025 17:18:33] "GET /employee/paid-bookings HTTP/1.1" 200 -
+2025-10-07 17:19:37,129 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/hoadon?select=mahoadon%2Ctongtien%2Ctongtien_dichvu%2Cngaylap%2Cdatphong%28madatphong%2Cphong%28maphong%2Cloaiphong%29%2Ckhachhang%28hoten%29%29&order=mahoadon.desc "HTTP/2 200 OK"
+2025-10-07 17:19:37,131 - INFO - paid_bookings count=24; sample={'madatphong': 5, 'mahoadon': 24, 'maphong': 1, 'loaiphong': 'Standard', 'hoten': 'Bùi Anh Minh', 'tongtien_tonghop': 150000.0}
+2025-10-07 17:19:37,161 - INFO - 127.0.0.1 - - [07/Oct/2025 17:19:37] "GET /employee/paid-bookings HTTP/1.1" 200 -
+2025-10-07 17:19:38,894 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=%2A%2Ckhachhang%28hoten%2Csodienthoai%29%2Cphong%28maphong%2Cloaiphong%29&trangthai=eq.%C4%90%C3%A3+check-in "HTTP/2 200 OK"
+2025-10-07 17:19:38,897 - INFO - L\u1ea5y danh sách \u0111\u1eb7t phòng \u0111ã check-in: 1
+2025-10-07 17:19:38,897 - INFO - 127.0.0.1 - - [07/Oct/2025 17:19:38] "GET /employee/checkout HTTP/1.1" 200 -
+2025-10-07 17:20:20,219 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=%2A%2Ckhachhang%28hoten%2Csodienthoai%29%2Cphong%28maphong%2Cloaiphong%29&trangthai=eq.%C4%90%C3%A3+check-in "HTTP/2 200 OK"
+2025-10-07 17:20:20,223 - INFO - L\u1ea5y danh sách \u0111\u1eb7t phòng \u0111ã check-in: 1
+2025-10-07 17:20:20,223 - INFO - 127.0.0.1 - - [07/Oct/2025 17:20:20] "GET /employee/checkout HTTP/1.1" 200 -
+2025-10-07 17:20:21,050 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/hoadon?select=mahoadon%2Ctongtien%2Ctongtien_dichvu%2Cngaylap%2Cdatphong%28madatphong%2Cphong%28maphong%2Cloaiphong%29%2Ckhachhang%28hoten%29%29&order=mahoadon.desc "HTTP/2 200 OK"
+2025-10-07 17:20:21,053 - INFO - paid_bookings count=24; sample={'madatphong': 5, 'mahoadon': 24, 'maphong': 1, 'loaiphong': 'Standard', 'hoten': 'Bùi Anh Minh', 'tongtien_tonghop': 150000.0}
+2025-10-07 17:20:21,063 - INFO - 127.0.0.1 - - [07/Oct/2025 17:20:21] "GET /employee/paid-bookings HTTP/1.1" 200 -
+2025-10-07 17:20:22,502 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/hoadon?select=mahoadon%2Ctongtien%2Ctongtien_dichvu%2Cngaylap%2Cdatphong%28madatphong%2Cphong%28maphong%2Cloaiphong%29%2Ckhachhang%28hoten%29%29&order=mahoadon.desc "HTTP/2 200 OK"
+2025-10-07 17:20:22,506 - INFO - paid_bookings count=24; sample={'madatphong': 5, 'mahoadon': 24, 'maphong': 1, 'loaiphong': 'Standard', 'hoten': 'Bùi Anh Minh', 'tongtien_tonghop': 150000.0}
+2025-10-07 17:20:22,510 - INFO - 127.0.0.1 - - [07/Oct/2025 17:20:22] "GET /employee/paid-bookings HTTP/1.1" 200 -
+2025-10-07 17:20:23,906 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/khachhang?select=%2A%2Choadon%28count%29 "HTTP/2 200 OK"
+2025-10-07 17:20:23,911 - INFO - L\u1ea5y danh sách khách hàng: 13 khách hàng
+2025-10-07 17:20:23,912 - INFO - 127.0.0.1 - - [07/Oct/2025 17:20:23] "GET /employee/customers HTTP/1.1" 200 -
+2025-10-07 17:20:46,940 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=%2A%2Ckhachhang%28hoten%2Csodienthoai%29%2Cphong%28maphong%2Cloaiphong%29&trangthai=eq.Ch%E1%BB%9D+x%C3%A1c+nh%E1%BA%ADn "HTTP/2 200 OK"
+2025-10-07 17:20:47,069 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=%2A%2Ckhachhang%28hoten%2Csodienthoai%29%2Cphong%28maphong%2Cloaiphong%29&trangthai=eq.%C4%90%C3%A3+x%C3%A1c+nh%E1%BA%ADn "HTTP/2 200 OK"
+2025-10-07 17:20:47,235 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=%2A%2Ckhachhang%28hoten%2Csodienthoai%29%2Cphong%28maphong%2Cloaiphong%29 "HTTP/2 200 OK"
+2025-10-07 17:20:47,237 - INFO - Qu\u1ea3n lý \u0111\u1eb7t phòng: 0 ch\u1edd xác nh\u1eadn, 0 \u0111ã xác nh\u1eadn
+2025-10-07 17:20:47,238 - INFO - 127.0.0.1 - - [07/Oct/2025 17:20:47] "GET /employee/booking HTTP/1.1" 200 -
+2025-10-07 17:20:48,344 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=%2A%2Ckhachhang%28hoten%2Csodienthoai%29%2Cphong%28maphong%2Cloaiphong%29&trangthai=eq.%C4%90%C3%A3+thanh+to%C3%A1n "HTTP/2 200 OK"
+2025-10-07 17:20:48,348 - INFO - L\u1ea5y danh sách \u0111\u1eb7t phòng \u0111ã thanh toán: 0
+2025-10-07 17:20:48,349 - INFO - 127.0.0.1 - - [07/Oct/2025 17:20:48] "GET /employee/checkin HTTP/1.1" 200 -
+2025-10-07 17:20:48,830 - INFO - 127.0.0.1 - - [07/Oct/2025 17:20:48] "GET /employee/search-room HTTP/1.1" 200 -
+2025-10-07 17:20:49,634 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/dichvu?select=%2A "HTTP/2 200 OK"
+2025-10-07 17:20:49,639 - INFO - Danh sách d\u1ecbch v\u1ee5 t\u1eeb Supabase: [{'madichvu': 1, 'tendichvu': 'B\u1eefa sáng', 'giadichvu': 150000.0, 'mota': 'Buffet t\u1ef1 ch\u1ecdn', 'hinhanh': 'https://cloud.com/services/breakfast.jpg'}, {'madichvu': 2, 'tendichvu': 'Gi\u1eb7t \u1ee7i', 'giadichvu': 50000.0, 'mota': 'Gi\u1eb7t + s\u1ea5y', 'hinhanh': 'https://cloud.com/services/laundry.jpg'}, {'madichvu': 3, 'tendichvu': 'Massage', 'giadichvu': 300000.0, 'mota': 'Th\u01b0 giãn 60 phút', 'hinhanh': 'https://cloud.com/services/massage.jpg'}]
+2025-10-07 17:20:49,852 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/chitietdichvu?select=machitiet%2Cmadatphong%2Cmadichvu%2Csoluong%2Cthanhtien%2Ctrangthaithanhtoan%2Cngaydat%2Cdichvu%28tendichvu%2Cgiadichvu%29%2Cdatphong%28maphong%2Ckhachhang%28hoten%29%29 "HTTP/2 200 OK"
+2025-10-07 17:20:49,853 - INFO - Qu\u1ea3n lý d\u1ecbch v\u1ee5: 3 d\u1ecbch v\u1ee5, 19 chi ti\u1ebft d\u1ecbch v\u1ee5
+2025-10-07 17:20:49,854 - INFO - 127.0.0.1 - - [07/Oct/2025 17:20:49] "GET /employee/services HTTP/1.1" 200 -
+2025-10-07 17:20:50,232 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/khachhang?select=%2A%2Choadon%28count%29 "HTTP/2 200 OK"
+2025-10-07 17:20:50,235 - INFO - L\u1ea5y danh sách khách hàng: 13 khách hàng
+2025-10-07 17:20:50,236 - INFO - 127.0.0.1 - - [07/Oct/2025 17:20:50] "GET /employee/customers HTTP/1.1" 200 -
+2025-10-07 17:20:50,884 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=%2A%2Ckhachhang%28hoten%2Csodienthoai%29%2Cphong%28maphong%2Cloaiphong%29&trangthai=eq.%C4%90%C3%A3+check-in "HTTP/2 200 OK"
+2025-10-07 17:20:50,887 - INFO - L\u1ea5y danh sách \u0111\u1eb7t phòng \u0111ã check-in: 1
+2025-10-07 17:20:50,887 - INFO - 127.0.0.1 - - [07/Oct/2025 17:20:50] "GET /employee/checkout HTTP/1.1" 200 -
+2025-10-07 17:20:51,550 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/hoadon?select=mahoadon%2Ctongtien%2Ctongtien_dichvu%2Cngaylap%2Cdatphong%28madatphong%2Cphong%28maphong%2Cloaiphong%29%2Ckhachhang%28hoten%29%29&order=mahoadon.desc "HTTP/2 200 OK"
+2025-10-07 17:20:51,550 - INFO - paid_bookings count=24; sample={'madatphong': 5, 'mahoadon': 24, 'maphong': 1, 'loaiphong': 'Standard', 'hoten': 'Bùi Anh Minh', 'tongtien_tonghop': 150000.0}
+2025-10-07 17:20:51,550 - INFO - 127.0.0.1 - - [07/Oct/2025 17:20:51] "GET /employee/paid-bookings HTTP/1.1" 200 -
+2025-10-07 17:20:52,384 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=%2A%2Ckhachhang%28hoten%2Csodienthoai%29%2Cphong%28maphong%2Cloaiphong%29&trangthai=eq.%C4%90%C3%A3+check-in "HTTP/2 200 OK"
+2025-10-07 17:20:52,401 - INFO - L\u1ea5y danh sách \u0111\u1eb7t phòng \u0111ã check-in: 1
+2025-10-07 17:20:52,401 - INFO - 127.0.0.1 - - [07/Oct/2025 17:20:52] "GET /employee/checkout HTTP/1.1" 200 -
+2025-10-07 17:22:20,016 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=madatphong%2Cmaphong%2Cngaynhanphong%2Cngaytraphong%2Ctrangthai%2Ctongtien%2Ckhachhang%28hoten%29%2Cphong%28loaiphong%29&ngaytraphong=lt.2025-10-07&trangthai=neq.%C4%90%C3%A3+tr%E1%BA%A3+ph%C3%B2ng&trangthai=neq.%C4%90%C3%A3+h%E1%BB%A7y "HTTP/2 200 OK"
+2025-10-07 17:22:20,037 - INFO - 127.0.0.1 - - [07/Oct/2025 17:22:20] "GET /employee/auto-checkout HTTP/1.1" 200 -
+2025-10-07 17:22:21,502 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/hoadon?select=mahoadon%2Ctongtien%2Ctongtien_dichvu%2Cngaylap%2Cdatphong%28madatphong%2Cphong%28maphong%2Cloaiphong%29%2Ckhachhang%28hoten%29%29&order=mahoadon.desc "HTTP/2 200 OK"
+2025-10-07 17:22:21,509 - INFO - paid_bookings count=24; sample={'madatphong': 5, 'mahoadon': 24, 'maphong': 1, 'loaiphong': 'Standard', 'hoten': 'Bùi Anh Minh', 'tongtien_tonghop': 150000.0}
+2025-10-07 17:22:21,512 - INFO - 127.0.0.1 - - [07/Oct/2025 17:22:21] "GET /employee/paid-bookings HTTP/1.1" 200 -
+2025-10-07 17:22:22,540 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=madatphong%2Cmaphong%2Cngaynhanphong%2Cngaytraphong%2Ctrangthai%2Ctongtien%2Ckhachhang%28hoten%29%2Cphong%28loaiphong%29&ngaytraphong=lt.2025-10-07&trangthai=neq.%C4%90%C3%A3+tr%E1%BA%A3+ph%C3%B2ng&trangthai=neq.%C4%90%C3%A3+h%E1%BB%A7y "HTTP/2 200 OK"
+2025-10-07 17:22:22,548 - INFO - 127.0.0.1 - - [07/Oct/2025 17:22:22] "GET /employee/auto-checkout HTTP/1.1" 200 -
+2025-10-07 17:22:24,138 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/hoadon?select=mahoadon%2Ctongtien%2Ctongtien_dichvu%2Cngaylap%2Cdatphong%28madatphong%2Cphong%28maphong%2Cloaiphong%29%2Ckhachhang%28hoten%29%29&order=mahoadon.desc "HTTP/2 200 OK"
+2025-10-07 17:22:24,142 - INFO - paid_bookings count=24; sample={'madatphong': 5, 'mahoadon': 24, 'maphong': 1, 'loaiphong': 'Standard', 'hoten': 'Bùi Anh Minh', 'tongtien_tonghop': 150000.0}
+2025-10-07 17:22:24,146 - INFO - 127.0.0.1 - - [07/Oct/2025 17:22:24] "GET /employee/paid-bookings HTTP/1.1" 200 -
+2025-10-07 17:22:25,240 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=madatphong%2Cmaphong%2Cngaynhanphong%2Cngaytraphong%2Ctrangthai%2Ctongtien%2Ckhachhang%28hoten%29%2Cphong%28loaiphong%29&ngaytraphong=lt.2025-10-07&trangthai=neq.%C4%90%C3%A3+tr%E1%BA%A3+ph%C3%B2ng&trangthai=neq.%C4%90%C3%A3+h%E1%BB%A7y "HTTP/2 200 OK"
+2025-10-07 17:22:25,248 - INFO - 127.0.0.1 - - [07/Oct/2025 17:22:25] "GET /employee/auto-checkout HTTP/1.1" 200 -
+2025-10-07 17:22:27,502 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=%2A%2Ckhachhang%28hoten%2Csodienthoai%29%2Cphong%28maphong%2Cloaiphong%29&trangthai=eq.%C4%90%C3%A3+check-in "HTTP/2 200 OK"
+2025-10-07 17:22:27,506 - INFO - L\u1ea5y danh sách \u0111\u1eb7t phòng \u0111ã check-in: 1
+2025-10-07 17:22:27,508 - INFO - 127.0.0.1 - - [07/Oct/2025 17:22:27] "GET /employee/checkout HTTP/1.1" 200 -
+2025-10-07 17:22:58,234 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=%2A%2Ckhachhang%28hoten%2Csodienthoai%29%2Cphong%28maphong%2Cloaiphong%29&trangthai=eq.Ch%E1%BB%9D+x%C3%A1c+nh%E1%BA%ADn "HTTP/2 200 OK"
+2025-10-07 17:22:58,339 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=%2A%2Ckhachhang%28hoten%2Csodienthoai%29%2Cphong%28maphong%2Cloaiphong%29&trangthai=eq.%C4%90%C3%A3+x%C3%A1c+nh%E1%BA%ADn "HTTP/2 200 OK"
+2025-10-07 17:22:58,446 - INFO - HTTP Request: GET https://uaggzmqpvbtrinppmhrc.supabase.co/rest/v1/datphong?select=%2A%2Ckhachhang%28hoten%2Csodienthoai%29%2Cphong%28maphong%2Cloaiphong%29 "HTTP/2 200 OK"
+2025-10-07 17:22:58,449 - INFO - Qu\u1ea3n lý \u0111\u1eb7t phòng: 0 ch\u1edd xác nh\u1eadn, 0 \u0111ã xác nh\u1eadn
+2025-10-07 17:22:58,449 - INFO - 127.0.0.1 - - [07/Oct/2025 17:22:58] "GET /employee/booking HTTP/1.1" 200 -

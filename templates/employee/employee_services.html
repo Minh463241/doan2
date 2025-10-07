@@ -1,57 +1,52 @@
 <!DOCTYPE html>
-<html>
+<html lang="vi">
 <head>
-    <title>Quản lý dịch vụ</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý Dịch Vụ</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        .container { display: flex; }
-        .sidebar { width: 250px; padding: 20px; background-color: #f4f4f4; }
-        .sidebar h3 { margin-bottom: 20px; }
-        .sidebar-menu a { display: block; padding: 10px; margin-bottom: 10px; text-decoration: none; color: #333; }
-        .sidebar-menu a:hover { background-color: #ddd; }
-        .content { flex: 1; padding: 20px; }
-        .tabs { display: flex; gap: 10px; margin-bottom: 20px; }
-        .tab { padding: 10px 20px; cursor: pointer; border: 1px solid #ccc; }
-        .tab.active { background-color: #007bff; color: white; }
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
-        table { width: 100%; border-collapse: collapse; }
-        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
-        th { background-color: #f4f4f4; }
+        .sidebar { height: 100vh; position: fixed; top: 0; left: 0; background-color: #2c3e50; padding-top: 20px; }
+        .sidebar a { color: #ecf0f1; padding: 15px; text-decoration: none; display: block; }
+        .sidebar a:hover { background-color: #34495e; }
+        .content { margin-left: 250px; padding: 20px; }
+        .card-header { background-color: #3498db; color: white; }
+        .table th { background-color: #ecf0f1; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Sidebar -->
-        <div class="sidebar">
-            <h3>Chức năng</h3>
-            <div class="sidebar-menu">
-                <a href="{{ url_for('employee.employee_booking') }}">Quản lý đặt phòng</a>
-                <a href="{{ url_for('employee.employee_services') }}">Quản lý dịch vụ</a>
-                <a href="{{ url_for('employee.employee_customers') }}">Quản lý khách hàng</a>
-                <a href="{{ url_for('employee.search_room') }}">Tìm kiếm phòng theo ngày</a>
+    <div class="sidebar">
+        <h4 class="text-center text-white mb-4">Chức năng</h4>
+        <a href="{{ url_for('employee.employee_booking') }}"><i class="fas fa-calendar-check"></i> Quản lý đặt phòng</a>
+        <a href="{{ url_for('employee.checkin') }}"><i class="fas fa-sign-in-alt"></i> Xác nhận check-in</a>
+        <a href="{{ url_for('employee.search_room') }}"><i class="fas fa-search"></i> Tìm kiếm phòng</a>
+        <a href="{{ url_for('employee.employee_services') }}"><i class="fas fa-concierge-bell"></i> Quản lý dịch vụ</a>
+        <a href="{{ url_for('employee.employee_customers') }}"><i class="fas fa-users"></i> Quản lý khách hàng</a>
+        <a href="{{ url_for('employee.checkout') }}"><i class="fas fa-sign-out-alt"></i> Xác nhận checkout</a>
+        <a href="{{ url_for('employee.paid_bookings') }}" >
+<i class='fas fa-outdent'></i> Phòng Đã Thanh Toán</a>
+        <a href="{{ url_for('employee.employee_auto_checkout') }}" class="text-red-600 font-semibold">
+    <i class="fas fa-clock"></i> Phòng quá hạn cần checkout
+    {% if expired_count and expired_count > 0 %}
+        <span class="ml-1 bg-red-600 text-white px-2 py-0.5 rounded-full text-xs">{{ expired_count }}</span>
+    {% endif %}
+</a>
+    </div>
+
+    <div class="content">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>Quản lý Dịch Vụ</h2>
+            <div>
+                <span>Xin chào, {{ user.hoten }} ({{ user.chucvu }})</span>
+                <a href="{{ url_for('admin.admin_logout') }}" class="btn btn-danger ms-3">Đăng xuất</a>
             </div>
         </div>
-
-        <!-- Content -->
-        <div class="content">
-            <h3>Quản lý dịch vụ</h3>
-            {% with messages = get_flashed_messages(with_categories=true) %}
-                {% if messages %}
-                    {% for category, message in messages %}
-                        <p style="color: {{ 'green' if category == 'success' else 'red' }}">{{ message }}</p>
-                    {% endfor %}
-                {% endif %}
-            {% endwith %}
-
-            <div class="tabs">
-                <div class="tab active" onclick="showTab('services')">Danh sách dịch vụ</div>
-                <div class="tab" onclick="showTab('booked-services')">Dịch vụ đã đặt</div>
-            </div>
-
-            <!-- Danh sách dịch vụ -->
-            <div id="services" class="tab-content active">
-                <h4>Danh sách dịch vụ</h4>
-                <table>
+        <div class="card">
+            <div class="card-header">Danh sách dịch vụ</div>
+            <div class="card-body">
+                {% if services %}
+                <table class="table table-striped">
                     <thead>
                         <tr>
                             <th>Mã dịch vụ</th>
@@ -65,58 +60,110 @@
                         <tr>
                             <td>{{ service.madichvu }}</td>
                             <td>{{ service.tendichvu }}</td>
-                            <td>{{ service.gia }}</td>
+                            <td>{{ service.giadichvu }} VND</td>
                             <td>{{ service.mota }}</td>
-                        </tr>
-                        {% else %}
-                        <tr>
-                            <td colspan="4">Không có dịch vụ nào.</td>
                         </tr>
                         {% endfor %}
                     </tbody>
                 </table>
+                {% else %}
+                <p class="text-center">Không có dịch vụ nào.</p>
+                {% endif %}
             </div>
-
-            <!-- Dịch vụ đã đặt -->
-            <div id="booked-services" class="tab-content">
-                <h4>Dịch vụ đã đặt</h4>
-                <table>
+        </div>
+        <div class="card mt-4">
+            <div class="card-header">Dịch vụ đã đặt</div>
+            <div class="card-body">
+                {% if booked_services %}
+                <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th>Mã đặt dịch vụ</th>
+                            <th>Mã chi tiết</th>
                             <th>Mã đặt phòng</th>
-                            <th>Mã dịch vụ</th>
+                            <th>Dịch vụ</th>
                             <th>Số lượng</th>
+                            <th>Thành tiền</th>
                             <th>Ngày đặt</th>
+                            <th>Phòng</th>
+                            <th>Khách hàng</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {% for booked in booked_services %}
+                        {% for service in booked_services %}
                         <tr>
-                            <td>{{ booked.madatdichvu }}</td>
-                            <td>{{ booked.madatphong }}</td>
-                            <td>{{ booked.madichvu }}</td>
-                            <td>{{ booked.soluong }}</td>
-                            <td>{{ booked.ngaydat }}</td>
-                        </tr>
-                        {% else %}
-                        <tr>
-                            <td colspan="5">Không có dịch vụ nào được đặt.</td>
+                            <td>{{ service.machitiet }}</td>
+                            <td>{{ service.madatphong }}</td>
+                            <td>{{ service.dichvu.tendichvu }}</td>
+                            <td>{{ service.soluong }}</td>
+                            <td>{{ service.thanhtien }} VND</td>
+                            <td>{{ service.ngaydat }}</td> <!-- Cập nhật từ ngayDat thành ngaydat -->
+                            <td>{{ service.datphong.maphong }}</td>
+                            <td>{{ service.datphong.khachhang.hoten }}</td>
                         </tr>
                         {% endfor %}
                     </tbody>
                 </table>
+                {% else %}
+                <p class="text-center">Không có dịch vụ nào đã đặt.</p>
+                {% endif %}
+            </div>
+        </div>
+        <button class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#addServiceModal">Thêm dịch vụ</button>
+
+        <!-- Modal thêm dịch vụ -->
+        <div class="modal fade" id="addServiceModal" tabindex="-1" aria-labelledby="addServiceModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addServiceModalLabel">Thêm dịch vụ</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="addServiceForm">
+                            <div class="mb-3">
+                                <label class="form-label">Mã đặt phòng</label>
+                                <input type="text" class="form-control" id="madatphong" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Mã dịch vụ</label>
+                                <input type="text" class="form-control" id="madichvu" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Số lượng</label>
+                                <input type="number" class="form-control" id="soluong" value="1" min="1" required>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                        <button type="button" class="btn btn-primary" onclick="submitAddService()">Thêm</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
-        function showTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
-            document.getElementById(tabId).classList.add('active');
-            document.querySelector(`[onclick="showTab('${tabId}')"]`).classList.add('active');
+        async function submitAddService() {
+            const data = {
+                madatphong: document.getElementById('madatphong').value,
+                madichvu: document.getElementById('madichvu').value,
+                soluong: parseInt(document.getElementById('soluong').value)
+            };
+            const response = await fetch('/employee/add-service', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+            const result = await response.json();
+            alert(result.message);
+            if (result.success) {
+                $('#addServiceModal').modal('hide');
+                location.reload();
+            }
         }
     </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi tiết nhân viên</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            color: #333;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 0.8s ease;
+        }
+
+        h1 {
+            color: #2c3e50;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+
+        h1:hover {
+            color: #3498db;
+            transform: translateX(5px);
+        }
+
+        .detail-card {
+            background: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+        }
+
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .detail-item:last-child {
+            border-bottom: none;
+        }
+
+        .detail-item span:first-child {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .detail-item span:last-child {
+            color: #7f8c8d;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 10px 20px;
+            background: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(52, 152, 219, 0.3);
+            margin-right: 10px;
+        }
+
+        .btn:hover {
+            background: #2980b9;
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.5);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><i class="fas fa-user-tie"></i> Chi tiết nhân viên: {{ employee.manhanvien }}</h1>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="bg-{{ 'green' if category == 'success' else 'red' }}-100 border border-{{ 'green' if category == 'success' else 'red' }}-400 text-{{ 'green' if category == 'success' else 'red' }}-700 px-4 py-3 rounded relative mb-4">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <div class="detail-card">
+            <div class="detail-item">
+                <span>Họ và tên:</span>
+                <span>{{ employee.hoten or 'Chưa có' }}</span>
+            </div>
+            <div class="detail-item">
+                <span>Chức vụ:</span>
+                <span>{{ employee.chucvu or 'Chưa có' }}</span>
+            </div>
+            <div class="detail-item">
+                <span>Email:</span>
+                <span>{{ employee.email or 'Chưa có' }}</span>
+            </div>
+            <div class="detail-item">
+                <span>Số điện thoại:</span>
+                <span>{{ employee.sodienthoai or 'Chưa có' }}</span>
+            </div>
+            <div class="detail-item">
+                <span>Mật khẩu:</span>
+                <span>{{ '*' * (employee.matkhau | length) if employee.matkhau else 'Chưa có' }}</span>
+            </div>
+        </div>
+
+        <a href="{{ url_for('manager.edit_employee', manv=employee.manhanvien) }}" class="btn"><i class="fas fa-edit"></i> Sửa thông tin</a>
+        <a href="{{ url_for('manager.dashboard') }}#employees" class="btn"><i class="fas fa-arrow-left"></i> Quay lại</a>
+    </div>
+</body>
+</html>
