@@ -238,36 +238,57 @@ def dat_phong():
 # =========================
 @booking_bp.route("/booking_history")
 def booking_history():
-    """Hiển thị lịch sử đặt phòng của khách hàng."""
+    """Hiển thị lịch sử đặt phòng của khách hàng (tối ưu hóa truy vấn Supabase)."""
     try:
-        logger.info(f"Session user: {session.get('user')}")
-        if not session.get("user") or not session.get("user").get("makhachhang"):
+        user = session.get("user")
+        logger.info(f"Session user: {user}")
+
+        if not user or not user.get("makhachhang"):
             flash("Vui lòng đăng nhập để xem lịch sử đặt phòng.", "danger")
             return redirect(url_for("auth.login"))
 
-        makhachhang = session["user"]["makhachhang"]
+        makhachhang = user["makhachhang"]
         logger.info(f"makhachhang: {makhachhang}")
+
+        # 1️⃣ Lấy tất cả đặt phòng của khách hàng
         bookings = (
             supabase
             .from_("datphong")
-            .select("*, phong(loaiphong)")
+            .select("madatphong, ngaynhanphong, ngaytraphong, trangthai, tongtien, phong(loaiphong)")
             .eq("makhachhang", makhachhang)
             .execute()
             .data or []
         )
-        for booking in bookings:
-            services = (
-                supabase
-                .from_("chitietdichvu")
-                .select("*, dichvu(tendichvu)")
-                .eq("madatphong", booking["madatphong"])
-                .execute()
-                .data or []
-            )
-            booking["services"] = services
+
+        if not bookings:
+            return render_template("booking/booking_history.html", bookings=[])
+
+        # 2️⃣ Gom tất cả madatphong để gọi 1 lần
+        booking_ids = [b["madatphong"] for b in bookings]
+
+        # 3️⃣ Lấy toàn bộ chi tiết dịch vụ của các booking
+        services_all = (
+            supabase
+            .from_("chitietdichvu")
+            .select("madatphong, soluong, thanhtien, dichvu(tendichvu)")
+            .in_("madatphong", booking_ids)
+            .execute()
+            .data or []
+        )
+
+        # 4️⃣ Gom dịch vụ theo madatphong
+        from collections import defaultdict
+        services_by_booking = defaultdict(list)
+        for s in services_all:
+            services_by_booking[s["madatphong"]].append(s)
+
+        # 5️⃣ Gắn dịch vụ vào từng booking
+        for b in bookings:
+            b["services"] = services_by_booking.get(b["madatphong"], [])
 
         logger.info(f"Hiển thị lịch sử đặt phòng cho {makhachhang}: {len(bookings)} đơn")
         return render_template("booking/booking_history.html", bookings=bookings)
+
     except Exception as e:
         logger.error(f"Lỗi khi hiển thị lịch sử đặt phòng: {str(e)}", exc_info=True)
         flash("Đã xảy ra lỗi khi tải lịch sử đặt phòng. Vui lòng thử lại.", "danger")
