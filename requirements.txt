@@ -73,3 +73,4 @@ yarl==1.19.0
 psycopg2-binary==2.9.9
 weasyprint==62.3
 bcrypt==4.1.2
+
