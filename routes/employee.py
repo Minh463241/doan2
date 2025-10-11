@@ -621,34 +621,56 @@ def employee_customers():
     user = session.get('user')
     supabase = create_client(Config.SUPABASE_URL, Config.SUPABASE_ANON_KEY)
     customer = None
+    customers = []
+
+    # Nếu tìm kiếm khách hàng theo CCCD
     if request.method == 'POST':
         cccd = request.form.get('cccd')
         if not cccd:
             flash('Vui lòng nhập CCCD!', 'error')
         else:
             try:
-                customer = supabase.table('khachhang')\
-                    .select('*, hoadon(*, datphong(maphong, ngaynhanphong, ngaytraphong))')\
-                    .eq('cccd', cccd).execute().data
-                if not customer:
+                customer_data = supabase.table('khachhang').select('*').eq('cccd', cccd).execute().data
+                if not customer_data:
                     flash('Không tìm thấy khách hàng!', 'error')
                 else:
-                    customer = customer[0]
-                    customer['hoadon_count'] = len(customer['hoadon']) if customer['hoadon'] else 0
+                    customer = customer_data[0]
+                    # Lấy danh sách hóa đơn theo makhachhang
+                    hoadon_data = (
+                        supabase.table('hoadon')
+                        .select('mahoadon, madatphong, datphong(maphong, ngaynhanphong, ngaytraphong)')
+                        .eq('makhachhang', customer['makhachhang'])
+                        .execute()
+                        .data or []
+                    )
+                    customer['hoadon'] = hoadon_data
+                    customer['hoadon_count'] = len(hoadon_data)
             except Exception as e:
                 logger.error(f"Lỗi khi tìm kiếm khách hàng với CCCD {cccd}: {str(e)}")
                 flash('Lỗi khi tìm kiếm khách hàng!', 'error')
 
+    # Lấy toàn bộ danh sách khách hàng và đếm hóa đơn từng người
     try:
-        customers = supabase.table('khachhang').select('*, hoadon(count)').execute().data or []
-        for cust in customers:
-            cust['hoadon_count'] = cust['hoadon']['count'] if cust['hoadon'] and 'count' in cust['hoadon'] else 0
-        logger.info(f"Lấy danh sách khách hàng: {len(customers)} khách hàng")
+        kh_data = supabase.table('khachhang').select('*').execute().data or []
+        for kh in kh_data:
+            hoadon_data = (
+                supabase.table('hoadon')
+                .select('mahoadon')
+                .eq('makhachhang', kh['makhachhang'])
+                .execute()
+                .data or []
+            )
+            hoadon_count = len(hoadon_data)
+            kh['hoadon_count'] = hoadon_count
+            customers.append(kh)
+
+        logger.info(f"Lấy danh sách khách hàng: {len(customers)} khách hàng (đã tính số hóa đơn)")
         return render_template('employee/employee_customers.html', user=user, customers=customers, customer=customer)
     except Exception as e:
         logger.error(f"Lỗi khi lấy danh sách khách hàng: {str(e)}")
         flash('Lỗi khi lấy danh sách khách hàng!', 'error')
         return render_template('employee/employee_customers.html', user=user, customers=[], customer=None)
+
 
 # Route cho tìm kiếm phòng (lễ tân)
 @employee_bp.route('/search-room', methods=['GET', 'POST'])

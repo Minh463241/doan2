@@ -129,7 +129,7 @@
     <header class="sticky top-0 w-full bg-white dark:bg-gray-900 shadow z-20">
   <div class="container mx-auto px-4 py-4 flex items-center justify-between">
     <a href="/" class="flex items-center gap-3">
-      <img src="https://via.placeholder.com/150x50?text=KeiWei+Hotel" alt="KeiWei Hotel Logo" class="h-8 w-auto">
+        
       <span class="hidden sm:inline text-xl font-bold text-blue-700 dark:text-blue-400">KeiWei Hotel</span>
     </a>
 
@@ -371,365 +371,262 @@
     </footer>
 
     <script>
-        // Format prices on page load
-        document.addEventListener('DOMContentLoaded', () => {
-            // Format room prices
-            document.querySelectorAll('[id^="room-price-"]').forEach(element => {
-                const price = parseFloat(element.textContent);
-                if (!isNaN(price)) {
-                    element.textContent = `${price.toLocaleString('vi-VN')} VNĐ/đêm`;
-                }
-            });
-            // Format service prices
-            document.querySelectorAll('.service-item p:nth-child(2)').forEach(element => {
-                const price = parseFloat(element.textContent);
-                if (!isNaN(price)) {
-                    element.textContent = `${price.toLocaleString('vi-VN')} VNĐ`;
-                }
-            });
+    // ====== Format prices ======
+    document.addEventListener('DOMContentLoaded', () => {
+        // Format room prices
+        document.querySelectorAll('[id^="room-price-"]').forEach(element => {
+            const price = parseFloat(element.textContent);
+            if (!isNaN(price)) {
+                element.textContent = `${price.toLocaleString('vi-VN')} VNĐ/đêm`;
+            }
         });
+        // Format service prices
+        document.querySelectorAll('.service-item p:nth-child(2)').forEach(element => {
+            const price = parseFloat(element.textContent);
+            if (!isNaN(price)) {
+                element.textContent = `${price.toLocaleString('vi-VN')} VNĐ`;
+            }
+        });
+    });
 
-        // Dark mode toggle
-        const themeToggle = document.getElementById('theme-toggle');
+    // ====== Dark mode toggle ======
+    const themeToggle = document.getElementById('theme-toggle');
+    if (themeToggle) {
         themeToggle.addEventListener('click', () => {
             document.body.classList.toggle('dark');
-            themeToggle.innerHTML = document.body.classList.contains('dark') ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+            themeToggle.innerHTML = document.body.classList.contains('dark')
+                ? '<i class="fas fa-sun"></i>'
+                : '<i class="fas fa-moon"></i>';
         });
-
-        // Room filter by type
-        const filterButtons = document.querySelectorAll('.filter-btn');
-        const roomCards = document.querySelectorAll('.room-card');
-        let filteredRooms = Array.from(roomCards);
-
-        filterButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const type = button.dataset.type;
-
-                filterButtons.forEach(btn => {
-                    btn.classList.remove('bg-blue-700', 'text-white');
-                    btn.classList.add('bg-gray-200', 'text-gray-900');
-                });
-                button.classList.remove('bg-gray-200', 'text-gray-900');
-                button.classList.add('bg-blue-700', 'text-white');
-
-                filteredRooms = Array.from(roomCards).filter(card => type === 'all' || card.dataset.type === type);
-                updateRoomGrid();
-            });
-        });
-
-        // Update room grid
-        function updateRoomGrid() {
-            roomCards.forEach(card => {
-                if (filteredRooms.includes(card)) {
-                    card.style.display = 'block';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-
-            const visibleRooms = filteredRooms.filter(card => card.style.display !== 'none');
-            document.getElementById('total-rooms').textContent = visibleRooms.length;
-
-            const roomListSection = document.getElementById('room-list');
-            const noRoomsMessage = document.getElementById('no-rooms-message');
-            if (visibleRooms.length === 0) {
-                if (!noRoomsMessage) {
-                    const message = document.createElement('div');
-                    message.id = 'no-rooms-message';
-                    message.className = 'bg-yellow-100 text-yellow-800 p-4 rounded-lg text-center mb-8 fade-in max-w-3xl mx-auto';
-                    message.textContent = 'Không có phòng trống trong khoảng thời gian đã chọn hoặc loại phòng này. Vui lòng thử lại!';
-                    roomListSection.insertAdjacentElement('afterend', message);
-                }
-            } else {
-                if (noRoomsMessage) {
-                    noRoomsMessage.remove();
-                }
-            }
-        }
-
-        // Filter rooms by date
-        // Filter rooms by date
-function filterRooms() {
-    const ngaynhanphong = document.getElementById('ngaynhanphong_filter').value;
-    const ngaytraphong = document.getElementById('ngaytraphong_filter').value;
-
-    if (!ngaynhanphong || !ngaytraphong) {
-        Toastify({
-            text: 'Vui lòng chọn ngày nhận và trả phòng!',
-            duration: 3000,
-            gravity: 'top',
-            position: 'center',
-            backgroundColor: '#e53e3e',
-        }).showToast();
-        return;
     }
 
-    if (new Date(ngaytraphong) <= new Date(ngaynhanphong)) {
-        Toastify({
-            text: 'Ngày trả phòng phải sau ngày nhận phòng!',
-            duration: 3000,
-            gravity: 'top',
-            position: 'center',
-            backgroundColor: '#e53e3e',
-        }).showToast();
-        return;
+    // ====== Room filter ======
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const roomCards = document.querySelectorAll('.room-card');
+    let filteredRooms = Array.from(roomCards);
+
+    function updateRoomGrid() {
+        roomCards.forEach(card => {
+            card.style.display = filteredRooms.includes(card) ? 'block' : 'none';
+        });
+
+        const visibleRooms = filteredRooms.filter(card => card.style.display !== 'none');
+        document.getElementById('total-rooms').textContent = visibleRooms.length;
+
+        const roomListSection = document.getElementById('room-list');
+        const noRoomsMessage = document.getElementById('no-rooms-message');
+        if (visibleRooms.length === 0) {
+            if (!noRoomsMessage) {
+                const message = document.createElement('div');
+                message.id = 'no-rooms-message';
+                message.className =
+                    'bg-yellow-100 text-yellow-800 p-4 rounded-lg text-center mb-8 fade-in max-w-3xl mx-auto';
+                message.textContent =
+                    'Không có phòng trống trong khoảng thời gian đã chọn hoặc loại phòng này. Vui lòng thử lại!';
+                roomListSection.insertAdjacentElement('afterend', message);
+            }
+        } else if (noRoomsMessage) {
+            noRoomsMessage.remove();
+        }
     }
 
-    // ✅ Phải có prefix /booking
-    const url = `/booking/dat_phong?ngaynhanphong=${ngaynhanphong}&ngaytraphong=${ngaytraphong}`;
-    window.location.href = url;
-}
-
-
-        // Initialize room grid and set min date
-        document.addEventListener('DOMContentLoaded', () => {
-            const allFilterButton = document.querySelector('.filter-btn[data-type="all"]');
-            if (allFilterButton) {
-                allFilterButton.click();
-            }
-
-            const today = new Date().toISOString().split('T')[0];
-            document.getElementById('ngaynhanphong').setAttribute('min', today);
-            document.getElementById('ngaynhanphong_filter').setAttribute('min', today);
-            document.getElementById('ngaytraphong').setAttribute('min', today);
-            document.getElementById('ngaytraphong_filter').setAttribute('min', today);
-
-            const ngaynhanphongInput = document.getElementById('ngaynhanphong');
-            const ngaytraphongInput = document.getElementById('ngaytraphong');
-            if (ngaynhanphongInput.value && ngaytraphongInput.value) {
-                updateEstimatedTotal();
-            }
-
-            // Set default thoigiancheckindukien based on ngaynhanphong
-            ngaynhanphongInput.addEventListener('change', function() {
-                const ngayNhanPhong = this.value;
-                const thoigianCheckin = document.getElementById('thoigiancheckindukien');
-                if (ngayNhanPhong) {
-                    thoigianCheckin.value = `${ngayNhanPhong}T12:00`;
-                    thoigianCheckin.setAttribute('min', `${ngayNhanPhong}T00:00`);
-                    thoigianCheckin.setAttribute('max', `${ngayNhanPhong}T23:59`);
-                }
+    filterButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const type = button.dataset.type;
+            filterButtons.forEach(btn => {
+                btn.classList.remove('bg-blue-700', 'text-white');
+                btn.classList.add('bg-gray-200', 'text-gray-900');
             });
+            button.classList.remove('bg-gray-200', 'text-gray-900');
+            button.classList.add('bg-blue-700', 'text-white');
+
+            filteredRooms = Array.from(roomCards).filter(
+                card => type === 'all' || card.dataset.type === type
+            );
+            updateRoomGrid();
+        });
+    });
+
+    // ====== Filter rooms by date ======
+    function filterRooms() {
+        const ngaynhanphong = document.getElementById('ngaynhanphong_filter').value;
+        const ngaytraphong = document.getElementById('ngaytraphong_filter').value;
+
+        if (!ngaynhanphong || !ngaytraphong) {
+            Toastify({
+                text: 'Vui lòng chọn ngày nhận và trả phòng!',
+                duration: 3000,
+                gravity: 'top',
+                position: 'center',
+                backgroundColor: '#e53e3e',
+            }).showToast();
+            return;
+        }
+
+        if (new Date(ngaytraphong) < new Date(ngaynhanphong)) {
+            Toastify({
+                text: 'Ngày trả phòng phải sau hoặc cùng ngày nhận phòng!',
+                duration: 3000,
+                gravity: 'top',
+                position: 'center',
+                backgroundColor: '#e53e3e',
+            }).showToast();
+            return;
+        }
+
+        const url = `/booking/dat_phong?ngaynhanphong=${ngaynhanphong}&ngaytraphong=${ngaytraphong}`;
+        window.location.href = url;
+    }
+
+    // ====== Initialize ======
+    document.addEventListener('DOMContentLoaded', () => {
+        const allFilterButton = document.querySelector('.filter-btn[data-type="all"]');
+        if (allFilterButton) allFilterButton.click();
+
+        const today = new Date().toISOString().split('T')[0];
+        ['ngaynhanphong', 'ngaytraphong', 'ngaynhanphong_filter', 'ngaytraphong_filter'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.setAttribute('min', today);
         });
 
-        // Select room
-        function selectRoom(maphong, loaiphong, giaphong) {
-            const parsedGiaphong = parseFloat(giaphong);
-            if (isNaN(parsedGiaphong) || parsedGiaphong <= 0) {
-                Toastify({
-                    text: 'Giá phòng không hợp lệ!',
-                    duration: 3000,
-                    gravity: 'top',
-                    position: 'center',
-                    backgroundColor: '#e53e3e',
-                }).showToast();
-                return;
-            }
-            const form = document.getElementById('booking-form');
-            form.style.display = 'block';
-            form.classList.add('fade-in');
-            document.getElementById('maphong').value = maphong;
-            document.getElementById('giaphong').value = parsedGiaphong;
-            document.getElementById('selected-room-name').innerText = loaiphong;
-            document.getElementById('selected-room-price').innerText = `Giá: ${parsedGiaphong.toLocaleString('vi-VN')} VNĐ/đêm`;
-            document.getElementById('estimated-total').innerText = '';
-            form.scrollIntoView({ behavior: 'smooth' });
-            updateEstimatedTotal();
-        }
+        const ngaynhanphongInput = document.getElementById('ngaynhanphong');
+        const ngaytraphongInput = document.getElementById('ngaytraphong');
+        if (ngaynhanphongInput?.value && ngaytraphongInput?.value) updateEstimatedTotal();
 
-        // Update estimated total (including services)
-        function updateEstimatedTotal() {
-            const ngayNhanPhong = new Date(document.getElementById('ngaynhanphong').value);
-            const ngayTraPhong = new Date(document.getElementById('ngaytraphong').value);
-            const giaphong = parseFloat(document.getElementById('giaphong').value);
-            let tongtien = 0;
-
-            // Tính tiền phòng
-            if (ngayNhanPhong && ngayTraPhong && !isNaN(giaphong)) {
-                const nights = (ngayTraPhong - ngayNhanPhong) / (1000 * 60 * 60 * 24);
-                if (nights > 0) {
-                    tongtien += giaphong * nights;
-                }
-            }
-
-            // Tính tiền dịch vụ
-            document.querySelectorAll('.service-checkbox:checked').forEach(checkbox => {
-                const madichvu = checkbox.value;
-                const quantityInput = document.querySelector(`input[name="quantity_${madichvu}"]`);
-                const soluong = parseInt(quantityInput.value) || 0;
-                const priceElement = checkbox.closest('.service-item').querySelector('p:nth-child(2)');
-                const giadichvu = parseFloat(priceElement.textContent.replace(/[^\d.-]/g, '')) || 0;
-                if (soluong > 0 && !isNaN(giadichvu)) {
-                    tongtien += giadichvu * soluong;
-                }
-            });
-
-            // Hiển thị tổng tiền
-            if (tongtien > 0) {
-                document.getElementById('estimated-total').innerText = `Tổng tiền dự kiến: ${tongtien.toLocaleString('vi-VN')} VNĐ`;
-            } else {
-                document.getElementById('estimated-total').innerText = '';
-                if (ngayNhanPhong && ngayTraPhong && ngayNhanPhong >= ngayTraPhong) {
-                    Toastify({
-                        text: 'Ngày trả phòng phải sau ngày nhận phòng!',
-                        duration: 3000,
-                        gravity: 'top',
-                        position: 'center',
-                        backgroundColor: '#e53e3e',
-                    }).showToast();
-                }
-            }
-        }
-
-        // Validate form before submission
-        function validateForm() {
-            const ngayNhanPhong = new Date(document.getElementById('ngaynhanphong').value);
-            const ngayTraPhong = new Date(document.getElementById('ngaytraphong').value);
-            const songuoi = parseInt(document.getElementById('songuoi').value);
-            const giaphong = parseFloat(document.getElementById('giaphong').value);
-            const thoigianCheckin = document.getElementById('thoigiancheckindukien').value;
-            const today = new Date();
-            today.setHours(0, 0, 0, 0);
-            const nights = (ngayTraPhong - ngayNhanPhong) / (1000 * 60 * 60 * 24);
-
-            if (!ngayNhanPhong || !ngayTraPhong || ngayNhanPhong >= ngayTraPhong) {
-                Toastify({
-                    text: 'Ngày nhận phòng phải trước ngày trả phòng!',
-                    duration: 3000,
-                    gravity: 'top',
-                    position: 'center',
-                    backgroundColor: '#e53e3e',
-                }).showToast();
-                return false;
-            }
-            if (ngayNhanPhong < today) {
-                Toastify({
-                    text: 'Ngày nhận phòng không được trước ngày hiện tại!',
-                    duration: 3000,
-                    gravity: 'top',
-                    position: 'center',
-                    backgroundColor: '#e53e3e',
-                }).showToast();
-                return false;
-            }
-            if (nights <= 0) {
-                Toastify({
-                    text: 'Số đêm phải lớn hơn 0!',
-                    duration: 3000,
-                    gravity: 'top',
-                    position: 'center',
-                    backgroundColor: '#e53e3e',
-                }).showToast();
-                return false;
-            }
-            if (songuoi <= 0) {
-                Toastify({
-                    text: 'Số người phải lớn hơn 0!',
-                    duration: 3000,
-                    gravity: 'top',
-                    position: 'center',
-                    backgroundColor: '#e53e3e',
-                }).showToast();
-                return false;
-            }
-            if (isNaN(giaphong) || giaphong <= 0) {
-                Toastify({
-                    text: 'Giá phòng không hợp lệ!',
-                    duration: 3000,
-                    gravity: 'top',
-                    position: 'center',
-                    backgroundColor: '#e53e3e',
-                }).showToast();
-                return false;
-            }
-            if (thoigianCheckin) {
-                const thoigianCheckinDate = new Date(thoigianCheckin);
-                if (isNaN(thoigianCheckinDate.getTime())) {
-                    Toastify({
-                        text: 'Thời gian check-in không hợp lệ!',
-                        duration: 3000,
-                        gravity: 'top',
-                        position: 'center',
-                        backgroundColor: '#e53e3e',
-                    }).showToast();
-                    return false;
-                }
-                if (thoigianCheckinDate.getDate() !== ngayNhanPhong.getDate() ||
-                    thoigianCheckinDate.getMonth() !== ngayNhanPhong.getMonth() ||
-                    thoigianCheckinDate.getFullYear() !== ngayNhanPhong.getFullYear()) {
-                    Toastify({
-                        text: 'Thời gian check-in phải trong ngày nhận phòng!',
-                        duration: 3000,
-                        gravity: 'top',
-                        position: 'center',
-                        backgroundColor: '#e53e3e',
-                    }).showToast();
-                    return false;
-                }
-            }
-            // Validate số lượng dịch vụ
-            let hasInvalidService = false;
-            document.querySelectorAll('.service-checkbox:checked').forEach(checkbox => {
-                const madichvu = checkbox.value;
-                const quantityInput = document.querySelector(`input[name="quantity_${madichvu}"]`);
-                const soluong = parseInt(quantityInput.value) || 0;
-                if (soluong <= 0) {
-                    hasInvalidService = true;
-                    Toastify({
-                        text: `Số lượng cho dịch vụ ${checkbox.closest('.service-item').querySelector('p').textContent} phải lớn hơn 0!`,
-                        duration: 3000,
-                        gravity: 'top',
-                        position: 'center',
-                        backgroundColor: '#e53e3e',
-                    }).showToast();
-                }
-            });
-            if (hasInvalidService) {
-                return false;
-            }
-            const tongtien = giaphong * nights + calculateServiceTotal();
-            if (tongtien <= 0) {
-                Toastify({
-                    text: 'Tổng số tiền không hợp lệ!',
-                    duration: 3000,
-                    gravity: 'top',
-                    position: 'center',
-                    backgroundColor: '#e53e3e',
-                }).showToast();
-                return false;
-            }
-            return true;
-        }
-
-        // Calculate total service cost
-        function calculateServiceTotal() {
-            let total = 0;
-            document.querySelectorAll('.service-checkbox:checked').forEach(checkbox => {
-                const madichvu = checkbox.value;
-                const quantityInput = document.querySelector(`input[name="quantity_${madichvu}"]`);
-                const soluong = parseInt(quantityInput.value) || 0;
-                const priceElement = checkbox.closest('.service-item').querySelector('p:nth-child(2)');
-                const giadichvu = parseFloat(priceElement.textContent.replace(/[^\d.-]/g, '')) || 0;
-                if (soluong > 0 && !isNaN(giadichvu)) {
-                    total += giadichvu * soluong;
-                }
-            });
-            return total;
-        }
-
-        // Add event listeners for service inputs
-        document.addEventListener('DOMContentLoaded', () => {
-            document.querySelectorAll('.service-checkbox, .service-quantity').forEach(input => {
-                input.addEventListener('change', updateEstimatedTotal);
-            });
-        });
-
-        // Prevent form submission if validation fails
-        document.querySelector('form').addEventListener('submit', function(event) {
-            if (!validateForm()) {
-                event.preventDefault();
+        // Tự set thời gian check-in
+        ngaynhanphongInput?.addEventListener('change', function () {
+            const ngayNhanPhong = this.value;
+            const thoigianCheckin = document.getElementById('thoigiancheckindukien');
+            if (ngayNhanPhong) {
+                thoigianCheckin.value = `${ngayNhanPhong}T12:00`;
+                thoigianCheckin.setAttribute('min', `${ngayNhanPhong}T00:00`);
+                thoigianCheckin.setAttribute('max', `${ngayNhanPhong}T23:59`);
             }
         });
-    </script>
+    });
+
+    // ====== Select room ======
+    function selectRoom(maphong, loaiphong, giaphong) {
+        const parsedGiaphong = parseFloat(giaphong);
+        if (isNaN(parsedGiaphong) || parsedGiaphong <= 0) {
+            Toastify({
+                text: 'Giá phòng không hợp lệ!',
+                duration: 3000,
+                gravity: 'top',
+                position: 'center',
+                backgroundColor: '#e53e3e',
+            }).showToast();
+            return;
+        }
+
+        const form = document.getElementById('booking-form');
+        form.style.display = 'block';
+        form.classList.add('fade-in');
+        document.getElementById('maphong').value = maphong;
+        document.getElementById('giaphong').value = parsedGiaphong;
+        document.getElementById('selected-room-name').innerText = loaiphong;
+        document.getElementById('selected-room-price').innerText =
+            `Giá: ${parsedGiaphong.toLocaleString('vi-VN')} VNĐ/đêm`;
+        document.getElementById('estimated-total').innerText = '';
+        form.scrollIntoView({ behavior: 'smooth' });
+        updateEstimatedTotal();
+    }
+
+    // ====== Update estimated total ======
+    function updateEstimatedTotal() {
+        const ngayNhanPhong = new Date(document.getElementById('ngaynhanphong').value);
+        const ngayTraPhong = new Date(document.getElementById('ngaytraphong').value);
+        const giaphong = parseFloat(document.getElementById('giaphong').value);
+        let tongtien = 0;
+
+        // Tính số ngày (>=0 cho phép cùng ngày)
+        if (!isNaN(giaphong) && ngayNhanPhong && ngayTraPhong) {
+            let nights = (ngayTraPhong - ngayNhanPhong) / (1000 * 60 * 60 * 24);
+            nights = nights < 0 ? 0 : nights; // tránh âm
+            const totalDays = nights === 0 ? 1 : nights; // cùng ngày => 1 đêm
+            tongtien += giaphong * totalDays;
+        }
+
+        // Tính tiền dịch vụ
+        document.querySelectorAll('.service-checkbox:checked').forEach(checkbox => {
+            const madichvu = checkbox.value;
+            const quantityInput = document.querySelector(`input[name="quantity_${madichvu}"]`);
+            const soluong = parseInt(quantityInput.value) || 0;
+            const priceElement = checkbox.closest('.service-item').querySelector('p:nth-child(2)');
+            const giadichvu = parseFloat(priceElement.textContent.replace(/[^\d.-]/g, '')) || 0;
+            if (soluong > 0 && !isNaN(giadichvu)) tongtien += giadichvu * soluong;
+        });
+
+        // Hiển thị tổng tiền
+        document.getElementById('estimated-total').innerText =
+            tongtien > 0 ? `Tổng tiền dự kiến: ${tongtien.toLocaleString('vi-VN')} VNĐ` : '';
+    }
+
+    // ====== Validate form ======
+    function validateForm() {
+        const ngayNhanPhong = new Date(document.getElementById('ngaynhanphong').value);
+        const ngayTraPhong = new Date(document.getElementById('ngaytraphong').value);
+        const songuoi = parseInt(document.getElementById('songuoi').value);
+        const giaphong = parseFloat(document.getElementById('giaphong').value);
+        const thoigianCheckin = document.getElementById('thoigiancheckindukien').value;
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        let nights = (ngayTraPhong - ngayNhanPhong) / (1000 * 60 * 60 * 24);
+        if (nights < 0) {
+            Toastify({ text: 'Ngày trả phòng phải sau hoặc cùng ngày nhận phòng!', duration: 3000, gravity: 'top', position: 'center', backgroundColor: '#e53e3e' }).showToast();
+            return false;
+        }
+
+        if (ngayNhanPhong < today) {
+            Toastify({ text: 'Ngày nhận phòng không được trước ngày hiện tại!', duration: 3000, gravity: 'top', position: 'center', backgroundColor: '#e53e3e' }).showToast();
+            return false;
+        }
+
+        if (songuoi <= 0) {
+            Toastify({ text: 'Số người phải lớn hơn 0!', duration: 3000, gravity: 'top', position: 'center', backgroundColor: '#e53e3e' }).showToast();
+            return false;
+        }
+
+        let totalDays = nights === 0 ? 1 : nights; // cùng ngày => 1 đêm
+        const tongtien = giaphong * totalDays + calculateServiceTotal();
+        if (tongtien <= 0) {
+            Toastify({ text: 'Tổng số tiền không hợp lệ!', duration: 3000, gravity: 'top', position: 'center', backgroundColor: '#e53e3e' }).showToast();
+            return false;
+        }
+
+        return true;
+    }
+
+    // ====== Calculate total service cost ======
+    function calculateServiceTotal() {
+        let total = 0;
+        document.querySelectorAll('.service-checkbox:checked').forEach(checkbox => {
+            const madichvu = checkbox.value;
+            const quantityInput = document.querySelector(`input[name="quantity_${madichvu}"]`);
+            const soluong = parseInt(quantityInput.value) || 0;
+            const priceElement = checkbox.closest('.service-item').querySelector('p:nth-child(2)');
+            const giadichvu = parseFloat(priceElement.textContent.replace(/[^\d.-]/g, '')) || 0;
+            if (soluong > 0 && !isNaN(giadichvu)) total += giadichvu * soluong;
+        });
+        return total;
+    }
+
+    // ====== Event listeners ======
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.service-checkbox, .service-quantity').forEach(input => {
+            input.addEventListener('change', updateEstimatedTotal);
+        });
+    });
+
+    // Prevent form submission if invalid
+    const bookingForm = document.querySelector('form');
+    if (bookingForm) {
+        bookingForm.addEventListener('submit', event => {
+            if (!validateForm()) event.preventDefault();
+        });
+    }
+</script>
+
 </body>
 </html>

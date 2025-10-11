@@ -54,7 +54,7 @@ def booking_page():
                     flash("Ngày nhận phòng không được trước ngày hiện tại.", "danger")
                     ngaynhanphong = today
                     ngaytraphong = ""
-                elif checkin_date >= checkout_date:
+                elif checkin_date > checkout_date:
                     flash("Ngày trả phòng phải sau ngày nhận phòng.", "danger")
                     ngaytraphong = ""
             except ValueError:

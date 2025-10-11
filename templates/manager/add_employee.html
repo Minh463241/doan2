@@ -3,40 +3,213 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thêm Nhân Viên</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>Thêm Nhân Viên - Dashboard Quản Lý</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 20px;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+        }
+
+        .sidebar h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #3498db;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar ul li {
+            margin: 20px 0;
+        }
+
+        .sidebar ul li a {
+            color: #ecf0f1;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar ul li a:hover {
+            background: #3498db;
+            transform: translateX(5px);
+        }
+
+        .sidebar ul li a i {
+            width: 20px;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 250px;
+            flex: 1;
+            padding: 40px;
+            transition: all 0.3s ease;
+        }
+
+        .container {
+            max-width: 700px;
+            background: #fff;
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 0.6s ease;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+
+        h1 i {
+            color: #3498db;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: 600;
+            display: block;
+            margin-bottom: 8px;
+            color: #34495e;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-size: 15px;
+        }
+
+        input:focus {
+            border-color: #3498db;
+            box-shadow: 0 0 6px rgba(52, 152, 219, 0.3);
+            outline: none;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            background: #3498db;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            margin-right: 10px;
+            box-shadow: 0 3px 10px rgba(52, 152, 219, 0.3);
+        }
+
+        .btn i {
+            font-size: 14px;
+        }
+
+        .btn:hover {
+            background: #2980b9;
+            transform: scale(1.05);
+            box-shadow: 0 6px 15px rgba(52, 152, 219, 0.4);
+        }
+
+        .btn-secondary {
+            background: #7f8c8d;
+        }
+
+        .btn-secondary:hover {
+            background: #636e72;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
 </head>
 <body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2><i class="fas fa-hotel"></i> KeiWei</h2>
+        <ul>
+            <li><a href="{{ url_for('manager.dashboard') }}"><i class="fas fa-home"></i> Trang chủ</a></li>
+            <li><a href="{{ url_for('manager.dashboard') }}#rooms"><i class="fas fa-bed"></i> Phòng</a></li>
+            <li><a href="{{ url_for('manager.dashboard') }}#employees" class="active"><i class="fas fa-user-tie"></i> Nhân viên</a></li>
+            <li><a href="{{ url_for('manager.dashboard') }}#invoices"><i class="fas fa-file-invoice"></i> Hóa đơn</a></li>
+            <li><a href="{{ url_for('admin.admin_logout') }}"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></li>
+        </ul>
+    </div>
+
+    <!-- Main content -->
     <div class="main-content">
         <div class="container">
             <h1><i class="fas fa-plus"></i> Thêm Nhân Viên</h1>
+
             <form method="POST">
-                
                 <div class="form-group">
-                    <label for="hoten">Họ tên:</label>
-                    <input type="text" id="hoten" name="hoten" required>
+                    <label for="hoten">Họ tên</label>
+                    <input type="text" id="hoten" name="hoten" placeholder="Nhập họ tên nhân viên" required>
                 </div>
+
                 <div class="form-group">
-                    <label for="chucvu">Chức vụ:</label>
-                    <input type="text" id="chucvu" name="chucvu" required>
+                    <label for="chucvu">Chức vụ</label>
+                    <input type="text" id="chucvu" name="chucvu" placeholder="VD: lễ tân, kế toán..." required>
                 </div>
+
                 <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" required>
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="example@gmail.com" required>
                 </div>
+
                 <div class="form-group">
-                    <label for="sodienthoai">Số điện thoại:</label>
-                    <input type="numbernumber" id="sodienthoai" name="sodienthoai" required>
+                    <label for="sodienthoai">Số điện thoại</label>
+                    <input type="text" id="sodienthoai" name="sodienthoai" placeholder="Nhập số điện thoại" required>
                 </div>
+
                 <div class="form-group">
-                    <label for="matkhau">Mật khẩu:</label>
-                    <input type="password" id="matkhau" name="matkhau" required>
+                    <label for="matkhau">Mật khẩu</label>
+                    <input type="password" id="matkhau" name="matkhau" placeholder="Nhập mật khẩu đăng nhập" required>
                 </div>
+
                 <button type="submit" class="btn"><i class="fas fa-save"></i> Lưu</button>
-                <a href="{{ url_for('manager.dashboard') }}#employees" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Quay lại</a>
+                <a href="{{ url_for('manager.dashboard') }}#employees" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Quay lại
+                </a>
             </form>
         </div>
     </div>
+
 </body>
 </html>

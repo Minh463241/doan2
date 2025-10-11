@@ -243,20 +243,15 @@
                 </div>
             </div>
             <div class="forgot-password">
-                <a href="#">Forgot password?</a>
+                <a href="{{ url_for('auth.forgot_password') }}">Forgot password?</a>
+
             </div>
             <button type="submit" class="login-btn">Login</button>
         </form>
         <div class="create-account">
             <p>Don't have an account? <a href="{{ url_for('auth.register') }}">Create now</a></p>
         </div>
-        <div class="or-login">
-            <p>Or login with</p>
-        </div>
-        <button class="google-btn">
-            <img src="https://www.google.com/favicon.ico" alt="Google Icon">
-            Sign in with Google
-        </button>
+        
     </div>
 
     <script>

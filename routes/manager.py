@@ -23,90 +23,60 @@ def login_required(f):
     wrap.__name__ = f.__name__
     return wrap
 
-# Trang dashboard quản lý
 @manager_bp.route("/dashboard")
 @login_required
 def dashboard():
     try:
-        # Lấy danh sách phòng
         rooms = get_rooms() or []
-        logger.info(f"Danh sách phòng: {rooms}")
-
-        # Lấy danh sách nhân viên
         employees = get_all_employees() or []
-        logger.info(f"Danh sách nhân viên: {employees}")
 
-        # Lấy danh sách hóa đơn
-        hoadon_res = supabase.table("hoadon").select("*").execute()
+        # Lấy danh sách hóa đơn kèm mã giao dịch PayPal (join datphong)
+        hoadon_res = supabase.table("hoadon")\
+            .select("mahoadon, madatphong, makhachhang, ngaylap, tongtien, phuongthucthanhtoan")\
+            .execute()
         hoadon_list = hoadon_res.data or []
-        logger.info(f"Số lượng hóa đơn: {len(hoadon_list)}")
 
-        # Gắn tên khách hàng vào hóa đơn
+        # Gắn thêm thông tin khách hàng + mã giao dịch PayPal
         for hd in hoadon_list:
             ma_kh = hd.get("makhachhang")
+            ma_dp = hd.get("madatphong")
+
+            # Lấy tên khách hàng
             if ma_kh:
-                try:
-                    kh_res = supabase.table("khachhang").select("hoten").eq("makhachhang", ma_kh).single().execute()
-                    hd["tenkhachhang"] = kh_res.data["hoten"] if kh_res.data else "Không rõ"
-                except Exception as e:
-                    logger.error(f"Lỗi khi lấy tên khách hàng cho hóa đơn {hd.get('mahoadon')}: {e}")
-                    hd["tenkhachhang"] = "Không rõ"
+                kh_res = supabase.table("khachhang").select("hoten").eq("makhachhang", ma_kh).single().execute()
+                hd["tenkhachhang"] = kh_res.data["hoten"] if kh_res.data else "Không rõ"
             else:
                 hd["tenkhachhang"] = "Không rõ"
-                logger.warning(f"Hóa đơn {hd.get('mahoadon')} không có makhachhang")
 
-        # Tính toán thống kê
+            # ✅ Lấy mã giao dịch PayPal từ bảng datphong
+            if ma_dp:
+                dp_res = supabase.table("datphong").select("magiaodichpaypal").eq("madatphong", ma_dp).single().execute()
+                hd["magiaodichpaypal"] = dp_res.data["magiaodichpaypal"] if dp_res.data else "---"
+            else:
+                hd["magiaodichpaypal"] = "---"
+
         total_employees = get_total_employees()
         total_bookings = get_total_bookings()
         total_revenue = get_total_revenue()
 
         logger.info(f"Thống kê - Nhân viên: {total_employees}, Đặt phòng: {total_bookings}, Doanh thu: {total_revenue}")
-
     except Exception as e:
         logger.error(f"Lỗi khi lấy dữ liệu dashboard: {e}")
         hoadon_list = []
-        total_employees = get_total_employees()
-        total_bookings = get_total_bookings()
-        total_revenue = get_total_revenue()
+        total_employees = total_bookings = total_revenue = 0
 
-    return render_template("manager/manager_dashboard.html",
-                          total_employees=total_employees,
-                          total_bookings=total_bookings,
-                          total_revenue=total_revenue,
-                          rooms=rooms,
-                          employees=employees,
-                          hoadon_list=hoadon_list,
-                          user=session.get("user"))
+    return render_template(
+        "manager/manager_dashboard.html",
+        total_employees=total_employees,
+        total_bookings=total_bookings,
+        total_revenue=total_revenue,
+        rooms=rooms,
+        employees=employees,
+        hoadon_list=hoadon_list,
+        user=session.get("user")
+    )
 
 
-
-@manager_bp.route("/invoices")
-@login_required
-def invoices():
-    try:
-        hoadon_res = supabase.table("hoadon").select("*").execute()
-        hoadon_list = hoadon_res.data or []
-        logger.info(f"Số lượng hóa đơn: {len(hoadon_list)}")
-
-        # Gắn tên khách hàng vào hóa đơn
-        for hd in hoadon_list:
-            ma_kh = hd.get("makhachhang")
-            if ma_kh:
-                try:
-                    kh_res = supabase.table("khachhang").select("hoten").eq("makhachhang", ma_kh).single().execute()
-                    hd["tenkhachhang"] = kh_res.data["hoten"] if kh_res.data else "Không rõ"
-                except Exception as e:
-                    logger.error(f"Lỗi khi lấy tên khách hàng cho hóa đơn {hd.get('mahoadon')}: {e}")
-                    hd["tenkhachhang"] = "Không rõ"
-            else:
-                hd["tenkhachhang"] = "Không rõ"
-                logger.warning(f"Hóa đơn {hd.get('mahoadon')} không có makhachhang")
-
-    except Exception as e:
-        logger.error(f"Lỗi khi lấy danh sách hóa đơn: {e}")
-        hoadon_list = []
-
-    return render_template("manager/invoice_list.html", hoadon_list=hoadon_list)
 
 # Tuyến đường xem báo cáo
 @manager_bp.route("/reports")
@@ -330,7 +300,8 @@ def add_employee():
             logger.error(f"Lỗi khi thêm nhân viên: {str(e)}")
             flash(f'Có lỗi: {str(e)}', 'error')
 
-        return redirect(url_for('manager.list_employees'))
+        return redirect(url_for('manager.dashboard') + '#employees')
+
 
     return render_template('manager/add_employee.html')
 
@@ -342,14 +313,16 @@ def employee_detail(manv):
         response = supabase.table("nhanvien").select("*").eq("manhanvien", manv).execute()
         if not response.data:
             flash('Nhân viên không tồn tại.', 'error')
-            return redirect(url_for('manager.list_employees'))
+            return redirect(url_for('manager.dashboard') + '#employees')
+
 
         employee = response.data[0]
         return render_template('manager/employee_detail.html', employee=employee)
     except Exception as e:
         logger.error(f"Lỗi khi lấy chi tiết nhân viên {manv}: {str(e)}")
         flash(f'Lỗi: {str(e)}', 'error')
-        return redirect(url_for('manager.list_employees'))
+        return redirect(url_for('manager.dashboard') + '#employees')
+
 
 
 # Chỉnh sửa nhân viên

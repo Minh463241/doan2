@@ -406,8 +406,14 @@ def get_invoices_by_customer_id(customer_id: str) -> List[Dict]:
         logger.error(f"Lỗi khi lấy hóa đơn của khách hàng {customer_id}: {str(e)}")
         return []
 
-def create_invoice(madatphong: str, makhachhang: str, tongtien: float, phuongthucthanhtoan: str,
-                   ngaylap: str = None, magiaodichpaypal: str = None) -> Dict:
+def create_invoice(
+    madatphong: str,
+    makhachhang: str,
+    tongtien: float,
+    phuongthucthanhtoan: str,
+    ngaylap: str = None,
+    magiaodichpaypal: str = None
+) -> Dict:
     """Tạo hóa đơn mới (chỉ khi đặt phòng đã thanh toán)."""
     madatphong = str(madatphong)
     if not madatphong:
@@ -418,8 +424,16 @@ def create_invoice(madatphong: str, makhachhang: str, tongtien: float, phuongthu
         raise ValueError(f"Tổng tiền không hợp lệ: {tongtien}.")
     if not phuongthucthanhtoan:
         raise ValueError("Phương thức thanh toán không hợp lệ.")
+
     try:
-        booking = supabase.table("datphong").select("trangthai, tongtien").eq("madatphong", madatphong).execute().data
+        # 🟩 1. Kiểm tra đặt phòng
+        booking = (
+            supabase.table("datphong")
+            .select("trangthai, tongtien")
+            .eq("madatphong", madatphong)
+            .execute()
+            .data
+        )
         if not booking:
             raise ValueError(f"Không tìm thấy đặt phòng với madatphong {madatphong}")
         if booking[0]["trangthai"] != "Đã thanh toán":
@@ -427,30 +441,56 @@ def create_invoice(madatphong: str, makhachhang: str, tongtien: float, phuongthu
         if float(booking[0]["tongtien"]) <= 0:
             raise ValueError(f"Tổng tiền của đặt phòng {madatphong} không hợp lệ: {booking[0]['tongtien']}")
 
-        services = supabase.table("chitietdichvu").select("trangthai, thanhtien").eq("madatphong", madatphong).execute().data or []
+        # 🟩 2. Tính tổng tiền dịch vụ
+        services = (
+            supabase.table("chitietdichvu")
+            .select("trangthai, thanhtien")
+            .eq("madatphong", madatphong)
+            .execute()
+            .data or []
+        )
         total_service_cost = sum(float(s["thanhtien"]) for s in services if s["trangthai"] == "Đã thanh toán")
 
-        existing_invoice = supabase.table("hoadon").select("mahoadon").eq("madatphong", madatphong).execute().data
+        # 🟩 3. Kiểm tra trùng hóa đơn
+        existing_invoice = (
+            supabase.table("hoadon")
+            .select("mahoadon")
+            .eq("madatphong", madatphong)
+            .execute()
+            .data
+        )
         if existing_invoice:
             raise ValueError(f"Hóa đơn cho madatphong {madatphong} đã tồn tại.")
 
+        # 🟩 4. Tạo hóa đơn (không chứa mã PayPal)
         invoice = {
             "madatphong": int(madatphong),
             "makhachhang": int(makhachhang),
             "tongtien": float(tongtien) + total_service_cost,
             "phuongthucthanhtoan": phuongthucthanhtoan,
-            "ngaylap": ngaylap if ngaylap else datetime.now().strftime('%Y-%m-%d'),
-            "tongtien_dichvu": total_service_cost,
-            "magiaodichpaypal": magiaodichpaypal
+            "ngaylap": ngaylap if ngaylap else datetime.now().strftime("%Y-%m-%d"),
+            "tongtien_dichvu": total_service_cost
         }
+
         response = supabase.table("hoadon").insert(invoice).execute()
+
         if response.data:
             logger.info(f"Hóa đơn được tạo: {response.data[0]}")
+
+            # 🟩 5. Cập nhật mã PayPal vào bảng datphong (nếu có)
+            if magiaodichpaypal:
+                supabase.table("datphong").update({
+                    "magiaodichpaypal": magiaodichpaypal
+                }).eq("madatphong", madatphong).execute()
+                logger.info(f"Đã cập nhật mã PayPal {magiaodichpaypal} cho đặt phòng {madatphong}")
+
             return response.data[0]
+
         raise ValueError("Không thể tạo hóa đơn.")
     except Exception as e:
-        logger.error(f"Lỗi khi tạo hóa đơn cho madatphong {madatphong}: {str(e)}")
+        logger.error(f"Lỗi khi tạo hóa đơn cho madatphong {madatphong}: {str(e)}", exc_info=True)
         raise
+
 
 def update_invoice_with_service(madatphong: str, thanhtien_dichvu: float) -> Dict:
     """Cập nhật hóa đơn với thành tiền dịch vụ."""
