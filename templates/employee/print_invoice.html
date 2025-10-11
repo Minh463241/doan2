@@ -1,116 +1,196 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>Hóa đơn #{{ mahoadon }}</title>
   <style>
-    :root { --text:#111; --muted:#555; --border:#000; }
-    html, body { font-family: Arial, sans-serif; color: var(--text); margin: 0; padding: 0; font-size: 12pt; }
-    @page { size: A4 portrait; margin: 12mm; }
-    .wrap { max-width: 800px; margin: 0 auto; padding: 16px; }
-    .invoice-header { text-align: center; border-bottom: 2px solid var(--border); padding-bottom: 8px; margin-bottom: 16px; }
-    .invoice-header h2 { margin: 0 0 4px 0; font-size: 22pt; letter-spacing: .5px; }
-    .subline { font-size: 10pt; color: var(--muted); }
-    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 24px; margin-bottom: 12px; }
-    .field { margin: 2px 0; }
-    .label { display:inline-block; min-width: 140px; color: var(--muted); }
-    table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 11pt; }
-    th, td { border: 1px solid #000; padding: 8px; vertical-align: top; }
-    th { background: #f7f7f7; text-align: left; }
-    .text-right { text-align: right; }
-    .total-row td { font-weight: bold; border-top: 2px solid var(--border); }
-    .footer { margin-top: 16px; display: flex; justify-content: space-between; gap: 12px; font-size: 10.5pt; }
-    .sign { margin-top: 40px; text-align: center; }
-    .no-print { display: inline-block; margin: 12px 16px; }
-    @media print { .no-print { display: none !important; } .wrap { padding: 0; } }
+    body {
+      font-family: DejaVu Sans, sans-serif;
+      font-size: 12pt;
+      color: #111;
+      margin: 0;
+      padding: 10px 25px;
+    }
+
+    h2 {
+      text-align: center;
+      margin: 0;
+      font-size: 20pt;
+    }
+
+    .subline {
+      text-align: center;
+      color: #555;
+      font-size: 10pt;
+      margin-bottom: 20px;
+    }
+
+    .info-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 15px;
+      font-size: 11pt;
+    }
+
+    .info-table td {
+      padding: 4px 6px;
+      vertical-align: top;
+    }
+
+    .info-label {
+      color: #555;
+      width: 160px;
+    }
+
+    table.detail {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 11pt;
+      margin-top: 8px;
+    }
+
+    table.detail th, table.detail td {
+      border: 1px solid #000;
+      padding: 6px;
+    }
+
+    table.detail th {
+      background-color: #f1f1f1;
+      text-align: left;
+    }
+
+    .text-right {
+      text-align: right;
+    }
+
+    .total-row td {
+      border-top: 2px solid #000;
+      font-weight: bold;
+    }
+
+    .footer {
+      margin-top: 25px;
+      font-size: 10.5pt;
+    }
+
+    .footer-note {
+      width: 65%;
+      vertical-align: top;
+    }
+
+    .footer-sign {
+      width: 35%;
+      text-align: center;
+    }
+
+    .footer-sign strong {
+      display: block;
+      margin-bottom: 60px;
+    }
+
+    .no-print {
+      text-align: right;
+      margin-bottom: 8px;
+    }
+
+    .no-print a, .no-print button {
+      display: inline-block;
+      background-color: #3498db;
+      color: white;
+      padding: 5px 10px;
+      text-decoration: none;
+      border-radius: 4px;
+      font-size: 10pt;
+    }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <!-- Thanh tác vụ khi xem trên trình duyệt -->
-    <div class="no-print" style="text-align:right;">
-      <button onclick="window.print()">🖨️ In hóa đơn</button>
-      {% if madatphong is defined %}
+  <div class="no-print">
+    <button onclick="window.print()">🖨️ In hóa đơn</button>
+    {% if madatphong is defined %}
       <a href="{{ url_for('employee.print_invoice_pdf', madatphong=madatphong) }}">⬇️ Tải PDF</a>
-      {% endif %}
-    </div>
-
-    <div class="invoice-header">
-      <h2>HÓA ĐƠN THANH TOÁN</h2>
-      <div class="subline">KeiWei Hotel • Hotline: 09xx xxx xxx • Địa chỉ: …</div>
-    </div>
-
-    <!-- Thông tin chung -->
-    <div class="grid">
-      <div>
-        <div class="field"><span class="label">Mã hóa đơn:</span> <strong>#{{ mahoadon }}</strong></div>
-        <div class="field"><span class="label">Mã đặt phòng:</span> <strong>#{{ madatphong }}</strong></div>
-        <div class="field"><span class="label">Phòng đã sử dụng:</span> {{ phong }}</div>
-      </div>
-      <div>
-        <div class="field"><span class="label">Người lập:</span> {{ nguoi_lap }}</div>
-        <div class="field"><span class="label">Nhân viên in:</span> {{ nhan_vien_letan }}</div>
-        <div class="field"><span class="label">Ngày lập:</span> {{ ngay_lap }}</div>
-        <div class="field"><span class="label">Ngày thanh toán / In:</span> {{ printed_at if printed_at is defined else ngay_thanh_toan }}</div>
-      </div>
-    </div>
-
-    <!-- Chi tiết thanh toán -->
-    <h3 style="margin: 10px 0 6px 0;">Chi tiết thanh toán</h3>
-    <table>
-      <thead>
-        <tr>
-          <th style="width: 46%;">Khoản chi</th>
-          <th style="width: 10%;">SL</th>
-          <th style="width: 22%;" class="text-right">Đơn giá (VND)</th>
-          <th style="width: 22%;" class="text-right">Thành tiền (VND)</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Dòng tiền phòng -->
-        <tr>
-          <td>Tiền phòng</td>
-          <td class="text-right">1</td>
-          <td class="text-right">{{ '{:,.0f}'.format(tien_phong|default(0))|replace(',', '.') }}</td>
-          <td class="text-right">{{ '{:,.0f}'.format(tien_phong|default(0))|replace(',', '.') }}</td>
-        </tr>
-
-        <!-- Các dịch vụ -->
-        {% for c in charges %}
-        <tr>
-          <td>{{ c.name }}</td>
-          <td class="text-right">{{ c.qty }}</td>
-          <td class="text-right">{{ '{:,.0f}'.format(c.unit_price|default(0))|replace(',', '.') }}</td>
-          <td class="text-right">{{ '{:,.0f}'.format(c.amount|default(0))|replace(',', '.') }}</td>
-        </tr>
-        {% endfor %}
-
-        <!-- Tổng dịch vụ -->
-        <tr>
-          <td colspan="3" class="text-right"><strong>Tổng dịch vụ</strong></td>
-          <td class="text-right"><strong>{{ '{:,.0f}'.format(tien_dich_vu|default(0))|replace(',', '.') }}</strong></td>
-        </tr>
-
-        <!-- Tổng cộng -->
-        <tr class="total-row">
-          <td colspan="3" class="text-right">TỔNG CỘNG</td>
-          <td class="text-right"><strong>{{ '{:,.0f}'.format(so_tien|default(0))|replace(',', '.') }}</strong></td>
-        </tr>
-      </tbody>
-    </table>
-
-    <!-- Ghi chú & chữ ký -->
-    <div class="footer">
-      <div>
-        <div><em>Ghi chú:</em> Vui lòng kiểm tra kỹ thông tin trước khi rời quầy.</div>
-        <div>In lúc: {{ printed_at if printed_at is defined else ngay_thanh_toan }}</div>
-        <div>Nhân viên lễ tân in hóa đơn: <strong>{{ nhan_vien_letan }}</strong></div>
-      </div>
-      <div class="sign">
-        <div><strong>Người lập hóa đơn</strong></div>
-        <div style="margin-top:60px;">{{ nguoi_lap }}</div>
-      </div>
-    </div>
+    {% endif %}
   </div>
+
+  <h2>HÓA ĐƠN THANH TOÁN</h2>
+  <div class="subline">KeiWei Hotel • Hotline: 09xx xxx xxx • Địa chỉ: …</div>
+
+  <table class="info-table">
+    <tr>
+      <td class="info-label">Mã hóa đơn:</td>
+      <td><strong>#{{ mahoadon }}</strong></td>
+      <td class="info-label">Người lập:</td>
+      <td>{{ nguoi_lap }}</td>
+    </tr>
+    <tr>
+      <td class="info-label">Mã đặt phòng:</td>
+      <td>#{{ madatphong }}</td>
+      <td class="info-label">Nhân viên in:</td>
+      <td>{{ nhan_vien_letan }}</td>
+    </tr>
+    <tr>
+      <td class="info-label">Phòng đã sử dụng:</td>
+      <td>{{ phong }}</td>
+      <td class="info-label">Ngày lập:</td>
+      <td>{{ ngay_lap }}</td>
+    </tr>
+    <tr>
+      <td class="info-label">Ngày thanh toán / In:</td>
+      <td colspan="3">{{ printed_at if printed_at is defined else ngay_thanh_toan }}</td>
+    </tr>
+  </table>
+
+  <h3 style="margin: 8px 0;">Chi tiết thanh toán</h3>
+  <table class="detail">
+    <thead>
+      <tr>
+        <th style="width: 45%;">Khoản chi</th>
+        <th style="width: 10%;" class="text-right">SL</th>
+        <th style="width: 22%;" class="text-right">Đơn giá (VND)</th>
+        <th style="width: 23%;" class="text-right">Thành tiền (VND)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Tiền phòng</td>
+        <td class="text-right">1</td>
+        <td class="text-right">{{ '{:,.0f}'.format(tien_phong|default(0))|replace(',', '.') }}</td>
+        <td class="text-right">{{ '{:,.0f}'.format(tien_phong|default(0))|replace(',', '.') }}</td>
+      </tr>
+
+      {% for c in charges %}
+      <tr>
+        <td>{{ c.name }}</td>
+        <td class="text-right">{{ c.qty }}</td>
+        <td class="text-right">{{ '{:,.0f}'.format(c.unit_price|default(0))|replace(',', '.') }}</td>
+        <td class="text-right">{{ '{:,.0f}'.format(c.amount|default(0))|replace(',', '.') }}</td>
+      </tr>
+      {% endfor %}
+
+      <tr>
+        <td colspan="3" class="text-right"><strong>Tổng dịch vụ</strong></td>
+        <td class="text-right"><strong>{{ '{:,.0f}'.format(tien_dich_vu|default(0))|replace(',', '.') }}</strong></td>
+      </tr>
+
+      <tr class="total-row">
+        <td colspan="3" class="text-right">TỔNG CỘNG</td>
+        <td class="text-right"><strong>{{ '{:,.0f}'.format(so_tien|default(0))|replace(',', '.') }}</strong></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table class="footer">
+    <tr>
+      <td class="footer-note">
+        <em>Ghi chú:</em> Vui lòng kiểm tra kỹ thông tin trước khi rời quầy.<br>
+        In lúc: {{ printed_at if printed_at is defined else ngay_thanh_toan }}<br>
+        Nhân viên lễ tân in hóa đơn: <strong>{{ nhan_vien_letan }}</strong>
+      </td>
+      <td class="footer-sign">
+        <strong>Người lập hóa đơn</strong>
+        {{ nguoi_lap }}
+      </td>
+    </tr>
+  </table>
 </body>
 </html>

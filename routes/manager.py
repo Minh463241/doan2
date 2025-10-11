@@ -252,29 +252,38 @@ def edit_room(maphong):
     return render_template('manager/edit_room.html', room=room)
 
 # Xóa phòng
-@manager_bp.route("/rooms/delete/<maphong>")
+# Xóa phòng (Cách 1 - an toàn, kiểm tra liên kết trước)
+@manager_bp.route("/rooms/delete/<maphong>", methods=['POST'])
 @login_required
 def delete_room(maphong):
     try:
-        # Kiểm tra xem phòng có đang được sử dụng trong đặt phòng không
+        # 1️⃣ Kiểm tra xem phòng có đơn đặt phòng liên quan không
         active_bookings = supabase.table('datphong')\
-            .select('madatphong')\
+            .select('madatphong, trangthai')\
             .eq('maphong', maphong)\
-            .in_('trangthai', ['Chờ xác nhận', 'Đã xác nhận', 'Đã thanh toán', 'Đã check-in'])\
+            .in_('trangthai', ['Chờ xác nhận', 'Đã xác nhận', 'Đã check-in', 'Đã thanh toán'])\
             .execute().data
+
         if active_bookings:
-            flash('Không thể xóa phòng vì đang có đặt phòng liên quan.', 'error')
+            flash('❌ Không thể xóa phòng này vì đang có hoặc từng có đơn đặt phòng liên quan.', 'error')
+            logger.warning(f"Phòng {maphong} có đơn đặt phòng, không thể xóa.")
             return redirect(url_for('manager.dashboard') + '#rooms')
 
+        # 2️⃣ Nếu không có booking → cho phép xóa
         response = supabase.table("phong").delete().eq("maphong", maphong).execute()
         if response.data:
-            flash('Xóa phòng thành công!', 'success')
+            flash('✅ Xóa phòng thành công!', 'success')
+            logger.info(f"Đã xóa phòng {maphong}")
         else:
-            flash('Xóa phòng thất bại.', 'error')
+            flash('❌ Xóa phòng thất bại.', 'error')
+            logger.warning(f"Không thể xóa phòng {maphong}, không có dữ liệu trả về.")
+
     except Exception as e:
         logger.error(f"Lỗi khi xóa phòng {maphong}: {str(e)}")
-        flash(f'Lỗi: {str(e)}', 'error')
+        flash(f'Lỗi khi xóa phòng: {str(e)}', 'error')
+
     return redirect(url_for('manager.dashboard') + '#rooms')
+
 
 # Thêm nhân viên
 @manager_bp.route("/employees/add", methods=['GET', 'POST'])
@@ -342,7 +351,7 @@ def employee_detail(manv):
         flash(f'Lỗi: {str(e)}', 'error')
         return redirect(url_for('manager.list_employees'))
 
-# Chỉnh sửa nhân viên
+
 # Chỉnh sửa nhân viên
 @manager_bp.route("/employees/edit/<manv>", methods=['GET', 'POST'])
 @login_required
@@ -413,7 +422,6 @@ def edit_employee(manv):
         return redirect(url_for('manager.dashboard'))
 
 
-# Xóa nhân viên
 @manager_bp.route("/employees/delete/<manv>", methods=['POST'])
 @login_required
 def delete_employee(manv):
@@ -421,12 +429,12 @@ def delete_employee(manv):
         response = supabase.table("nhanvien").delete().eq("manhanvien", manv).execute()
         if response.data:
             flash('Xóa nhân viên thành công!', 'success')
-            logger.info(f"Quản lý xóa nhân viên với mã {manv}")
+            logger.info(f"Đã xóa nhân viên mã {manv}")
         else:
             flash('Không tìm thấy nhân viên để xóa!', 'error')
             logger.warning(f"Không tìm thấy nhân viên với mã {manv}")
-        return redirect(url_for('manager.list_employees'))
     except Exception as e:
         logger.error(f"Lỗi khi xóa nhân viên {manv}: {str(e)}")
         flash(f'Lỗi khi xóa nhân viên: {str(e)}', 'error')
-        return redirect(url_for('manager.list_employees'))
+
+    return redirect(url_for('manager.dashboard'))

@@ -5,7 +5,9 @@ from config import Config
 import functools
 from datetime import datetime, timedelta
 import logging
-from weasyprint import HTML
+from xhtml2pdf import pisa
+from io import BytesIO
+
 import json
 from utils.db_supabase import (
     create_invoice, insert_booking, update_invoice_with_service, confirm_payment, get_unpaid_bookings_and_services,
@@ -393,42 +395,40 @@ def paid_bookings():
 
 
 @employee_bp.route('/print-invoice-pdf/<int:madatphong>', methods=['GET'], endpoint='print_invoice_pdf')
-@require_role('letan')  # hoặc ('letan','ketoan') nếu cần
+@require_role('letan', 'ketoan')
 def print_invoice_pdf(madatphong):
+    """In hóa đơn PDF bằng xhtml2pdf (tương thích với Vercel)."""
     user = session.get('user') or {}
     supabase = create_client(Config.SUPABASE_URL, Config.SUPABASE_ANON_KEY)
+
     try:
-        # 1) Hóa đơn
+        # 1️⃣ Lấy thông tin hóa đơn
         invoice = get_invoice_by_booking_id(str(madatphong))
         if not invoice:
             flash('Không tìm thấy hóa đơn cho đặt phòng này!', 'error')
             return redirect(url_for('employee.paid_bookings'))
 
-        # 2) Đặt phòng (để lấy phòng & có thể fallback tiền phòng)
-        booking = supabase.table('datphong')\
-            .select('maphong, ngaynhanphong, ngaytraphong, tongtien')\
-            .eq('madatphong', madatphong)\
-            .single().execute().data
+        # 2️⃣ Lấy thông tin đặt phòng
+        booking = supabase.table('datphong') \
+            .select('maphong, ngaynhanphong, ngaytraphong, tongtien') \
+            .eq('madatphong', madatphong).single().execute().data
         if not booking:
             flash('Không tìm thấy đặt phòng!', 'error')
             return redirect(url_for('employee.paid_bookings'))
 
-        # 3) Chi tiết dịch vụ (để in theo dòng)
-        services = supabase.table('chitietdichvu')\
-            .select('soluong, thanhtien, dichvu(tendichvu, giadichvu)')\
-            .eq('madatphong', madatphong)\
-            .execute().data or []
+        # 3️⃣ Lấy chi tiết dịch vụ
+        services = supabase.table('chitietdichvu') \
+            .select('soluong, thanhtien, dichvu(tendichvu, giadichvu)') \
+            .eq('madatphong', madatphong).execute().data or []
 
-        # --- Xử lý dữ liệu hiển thị ---
         nhan_vien_letan = user.get('ten') or user.get('username') or 'Không xác định'
         printed_at = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
-        # Tiền phòng: ưu tiên từ hoadon.tongtien, fallback datphong.tongtien
+        # Tính tiền
         tien_phong = float(invoice.get('tongtien') or booking.get('tongtien') or 0)
-
-        # Dịch vụ: build từng dòng
-        charges = []
         tien_dich_vu_tu_ct = 0.0
+        charges = []
+
         for sv in services:
             dv = sv.get('dichvu') or {}
             name = dv.get('tendichvu') or 'Dịch vụ'
@@ -443,42 +443,38 @@ def print_invoice_pdf(madatphong):
                 'amount': amount,
             })
 
-        # Tổng dịch vụ chuẩn theo hóa đơn (nếu đã lưu), nếu chưa thì dùng tổng từ chi tiết
-        tien_dich_vu = float(invoice.get('tongtien_dichvu') or tien_dich_vu_tu_ct or 0)
-
-        # Tổng cộng
+        tien_dich_vu = float(invoice.get('tongtien_dichvu') or tien_dich_vu_tu_ct)
         so_tien = tien_phong + tien_dich_vu
 
-        # 4) Render template HTML -> PDF
+        # 4️⃣ Render template
         html_str = render_template(
             'employee/print_invoice.html',
-            # Thông tin chung
             mahoadon=invoice['mahoadon'],
             madatphong=madatphong,
-            nguoi_lap=nhan_vien_letan,     # tên NV lập/in
+            nguoi_lap=nhan_vien_letan,
             ngay_lap=invoice.get('ngaylap', printed_at),
             ngay_thanh_toan=printed_at,
             phong=booking['maphong'],
-
-            # Tiền
             tien_phong=tien_phong,
             tien_dich_vu=tien_dich_vu,
             so_tien=so_tien,
-
-            # Dòng chi tiết
             charges=charges,
-
-            # Meta hiển thị
             nhan_vien_letan=nhan_vien_letan,
             printed_at=printed_at,
-
             user=user
         )
 
-        pdf_bytes = HTML(string=html_str, base_url=request.url_root).write_pdf()
+        # 5️⃣ Chuyển HTML → PDF bằng xhtml2pdf
+        pdf_io = BytesIO()
+        pisa_status = pisa.CreatePDF(html_str, dest=pdf_io)
+        pdf_io.seek(0)
+
+        if pisa_status.err:
+            flash('Lỗi khi tạo file PDF!', 'error')
+            return redirect(url_for('employee.paid_bookings'))
+
         filename = f"hoadon_{invoice['mahoadon']}.pdf"
-        return send_file(BytesIO(pdf_bytes),
-                         mimetype='application/pdf',
+        return send_file(pdf_io, mimetype='application/pdf',
                          as_attachment=True,
                          download_name=filename)
 

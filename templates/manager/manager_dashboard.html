@@ -357,6 +357,23 @@
             from { transform: translateX(-100%); }
             to { transform: translateX(0); }
         }
+
+        form button.delete {
+    background: none;
+    border: none;
+    color: #e74c3c;
+    cursor: pointer;
+    font: inherit;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    transition: all 0.3s ease;
+}
+form button.delete:hover {
+    color: #c0392b;
+    transform: scale(1.1);
+}
+
     </style>
 </head>
 <body>
@@ -420,7 +437,12 @@
                         <td>{{ room.trangthai }}</td>
                         <td class="action-links">
                             <a href="{{ url_for('manager.edit_room', maphong=room.maphong) }}"><i class="fas fa-edit"></i> Sửa</a>
-                            <a href="{{ url_for('manager.delete_room', maphong=room.maphong) }}" class="delete" onclick="return confirm('Xóa phòng này?')"><i class="fas fa-trash"></i> Xóa</a>
+                            <form action="{{ url_for('manager.delete_room', maphong=room.maphong) }}" method="POST" style="display:inline;">
+    <button type="submit" class="delete" onclick="return confirm('Xóa phòng này?')">
+        <i class="fas fa-trash"></i> Xóa
+    </button>
+</form>
+
                         </td>
                     </tr>
                     {% endfor %}
@@ -447,12 +469,15 @@
                         <td>{{ nv.hoten }}</td>
                         <td>{{ nv.chucvu }}</td>
                         <td>{{ nv.email }}</td>
-                        <td class="action-links">
-                            <a href="{{ url_for('manager.employee_detail', manv=nv.manhanvien) }}"><i class="fas fa-eye"></i> Xem</a>
-                            <a href="{{ url_for('manager.edit_employee', manv=nv.manhanvien) }}"><i class="fas fa-edit"></i> Sửa</a>
-                            <!-- Thêm endpoint xóa nhân viên (cần định nghĩa trong manager.py) -->
-                            <a href="{{ url_for('manager.delete_employee', manv=nv.manhanvien) }}" class="delete" onclick="return confirm('Xóa nhân viên này?')"><i class="fas fa-trash"></i> Xóa</a>
-                        </td>
+                       <td class="action-links">
+    <a href="{{ url_for('manager.employee_detail', manv=nv.manhanvien) }}"><i class="fas fa-eye"></i> Xem</a>
+    <a href="{{ url_for('manager.edit_employee', manv=nv.manhanvien) }}"><i class="fas fa-edit"></i> Sửa</a>
+    <form action="{{ url_for('manager.delete_employee', manv=nv.manhanvien) }}" method="POST" style="display:inline;">
+        <button type="submit" class="delete" onclick="return confirm('Xóa nhân viên này?')">
+            <i class="fas fa-trash"></i> Xóa
+        </button>
+    </form>
+</td>
                     </tr>
                     {% endfor %}
                 </tbody>
