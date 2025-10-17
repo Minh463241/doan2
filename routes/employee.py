@@ -628,11 +628,13 @@ def employee_customers():
         cccd = request.form.get('cccd')
         if not cccd:
             flash('Vui lòng nhập CCCD!', 'error')
+            return redirect(url_for('employee.employee_customers'))
         else:
             try:
                 customer_data = supabase.table('khachhang').select('*').eq('cccd', cccd).execute().data
                 if not customer_data:
                     flash('Không tìm thấy khách hàng!', 'error')
+                    return redirect(url_for('employee.employee_customers'))
                 else:
                     customer = customer_data[0]
                     # Lấy danh sách hóa đơn theo makhachhang
@@ -648,6 +650,7 @@ def employee_customers():
             except Exception as e:
                 logger.error(f"Lỗi khi tìm kiếm khách hàng với CCCD {cccd}: {str(e)}")
                 flash('Lỗi khi tìm kiếm khách hàng!', 'error')
+                return redirect(url_for('employee.employee_customers'))
 
     # Lấy toàn bộ danh sách khách hàng và đếm hóa đơn từng người
     try:
@@ -660,8 +663,7 @@ def employee_customers():
                 .execute()
                 .data or []
             )
-            hoadon_count = len(hoadon_data)
-            kh['hoadon_count'] = hoadon_count
+            kh['hoadon_count'] = len(hoadon_data)
             customers.append(kh)
 
         logger.info(f"Lấy danh sách khách hàng: {len(customers)} khách hàng (đã tính số hóa đơn)")
@@ -670,6 +672,7 @@ def employee_customers():
         logger.error(f"Lỗi khi lấy danh sách khách hàng: {str(e)}")
         flash('Lỗi khi lấy danh sách khách hàng!', 'error')
         return render_template('employee/employee_customers.html', user=user, customers=[], customer=None)
+
 
 
 # Route cho tìm kiếm phòng (lễ tân)
