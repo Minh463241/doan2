@@ -7,11 +7,29 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        .sidebar { height: 100vh; position: fixed; top: 0; left: 0; background-color: #2c3e50; padding-top: 20px; }
-        .sidebar a { color: #ecf0f1; padding: 15px; text-decoration: none; display: block; }
+        .sidebar { 
+            height: 100vh; 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            background-color: #2c3e50; 
+            padding-top: 20px; 
+        }
+        .sidebar a { 
+            color: #ecf0f1; 
+            padding: 15px; 
+            text-decoration: none; 
+            display: block; 
+        }
         .sidebar a:hover { background-color: #34495e; }
-        .content { margin-left: 250px; padding: 20px; }
-        .card-header { background-color: #3498db; color: white; }
+        .content { 
+            margin-left: 250px; 
+            padding: 20px; 
+        }
+        .card-header { 
+            background-color: #3498db; 
+            color: white; 
+        }
         .table th { background-color: #ecf0f1; }
     </style>
 </head>
@@ -22,18 +40,16 @@
         <a href="{{ url_for('employee.employee_booking') }}"><i class="fas fa-calendar-check"></i> Quản lý đặt phòng</a>
         <a href="{{ url_for('employee.checkin') }}"><i class="fas fa-sign-in-alt"></i> Xác nhận check-in</a>
         <a href="{{ url_for('employee.search_room') }}"><i class="fas fa-search"></i> Tìm kiếm phòng</a>
-        
         <a href="{{ url_for('employee.employee_services') }}"><i class="fas fa-concierge-bell"></i> Quản lý dịch vụ</a>
         <a href="{{ url_for('employee.employee_customers') }}"><i class="fas fa-users"></i> Quản lý khách hàng</a>
         <a href="{{ url_for('employee.checkout') }}"><i class="fas fa-sign-out-alt"></i> Xác nhận checkout</a>
-        <a href="{{ url_for('employee.paid_bookings') }}" >
-<i class='fas fa-outdent'></i> Phòng Đã Thanh Toán</a>
+        <a href="{{ url_for('employee.paid_bookings') }}"><i class='fas fa-outdent'></i> Phòng Đã Thanh Toán</a>
         <a href="{{ url_for('employee.employee_auto_checkout') }}" class="text-red-600 font-semibold">
-    <i class="fas fa-clock"></i> Phòng quá hạn cần checkout
-    {% if expired_count and expired_count > 0 %}
-        <span class="ml-1 bg-red-600 text-white px-2 py-0.5 rounded-full text-xs">{{ expired_count }}</span>
-    {% endif %}
-</a>
+            <i class="fas fa-clock"></i> Phòng quá hạn cần checkout
+            {% if expired_count and expired_count > 0 %}
+                <span class="ml-1 bg-red-600 text-white px-2 py-0.5 rounded-full text-xs">{{ expired_count }}</span>
+            {% endif %}
+        </a>
         {% else %}
         <a href="{{ url_for('employee.employee_invoices') }}"><i class="fas fa-file-invoice"></i> Quản lý hóa đơn</a>
         <a href="{{ url_for('employee.employee_services') }}"><i class="fas fa-concierge-bell"></i> Quản lý dịch vụ</a>
@@ -43,6 +59,18 @@
     </div>
 
     <div class="content">
+        <!-- 🔔 Hiển thị thông báo flash -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="alert alert-{{ 'danger' if category == 'error' else category }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+
         <h2 class="mb-4">Quản lý Khách Hàng</h2>
         <form method="POST" class="mb-4">
             <div class="row">
@@ -54,6 +82,7 @@
                 </div>
             </div>
         </form>
+
         <div class="card">
             <div class="card-header">Danh sách khách hàng</div>
             <div class="card-body">
@@ -87,6 +116,7 @@
                 {% endif %}
             </div>
         </div>
+
         {% if customer %}
         <div class="card mt-4">
             <div class="card-header">Thông tin chi tiết</div>
@@ -96,6 +126,7 @@
                 <p><strong>Email:</strong> {{ customer.email }}</p>
                 <p><strong>CCCD:</strong> {{ customer.cccd }}</p>
                 <p><strong>Số hóa đơn:</strong> {{ customer.hoadon_count }}</p>
+
                 {% if customer.hoadon %}
                 <h5>Hóa đơn:</h5>
                 <table class="table table-striped">
@@ -127,5 +158,18 @@
         </div>
         {% endif %}
     </div>
+
+    <!-- Bootstrap JS + Auto-hide alert -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Tự ẩn thông báo sau 3 giây
+        setTimeout(() => {
+            const alerts = document.querySelectorAll('.alert');
+            alerts.forEach(alert => {
+                const bsAlert = new bootstrap.Alert(alert);
+                bsAlert.close();
+            });
+        }, 3000);
+    </script>
 </body>
 </html>
