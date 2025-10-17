@@ -30,36 +30,31 @@ def dashboard():
         rooms = get_rooms() or []
         employees = get_all_employees() or []
 
-        # Lấy danh sách hóa đơn kèm mã giao dịch PayPal (join datphong)
-        hoadon_res = supabase.table("hoadon")\
-            .select("mahoadon, madatphong, makhachhang, ngaylap, tongtien, phuongthucthanhtoan")\
-            .execute()
+        # ✅ Truy vấn hóa đơn + liên kết khách hàng & đặt phòng chỉ trong 1 request
+        hoadon_res = supabase.table("hoadon").select(
+            "mahoadon, madatphong, makhachhang, ngaylap, tongtien, phuongthucthanhtoan, "
+            "khachhang(hoten), datphong(magiaodichpaypal)"
+        ).execute()
         hoadon_list = hoadon_res.data or []
 
-        # Gắn thêm thông tin khách hàng + mã giao dịch PayPal
+        # Làm phẳng dữ liệu trả về
         for hd in hoadon_list:
-            ma_kh = hd.get("makhachhang")
-            ma_dp = hd.get("madatphong")
+            hd["tenkhachhang"] = hd.get("khachhang", {}).get("hoten", "Không rõ")
+            hd["magiaodichpaypal"] = hd.get("datphong", {}).get("magiaodichpaypal", "---")
+            hd.pop("khachhang", None)
+            hd.pop("datphong", None)
 
-            # Lấy tên khách hàng
-            if ma_kh:
-                kh_res = supabase.table("khachhang").select("hoten").eq("makhachhang", ma_kh).single().execute()
-                hd["tenkhachhang"] = kh_res.data["hoten"] if kh_res.data else "Không rõ"
-            else:
-                hd["tenkhachhang"] = "Không rõ"
-
-            # ✅ Lấy mã giao dịch PayPal từ bảng datphong
-            if ma_dp:
-                dp_res = supabase.table("datphong").select("magiaodichpaypal").eq("madatphong", ma_dp).single().execute()
-                hd["magiaodichpaypal"] = dp_res.data["magiaodichpaypal"] if dp_res.data else "---"
-            else:
-                hd["magiaodichpaypal"] = "---"
-
+        # ✅ Lấy các thống kê tổng hợp
         total_employees = get_total_employees()
         total_bookings = get_total_bookings()
         total_revenue = get_total_revenue()
 
-        logger.info(f"Thống kê - Nhân viên: {total_employees}, Đặt phòng: {total_bookings}, Doanh thu: {total_revenue}")
+        logger.info(
+            f"Thống kê - Nhân viên: {total_employees}, "
+            f"Đặt phòng: {total_bookings}, "
+            f"Doanh thu: {total_revenue}"
+        )
+
     except Exception as e:
         logger.error(f"Lỗi khi lấy dữ liệu dashboard: {e}")
         hoadon_list = []
